@@ -9,1193 +9,1106 @@
   <link rel="canonical" href="https://aicoachellavalley.org/">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,700;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
 
   <style>
+    /* ════════════════════════════════════════
+       DESIGN TOKENS — single source of truth
+    ════════════════════════════════════════ */
     :root {
-      --terracotta: #C8552A;
-      --terracotta-dark: #A8441F;
-      --terracotta-hover: #B84D25;
-      --cream: #FBF7EE;
-      --sand: #F5EFE0;
-      --sand-dark: #EDE5D0;
-      --dusk: #1A2744;
-      --dusk-mid: #243560;
-      --ghost: #EAD4C0;
-      --ghost-light: #F2E4D6;
-      --text: #1C1008;
-      --text-mid: #3D2518;
-      --text-light: #6B4A38;
+      /* Palette */
+      --c-terracotta:   #C8552A;
+      --c-terracotta-d: #A8441F;
+      --c-cream:        #FBF7EE;
+      --c-sand:         #F5EFE0;
+      --c-sand-d:       #EDE5D0;
+      --c-dusk:         #1A2744;
+      --c-dusk-m:       #22306B;
+      --c-ghost:        #EAD4C0;
+      --c-ghost-l:      #F2E4D6;
+      --c-ink:          #1C1008;
+      --c-ink-m:        #3D2518;
+      --c-ink-l:        #6B4A38;
+
+      /* Type scale — strict, no deviations */
+      --fs-10: 10px;   /* eyebrows, micro labels        */
+      --fs-12: 12px;   /* captions, footer copyright    */
+      --fs-13: 13px;   /* nav, small tags               */
+      --fs-15: 15px;   /* body copy                     */
+      --fs-17: 17px;   /* lead body, stats labels       */
+      --fs-22: 22px;   /* card titles, small headings   */
+      --fs-h2: clamp(26px, 3.6vw, 42px); /* section heads */
+      --fs-h1: clamp(38px, 5.5vw, 68px); /* hero          */
+      --fs-pull: clamp(20px, 2.6vw, 30px); /* pull quotes */
+
+      /* Spacing — 8px base grid */
+      --s-1: 8px;
+      --s-2: 16px;
+      --s-3: 24px;
+      --s-4: 32px;
+      --s-5: 40px;
+      --s-6: 48px;
+      --s-8: 64px;
+      --s-10: 80px;
+      --s-14: 112px;
+
+      /* Layout */
+      --max-w: 1080px;
+      --gutter: 40px;
     }
 
+    /* ════════════════════════════════════════
+       RESET & BASE
+    ════════════════════════════════════════ */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
 
     body {
-      background: var(--cream);
-      color: var(--text);
       font-family: 'DM Sans', system-ui, sans-serif;
-      font-size: 17px;
-      line-height: 1.65;
+      font-size: var(--fs-15);
+      line-height: 1.7;
+      color: var(--c-ink);
+      background: var(--c-cream);
       overflow-x: hidden;
     }
 
-    /* ─── NAV ─── */
-    nav {
-      background: var(--cream);
-      border-bottom: 1px solid var(--ghost);
-      padding: 0 40px;
-      position: sticky;
-      top: 0;
-      z-index: 100;
+    img { display: block; max-width: 100%; }
+    a   { color: inherit; }
+
+    /* ════════════════════════════════════════
+       LAYOUT UTILITIES
+    ════════════════════════════════════════ */
+    .wrap {
+      max-width: var(--max-w);
+      margin: 0 auto;
     }
 
-    .nav-inner {
-      max-width: 1080px;
+    .section {
+      padding: var(--s-10) var(--gutter);
+    }
+    .section--sm   { padding-top: var(--s-6); padding-bottom: var(--s-6); }
+    .section--dark { background: var(--c-dusk); }
+    .section--sand { background: var(--c-sand); }
+    .section--alt  { background: var(--c-sand-d); }
+
+    /* ════════════════════════════════════════
+       TYPOGRAPHY UTILITIES
+    ════════════════════════════════════════ */
+    .eyebrow {
+      display: block;
+      font-size: var(--fs-10);
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--c-terracotta);
+      margin-bottom: var(--s-2);
+    }
+    .eyebrow--dim { color: rgba(251,247,238,0.5); }
+    .eyebrow--lt  { color: var(--c-cream); opacity: 0.9; }
+
+    h1, h2, h3 {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-weight: 700;
+      line-height: 1.12;
+    }
+
+    .h1 {
+      font-size: var(--fs-h1);
+      color: var(--c-cream);
+    }
+    .h1 .accent { color: var(--c-ghost); font-style: italic; }
+
+    .h2 {
+      font-size: var(--fs-h2);
+      color: var(--c-ink);
+      margin-bottom: var(--s-3);
+    }
+    .h2--lt { color: var(--c-cream); }
+
+    .h3 {
+      font-size: var(--fs-22);
+      color: var(--c-ink);
+      margin-bottom: var(--s-1);
+    }
+
+    .body {
+      font-size: var(--fs-15);
+      font-weight: 300;
+      color: var(--c-ink-m);
+      line-height: 1.75;
+    }
+    .body + .body { margin-top: var(--s-2); }
+    .body strong  { font-weight: 500; color: var(--c-ink); }
+    .body--lt     { color: rgba(251,247,238,0.65); }
+    .body--dim    { color: rgba(251,247,238,0.45); }
+    .body--lead   { font-size: var(--fs-17); }
+
+    .pull-quote {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: var(--fs-pull);
+      font-style: italic;
+      font-weight: 400;
+      line-height: 1.5;
+      color: var(--c-ink);
+      border-left: 3px solid var(--c-terracotta);
+      padding-left: var(--s-3);
+    }
+    .pull-quote--lt { color: rgba(251,247,238,0.88); }
+    .pull-quote span { font-style: normal; font-weight: 700; }
+
+    /* ════════════════════════════════════════
+       BUTTONS
+    ════════════════════════════════════════ */
+    .btn {
+      display: inline-block;
+      font-family: 'DM Sans', sans-serif;
+      font-size: var(--fs-13);
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      text-decoration: none;
+      padding: 13px 28px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.1s, border-color 0.15s, color 0.15s;
+      line-height: 1;
+    }
+    .btn:hover { transform: translateY(-1px); }
+
+    .btn--primary { background: var(--c-terracotta); color: var(--c-cream); }
+    .btn--primary:hover { background: var(--c-terracotta-d); }
+
+    .btn--cream { background: var(--c-cream); color: var(--c-terracotta); }
+    .btn--cream:hover { background: var(--c-ghost-l); }
+
+    .btn--ghost {
+      background: transparent;
+      color: var(--c-ghost-l);
+      border: 1px solid rgba(234,212,192,0.35);
+    }
+    .btn--ghost:hover { border-color: var(--c-ghost); color: var(--c-cream); }
+
+    /* ════════════════════════════════════════
+       NAV
+    ════════════════════════════════════════ */
+    .nav {
+      background: var(--c-cream);
+      border-bottom: 1px solid var(--c-ghost);
+      padding: 0 var(--gutter);
+      position: sticky;
+      top: 0;
+      z-index: 200;
+    }
+    .nav__inner {
+      max-width: var(--max-w);
       margin: 0 auto;
       display: flex;
       align-items: center;
       justify-content: space-between;
       height: 60px;
     }
-
-    .nav-logo {
+    .nav__logo {
       display: flex;
       align-items: center;
       gap: 10px;
       text-decoration: none;
     }
-
-    .nav-mark {
-      width: 32px;
-      height: 32px;
-      background: var(--terracotta);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .nav__mark {
+      width: 32px; height: 32px;
+      background: var(--c-terracotta);
+      display: flex; align-items: center; justify-content: center;
       font-family: 'EB Garamond', Georgia, serif;
-      font-weight: 700;
-      font-size: 14px;
-      color: var(--cream);
-      letter-spacing: 0.03em;
+      font-size: 14px; font-weight: 700;
+      color: var(--c-cream);
     }
-
-    .nav-name {
-      font-size: 13px;
+    .nav__name {
+      font-size: var(--fs-13);
       font-weight: 500;
-      color: var(--text);
-      letter-spacing: 0.01em;
+      color: var(--c-ink);
     }
-
-    .nav-links {
+    .nav__links {
       display: flex;
       align-items: center;
-      gap: 32px;
+      gap: 28px;
       list-style: none;
     }
-
-    .nav-links a {
-      font-size: 13px;
+    .nav__links a {
+      font-size: var(--fs-13);
       font-weight: 400;
-      color: var(--text-mid);
+      color: var(--c-ink-m);
       text-decoration: none;
-      letter-spacing: 0.01em;
       transition: color 0.15s;
     }
-
-    .nav-links a:hover { color: var(--terracotta); }
-
-    .nav-cta {
-      background: var(--terracotta) !important;
-      color: var(--cream) !important;
-      padding: 8px 18px !important;
+    .nav__links a:hover { color: var(--c-terracotta); }
+    .nav__cta {
+      background: var(--c-terracotta) !important;
+      color: var(--c-cream) !important;
+      padding: 7px 16px !important;
       font-weight: 500 !important;
-      transition: background 0.15s !important;
     }
+    .nav__cta:hover { background: var(--c-terracotta-d) !important; }
 
-    .nav-cta:hover { background: var(--terracotta-hover) !important; color: var(--cream) !important; }
-
-    /* ─── HERO ─── */
+    /* ════════════════════════════════════════
+       HERO
+    ════════════════════════════════════════ */
     .hero {
-      background: var(--dusk);
+      background: var(--c-dusk);
+      padding: 120px var(--gutter) 110px;
       position: relative;
       overflow: hidden;
-      padding: 100px 40px 96px;
     }
-
-    /* Desert texture suggestion — subtle diagonal lines */
     .hero::before {
       content: '';
-      position: absolute;
-      inset: 0;
+      position: absolute; inset: 0;
       background-image: repeating-linear-gradient(
         -45deg,
-        transparent,
-        transparent 40px,
-        rgba(255,255,255,0.015) 40px,
-        rgba(255,255,255,0.015) 41px
+        transparent, transparent 40px,
+        rgba(255,255,255,0.011) 40px, rgba(255,255,255,0.011) 41px
       );
       pointer-events: none;
     }
-
-    /* Large ghost text backdrop */
-    .hero-ghost {
+    .hero__ghost {
       position: absolute;
-      right: -60px;
-      bottom: -80px;
+      right: -40px; bottom: -60px;
       font-family: 'EB Garamond', Georgia, serif;
-      font-size: 380px;
+      font-size: 380px; font-weight: 700;
+      color: rgba(255,255,255,0.025);
+      line-height: 1;
+      pointer-events: none; user-select: none;
+    }
+    .hero__inner {
+      max-width: 680px;
+      margin: 0 auto;
+      position: relative; z-index: 2;
+    }
+    .hero__headline {
+      margin-bottom: var(--s-4);
+    }
+    .hero__mission {
+      font-size: var(--fs-17);
+      font-weight: 300;
+      color: rgba(251,247,238,0.75);
+      line-height: 1.7;
+      max-width: 520px;
+    }
+    .hero__mission strong {
+      font-weight: 500;
+      color: rgba(251,247,238,0.95);
+    }
+
+    /* hero fade-in */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero .eyebrow   { animation: fadeUp 0.55s ease both 0.1s; }
+    .hero__headline  { animation: fadeUp 0.55s ease both 0.2s; }
+    .hero__mission   { animation: fadeUp 0.55s ease both 0.32s; }
+
+    /* ════════════════════════════════════════
+       PARTNERS STRIP
+    ════════════════════════════════════════ */
+    .partners {
+      background: var(--c-cream);
+      border-bottom: 1px solid var(--c-ghost);
+      padding: 22px var(--gutter);
+      text-align: center;
+    }
+    .partners__label {
+      font-size: var(--fs-10);
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--c-ink-l);
+      margin-bottom: 14px;
+    }
+    .partners__row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px 22px;
+      flex-wrap: wrap;
+    }
+    .partners__name {
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--c-ink-m);
+      opacity: 0.75;
+      white-space: nowrap;
+    }
+    .partners__sep {
+      width: 1px; height: 13px;
+      background: var(--c-ghost);
+      flex-shrink: 0;
+    }
+
+    /* ════════════════════════════════════════
+       STATS
+    ════════════════════════════════════════ */
+    .stats {
+      background: var(--c-dusk);
+      padding: var(--s-8) var(--gutter) var(--s-6);
+    }
+    .stats__label {
+      font-size: var(--fs-10);
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--c-terracotta);
+      text-align: center;
+      margin-bottom: var(--s-4);
+    }
+    .stats__grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+      background: rgba(234,212,192,0.07);
+      max-width: var(--max-w);
+      margin: 0 auto;
+    }
+    .stats__cell {
+      background: rgba(255,255,255,0.03);
+      padding: 30px 20px;
+      text-align: center;
+    }
+    .stats__n {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 50px; font-weight: 700;
+      color: var(--c-cream); line-height: 1;
+      margin-bottom: var(--s-1);
+    }
+    .stats__n em { color: var(--c-terracotta); font-style: normal; }
+    .stats__l {
+      font-size: var(--fs-12);
+      font-weight: 400;
+      color: rgba(251,247,238,0.48);
+      line-height: 1.4;
+    }
+    .stats__affil {
+      text-align: center;
+      margin-top: var(--s-4);
+      font-size: var(--fs-12);
+      color: rgba(251,247,238,0.3);
+      max-width: var(--max-w);
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .stats__affil strong { color: rgba(251,247,238,0.5); font-weight: 500; }
+
+    /* ════════════════════════════════════════
+       DCF BAND
+    ════════════════════════════════════════ */
+    .dcf {
+      background: var(--c-sand);
+      border-top: 1px solid var(--c-ghost);
+      border-bottom: 1px solid var(--c-ghost);
+      padding: 22px var(--gutter);
+    }
+    .dcf__inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+    .dcf__label {
+      font-size: var(--fs-10);
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--c-ink-l);
+      white-space: nowrap;
+    }
+    .dcf__line { width: 1px; height: 22px; background: var(--c-ghost); }
+    .dcf__text {
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--c-ink-m);
+      line-height: 1.5;
+    }
+    .dcf__text strong { font-weight: 500; color: var(--c-ink); }
+
+    /* ════════════════════════════════════════
+       WHY NOW
+    ════════════════════════════════════════ */
+    .why-grid {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: var(--s-10);
+      align-items: center;
+    }
+    .why-head {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: var(--fs-h2);
       font-weight: 700;
-      color: rgba(255,255,255,0.03);
+      color: var(--c-cream);
+      line-height: 1.15;
+    }
+    .why-body {
+      font-size: var(--fs-15);
+      font-weight: 300;
+      color: rgba(251,247,238,0.68);
+      line-height: 1.75;
+    }
+    .why-body + .why-body { margin-top: var(--s-2); }
+    .why-body--em { font-weight: 500; color: var(--c-ghost-l); }
+
+    /* ════════════════════════════════════════
+       WORKFORCE GAP (full-bleed split)
+    ════════════════════════════════════════ */
+    .gap-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+    .gap-col {
+      padding: var(--s-10) var(--s-8);
+    }
+    .gap-col--l { background: var(--c-sand-d); }
+    .gap-col--r { background: var(--c-sand); }
+    .gap-heading {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: var(--fs-h2);
+      font-weight: 700;
+      color: var(--c-ink);
+      line-height: 1.15;
+      margin-bottom: var(--s-3);
+    }
+
+    /* ════════════════════════════════════════
+       ROCKET DIVIDER
+    ════════════════════════════════════════ */
+    .rocket-divider {
+      background: var(--c-cream);
+      padding: 24px var(--gutter);
+      text-align: center;
+    }
+    .rocket-divider svg {
+      display: block;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* ════════════════════════════════════════
+       PROGRAMS
+    ════════════════════════════════════════ */
+    .programs-intro {
+      max-width: 560px;
+      margin-bottom: var(--s-6);
+    }
+    .prog-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: var(--c-ghost);
+      border: 2px solid var(--c-ghost);
+    }
+    .prog-card {
+      background: var(--c-cream);
+      padding: 28px 24px;
+      display: flex;
+      flex-direction: column;
+      min-height: 300px;
+      position: relative;
+      overflow: hidden;
+    }
+    .prog-card--featured { background: var(--c-terracotta); }
+
+    .prog-step {
+      font-size: var(--fs-10);
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--c-terracotta);
+      margin-bottom: var(--s-3);
+    }
+    .prog-card--featured .prog-step { color: rgba(251,247,238,0.55); }
+
+    .prog-num {
+      position: absolute;
+      bottom: -6px; right: 14px;
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 88px; font-weight: 700;
+      color: var(--c-ghost);
       line-height: 1;
       pointer-events: none;
       user-select: none;
     }
-
-    .hero-inner {
-      max-width: 1080px;
-      margin: 0 auto;
-      position: relative;
-      z-index: 2;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      align-items: center;
-    }
-
-    .hero-eyebrow {
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--terracotta);
-      margin-bottom: 20px;
-      opacity: 0.9;
-    }
-
-    .hero-headline {
-      font-family: 'EB Garamond', Georgia, serif;
-      font-size: clamp(36px, 5vw, 62px);
-      font-weight: 700;
-      color: var(--cream);
-      line-height: 1.1;
-      margin-bottom: 28px;
-    }
-
-    .hero-headline .accent {
-      color: var(--ghost);
-      font-style: italic;
-    }
-
-    .hero-mission {
-      font-size: clamp(15px, 1.8vw, 18px);
-      font-weight: 300;
-      color: rgba(251, 247, 238, 0.78);
-      line-height: 1.7;
-      margin-bottom: 40px;
-      max-width: 480px;
-    }
-
-    .hero-mission strong {
-      color: var(--ghost-light);
-      font-weight: 500;
-    }
-
-    .hero-buttons {
-      display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
-    }
-
-    .btn-primary {
-      background: var(--terracotta);
-      color: var(--cream);
-      padding: 14px 28px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 14px;
-      font-weight: 500;
-      letter-spacing: 0.02em;
-      text-decoration: none;
-      border: none;
-      cursor: pointer;
-      transition: background 0.15s, transform 0.1s;
-      display: inline-block;
-    }
-
-    .btn-primary:hover {
-      background: var(--terracotta-hover);
-      transform: translateY(-1px);
-    }
-
-    .btn-outline {
-      background: transparent;
-      color: var(--ghost-light);
-      padding: 13px 28px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 14px;
-      font-weight: 400;
-      letter-spacing: 0.02em;
-      text-decoration: none;
-      border: 1px solid rgba(234, 212, 192, 0.35);
-      cursor: pointer;
-      transition: border-color 0.15s, color 0.15s;
-      display: inline-block;
-    }
-
-    .btn-outline:hover {
-      border-color: var(--ghost);
-      color: var(--cream);
-    }
-
-    /* Hero right — stats panel */
-    .hero-stats {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(234, 212, 192, 0.12);
-      padding: 40px;
-    }
-
-    .hero-stats-label {
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--terracotta);
-      margin-bottom: 32px;
-    }
-
-    .stat-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2px;
-    }
-
-    .stat-cell {
-      padding: 24px 20px;
-      background: rgba(255,255,255,0.03);
-    }
-
-    .stat-n {
-      font-family: 'EB Garamond', Georgia, serif;
-      font-size: 52px;
-      font-weight: 700;
-      color: var(--cream);
-      line-height: 1;
-      margin-bottom: 6px;
-    }
-
-    .stat-n span {
-      color: var(--terracotta);
-    }
-
-    .stat-l {
-      font-size: 12px;
-      font-weight: 400;
-      color: rgba(251, 247, 238, 0.5);
-      line-height: 1.4;
-      letter-spacing: 0.01em;
-    }
-
-    .hero-affil {
-      margin-top: 24px;
-      padding-top: 24px;
-      border-top: 1px solid rgba(234, 212, 192, 0.1);
-      font-size: 12px;
-      color: rgba(251, 247, 238, 0.4);
-      line-height: 1.6;
-    }
-
-    .hero-affil strong {
-      color: rgba(251, 247, 238, 0.65);
-      font-weight: 500;
-    }
-
-    /* ─── SECTION BASE ─── */
-    .section-wrap {
-      padding: 88px 40px;
-    }
-
-    .section-wrap.alt { background: var(--sand); }
-    .section-wrap.dark { background: var(--dusk); }
-
-    .section-inner {
-      max-width: 1080px;
-      margin: 0 auto;
-    }
-
-    .section-eyebrow {
-      font-size: 10.5px;
-      font-weight: 500;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--terracotta);
-      margin-bottom: 16px;
-    }
-
-    .section-headline {
-      font-family: 'EB Garamond', Georgia, serif;
-      font-size: clamp(28px, 4vw, 44px);
-      font-weight: 700;
-      color: var(--text);
-      line-height: 1.15;
-      margin-bottom: 20px;
-    }
-
-    .section-headline.light { color: var(--cream); }
-
-    .section-body {
-      font-size: 17px;
-      font-weight: 300;
-      color: var(--text-mid);
-      line-height: 1.75;
-      max-width: 620px;
-    }
-
-    .section-body strong { font-weight: 500; color: var(--text); }
-
-    /* ─── PROBLEM SECTION ─── */
-    .problem-layout {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      align-items: start;
-    }
-
-    .problem-quote {
-      font-family: 'EB Garamond', Georgia, serif;
-      font-size: clamp(22px, 3vw, 34px);
-      font-style: italic;
-      font-weight: 400;
-      color: var(--text);
-      line-height: 1.45;
-      border-left: 3px solid var(--terracotta);
-      padding-left: 28px;
-      margin-bottom: 32px;
-    }
-
-    .problem-emphasis {
-      display: inline;
-      background: var(--ghost);
-      padding: 1px 4px;
-    }
-
-    /* ─── PROGRAMS ─── */
-    .programs-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2px;
-      margin-top: 52px;
-      background: var(--ghost);
-      border: 2px solid var(--ghost);
-    }
-
-    .program-card {
-      background: var(--cream);
-      padding: 40px 32px 36px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .program-card.featured {
-      background: var(--terracotta);
-    }
-
-    .prog-step {
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--terracotta);
-      margin-bottom: 20px;
-    }
-
-    .program-card.featured .prog-step {
-      color: rgba(251,247,238,0.6);
-    }
-
-    .prog-num {
-      position: absolute;
-      bottom: -20px;
-      right: 16px;
-      font-family: 'EB Garamond', Georgia, serif;
-      font-size: 120px;
-      font-weight: 700;
-      color: var(--ghost);
-      line-height: 1;
-      pointer-events: none;
-    }
-
-    .program-card.featured .prog-num {
-      color: rgba(168, 68, 31, 0.35);
-    }
+    .prog-card--featured .prog-num { color: rgba(168,68,31,0.28); }
 
     .prog-title {
       font-family: 'EB Garamond', Georgia, serif;
-      font-size: 26px;
+      font-size: var(--fs-22);
       font-weight: 700;
-      color: var(--text);
+      color: var(--c-ink);
       line-height: 1.2;
-      margin-bottom: 16px;
-      position: relative;
-      z-index: 1;
+      margin-bottom: 10px;
+      position: relative; z-index: 1;
     }
-
-    .program-card.featured .prog-title {
-      color: var(--cream);
-    }
+    .prog-card--featured .prog-title { color: var(--c-cream); }
 
     .prog-body {
-      font-size: 15px;
+      font-size: 13px;
       font-weight: 300;
-      color: var(--text-mid);
-      line-height: 1.7;
-      position: relative;
-      z-index: 1;
+      color: var(--c-ink-m);
+      line-height: 1.65;
+      flex: 1;
+      position: relative; z-index: 1;
     }
-
-    .program-card.featured .prog-body {
-      color: rgba(251,247,238,0.8);
-    }
+    .prog-card--featured .prog-body { color: rgba(251,247,238,0.8); }
 
     .prog-tag {
       display: inline-block;
-      margin-top: 20px;
-      font-size: 11px;
+      margin-top: var(--s-3);
+      font-size: 10px;
       font-weight: 500;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: var(--terracotta);
-      background: var(--ghost-light);
+      color: var(--c-terracotta);
+      background: var(--c-ghost-l);
       padding: 5px 10px;
-      position: relative;
-      z-index: 1;
+      position: relative; z-index: 1;
+      align-self: flex-start;
+    }
+    .prog-card--featured .prog-tag {
+      background: rgba(168,68,31,0.28);
+      color: var(--c-ghost-l);
     }
 
-    .program-card.featured .prog-tag {
-      background: rgba(168,68,31,0.3);
-      color: var(--ghost-light);
-    }
-
-    /* ─── PLEDGE SECTION ─── */
+    /* ════════════════════════════════════════
+       PLEDGE
+    ════════════════════════════════════════ */
     .pledge-layout {
       display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 80px;
-      align-items: start;
-    }
-
-    .pledge-principles {
-      display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 2px;
-      background: rgba(234,212,192,0.2);
-      border: 1px solid rgba(234,212,192,0.2);
-      margin-top: 36px;
+      gap: var(--s-10);
+      align-items: start;
+      margin-bottom: var(--s-10);
     }
 
-    .pledge-principle {
+    /* PDF thumbnail / click-to-open */
+    .pledge-thumb {
+      cursor: pointer;
+      border: 1px solid rgba(234,212,192,0.18);
       background: rgba(255,255,255,0.04);
-      padding: 18px 20px;
-      border-left: 2px solid transparent;
-      transition: border-color 0.2s, background 0.2s;
+      transition: border-color 0.2s;
     }
+    .pledge-thumb:hover { border-color: rgba(234,212,192,0.38); }
 
-    .pledge-principle:hover {
-      border-left-color: var(--terracotta);
-      background: rgba(255,255,255,0.07);
-    }
-
-    .pp-num {
-      font-family: 'EB Garamond', Georgia, serif;
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--terracotta);
-      margin-bottom: 4px;
-    }
-
-    .pp-title {
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--cream);
-      line-height: 1.3;
-    }
-
-    .pledge-right {
-      padding-top: 8px;
-    }
-
-    .pledge-preamble {
-      font-family: 'EB Garamond', Georgia, serif;
-      font-size: clamp(18px, 2.5vw, 24px);
-      font-style: italic;
-      font-weight: 400;
-      color: rgba(251,247,238,0.85);
-      line-height: 1.6;
-      margin-bottom: 24px;
-      border-left: 2px solid var(--terracotta);
-      padding-left: 20px;
-    }
-
-    .pledge-body-text {
-      font-size: 15px;
-      font-weight: 300;
-      color: rgba(251,247,238,0.6);
-      line-height: 1.75;
-      margin-bottom: 32px;
-    }
-
-    .pledge-downloads {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 28px;
-    }
-
-    .btn-ghost {
-      background: transparent;
-      color: var(--ghost-light);
-      padding: 11px 22px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 13px;
-      font-weight: 400;
-      text-decoration: none;
-      border: 1px solid rgba(234,212,192,0.3);
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      transition: all 0.15s;
-    }
-
-    .btn-ghost:hover {
-      border-color: var(--ghost);
-      color: var(--cream);
-    }
-
-    .btn-ghost svg { opacity: 0.6; }
-
-    /* ─── FOUNDER ─── */
-    .founder-layout {
-      display: grid;
-      grid-template-columns: 320px 1fr;
-      gap: 72px;
-      align-items: center;
-    }
-
-    .founder-img-wrap {
-      position: relative;
-    }
-
-    .founder-img {
+    .pledge-preview {
       width: 100%;
-      aspect-ratio: 4/5;
-      object-fit: cover;
-      display: block;
-      filter: grayscale(15%);
-    }
-
-    .founder-img-placeholder {
-      width: 100%;
-      aspect-ratio: 4/5;
-      background: var(--sand-dark);
-      border: 2px dashed var(--ghost);
+      aspect-ratio: 16 / 9;
+      background: var(--c-dusk-m);
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 12px;
+      border-bottom: 1px solid rgba(234,212,192,0.1);
     }
-
-    .founder-img-placeholder span {
-      font-size: 13px;
-      color: var(--text-light);
-      text-align: center;
-      line-height: 1.5;
-    }
-
-    .founder-credential {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: var(--terracotta);
-      padding: 10px 16px;
-      font-size: 11px;
+    .pledge-preview__inner { text-align: center; padding: 24px; }
+    .pledge-preview__eyebrow {
+      font-size: var(--fs-10);
       font-weight: 500;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: var(--cream);
+      color: var(--c-terracotta);
+      margin-bottom: 10px;
+    }
+    .pledge-preview__title {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: clamp(15px, 2vw, 22px);
+      font-weight: 700;
+      color: var(--c-cream);
+      line-height: 1.3;
+    }
+    .pledge-thumb__hint {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px;
+      font-size: var(--fs-12);
+      color: rgba(251,247,238,0.42);
     }
 
-    .founder-quote {
+    /* right col */
+    .pledge-preamble {
       font-family: 'EB Garamond', Georgia, serif;
-      font-size: clamp(22px, 3vw, 36px);
+      font-size: var(--fs-pull);
       font-style: italic;
       font-weight: 400;
-      color: var(--text);
-      line-height: 1.45;
-      margin-bottom: 28px;
+      color: rgba(251,247,238,0.88);
+      line-height: 1.55;
+      border-left: 2px solid var(--c-terracotta);
+      padding-left: 20px;
+      margin-bottom: var(--s-3);
     }
-
-    .founder-quote .bold-close {
-      font-style: normal;
-      font-weight: 700;
-    }
-
-    .founder-bio {
-      font-size: 16px;
+    .pledge-copy {
+      font-size: var(--fs-15);
       font-weight: 300;
-      color: var(--text-mid);
+      color: rgba(251,247,238,0.58);
       line-height: 1.75;
-      margin-bottom: 24px;
     }
+    .pledge-copy + .pledge-copy { margin-top: var(--s-2); }
+    .pledge-cta { margin-top: var(--s-4); }
 
-    .founder-sig {
+    /* full-width closer */
+    .pledge-closer {
+      padding-top: var(--s-8);
+      border-top: 1px solid rgba(234,212,192,0.1);
+      text-align: center;
+    }
+    .pledge-closer__text {
       font-family: 'EB Garamond', Georgia, serif;
-      font-size: 18px;
-      font-style: italic;
-      color: var(--terracotta);
-    }
-
-    .founder-sig strong {
-      display: block;
-      font-style: normal;
+      font-size: var(--fs-pull);
       font-weight: 700;
-      font-size: 16px;
-      color: var(--text);
-      margin-top: 2px;
-      font-family: 'DM Sans', sans-serif;
+      font-style: italic;
+      color: var(--c-cream);
+      line-height: 1.35;
     }
 
-    /* ─── AUDIENCE ─── */
+    /* lightbox */
+    .lightbox {
+      display: none;
+      position: fixed; inset: 0;
+      background: rgba(8,12,24,0.94);
+      z-index: 500;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .lightbox.is-open { display: flex; }
+    .lightbox__inner {
+      width: 100%;
+      max-width: 900px;
+      position: relative;
+    }
+    .lightbox__close {
+      position: absolute;
+      top: -40px; right: 0;
+      background: none; border: none;
+      color: var(--c-cream);
+      font-size: 30px; line-height: 1;
+      cursor: pointer; opacity: 0.6;
+      transition: opacity 0.15s;
+    }
+    .lightbox__close:hover { opacity: 1; }
+    .lightbox__frame {
+      position: relative;
+      padding-bottom: 56.25%; height: 0;
+      overflow: hidden;
+      background: var(--c-dusk-m);
+    }
+    .lightbox__frame iframe {
+      position: absolute; top: 0; left: 0;
+      width: 100%; height: 100%;
+      border: none;
+    }
+    .lightbox__foot {
+      text-align: center;
+      margin-top: var(--s-2);
+    }
+
+    /* ════════════════════════════════════════
+       AUDIENCE
+    ════════════════════════════════════════ */
     .audience-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 2px;
-      margin-top: 52px;
-      background: var(--ghost);
-      border: 2px solid var(--ghost);
+      margin-top: var(--s-6);
+      background: var(--c-ghost);
+      border: 2px solid var(--c-ghost);
     }
-
-    .audience-card {
-      background: var(--cream);
-      padding: 36px 28px;
+    .aud-card {
+      background: var(--c-cream);
+      padding: 30px 22px;
       transition: background 0.2s;
     }
-
-    .audience-card:hover { background: var(--sand); }
-
+    .aud-card:hover { background: var(--c-sand); }
     .aud-icon {
-      width: 36px;
-      height: 36px;
-      background: var(--terracotta);
-      margin-bottom: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      width: 34px; height: 34px;
+      background: var(--c-terracotta);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: var(--s-2);
     }
-
-    .aud-icon svg { color: var(--cream); }
-
+    .aud-icon svg { color: var(--c-cream); }
     .aud-title {
       font-family: 'EB Garamond', Georgia, serif;
-      font-size: 22px;
+      font-size: var(--fs-22);
       font-weight: 700;
-      color: var(--text);
-      margin-bottom: 12px;
+      color: var(--c-ink);
+      margin-bottom: 8px;
     }
-
     .aud-body {
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 300;
-      color: var(--text-mid);
+      color: var(--c-ink-m);
       line-height: 1.7;
     }
 
-    /* ─── CTA ─── */
-    .cta-section {
-      background: var(--terracotta);
-      padding: 80px 40px;
+    /* ════════════════════════════════════════
+       FOUNDER
+    ════════════════════════════════════════ */
+    .founder-banner {
+      margin-bottom: var(--s-8);
+    }
+    .founder-layout {
+      display: grid;
+      grid-template-columns: 290px 1fr;
+      gap: var(--s-10);
+      align-items: end;
+    }
+    .founder-img-wrap { position: relative; }
+    .founder-img {
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      object-fit: cover;
+      filter: grayscale(12%);
+    }
+    .founder-credential {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: var(--c-terracotta);
+      padding: 9px 14px;
+      font-size: var(--fs-10);
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--c-cream);
+    }
+    .founder-bio {
+      font-size: var(--fs-15);
+      font-weight: 300;
+      color: var(--c-ink-m);
+      line-height: 1.75;
+      margin-bottom: var(--s-2);
+    }
+    .founder-sig {
+      margin-top: var(--s-3);
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 17px;
+      font-style: italic;
+      color: var(--c-terracotta);
+    }
+    .founder-sig strong {
+      display: block;
+      font-family: 'DM Sans', sans-serif;
+      font-style: normal;
+      font-weight: 600;
+      font-size: var(--fs-13);
+      color: var(--c-ink);
+      margin-top: 3px;
+    }
+    .founder-sig span {
+      font-weight: 300;
+      color: var(--c-ink-l);
+    }
+
+    /* ════════════════════════════════════════
+       CTA
+    ════════════════════════════════════════ */
+    .cta {
+      background: var(--c-terracotta);
+      padding: var(--s-10) var(--gutter);
       text-align: center;
       position: relative;
       overflow: hidden;
     }
-
-    .cta-ghost {
+    .cta__ghost {
       position: absolute;
-      left: 50%;
-      top: 50%;
+      left: 50%; top: 50%;
       transform: translate(-50%, -50%);
       font-family: 'EB Garamond', Georgia, serif;
-      font-size: 300px;
-      font-weight: 700;
-      color: rgba(168,68,31,0.25);
+      font-size: 280px; font-weight: 700;
+      color: rgba(168,68,31,0.2);
       line-height: 1;
-      pointer-events: none;
-      white-space: nowrap;
+      pointer-events: none; user-select: none; white-space: nowrap;
     }
-
-    .cta-inner {
-      position: relative;
-      z-index: 2;
-      max-width: 640px;
-      margin: 0 auto;
+    .cta__inner {
+      position: relative; z-index: 2;
+      max-width: 560px; margin: 0 auto;
     }
-
-    .cta-headline {
+    .cta__headline {
       font-family: 'EB Garamond', Georgia, serif;
-      font-size: clamp(30px, 5vw, 52px);
+      font-size: var(--fs-h2);
       font-weight: 700;
-      color: var(--cream);
+      color: var(--c-cream);
       line-height: 1.1;
-      margin-bottom: 20px;
+      margin-bottom: var(--s-2);
     }
-
-    .cta-sub {
-      font-size: 17px;
+    .cta__sub {
+      font-size: var(--fs-15);
       font-weight: 300;
       color: rgba(251,247,238,0.75);
-      line-height: 1.65;
-      margin-bottom: 40px;
+      line-height: 1.7;
+      margin-bottom: var(--s-6);
     }
 
-    .cta-buttons {
-      display: flex;
-      gap: 14px;
-      justify-content: center;
-      flex-wrap: wrap;
+    /* ════════════════════════════════════════
+       FOOTER
+    ════════════════════════════════════════ */
+    .footer {
+      background: var(--c-dusk);
+      padding: 56px var(--gutter) 36px;
     }
-
-    .btn-cream {
-      background: var(--cream);
-      color: var(--terracotta);
-      padding: 14px 28px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 14px;
-      font-weight: 500;
-      text-decoration: none;
-      border: none;
-      cursor: pointer;
-      transition: background 0.15s;
-      display: inline-block;
-    }
-
-    .btn-cream:hover { background: var(--ghost-light); }
-
-    /* ─── DCF BADGE ─── */
-    .dcf-band {
-      background: var(--sand);
-      border-top: 1px solid var(--ghost);
-      border-bottom: 1px solid var(--ghost);
-      padding: 28px 40px;
-    }
-
-    .dcf-inner {
-      max-width: 1080px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      gap: 20px;
-    }
-
-    .dcf-label {
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--text-light);
-      white-space: nowrap;
-    }
-
-    .dcf-divider {
-      width: 1px;
-      height: 24px;
-      background: var(--ghost);
-    }
-
-    .dcf-text {
-      font-size: 14px;
-      font-weight: 300;
-      color: var(--text-mid);
-      line-height: 1.5;
-    }
-
-    .dcf-text strong {
-      font-weight: 500;
-      color: var(--text);
-    }
-
-    /* ─── CREDIBILITY STRIP ─── */
-    .partners-band {
-      background: var(--cream);
-      border-bottom: 1px solid var(--ghost);
-      padding: 20px 40px;
-    }
-
-    .partners-inner {
-      max-width: 1080px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      gap: 24px;
-      flex-wrap: wrap;
-    }
-
-    .partners-label {
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--text-light);
-      white-space: nowrap;
-      flex-shrink: 0;
-    }
-
-    .partner-sep {
-      width: 1px;
-      height: 14px;
-      background: var(--ghost);
-      flex-shrink: 0;
-    }
-
-    .partners-logos {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-
-    .partner-name {
-      font-size: 12px;
-      font-weight: 400;
-      color: var(--text-light);
-      letter-spacing: 0.02em;
-      opacity: 0.75;
-      transition: opacity 0.15s;
-      white-space: nowrap;
-    }
-
-    .partner-name:hover { opacity: 1; }
-
-    @media (max-width: 860px) {
-      .partners-band { padding: 18px 24px; }
-      .partners-label { width: 100%; margin-bottom: 4px; }
-      .partner-sep { display: none; }
-      .partners-logos { gap: 12px 20px; }
-    }
-
-    /* ─── FOOTER ─── */
-    footer {
-      background: var(--dusk);
-      padding: 56px 40px 40px;
-    }
-
-    .footer-inner {
-      max-width: 1080px;
-      margin: 0 auto;
-    }
-
-    .footer-top {
+    .footer__inner { max-width: var(--max-w); margin: 0 auto; }
+    .footer__top {
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 48px;
-      padding-bottom: 48px;
-      border-bottom: 1px solid rgba(234,212,192,0.1);
-      margin-bottom: 32px;
+      grid-template-columns: 1.2fr 1fr 1fr;
+      gap: var(--s-8);
+      padding-bottom: var(--s-6);
+      border-bottom: 1px solid rgba(234,212,192,0.08);
+      margin-bottom: var(--s-3);
     }
-
-    .footer-brand-mark {
-      font-family: 'EB Garamond', Georgia, serif;
-      font-size: 11px;
-      font-weight: 700;
+    .footer__mark {
+      font-size: var(--fs-10);
+      font-weight: 500;
       letter-spacing: 0.15em;
       text-transform: uppercase;
-      color: var(--terracotta);
-      margin-bottom: 12px;
-    }
-
-    .footer-brand-name {
-      font-family: 'EB Garamond', Georgia, serif;
-      font-size: 22px;
-      font-weight: 700;
-      color: var(--cream);
+      color: var(--c-terracotta);
       margin-bottom: 10px;
     }
-
-    .footer-brand-desc {
-      font-size: 13px;
-      font-weight: 300;
-      color: rgba(251,247,238,0.45);
-      line-height: 1.6;
+    .footer__name {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 20px; font-weight: 700;
+      color: var(--c-cream);
+      margin-bottom: 10px;
     }
-
-    .footer-col-label {
-      font-size: 10px;
+    .footer__desc {
+      font-size: var(--fs-12);
+      font-weight: 300;
+      color: rgba(251,247,238,0.38);
+      line-height: 1.65;
+    }
+    .footer__col-label {
+      font-size: var(--fs-10);
       font-weight: 500;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: rgba(251,247,238,0.35);
-      margin-bottom: 18px;
+      color: rgba(251,247,238,0.28);
+      margin-bottom: 16px;
     }
-
-    .footer-links {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .footer-links a {
-      font-size: 14px;
+    .footer__links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer__links a {
+      font-size: 13px;
       font-weight: 300;
-      color: rgba(251,247,238,0.55);
+      color: rgba(251,247,238,0.48);
       text-decoration: none;
       transition: color 0.15s;
     }
-
-    .footer-links a:hover { color: var(--cream); }
-
-    .footer-bottom {
+    .footer__links a:hover { color: var(--c-cream); }
+    .footer__bottom {
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
-
-    .footer-copy {
-      font-size: 12px;
-      color: rgba(251,247,238,0.3);
+    .footer__copy {
+      font-size: var(--fs-12);
+      color: rgba(251,247,238,0.25);
     }
-
-    .footer-tagline {
+    .footer__tagline {
       font-family: 'EB Garamond', Georgia, serif;
-      font-size: 13px;
+      font-size: var(--fs-13);
       font-style: italic;
-      color: rgba(251,247,238,0.35);
+      color: rgba(251,247,238,0.28);
     }
 
-    /* ─── ANIMATIONS ─── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(24px); }
-      to   { opacity: 1; transform: translateY(0); }
+    /* ════════════════════════════════════════
+       RESPONSIVE
+    ════════════════════════════════════════ */
+    @media (max-width: 960px) {
+      .nav__links { display: none; }
     }
-
-    .hero-eyebrow  { animation: fadeUp 0.6s ease both; animation-delay: 0.1s; }
-    .hero-headline { animation: fadeUp 0.6s ease both; animation-delay: 0.2s; }
-    .hero-mission  { animation: fadeUp 0.6s ease both; animation-delay: 0.32s; }
-    .hero-buttons  { animation: fadeUp 0.6s ease both; animation-delay: 0.44s; }
-    .hero-stats    { animation: fadeUp 0.6s ease both; animation-delay: 0.3s; }
-
-    /* ─── RESPONSIVE ─── */
     @media (max-width: 860px) {
-      .hero-inner        { grid-template-columns: 1fr; gap: 48px; }
-      .hero-stats        { display: none; }
-      .problem-layout    { grid-template-columns: 1fr; gap: 40px; }
-      .programs-grid     { grid-template-columns: 1fr; }
-      .pledge-layout     { grid-template-columns: 1fr; gap: 48px; }
-      .audience-grid     { grid-template-columns: 1fr 1fr; }
-      .founder-layout    { grid-template-columns: 1fr; }
-      .founder-img-wrap  { max-width: 280px; }
-      .footer-top        { grid-template-columns: 1fr; gap: 32px; }
-      .footer-bottom     { flex-direction: column; gap: 8px; text-align: center; }
-      nav                { padding: 0 20px; }
-      .nav-links         { display: none; }
-      .section-wrap      { padding: 64px 24px; }
-      .hero              { padding: 72px 24px 80px; }
+      :root { --gutter: 28px; }
+      .why-grid      { grid-template-columns: 1fr; gap: var(--s-6); }
+      .pledge-layout { grid-template-columns: 1fr; }
+      .footer__top   { grid-template-columns: 1fr; gap: var(--s-5); }
+      .footer__bottom { flex-direction: column; gap: 8px; text-align: center; }
     }
-
-    @media (max-width: 560px) {
+    @media (max-width: 640px) {
+      :root { --gutter: 20px; }
+      .stats__grid   { grid-template-columns: 1fr 1fr; }
+      .gap-split     { grid-template-columns: 1fr; }
+      .gap-col       { padding: var(--s-6) var(--gutter); }
+      .prog-grid     { grid-template-columns: 1fr; }
+      .audience-grid { grid-template-columns: 1fr 1fr; }
+      .founder-layout { grid-template-columns: 1fr; }
+      .founder-img-wrap { max-width: 220px; }
+      .partners__sep { display: none; }
+    }
+    @media (max-width: 420px) {
       .audience-grid { grid-template-columns: 1fr; }
-      .pledge-principles { grid-template-columns: 1fr; }
-      .stat-row { grid-template-columns: 1fr 1fr; }
     }
   </style>
 </head>
 <body>
 
-<!-- ─── NAV ─── -->
-<nav>
-  <div class="nav-inner">
-    <a href="/" class="nav-logo">
-      <div class="nav-mark">AI</div>
-      <span class="nav-name">AI Coachella Valley</span>
+<!-- ── NAV ── -->
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="/" class="nav__logo">
+      <div class="nav__mark">AI</div>
+      <span class="nav__name">AI Coachella Valley</span>
     </a>
-    <ul class="nav-links">
+    <ul class="nav__links">
       <li><a href="#programs">Programs</a></li>
       <li><a href="#pledge">The Pledge</a></li>
       <li><a href="#about">About</a></li>
       <li><a href="https://aicoachellavalley.com">Intelligence Layer ↗</a></li>
-      <li><a href="#get-involved" class="nav-cta">Get Involved</a></li>
+      <li><a href="#get-involved" class="nav__cta">Get Involved</a></li>
     </ul>
   </div>
 </nav>
 
-<!-- ─── HERO ─── -->
+<!-- ── HERO ── -->
 <section class="hero">
-  <div class="hero-ghost">AI</div>
-  <div class="hero-inner">
-    <div class="hero-left">
-      <div class="hero-eyebrow">AI Coachella Valley · aicoachellavalley.org</div>
-      <h1 class="hero-headline">
-        Getting the Coachella Valley Ready<br>
-        for the <span class="accent">Age of AI</span>
-      </h1>
-      <p class="hero-mission">
-        AICV helps <strong>the next generation</strong> build the skills and confidence to work in a new kind of workforce — one where humans collaborate with <strong>AI and intelligent agents</strong>.
-      </p>
-      <div class="hero-buttons">
-        <a href="#programs" class="btn-primary">Explore Our Programs</a>
-        <a href="#pledge" class="btn-outline">Take the Responsible AI Pledge</a>
-      </div>
-    </div>
-
-    <div class="hero-stats">
-      <div class="hero-stats-label">Future of Work Programs · 2025</div>
-      <div class="stat-row">
-        <div class="stat-cell">
-          <div class="stat-n">30<span>+</span></div>
-          <div class="stat-l">AI workshops<br>hosted in 2025</div>
-        </div>
-        <div class="stat-cell">
-          <div class="stat-n">300<span>+</span></div>
-          <div class="stat-l">Students in<br>attendance</div>
-        </div>
-        <div class="stat-cell">
-          <div class="stat-n">9</div>
-          <div class="stat-l">Cities across<br>the Valley</div>
-        </div>
-        <div class="stat-cell">
-          <div class="stat-n">12<span>+</span></div>
-          <div class="stat-l">Community &amp;<br>school partners</div>
-        </div>
-      </div>
-      <div class="hero-affil">
-        <strong>Campus home:</strong> Entrepreneurship Resource Center<br>
-        37023 Cook Street, Palm Desert · In affiliation with CSUSB
-      </div>
-    </div>
+  <div class="hero__ghost">AI</div>
+  <div class="hero__inner">
+    <span class="eyebrow">AICV · aicoachellavalley.org</span>
+    <h1 class="h1 hero__headline">
+      Getting the Coachella Valley<br>Ready for the <span class="accent">Age of AI</span>
+    </h1>
+    <p class="hero__mission">
+      AICV helps <strong>the next generation</strong> build the skills and confidence to work in a new kind of workforce — one where humans collaborate with <strong>AI and intelligent agents</strong>.
+    </p>
   </div>
 </section>
 
-<!-- ─── CREDIBILITY STRIP ─── -->
-<section class="partners-band">
-  <div class="partners-inner">
-    <div class="partners-label">Working with partners across the Coachella Valley</div>
-    <div class="partners-logos">
-      <span class="partner-name">CSUSB Entrepreneurship Resource Center</span>
-      <div class="partner-sep"></div>
-      <span class="partner-name">Desert Community Foundation</span>
-      <div class="partner-sep"></div>
-      <span class="partner-name">College of the Desert</span>
-      <div class="partner-sep"></div>
-      <span class="partner-name">Palm Desert Chamber of Commerce</span>
-      <div class="partner-sep"></div>
-      <span class="partner-name">Coachella Valley AI Expo</span>
-      <div class="partner-sep"></div>
-      <span class="partner-name">TEDx Rancho Mirage</span>
+<!-- ── PARTNERS ── -->
+<div class="partners">
+  <div class="partners__label">Working with partners across the Coachella Valley</div>
+  <div class="partners__row">
+    <span class="partners__name">CSUSB Entrepreneurship Resource Center</span>
+    <div class="partners__sep"></div>
+    <span class="partners__name">Desert Community Foundation</span>
+    <div class="partners__sep"></div>
+    <span class="partners__name">College of the Desert</span>
+    <div class="partners__sep"></div>
+    <span class="partners__name">Palm Desert Chamber of Commerce</span>
+    <div class="partners__sep"></div>
+    <span class="partners__name">Coachella Valley AI Expo</span>
+    <div class="partners__sep"></div>
+    <span class="partners__name">TEDx Rancho Mirage</span>
+  </div>
+</div>
+
+<!-- ── STATS ── -->
+<div class="stats">
+  <div class="stats__label">Future of Work Programs · 2025</div>
+  <div class="stats__grid wrap">
+    <div class="stats__cell">
+      <div class="stats__n">30<em>+</em></div>
+      <div class="stats__l">AI workshops<br>hosted in 2025</div>
+    </div>
+    <div class="stats__cell">
+      <div class="stats__n">300<em>+</em></div>
+      <div class="stats__l">Students in<br>attendance</div>
+    </div>
+    <div class="stats__cell">
+      <div class="stats__n">9</div>
+      <div class="stats__l">Cities across<br>the Valley</div>
+    </div>
+    <div class="stats__cell">
+      <div class="stats__n">12<em>+</em></div>
+      <div class="stats__l">Community &amp;<br>school partners</div>
     </div>
   </div>
-</section>
+  <div class="stats__affil wrap">
+    <strong>Campus home:</strong> Entrepreneurship Resource Center · 37023 Cook Street, Palm Desert · In affiliation with CSUSB
+  </div>
+</div>
 
-<!-- ─── DCF BAND ─── -->
-<div class="dcf-band">
-  <div class="dcf-inner">
-    <div class="dcf-label">Fiscal Sponsor</div>
-    <div class="dcf-divider"></div>
-    <div class="dcf-text">
+<!-- ── DCF ── -->
+<div class="dcf">
+  <div class="dcf__inner">
+    <div class="dcf__label">Fiscal Sponsor</div>
+    <div class="dcf__line"></div>
+    <div class="dcf__text">
       AI Coachella Valley is a fiscally sponsored nonprofit operating under <strong>Desert Community Foundation</strong> — a trusted anchor of philanthropic infrastructure in the Coachella Valley.
     </div>
   </div>
 </div>
 
-<!-- ─── WHY NOW ─── -->
-<section style="background: var(--dusk); padding: 56px 40px;">
-  <div style="max-width: 1080px; margin: 0 auto; display: grid; grid-template-columns: 1fr 2fr; gap: 64px; align-items: center;">
-    <div>
-      <div style="font-size: 10.5px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 16px;">Why Now</div>
-      <div style="font-family: 'EB Garamond', Georgia, serif; font-size: clamp(26px, 4vw, 40px); font-weight: 700; color: var(--cream); line-height: 1.15;">AI is transforming how work gets done.</div>
-    </div>
-    <div>
-      <p style="font-size: 17px; font-weight: 300; color: rgba(251,247,238,0.72); line-height: 1.75; margin-bottom: 16px;">
-        From hospitality and agriculture to healthcare and marketing, artificial intelligence is becoming part of everyday jobs across every industry in the Coachella Valley.
-      </p>
-      <p style="font-size: 17px; font-weight: 300; color: rgba(251,247,238,0.72); line-height: 1.75; margin-bottom: 16px;">
-        Communities that prepare early will create opportunity. Communities that wait will struggle to catch up.
-      </p>
-      <p style="font-size: 17px; font-weight: 500; color: var(--ghost-light); line-height: 1.75;">
-        AICV exists to make sure the Coachella Valley is ready.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ─── PROBLEM ─── -->
-<section class="section-wrap" id="about">
-  <div class="section-inner">
-    <div class="problem-layout">
+<!-- ── WHY NOW ── -->
+<section class="section section--dark section--sm">
+  <div class="wrap">
+    <div class="why-grid">
       <div>
-        <div class="section-eyebrow">The Workforce Gap</div>
-        <blockquote class="problem-quote">
-          "Students entering today's workforce will encounter artificial intelligence in nearly every profession — from hospitality and agriculture to healthcare, marketing, and technology."
-        </blockquote>
-        <p class="section-body">
-          Yet many students graduate without practical experience using modern AI tools or understanding how to work alongside intelligent systems. As a result, the gap between education and <strong>entry-level jobs or internships</strong> continues to grow.
-        </p>
-        <br>
-        <p class="section-body">
-          AI Coachella Valley was created to bridge that gap — helping people move from <strong>learning about AI</strong> to <strong>working with AI</strong>.
-        </p>
+        <span class="eyebrow eyebrow--dim">Why Now</span>
+        <div class="why-head">AI is transforming how work gets done.</div>
       </div>
       <div>
-        <div class="section-eyebrow">Our Mission</div>
-        <h2 class="section-headline" style="margin-bottom: 24px;">A new kind of workforce requires a new kind of preparation.</h2>
-        <p class="section-body">
-          We serve students, community members, and working adults across the nine cities of the Coachella Valley. Our programs are hands-on, community-grounded, and designed for people with no prior technical background.
-        </p>
-        <br>
-        <p class="section-body">
-          Operating from the Entrepreneurship Resource Center in Palm Desert, in partnership with CSUSB, we are building the region's first dedicated AI literacy and workforce readiness infrastructure.
-        </p>
+        <p class="why-body">From hospitality and agriculture to healthcare and marketing, artificial intelligence is becoming part of everyday jobs across every industry in the Coachella Valley.</p>
+        <p class="why-body">Communities that prepare early will create opportunity. Communities that wait will struggle to catch up.</p>
+        <p class="why-body why-body--em">AICV exists to make sure the Coachella Valley is ready.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ─── PROGRAMS ─── -->
-<section class="section-wrap alt" id="programs">
-  <div class="section-inner">
-    <div class="section-eyebrow">What We Do</div>
-    <h2 class="section-headline">Three programs. One pipeline.</h2>
-    <p class="section-body">
-      Every AICV program is designed to move participants forward — from building foundational skills to applying them in the real world.
-    </p>
+<!-- ── WORKFORCE GAP ── -->
+<section id="about">
+  <div class="gap-split">
+    <div class="gap-col gap-col--l">
+      <span class="eyebrow">The Workforce Gap</span>
+      <h2 class="gap-heading">Students entering today's workforce will encounter AI in nearly every profession.</h2>
+      <p class="body">From hospitality and agriculture to healthcare, marketing, and technology — the gap between what schools teach and what employers expect continues to grow.</p>
+      <p class="body">AI Coachella Valley was created to bridge that gap — helping people move from <strong>learning about AI</strong> to <strong>working with AI</strong>.</p>
+    </div>
+    <div class="gap-col gap-col--r">
+      <span class="eyebrow">Our Mission</span>
+      <h2 class="gap-heading">A new kind of workforce requires a new kind of preparation.</h2>
+      <p class="body">We serve students, community members, and working adults across the nine cities of the Coachella Valley. Our programs are hands-on, community-grounded, and designed for people with no prior technical background.</p>
+      <p class="body">Operating from the Entrepreneurship Resource Center in Palm Desert, in partnership with CSUSB, we're building the region's first dedicated AI literacy and workforce readiness infrastructure.</p>
+    </div>
+  </div>
+</section>
 
-    <div class="programs-grid">
+<!-- ── ROCKET DIVIDER ── -->
+<div class="rocket-divider">
+  <svg viewBox="0 0 900 70" width="100%" height="70" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <path d="M20 50 Q160 28 310 42 Q390 52 432 38" stroke="#C8552A" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-dasharray="5 8" opacity="0.38"/>
+    <g transform="translate(434,12)">
+      <path d="M17 36 C15 27 12 14 17 4 C22 14 19 27 17 36Z" stroke="#C8552A" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="17" cy="16" r="3.5" stroke="#C8552A" stroke-width="1.4" fill="none"/>
+      <path d="M12 31 L7 40 L15 36" stroke="#C8552A" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M22 31 L27 40 L19 36" stroke="#C8552A" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M13 37 Q15 46 17 50 Q19 46 21 37" stroke="#C8552A" stroke-width="1.3" fill="none" stroke-linecap="round" opacity="0.5"/>
+    </g>
+    <path d="M468 38 Q510 26 640 40 Q750 52 880 36" stroke="#C8552A" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-dasharray="5 8" opacity="0.38"/>
+  </svg>
+</div>
 
-      <div class="program-card">
+<!-- ── PROGRAMS ── -->
+<section class="section section--sand" id="programs">
+  <div class="wrap">
+    <span class="eyebrow">What We Do</span>
+    <h2 class="h2">Three programs. One pipeline.</h2>
+    <div class="programs-intro">
+      <p class="body">Every AICV program is designed to move participants forward — from building foundational skills to applying them in the real world.</p>
+    </div>
+
+    <div class="prog-grid">
+
+      <div class="prog-card">
         <div class="prog-step">Step 01 · Learn</div>
         <div class="prog-num">1</div>
         <h3 class="prog-title">AI Builder Workshops</h3>
-        <p class="prog-body">
-          Hands-on sessions where students and community members learn how to use AI tools to solve real-world problems. No coding background required. Participants leave with projects they can show employers.
-        </p>
-        <span class="prog-tag">30+ workshops hosted in 2025</span>
+        <p class="prog-body">Hands-on sessions where students and community members learn to use AI tools to solve real-world problems. No coding background required. Participants leave with projects they can show employers.</p>
+        <span class="prog-tag">Work done in 2025</span>
       </div>
 
-      <div class="program-card">
+      <div class="prog-card">
         <div class="prog-step">Step 02 · Practice</div>
         <div class="prog-num">2</div>
         <h3 class="prog-title">Community Build Sprints</h3>
-        <p class="prog-body">
-          Participants work in small teams to build simple AI tools that solve real problems for local organizations and small businesses. Community needs become real project briefs — and real portfolio work.
-        </p>
+        <p class="prog-body">Participants work in small teams to build simple AI tools that solve real problems for local organizations and small businesses. Community needs become real project briefs — and real portfolio work.</p>
         <span class="prog-tag">Coming 2026</span>
       </div>
 
-      <div class="program-card featured">
+      <div class="prog-card prog-card--featured">
         <div class="prog-step">Step 03 · Apply</div>
         <div class="prog-num">3</div>
         <h3 class="prog-title">Workforce Bridge Marketplace</h3>
-        <p class="prog-body">
-          Students and emerging builders often struggle to find their first real projects. AICV connects emerging builders with small businesses and community organizations that need help using AI tools — giving participants their first real project experience while businesses gain useful solutions.
-        </p>
+        <p class="prog-body">AICV connects emerging builders with small businesses and community organizations that need help using AI tools — giving participants their first real project experience while businesses gain useful solutions.</p>
         <span class="prog-tag">Beta · Launching 2026</span>
       </div>
 
@@ -1203,184 +1116,148 @@
   </div>
 </section>
 
-<!-- ─── PLEDGE ─── -->
-<section class="section-wrap dark" id="pledge">
-  <div class="section-inner">
+<!-- ── PLEDGE ── -->
+<section class="section section--dark" id="pledge">
+  <div class="wrap">
+    <span class="eyebrow eyebrow--lt">The Responsible AI Pledge</span>
+
     <div class="pledge-layout">
 
-      <div>
-        <div class="section-eyebrow" style="color: var(--terracotta);">The Responsible AI Pledge</div>
-        <h2 class="section-headline light">Before we build with powerful tools, we think about how they should be used.</h2>
-
-        <div class="pledge-principles">
-          <div class="pledge-principle">
-            <div class="pp-num">01</div>
-            <div class="pp-title">Humans Lead</div>
+      <!-- PDF thumbnail -->
+      <div class="pledge-thumb"
+           role="button"
+           tabindex="0"
+           aria-label="Open pledge PDF"
+           onclick="document.getElementById('pledge-lb').classList.add('is-open')"
+           onkeydown="if(event.key==='Enter')document.getElementById('pledge-lb').classList.add('is-open')">
+        <div class="pledge-preview">
+          <div class="pledge-preview__inner">
+            <div class="pledge-preview__eyebrow">AICV Responsible AI Pledge</div>
+            <div class="pledge-preview__title">Seven Principles for<br>Human-Centered AI</div>
           </div>
-          <div class="pledge-principle">
-            <div class="pp-num">02</div>
-            <div class="pp-title">Be Honest About AI</div>
-          </div>
-          <div class="pledge-principle">
-            <div class="pp-num">03</div>
-            <div class="pp-title">Protect Privacy</div>
-          </div>
-          <div class="pledge-principle">
-            <div class="pp-num">04</div>
-            <div class="pp-title">Watch for Bias</div>
-          </div>
-          <div class="pledge-principle">
-            <div class="pp-num">05</div>
-            <div class="pp-title">Make Things Better</div>
-          </div>
-          <div class="pledge-principle">
-            <div class="pp-num">06</div>
-            <div class="pp-title">Learn Together</div>
-          </div>
-          <div class="pledge-principle" style="grid-column: span 2;">
-            <div class="pp-num">07</div>
-            <div class="pp-title">Stay Human</div>
-          </div>
+        </div>
+        <div class="pledge-thumb__hint">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          Click to view the pledge
         </div>
       </div>
 
-      <div class="pledge-right">
-        <blockquote class="pledge-preamble">
-          "Powerful tools require thoughtful people."
-        </blockquote>
-        <p class="pledge-body-text">
-          The AICV Responsible AI Pledge is a shared commitment to using AI in ways that are human-centered, transparent, and grounded in the values of our community.
-        </p>
-        <p class="pledge-body-text">
-          We invite students, educators, business owners, and community leaders to read it, sign it, and carry it forward.
-        </p>
-        <p class="pledge-body-text" style="font-style: italic; color: rgba(251,247,238,0.45);">
-          "The most important things about you cannot be generated."
-        </p>
-
-        <div class="pledge-downloads">
-          <a href="#" class="btn-primary">Read &amp; Sign the Pledge</a>
-        </div>
-        <div class="pledge-downloads">
-          <a href="/aicv-pledge.pdf" class="btn-ghost">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            Download PDF Handout
-          </a>
-          <a href="/aicv-pledge-deck.pptx" class="btn-ghost">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            Download Presentation
-          </a>
+      <!-- Right col -->
+      <div>
+        <p class="pledge-copy">The AICV Responsible AI Pledge is a shared commitment to using AI in ways that are human-centered, transparent, and grounded in the values of our community.</p>
+        <p class="pledge-copy">We invite students, educators, business owners, and community leaders to read it, sign it, and carry it forward.</p>
+        <div class="pledge-cta">
+          <a href="/aicv-pledge.pdf" target="_blank" class="btn btn--primary">Read &amp; Sign the Pledge</a>
         </div>
       </div>
 
     </div>
+
   </div>
 </section>
 
-<!-- ─── WHO THIS IS FOR ─── -->
-<section class="section-wrap">
-  <div class="section-inner">
-    <div class="section-eyebrow">Who This Is For</div>
-    <h2 class="section-headline">AI fluency isn't just for engineers.</h2>
+<!-- PDF Lightbox -->
+<div id="pledge-lb" class="lightbox" onclick="if(event.target===this)this.classList.remove('is-open')">
+  <div class="lightbox__inner">
+    <button class="lightbox__close" onclick="document.getElementById('pledge-lb').classList.remove('is-open')" aria-label="Close">×</button>
+    <div class="lightbox__frame">
+      <iframe src="/aicv-pledge.pdf" title="AICV Responsible AI Pledge"></iframe>
+    </div>
+    <div class="lightbox__foot">
+      <a href="/aicv-pledge.pdf" target="_blank" class="btn btn--ghost">Open full PDF ↗</a>
+    </div>
+  </div>
+</div>
 
+<!-- ── AUDIENCE ── -->
+<section class="section" id="audience">
+  <div class="wrap">
+    <span class="eyebrow">Who This Is For</span>
+    <h2 class="h2">AI fluency isn't just for engineers.</h2>
     <div class="audience-grid">
-      <div class="audience-card">
-        <div class="aud-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
-        </div>
+
+      <div class="aud-card">
+        <div class="aud-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
         <h3 class="aud-title">Students</h3>
         <p class="aud-body">Learn real AI tools and build projects you can include in your portfolio. Walk in curious. Leave ready.</p>
       </div>
-      <div class="audience-card">
-        <div class="aud-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-        </div>
+
+      <div class="aud-card">
+        <div class="aud-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
         <h3 class="aud-title">Educators</h3>
-        <p class="aud-body">Bring AI literacy and responsible technology discussions into your classroom. We provide the curriculum framework.</p>
+        <p class="aud-body">Bring AI literacy into your classroom. We provide the curriculum framework and practical exercises.</p>
       </div>
-      <div class="audience-card">
-        <div class="aud-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-        </div>
+
+      <div class="aud-card">
+        <div class="aud-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
         <h3 class="aud-title">Local Businesses</h3>
-        <p class="aud-body">Partner with emerging builders to solve real operational challenges using AI tools. Give talent their first real project.</p>
+        <p class="aud-body">Partner with emerging builders to solve real operational challenges using AI. Give talent their first real project.</p>
       </div>
-      <div class="audience-card">
-        <div class="aud-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
-        </div>
+
+      <div class="aud-card">
+        <div class="aud-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10A15.3 15.3 0 0112 2z"/></svg></div>
         <h3 class="aud-title">Funders &amp; Partners</h3>
-        <p class="aud-body">Help us scale what's already working. AICV has hosted 30+ workshops across the Valley and is building the infrastructure to scale that work region-wide.</p>
+        <p class="aud-body">Help us scale what's already working. AICV has hosted 30+ workshops and is building region-wide infrastructure.</p>
       </div>
+
     </div>
+
+    <div style="border-top: 1px solid var(--c-ghost); margin-top: var(--s-8); padding-top: var(--s-8); text-align: center;">
+      <p style="font-family: 'EB Garamond', Georgia, serif; font-size: var(--fs-pull); font-weight: 700; font-style: italic; color: var(--c-ink); line-height: 1.35;">"The most important things about you cannot be generated."</p>
+    </div>
+
   </div>
 </section>
 
-<!-- ─── FOUNDER ─── -->
-<section class="section-wrap alt" id="founder">
-  <div class="section-inner">
-    <div class="section-eyebrow">Why This Work Matters</div>
-    <div class="founder-layout">
+<!-- ── FOUNDER ── -->
+<section class="section section--sand" id="founder">
+  <div class="wrap">
+    <span class="eyebrow">Why This Work Matters</span>
 
+    <blockquote class="pull-quote founder-banner">
+      "Artificial intelligence is arriving faster than most communities are prepared for. Our goal is simple: help the next generation learn how to work with these tools — <span>thoughtfully, responsibly, and creatively.</span>"
+    </blockquote>
+
+    <div class="founder-layout">
       <div class="founder-img-wrap">
-        <img src="/sat-tedx.png" class="founder-img" alt="Sat Singh — TEDx Rancho Mirage 2025">
+        <img src="/sat-tedx.png" class="founder-img" alt="Sat Singh speaking at TEDx Rancho Mirage, August 2025">
         <div class="founder-credential">TEDx Rancho Mirage · August 2025</div>
       </div>
-
       <div>
-        <blockquote class="founder-quote">
-          "Artificial intelligence is arriving faster than most communities are prepared for. Our goal is simple: help the next generation learn how to work with these tools — <span class="bold-close">thoughtfully, responsibly, and creatively.</span>"
-        </blockquote>
-        <p class="founder-bio">
-          The future of AI should not be shaped only by large technology companies. Communities should help shape it too. That's what AICV is built to do — not as an abstract mission, but as a practical, on-the-ground program that meets people where they are across the nine cities of the Coachella Valley.
-        </p>
-        <p class="founder-bio">
-          AICV was founded by Sat Singh, a technology entrepreneur and TEDx speaker who has spent the past decade building startups and helping communities understand the impact of AI on the future of work.
-        </p>
-        <p class="founder-bio">
-          In 2025 we hosted over 30 workshops with more than 300 participants. In 2026 we're building the infrastructure to scale that work — through the Workforce Bridge Marketplace, expanded partnerships, and a deeper presence in Valley classrooms and community spaces.
-        </p>
+        <p class="founder-bio">The future of AI should not be shaped only by large technology companies. Communities should help shape it too. That's what AICV is built to do — not as an abstract mission, but as a practical, on-the-ground program that meets people where they are across the nine cities of the Coachella Valley.</p>
+        <p class="founder-bio">AICV was founded by Sat Singh, a technology entrepreneur and TEDx speaker who has spent the past decade building startups and helping communities understand the impact of AI on the future of work.</p>
+        <p class="founder-bio">In 2025 we hosted over 30 workshops with more than 300 participants. In 2026 we're building the infrastructure to scale that work — through the Workforce Bridge Marketplace, expanded partnerships, and a deeper presence in Valley classrooms and community spaces.</p>
         <div class="founder-sig">
           — Sat Singh
-          <strong>Founder, AI Coachella Valley</strong>
+          <strong>Founder, AICV <span>(AI Coachella Valley)</span></strong>
         </div>
       </div>
-
     </div>
   </div>
 </section>
 
-<!-- ─── CTA ─── -->
-<section class="cta-section" id="get-involved">
-  <div class="cta-ghost">AICV</div>
-  <div class="cta-inner">
-    <h2 class="cta-headline">Help Shape the Future of Work in the Coachella Valley</h2>
-    <p class="cta-sub">
-      Whether you're a student ready to learn, an educator looking for resources, a business with a problem to solve, or a funder ready to invest in regional AI readiness — there's a place for you here.
-    </p>
-    <div class="cta-buttons">
-      <a href="#programs" class="btn-cream">Explore Programs</a>
-      <a href="#pledge" class="btn-outline">Take the Pledge</a>
-      <a href="/cdn-cgi/l/email-protection#cab9abbe8aaba3a9bce4a9a5" class="btn-outline">Partner With AICV</a>
-    </div>
+<!-- ── CTA ── -->
+<section class="cta" id="get-involved">
+  <div class="cta__ghost">AICV</div>
+  <div class="cta__inner">
+    <h2 class="cta__headline">Help Shape the Future of Work in the Coachella Valley</h2>
+    <p class="cta__sub">Whether you're a student ready to learn, an educator looking for resources, a business with a problem to solve, or a funder ready to invest in regional AI readiness — there's a place for you here.</p>
+    <a href="mailto:sat@aicv.co" class="btn btn--cream">Partner with AICV</a>
   </div>
 </section>
 
-<!-- ─── FOOTER ─── -->
-<footer>
-  <div class="footer-inner">
-    <div class="footer-top">
+<!-- ── FOOTER ── -->
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__top">
       <div>
-        <div class="footer-brand-mark">AICV · aicoachellavalley.org</div>
-        <div class="footer-brand-name">AI Coachella Valley</div>
-        <p class="footer-brand-desc">
-          Preparing the Coachella Valley for the future of work in the age of AI.<br><br>
-          A fiscally sponsored nonprofit under<br>Desert Community Foundation.
-        </p>
+        <div class="footer__mark">AICV · aicoachellavalley.org</div>
+        <div class="footer__name">AICV</div>
+        <p class="footer__desc">Preparing the Coachella Valley for the future of work in the age of AI.<br><br>A fiscally sponsored nonprofit under Desert Community Foundation.</p>
       </div>
       <div>
-        <div class="footer-col-label">Navigate</div>
-        <ul class="footer-links">
+        <div class="footer__col-label">Navigate</div>
+        <ul class="footer__links">
           <li><a href="#programs">Programs</a></li>
           <li><a href="#pledge">Responsible AI Pledge</a></li>
           <li><a href="#about">About AICV</a></li>
@@ -1389,15 +1266,22 @@
         </ul>
       </div>
       <div>
-        <div class="footer-col-label">Also</div>
-        <ul class="footer-links">
+        <div class="footer__col-label">Also</div>
+        <ul class="footer__links">
           <li><a href="https://aicoachellavalley.com">Intelligence Layer (.com) ↗</a></li>
           <li><a href="https://agent.aicoachellavalley.com">Agent Docs ↗</a></li>
           <li><a href="https://sunshinefm.beehiiv.com">SunshineFM Newsletter ↗</a></li>
           <li><a href="https://x.com/CoachellaAI">@CoachellaAI ↗</a></li>
-          <li><a href="/cdn-cgi/l/email-protection#f7849683b7969e9481d99498">Contact</a></li>
+          <li><a href="mailto:sat@aicv.co">Contact</a></li>
         </ul>
       </div>
     </div>
-    <div class="footer-bottom">
-      <div class="footer-copy">© 2026 AI Coachella Valley · Fiscally sponsored under Desert Community F
+    <div class="footer__bottom">
+      <div class="footer__copy">© 2026 AI Coachella Valley · Fiscally sponsored under Desert Community Foundation</div>
+      <div class="footer__tagline">Preparing the Valley for the age of AI.</div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
