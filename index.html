@@ -305,8 +305,60 @@
     .hero__mission   { animation: fadeUp 0.55s ease both 0.32s; }
 
     /* ════════════════════════════════════════
-       PARTNERS STRIP
+       HAMBURGER MENU
     ════════════════════════════════════════ */
+    .nav__hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .nav__hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--c-ink);
+      transition: transform 0.2s, opacity 0.2s;
+    }
+    .nav__hamburger.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav__hamburger.is-open span:nth-child(2) { opacity: 0; }
+    .nav__hamburger.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .nav__drawer {
+      display: none;
+      position: fixed;
+      top: 60px; left: 0; right: 0;
+      background: var(--c-cream);
+      border-bottom: 1px solid var(--c-ghost);
+      padding: 24px var(--gutter);
+      z-index: 199;
+      flex-direction: column;
+      gap: 0;
+    }
+    .nav__drawer.is-open { display: flex; }
+    .nav__drawer a {
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--c-ink-m);
+      text-decoration: none;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--c-ghost);
+      transition: color 0.15s;
+    }
+    .nav__drawer a:last-child { border-bottom: none; }
+    .nav__drawer a:hover { color: var(--c-terracotta); }
+    .nav__drawer .drawer-cta {
+      margin-top: 16px;
+      background: var(--c-terracotta);
+      color: var(--c-cream) !important;
+      text-align: center;
+      padding: 13px !important;
+      border: none !important;
+      font-weight: 500;
+    }
     .partners {
       background: var(--c-cream);
       border-bottom: 1px solid var(--c-ghost);
@@ -408,6 +460,7 @@
       margin: 0 auto;
       display: flex;
       align-items: center;
+      justify-content: center;
       gap: 18px;
     }
     .dcf__label {
@@ -759,7 +812,7 @@
       display: grid;
       grid-template-columns: 290px 1fr;
       gap: var(--s-10);
-      align-items: end;
+      align-items: start;
     }
     .founder-img-wrap { position: relative; }
     .founder-img {
@@ -881,6 +934,7 @@
       font-weight: 300;
       color: rgba(251,247,238,0.38);
       line-height: 1.65;
+      max-width: 240px;
     }
     .footer__col-label {
       font-size: var(--fs-10);
@@ -920,6 +974,7 @@
     ════════════════════════════════════════ */
     @media (max-width: 960px) {
       .nav__links { display: none; }
+      .nav__hamburger { display: flex; }
     }
     @media (max-width: 860px) {
       :root { --gutter: 28px; }
@@ -960,8 +1015,19 @@
       <li><a href="https://aicoachellavalley.com">Intelligence Layer ↗</a></li>
       <li><a href="#get-involved" class="nav__cta">Get Involved</a></li>
     </ul>
+    <button class="nav__hamburger" id="nav-toggle" aria-label="Open menu" onclick="this.classList.toggle('is-open');document.getElementById('nav-drawer').classList.toggle('is-open')">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
+
+<div class="nav__drawer" id="nav-drawer">
+  <a href="#programs" onclick="document.getElementById('nav-drawer').classList.remove('is-open');document.getElementById('nav-toggle').classList.remove('is-open')">Programs</a>
+  <a href="#pledge" onclick="document.getElementById('nav-drawer').classList.remove('is-open');document.getElementById('nav-toggle').classList.remove('is-open')">The Pledge</a>
+  <a href="#founder" onclick="document.getElementById('nav-drawer').classList.remove('is-open');document.getElementById('nav-toggle').classList.remove('is-open')">About</a>
+  <a href="https://aicoachellavalley.com">Intelligence Layer ↗</a>
+  <a href="#get-involved" class="drawer-cta" onclick="document.getElementById('nav-drawer').classList.remove('is-open');document.getElementById('nav-toggle').classList.remove('is-open')">Get Involved</a>
+</div>
 
 <!-- ── HERO ── -->
 <section class="hero">
@@ -1180,7 +1246,7 @@
   <div class="lightbox__inner">
     <button class="lightbox__close" onclick="document.getElementById('pledge-lb').classList.remove('is-open')" aria-label="Close">×</button>
     <div class="lightbox__frame">
-      <iframe src="/aicv-pledge.pdf" title="AICV Responsible AI Pledge"></iframe>
+      <iframe src="/aicv-pledge-deck.pdf" title="AICV Responsible AI Pledge — Seven Principles"></iframe>
     </div>
     <div class="lightbox__foot">
       <a href="/aicv-pledge.pdf" target="_blank" class="btn btn--ghost">Open full PDF ↗</a>
