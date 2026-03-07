@@ -276,7 +276,7 @@
       pointer-events: none; user-select: none;
     }
     .hero__inner {
-      max-width: 680px;
+      max-width: var(--max-w);
       margin: 0 auto;
       position: relative; z-index: 2;
     }
@@ -288,7 +288,7 @@
       font-weight: 300;
       color: rgba(251,247,238,0.75);
       line-height: 1.7;
-      max-width: 520px;
+      max-width: 580px;
     }
     .hero__mission strong {
       font-weight: 500;
@@ -460,10 +460,15 @@
       grid-template-columns: 1fr 1fr;
     }
     .gap-col {
-      padding: var(--s-10) var(--s-8);
+      padding: var(--s-10) var(--s-10);
     }
     .gap-col--l { background: var(--c-sand-d); }
     .gap-col--r { background: var(--c-sand); }
+    .gap-col__inner {
+      max-width: 480px;
+    }
+    .gap-col--l .gap-col__inner { margin-left: auto; }
+    .gap-col--r .gap-col__inner { margin-right: auto; }
     .gap-heading {
       font-family: 'EB Garamond', Georgia, serif;
       font-size: var(--fs-h2);
@@ -951,7 +956,7 @@
     <ul class="nav__links">
       <li><a href="#programs">Programs</a></li>
       <li><a href="#pledge">The Pledge</a></li>
-      <li><a href="#about">About</a></li>
+      <li><a href="#founder">About</a></li>
       <li><a href="https://aicoachellavalley.com">Intelligence Layer ↗</a></li>
       <li><a href="#get-involved" class="nav__cta">Get Involved</a></li>
     </ul>
@@ -1048,16 +1053,20 @@
 <section id="about">
   <div class="gap-split">
     <div class="gap-col gap-col--l">
-      <span class="eyebrow">The Workforce Gap</span>
-      <h2 class="gap-heading">Students entering today's workforce will encounter AI in nearly every profession.</h2>
-      <p class="body">From hospitality and agriculture to healthcare, marketing, and technology — the gap between what schools teach and what employers expect continues to grow.</p>
-      <p class="body">AI Coachella Valley was created to bridge that gap — helping people move from <strong>learning about AI</strong> to <strong>working with AI</strong>.</p>
+      <div class="gap-col__inner">
+        <span class="eyebrow">The Workforce Gap</span>
+        <h2 class="gap-heading">Students entering today's workforce will encounter AI in nearly every profession.</h2>
+        <p class="body">From hospitality and agriculture to healthcare, marketing, and technology — the gap between what schools teach and what employers expect continues to grow.</p>
+        <p class="body">AI Coachella Valley was created to bridge that gap — helping people move from <strong>learning about AI</strong> to <strong>working with AI</strong>.</p>
+      </div>
     </div>
     <div class="gap-col gap-col--r">
-      <span class="eyebrow">Our Mission</span>
-      <h2 class="gap-heading">A new kind of workforce requires a new kind of preparation.</h2>
-      <p class="body">We serve students, community members, and working adults across the nine cities of the Coachella Valley. Our programs are hands-on, community-grounded, and designed for people with no prior technical background.</p>
-      <p class="body">Operating from the Entrepreneurship Resource Center in Palm Desert, in partnership with CSUSB, we're building the region's first dedicated AI literacy and workforce readiness infrastructure.</p>
+      <div class="gap-col__inner">
+        <span class="eyebrow">Our Mission</span>
+        <h2 class="gap-heading">A new kind of workforce requires a new kind of preparation.</h2>
+        <p class="body">We serve students, community members, and working adults across the nine cities of the Coachella Valley. Our programs are hands-on, community-grounded, and designed for people with no prior technical background.</p>
+        <p class="body">Operating from the Entrepreneurship Resource Center in Palm Desert, in partnership with CSUSB, we're building the region's first dedicated AI literacy and workforce readiness infrastructure.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -1131,14 +1140,24 @@
            onclick="document.getElementById('pledge-lb').classList.add('is-open')"
            onkeydown="if(event.key==='Enter')document.getElementById('pledge-lb').classList.add('is-open')">
         <div class="pledge-preview">
-          <div class="pledge-preview__inner">
-            <div class="pledge-preview__eyebrow">AICV Responsible AI Pledge</div>
-            <div class="pledge-preview__title">Seven Principles for<br>Human-Centered AI</div>
+          <!-- Slide 1 replica — terracotta header, cream body -->
+          <div style="width:100%; height:100%; display:flex; flex-direction:column;">
+            <div style="background:var(--c-terracotta); padding:18px 28px 16px; flex-shrink:0;">
+              <div style="font-size:9px; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; color:rgba(251,247,238,0.7); margin-bottom:6px;">AICV · aicoachellavalley.org</div>
+              <div style="font-family:'EB Garamond',Georgia,serif; font-size:clamp(16px,2.2vw,26px); font-weight:700; color:var(--c-cream); line-height:1.15;">The AICV Responsible<br>AI Pledge</div>
+            </div>
+            <div style="background:var(--c-cream); flex:1; padding:16px 28px; display:flex; flex-direction:column; justify-content:space-between;">
+              <div style="font-family:'EB Garamond',Georgia,serif; font-size:clamp(11px,1.4vw,16px); font-style:italic; color:var(--c-ink-m); line-height:1.4;">"We believe AI should be used in ways that are human-centered, transparent, and grounded in our community's values."</div>
+              <div style="display:flex; gap:6px; flex-wrap:wrap; margin-top:10px;">
+                <span style="font-size:9px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:var(--c-terracotta); background:var(--c-ghost-l); padding:3px 7px;">7 Principles</span>
+                <span style="font-size:9px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:var(--c-ink-l); background:var(--c-sand-d); padding:3px 7px;">For the Coachella Valley</span>
+              </div>
+            </div>
           </div>
         </div>
         <div class="pledge-thumb__hint">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-          Click to view the pledge
+          Click to view all 7 principles
         </div>
       </div>
 
@@ -1242,7 +1261,7 @@
   <div class="cta__inner">
     <h2 class="cta__headline">Help Shape the Future of Work in the Coachella Valley</h2>
     <p class="cta__sub">Whether you're a student ready to learn, an educator looking for resources, a business with a problem to solve, or a funder ready to invest in regional AI readiness — there's a place for you here.</p>
-    <a href="mailto:sat@aicv.co" class="btn btn--cream">Partner with AICV</a>
+    <a href="mailto:sat@aicv.co?subject=Partnering%20with%20AICV" class="btn btn--cream">Partner with AICV</a>
   </div>
 </section>
 
