@@ -1145,6 +1145,17 @@
   </div>
 </div>
 
+<!-- ── DCF ── -->
+<div class="dcf">
+  <div class="dcf__inner">
+    <div class="dcf__label">Fiscal Sponsor</div>
+    <div class="dcf__line"></div>
+    <div class="dcf__text">
+      AI Coachella Valley is a fiscally sponsored nonprofit operating under <strong>Desert Community Foundation</strong> — a trusted anchor of philanthropic infrastructure in the Coachella Valley.
+    </div>
+  </div>
+</div>
+
 <!-- ── STATS ── -->
 <div class="stats">
   <div class="stats__label">On the ground in the Coachella Valley · Since 2025</div>
@@ -1171,16 +1182,9 @@
   </div>
 </div>
 
-<!-- ── DCF ── -->
-<div class="dcf">
-  <div class="dcf__inner">
-    <div class="dcf__label">Fiscal Sponsor</div>
-    <div class="dcf__line"></div>
-    <div class="dcf__text">
-      AI Coachella Valley is a fiscally sponsored nonprofit operating under <strong>Desert Community Foundation</strong> — a trusted anchor of philanthropic infrastructure in the Coachella Valley.
-    </div>
-  </div>
-</div>
+<section style="background:#FBF7EE;padding:2rem 0;">
+  <div id="aicv-graph-mount" style="width:100%;max-width:1200px;margin:0 auto;padding:0 1rem;"></div>
+</section>
 
 <!-- ── WHY NOW ── -->
 <section class="section section--dark section--sm">
@@ -1451,6 +1455,302 @@
     </div>
   </div>
 </footer>
+
+<!-- AICV Node Graph — live from docs.json -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+<script>
+(function(){
+  const DOCS_URL='https://raw.githubusercontent.com/aicoachellavalley/docs/main/docs.json';
+  const SC={innovation:'#C8552A',economic:'#6E6D68',intelligence:'#1A7FCC',hospitality:'#C47B10',golf:'#4E8A1A',wellness:'#0F8A60',cultural:'#6B5FCC',entertainment:'#D4820A',education:'#0F5FA5',retail:'#C04820',nonprofit:'#2E6010','real-estate':'#4A4A46'};
+  const ZC={
+    'valley-wide':   {fill:'rgba(200,85,42,0.06)',stroke:'rgba(200,85,42,0.28)',dash:'none',ghost:false,label:'Valley Wide',lc:'rgba(180,70,30,0.55)'},
+    'dhs':           {fill:'rgba(180,170,155,0.06)',stroke:'rgba(160,150,135,0.25)',dash:'4 3',ghost:true,label:'Desert Hot Springs',lc:'rgba(155,145,130,0.4)'},
+    'palm-springs':  {fill:'rgba(200,85,42,0.09)',stroke:'rgba(200,85,42,0.35)',dash:'none',ghost:false,label:'Palm Springs',lc:'rgba(170,60,25,0.65)'},
+    'cathedral-city':{fill:'rgba(180,170,155,0.06)',stroke:'rgba(160,150,135,0.25)',dash:'4 3',ghost:true,label:'Cathedral City',lc:'rgba(155,145,130,0.4)'},
+    'rancho-mirage': {fill:'rgba(107,95,204,0.08)',stroke:'rgba(107,95,204,0.32)',dash:'none',ghost:false,label:'Rancho Mirage',lc:'rgba(80,70,165,0.65)'},
+    'palm-desert':   {fill:'rgba(196,123,16,0.09)',stroke:'rgba(196,123,16,0.38)',dash:'none',ghost:false,label:'Palm Desert',lc:'rgba(155,95,10,0.65)'},
+    'indian-wells':  {fill:'rgba(15,138,96,0.08)',stroke:'rgba(15,138,96,0.32)',dash:'none',ghost:false,label:'Indian Wells',lc:'rgba(10,105,75,0.65)'},
+    'la-quinta':     {fill:'rgba(15,95,165,0.08)',stroke:'rgba(15,95,165,0.32)',dash:'none',ghost:false,label:'La Quinta',lc:'rgba(10,70,135,0.65)'},
+    'indio':         {fill:'rgba(212,130,10,0.09)',stroke:'rgba(212,130,10,0.35)',dash:'none',ghost:false,label:'Indio',lc:'rgba(165,100,8,0.65)'},
+    'coachella':     {fill:'rgba(180,170,155,0.06)',stroke:'rgba(160,150,135,0.25)',dash:'4 3',ghost:true,label:'Coachella',lc:'rgba(155,145,130,0.4)'},
+  };
+  const ZD={
+    'valley-wide':   {x:10,y:10,w:1080,h:80},
+    'dhs':           {x:10,y:100,w:174,h:155},
+    'palm-springs':  {x:10,y:265,w:174,h:485},
+    'cathedral-city':{x:194,y:100,w:170,h:155},
+    'rancho-mirage': {x:194,y:265,w:170,h:485},
+    'palm-desert':   {x:374,y:100,w:290,h:650},
+    'indian-wells':  {x:674,y:100,w:196,h:320},
+    'la-quinta':     {x:674,y:430,w:196,h:320},
+    'indio':         {x:880,y:100,w:210,h:320},
+    'coachella':     {x:880,y:430,w:210,h:320},
+  };
+  Object.values(ZD).forEach(z=>{z.cx=z.x+z.w/2;z.cy=z.y+z.h/2;});
+  const ZONE_MAP={
+    'valley-wide/node-zero':'valley-wide','valley-wide/coachella-valley-intelligence-index':'valley-wide',
+    'valley-wide/coachella-valley-economic-development':'valley-wide','valley-wide/riverside-county-economic-development':'valley-wide',
+    'valley-wide/cv-giving-day':'valley-wide','valley-wide/coachella-valley-ai-events':'valley-wide',
+    'valley-wide/workforce-talent':'valley-wide','valley-wide/highway-111-corridor':'valley-wide',
+    'valley-wide/nonprofit-philanthropy':'valley-wide','valley-wide/ai-economy-coachella-valley':'valley-wide',
+    'palm-springs/psp-airport':'palm-springs','palm-springs/agua-caliente-cultural-museum':'palm-springs',
+    'palm-springs/parker-palm-springs':'palm-springs','palm-springs/cultural-arts-corridor':'palm-springs',
+    'palm-springs/aerial-tram':'palm-springs','palm-springs/palm-springs-economic-development':'palm-springs',
+    'rancho-mirage/cotino':'rancho-mirage','rancho-mirage/eisenhower-health':'rancho-mirage',
+    'rancho-mirage/agua-caliente-casino':'rancho-mirage','rancho-mirage/ritz-carlton':'rancho-mirage',
+    'rancho-mirage/observatory':'rancho-mirage','rancho-mirage/sensei-porcupine-creek':'rancho-mirage',
+    'palm-desert/acrisure-arena':'palm-desert','palm-desert/mccallum-theatre':'palm-desert',
+    'palm-desert/education-corridor':'palm-desert','palm-desert/living-desert':'palm-desert',
+    'palm-desert/el-paseo':'palm-desert','palm-desert/bighorn-golf-club':'palm-desert',
+    'palm-desert/cook-street-university-row':'palm-desert','palm-desert/north-palm-desert-development-zone':'palm-desert',
+    'palm-desert/palm-desert-economic-development':'palm-desert','palm-desert/desert-community-foundation':'palm-desert',
+    'indian-wells/tennis-garden':'indian-wells','indian-wells/grand-hyatt-indian-wells':'indian-wells',
+    'indian-wells/vintage-club':'indian-wells','indian-wells/el-dorado':'indian-wells',
+    'indian-wells/toscana':'indian-wells','indian-wells/indian-wells-economic-development':'indian-wells',
+    'la-quinta/old-town-la-quinta':'la-quinta','la-quinta/la-quinta-resort':'la-quinta',
+    'la-quinta/pga-west':'la-quinta','la-quinta/madison-club':'la-quinta',
+    'la-quinta/la-quinta-economic-development':'la-quinta',
+    'indio/empire-polo-club':'indio','indio/coachella-festival':'indio',
+    'indio/stagecoach':'indio','indio/date-festival':'indio',
+    'indio/indio-economic-development':'indio',
+  };
+  const SUB_MAP={
+    'node-zero':'innovation','coachella-valley-intelligence-index':'intelligence',
+    'coachella-valley-economic-development':'economic','riverside-county-economic-development':'economic',
+    'desert-community-foundation':'nonprofit','cv-giving-day':'nonprofit',
+    'coachella-valley-ai-events':'cultural','workforce-talent':'economic',
+    'highway-111-corridor':'economic','nonprofit-philanthropy':'nonprofit',
+    'ai-economy-coachella-valley':'innovation','psp-airport':'economic',
+    'agua-caliente-cultural-museum':'cultural','parker-palm-springs':'hospitality',
+    'cultural-arts-corridor':'cultural','aerial-tram':'entertainment',
+    'palm-springs-economic-development':'economic','cotino':'real-estate',
+    'eisenhower-health':'wellness','agua-caliente-casino':'entertainment',
+    'ritz-carlton':'hospitality','observatory':'cultural','sensei-porcupine-creek':'wellness',
+    'acrisure-arena':'entertainment','mccallum-theatre':'cultural',
+    'education-corridor':'education','living-desert':'cultural','el-paseo':'retail',
+    'bighorn-golf-club':'golf','cook-street-university-row':'education',
+    'north-palm-desert-development-zone':'real-estate','palm-desert-economic-development':'economic',
+    'tennis-garden':'entertainment','grand-hyatt-indian-wells':'hospitality',
+    'vintage-club':'golf','el-dorado':'golf','toscana':'golf',
+    'indian-wells-economic-development':'economic','old-town-la-quinta':'retail',
+    'la-quinta-resort':'hospitality','pga-west':'golf','madison-club':'golf',
+    'la-quinta-economic-development':'economic','empire-polo-club':'entertainment',
+    'coachella-festival':'entertainment','stagecoach':'entertainment',
+    'date-festival':'cultural','indio-economic-development':'economic',
+  };
+  const STATIC_LINKS=[
+    {s:'node-zero',t:'ai-economy-coachella-valley',type:'spine'},
+    {s:'node-zero',t:'coachella-valley-intelligence-index',type:'spine'},
+    {s:'ai-economy-coachella-valley',t:'education-corridor',type:'spine'},
+    {s:'education-corridor',t:'cook-street-university-row',type:'spine'},
+    {s:'cook-street-university-row',t:'workforce-talent',type:'spine'},
+    {s:'workforce-talent',t:'coachella-valley-economic-development',type:'spine'},
+    {s:'coachella-valley-economic-development',t:'palm-desert-economic-development',type:'spine'},
+    {s:'coachella-valley-economic-development',t:'palm-springs-economic-development',type:'spine'},
+    {s:'coachella-valley-economic-development',t:'indian-wells-economic-development',type:'spine'},
+    {s:'desert-community-foundation',t:'nonprofit-philanthropy',type:'philanthropy'},
+    {s:'nonprofit-philanthropy',t:'cv-giving-day',type:'philanthropy'},
+    {s:'desert-community-foundation',t:'cv-giving-day',type:'philanthropy'},
+    {s:'coachella-valley-intelligence-index',t:'coachella-valley-ai-events',type:'intelligence'},
+    {s:'coachella-valley-intelligence-index',t:'ai-economy-coachella-valley',type:'intelligence'},
+    {s:'coachella-valley-ai-events',t:'acrisure-arena',type:'intelligence'},
+    {s:'coachella-valley-intelligence-index',t:'palm-desert-economic-development',type:'intelligence'},
+    {s:'psp-airport',t:'coachella-valley-economic-development',type:'gateway'},
+    {s:'psp-airport',t:'palm-springs-economic-development',type:'gateway'},
+    {s:'psp-airport',t:'palm-desert-economic-development',type:'gateway'},
+    {s:'psp-airport',t:'indian-wells-economic-development',type:'gateway'},
+    {s:'psp-airport',t:'la-quinta-economic-development',type:'gateway'},
+    {s:'psp-airport',t:'indio-economic-development',type:'gateway'},
+    {s:'psp-airport',t:'parker-palm-springs',type:'gateway'},
+    {s:'psp-airport',t:'ritz-carlton',type:'gateway'},
+    {s:'psp-airport',t:'grand-hyatt-indian-wells',type:'gateway'},
+    {s:'psp-airport',t:'la-quinta-resort',type:'gateway'},
+    {s:'psp-airport',t:'sensei-porcupine-creek',type:'gateway'},
+    {s:'psp-airport',t:'cotino',type:'gateway'},
+    {s:'psp-airport',t:'agua-caliente-casino',type:'gateway'},
+    {s:'psp-airport',t:'acrisure-arena',type:'gateway'},
+    {s:'psp-airport',t:'tennis-garden',type:'gateway'},
+    {s:'psp-airport',t:'empire-polo-club',type:'gateway'},
+    {s:'psp-airport',t:'coachella-festival',type:'gateway'},
+    {s:'desert-community-foundation',t:'cook-street-university-row',type:'cross'},
+    {s:'desert-community-foundation',t:'education-corridor',type:'cross'},
+    {s:'desert-community-foundation',t:'palm-desert-economic-development',type:'cross'},
+    {s:'pga-west',t:'madison-club',type:'within'},
+    {s:'pga-west',t:'bighorn-golf-club',type:'within'},
+    {s:'vintage-club',t:'el-dorado',type:'within'},
+    {s:'el-dorado',t:'toscana',type:'within'},
+    {s:'toscana',t:'bighorn-golf-club',type:'within'},
+    {s:'eisenhower-health',t:'sensei-porcupine-creek',type:'cross'},
+    {s:'ritz-carlton',t:'grand-hyatt-indian-wells',type:'cross'},
+    {s:'ritz-carlton',t:'la-quinta-resort',type:'cross'},
+    {s:'tennis-garden',t:'coachella-festival',type:'cross'},
+    {s:'empire-polo-club',t:'coachella-festival',type:'cross'},
+    {s:'el-paseo',t:'old-town-la-quinta',type:'cross'},
+    {s:'agua-caliente-cultural-museum',t:'agua-caliente-casino',type:'cross'},
+    {s:'riverside-county-economic-development',t:'coachella-valley-economic-development',type:'cross'},
+    {s:'highway-111-corridor',t:'el-paseo',type:'cross'},
+    {s:'palm-desert-economic-development',t:'indian-wells-economic-development',type:'cross'},
+    {s:'indian-wells-economic-development',t:'la-quinta-economic-development',type:'cross'},
+    {s:'la-quinta-economic-development',t:'indio-economic-development',type:'cross'},
+  ];
+  const ES={
+    spine:       {stroke:'#C8552A',sw:2.5,op:0.82},
+    philanthropy:{stroke:'#2E8B1A',sw:2.2,op:0.75},
+    intelligence:{stroke:'#D4820A',sw:1.8,op:0.6},
+    gateway:     {stroke:'#8AAAC0',sw:1.1,op:0.42},
+    within:      {stroke:'#A8A49C',sw:1.0,op:0.4,dash:'3 2'},
+    cross:       {stroke:'#C0B8AC',sw:0.9,op:0.32},
+  };
+  const VW_ORDER=['nonprofit-philanthropy','coachella-valley-intelligence-index','coachella-valley-economic-development','riverside-county-economic-development','cv-giving-day','node-zero','coachella-valley-ai-events','workforce-talent','highway-111-corridor','ai-economy-coachella-valley'];
+  function slugFromPath(p){return p.split('/').pop();}
+  function buildGraph(data){
+    const mount=document.getElementById('aicv-graph-mount');
+    if(!mount)return;
+    const allPages=[];
+    for(const tab of(data.navigation?.tabs||[])){
+      if(tab.tab==='Nodes'){
+        for(const grp of(tab.groups||[])){
+          for(const pg of(grp.pages||[])){
+            if(typeof pg==='string'&&pg.startsWith('nodes/')){
+              allPages.push(pg.replace('nodes/',''));
+            }
+          }
+        }
+      }
+    }
+    const ND=[];
+    const vwStep=1080/VW_ORDER.length;
+    VW_ORDER.forEach((slug,i)=>{
+      const sub=SUB_MAP[slug]||'economic';
+      ND.push({id:slug,label:slug.replace(/-/g,' '),zone:'valley-wide',sub,special:slug==='node-zero',vwx:vwStep*(i+0.5)+10,vwy:50});
+    });
+    allPages.forEach(rel=>{
+      const slug=slugFromPath(rel);
+      if(VW_ORDER.includes(slug))return;
+      const zk=ZONE_MAP[rel];
+      if(!zk||!ZD[zk])return;
+      const sub=SUB_MAP[slug]||'economic';
+      ND.push({id:slug,label:slug.replace(/-/g,' '),zone:zk,sub,special:false});
+    });
+    const nMap={};
+    ND.forEach(n=>{n.z=ZD[n.zone];nMap[n.id]=n;});
+    const cc={};ND.forEach(n=>cc[n.id]=0);
+    STATIC_LINKS.forEach(l=>{if(nMap[l.s]&&nMap[l.t]){cc[l.s]++;cc[l.t]++;}});
+    const links=STATIC_LINKS.filter(l=>nMap[l.s]&&nMap[l.t]).map(l=>({source:nMap[l.s],target:nMap[l.t],type:l.type}));
+    const nr=d=>Math.min(19,Math.max(9,9+Math.sqrt(cc[d.id]||0)*2.4));
+    function layout(zk){
+      const z=ZD[zk],ns=ND.filter(n=>n.zone===zk);
+      if(!ns.length)return;
+      if(zk==='valley-wide'){ns.forEach(n=>{n.x=n.vwx;n.y=n.vwy;});return;}
+      const px=16,py=28,bx=z.w-px*2,by=z.h-py-14;
+      const cols=ns.length<=2?ns.length:2,rows=Math.ceil(ns.length/cols);
+      const cw=bx/cols,ch=by/rows;
+      ns.forEach((n,i)=>{n.x=z.x+px+cw*(i%cols+0.5);n.y=z.y+py+ch*(Math.floor(i/cols)+0.5);});
+    }
+    Object.keys(ZD).forEach(layout);
+    const wrapper=document.createElement('div');
+    wrapper.style.cssText='position:relative;font-family:sans-serif;background:#FBF7EE;border-radius:12px;overflow:hidden;';
+    const hdr=document.createElement('div');
+    hdr.style.cssText='display:flex;align-items:flex-start;justify-content:space-between;padding:16px 20px 10px;';
+    hdr.innerHTML=`<div><p style="font-size:11px;font-weight:600;letter-spacing:0.09em;text-transform:uppercase;color:#C8552A;margin:0 0 2px;">AICV \u00b7 ${ND.length} nodes live</p><h3 style="font-size:15px;font-weight:500;color:#1A2744;margin:0;">Coachella Valley Intelligence Graph</h3></div><div style="display:flex;flex-direction:column;gap:4px;font-size:11px;color:#5F5E5A;"><div style="display:flex;align-items:center;gap:6px;"><div style="width:22px;height:3px;background:#C8552A;border-radius:2px;"></div>Innovation spine</div><div style="display:flex;align-items:center;gap:6px;"><div style="width:22px;height:3px;background:#2E8B1A;border-radius:2px;"></div>Philanthropy spine</div><div style="display:flex;align-items:center;gap:6px;"><div style="width:22px;height:2.5px;background:#8AAAC0;border-radius:2px;"></div>Gateway (PSP)</div><div style="display:flex;align-items:center;gap:6px;"><div style="width:22px;height:2px;background:#B4B2A9;border-radius:2px;"></div>Cross-link</div></div>`;
+    wrapper.appendChild(hdr);
+    const svgEl=document.createElementNS('http://www.w3.org/2000/svg','svg');
+    svgEl.setAttribute('viewBox','0 0 1100 760');
+    svgEl.setAttribute('width','100%');
+    svgEl.style.display='block';
+    const bgRect=document.createElementNS('http://www.w3.org/2000/svg','rect');
+    bgRect.setAttribute('width','1100');bgRect.setAttribute('height','760');bgRect.setAttribute('fill','#FBF7EE');
+    svgEl.appendChild(bgRect);
+    const svg=d3.select(svgEl);
+    Object.entries(ZD).forEach(([k,z])=>{
+      const zc=ZC[k];
+      svg.append('rect').attr('x',z.x).attr('y',z.y).attr('width',z.w).attr('height',z.h).attr('rx',10)
+        .attr('fill',zc.fill).attr('stroke',zc.stroke).attr('stroke-width',zc.ghost?0.8:1).attr('stroke-dasharray',zc.dash);
+      svg.append('text').attr('x',z.x+10).attr('y',z.y+16)
+        .attr('font-size','10.5').attr('font-family','sans-serif').attr('font-weight','600')
+        .attr('letter-spacing','0.07em').attr('fill',zc.lc).text(zc.label.toUpperCase());
+    });
+    const eG=svg.append('g');
+    ['within','cross','gateway','intelligence','philanthropy','spine'].forEach(type=>{
+      eG.selectAll(null).data(links.filter(l=>l.type===type)).join('line')
+        .attr('stroke',ES[type].stroke).attr('stroke-width',ES[type].sw)
+        .attr('opacity',ES[type].op).attr('stroke-dasharray',ES[type].dash||'none')
+        .attr('x1',d=>d.source.x).attr('y1',d=>d.source.y)
+        .attr('x2',d=>d.target.x).attr('y2',d=>d.target.y);
+    });
+    const nG=svg.append('g');
+    const nEls=nG.selectAll('g').data(ND).join('g').style('cursor','grab').attr('transform',d=>`translate(${d.x},${d.y})`);
+    nEls.filter(d=>d.id==='psp-airport').append('circle').attr('r',d=>nr(d)+8).attr('fill','none').attr('stroke','#8AAAC0').attr('stroke-width',1.2).attr('stroke-dasharray','2 2').attr('opacity',0.45);
+    nEls.filter(d=>d.id==='desert-community-foundation').append('circle').attr('r',d=>nr(d)+8).attr('fill','none').attr('stroke','#2E8B1A').attr('stroke-width',1.2).attr('stroke-dasharray','3 2').attr('opacity',0.48);
+    nEls.filter(d=>d.special).append('circle').attr('r',d=>nr(d)+7).attr('fill','none').attr('stroke','#C8552A').attr('stroke-width',1.2).attr('stroke-dasharray','3 2').attr('opacity',0.5);
+    nEls.append('circle').attr('r',d=>nr(d)+3).attr('fill','#FBF7EE').attr('opacity',0.92);
+    nEls.append('circle').attr('class','nc-main').attr('r',nr).attr('fill',d=>SC[d.sub]||'#888').attr('stroke','rgba(251,247,238,0.9)').attr('stroke-width',2);
+    const tip=document.createElement('div');
+    tip.style.cssText='position:absolute;pointer-events:none;opacity:0;transition:opacity 0.12s;background:#fff;border:0.5px solid rgba(0,0,0,0.12);border-radius:12px;padding:10px 13px;font-size:12px;line-height:1.5;max-width:180px;z-index:10;box-shadow:0 2px 12px rgba(0,0,0,0.08);';
+    wrapper.appendChild(svgEl);
+    wrapper.appendChild(tip);
+    mount.appendChild(wrapper);
+    const sim=d3.forceSimulation(ND)
+      .force('link',d3.forceLink(links).id(d=>d.id)
+        .distance(d=>({gateway:90,spine:65,philanthropy:70,intelligence:60,within:45,cross:55})[d.type]||55)
+        .strength(d=>({gateway:0.07,spine:0.25,philanthropy:0.2,intelligence:0.18,within:0.2,cross:0.15})[d.type]||0.15))
+      .force('charge',d3.forceManyBody().strength(d=>-75-nr(d)*2))
+      .force('x',d3.forceX(d=>d.zone==='valley-wide'?d.vwx:d.z.cx).strength(d=>d.zone==='valley-wide'?0.98:0.55))
+      .force('y',d3.forceY(d=>d.zone==='valley-wide'?d.vwy:d.z.cy).strength(d=>d.zone==='valley-wide'?0.98:0.55))
+      .force('col',d3.forceCollide().radius(d=>nr(d)+7))
+      .alpha(0.85).alphaDecay(0.028);
+    for(let i=0;i<320;i++)sim.tick();
+    sim.alpha(0.004).restart();
+    function clamp(n){
+      const z=n.z,r=nr(n)+3;
+      if(n.zone==='valley-wide'){n.x=Math.max(z.x+r+4,Math.min(z.x+z.w-r-4,n.x));n.y=Math.max(z.y+r+10,Math.min(z.y+z.h-r-4,n.y));}
+      else{n.x=Math.max(z.x+r+6,Math.min(z.x+z.w-r-6,n.x));n.y=Math.max(z.y+r+26,Math.min(z.y+z.h-r-8,n.y));}
+    }
+    const allEdges=eG.selectAll('line');
+    sim.on('tick',()=>{
+      ND.forEach(clamp);
+      nEls.attr('transform',d=>`translate(${d.x},${d.y})`);
+      allEdges.attr('x1',d=>d.source.x).attr('y1',d=>d.source.y).attr('x2',d=>d.target.x).attr('y2',d=>d.target.y);
+    });
+    const drag=d3.drag()
+      .on('start',(e,d)=>{if(!e.active)sim.alphaTarget(0.2).restart();d.fx=d.x;d.fy=d.y;})
+      .on('drag',(e,d)=>{
+        const z=d.z,r=nr(d)+3;
+        if(d.zone==='valley-wide'){d.fx=Math.max(z.x+r+4,Math.min(z.x+z.w-r-4,e.x));d.fy=Math.max(z.y+r+10,Math.min(z.y+z.h-r-4,e.y));}
+        else{d.fx=Math.max(z.x+r+6,Math.min(z.x+z.w-r-6,e.x));d.fy=Math.max(z.y+r+26,Math.min(z.y+z.h-r-8,e.y));}
+      })
+      .on('end',(e,d)=>{if(!e.active)sim.alphaTarget(0);d.fx=null;d.fy=null;});
+    nEls.call(drag);
+    nEls.on('mouseover',function(e,d){
+      const conn=new Set([d.id]);
+      links.forEach(l=>{if(l.source.id===d.id)conn.add(l.target.id);if(l.target.id===d.id)conn.add(l.source.id);});
+      nEls.attr('opacity',n=>conn.has(n.id)?1:0.13);
+      allEdges.attr('opacity',l=>(l.source.id===d.id||l.target.id===d.id)?Math.min(ES[l.type].op*1.9,1):0.03);
+      d3.select(this).select('.nc-main').attr('r',nr(d)*1.35).attr('stroke-width',2.8);
+      const sub=(d.sub||'economic').replace('-',' ');
+      const city=ZC[d.zone]?ZC[d.zone].label:'';
+      const conns=cc[d.id]||0;
+      tip.innerHTML=`<div style="font-weight:500;font-size:13px;color:#1A2744;margin:0 0 4px;">${d.label.replace(/-/g,' ')}</div><div><span style="display:inline-block;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:#fff;margin-bottom:5px;background:${SC[d.sub]||'#888'}">${sub}</span></div><div style="color:#5F5E5A;font-size:11px;">${city}</div><div style="color:#888780;font-size:11px;margin-top:2px;">${conns} connection${conns!==1?'s':''}</div>`;
+      const wr=wrapper.getBoundingClientRect();
+      let tx=e.clientX-wr.left+16;if(tx+184>wr.width)tx=e.clientX-wr.left-200;
+      tip.style.left=tx+'px';tip.style.top=(e.clientY-wr.top-14)+'px';tip.style.opacity='1';
+    }).on('mousemove',function(e){
+      const wr=wrapper.getBoundingClientRect();
+      let tx=e.clientX-wr.left+16;if(tx+184>wr.width)tx=e.clientX-wr.left-200;
+      tip.style.left=tx+'px';tip.style.top=(e.clientY-wr.top-14)+'px';
+    }).on('mouseout',function(e,d){
+      nEls.attr('opacity',1);
+      allEdges.attr('opacity',l=>ES[l.type].op);
+      d3.select(this).select('.nc-main').attr('r',nr(d)).attr('stroke-width',2);
+      tip.style.opacity='0';
+    });
+  }
+  fetch(DOCS_URL)
+    .then(r=>r.json())
+    .then(buildGraph)
+    .catch(err=>console.warn('AICV graph: could not load docs.json',err));
+})();
+</script>
 
 </body>
 </html>
