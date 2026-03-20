@@ -1182,8 +1182,8 @@
   </div>
 </div>
 
-<section style="background:#FBF7EE;padding:2rem 0;">
-  <div id="aicv-graph-mount" style="width:100%;max-width:1200px;margin:0 auto;padding:0 1rem;"></div>
+<section style="background:#FBF7EE;padding:2.5rem 1.5rem;">
+  <div id="aicv-graph-mount" style="width:100%;max-width:960px;margin:0 auto;overflow-x:auto;"></div>
 </section>
 
 <!-- ── WHY NOW ── -->
@@ -1657,6 +1657,7 @@
     const svgEl=document.createElementNS('http://www.w3.org/2000/svg','svg');
     svgEl.setAttribute('viewBox','0 0 1100 760');
     svgEl.setAttribute('width','100%');
+    svgEl.style.minWidth='600px';
     svgEl.style.display='block';
     const bgRect=document.createElementNS('http://www.w3.org/2000/svg','rect');
     bgRect.setAttribute('width','1100');bgRect.setAttribute('height','760');bgRect.setAttribute('fill','#FBF7EE');
