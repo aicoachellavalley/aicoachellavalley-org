@@ -1498,12 +1498,12 @@
     'palm-springs':  {x:10,y:265,w:174,h:485},
     'cathedral-city':{x:194,y:100,w:170,h:155},
     'rancho-mirage': {x:194,y:265,w:170,h:485},
-    'palm-desert':   {x:374,y:100,w:290,h:650},
+    'palm-desert':   {x:374,y:100,w:290,h:870},
     'indian-wells':  {x:674,y:100,w:196,h:320},
-    'la-quinta':     {x:674,y:430,w:196,h:320},
-    'indio':         {x:880,y:100,w:210,h:320},
-    'coachella':     {x:880,y:430,w:210,h:320},
-    'adjacent-communities': {x:880,y:770,w:210,h:200},
+    'la-quinta':     {x:674,y:430,w:196,h:540},
+    'indio':         {x:880,y:100,w:210,h:430},
+    'coachella':     {x:880,y:430,w:210,h:540},
+    'adjacent-communities': {x:10,y:980,w:1080,h:70},
   };
   Object.values(ZD).forEach(z=>{z.cx=z.x+z.w/2;z.cy=z.y+z.h/2;});
   const ZONE_MAP={
@@ -1613,6 +1613,18 @@
     {s:'desert-community-foundation',t:'cook-street-university-row',type:'cross'},
     {s:'desert-community-foundation',t:'education-corridor',type:'cross'},
     {s:'desert-community-foundation',t:'palm-desert-economic-development',type:'cross'},
+    {s:'sunshinefm-startup-studios',t:'cook-street-university-row',type:'cross'},
+    {s:'sunshinefm-startup-studios',t:'education-corridor',type:'cross'},
+    {s:'sunshinefm-startup-studios',t:'ai-economy-coachella-valley',type:'spine'},
+    {s:'sunshinefm-startup-studios',t:'ai-startup-activity',type:'spine'},
+    {s:'sunshinefm-startup-studios',t:'palm-desert-economic-development',type:'cross'},
+    {s:'sunshinefm-startup-studios',t:'coachella-valley-economic-development',type:'cross'},
+    {s:'sunshinefm-startup-studios',t:'workforce-talent',type:'cross'},
+    {s:'sunshinefm-startup-studios',t:'palm-springs-economic-development',type:'cross'},
+    {s:'sunshinefm-startup-studios',t:'indian-wells-economic-development',type:'cross'},
+    {s:'sunshinefm-startup-studios',t:'la-quinta-economic-development',type:'cross'},
+    {s:'sunshinefm-startup-studios',t:'indio-economic-development',type:'cross'},
+    {s:'sunshinefm-startup-studios',t:'rancho-mirage-economic-development',type:'cross'},
     {s:'pga-west',t:'madison-club',type:'within'},
     {s:'pga-west',t:'bighorn-golf-club',type:'within'},
     {s:'vintage-club',t:'el-dorado',type:'within'},
@@ -1706,12 +1718,12 @@
     hdr.innerHTML=`<div><p style="font-size:11px;font-weight:600;letter-spacing:0.09em;text-transform:uppercase;color:#C8552A;margin:0 0 2px;">AICV \u00b7 ${ND.length} nodes live</p><h3 style="font-size:15px;font-weight:500;color:#1A2744;margin:0;">Coachella Valley Intelligence Graph</h3></div><div style="display:flex;flex-direction:column;gap:4px;font-size:11px;color:#5F5E5A;"><div style="display:flex;align-items:center;gap:6px;"><div style="width:22px;height:3px;background:#C8552A;border-radius:2px;"></div>Innovation spine</div><div style="display:flex;align-items:center;gap:6px;"><div style="width:22px;height:3px;background:#2E8B1A;border-radius:2px;"></div>Philanthropy spine</div><div style="display:flex;align-items:center;gap:6px;"><div style="width:22px;height:2.5px;background:#8AAAC0;border-radius:2px;"></div>Gateway (PSP)</div><div style="display:flex;align-items:center;gap:6px;"><div style="width:22px;height:2px;background:#B4B2A9;border-radius:2px;"></div>Cross-link</div></div>`;
     wrapper.appendChild(hdr);
     const svgEl=document.createElementNS('http://www.w3.org/2000/svg','svg');
-    svgEl.setAttribute('viewBox','0 0 1100 990');
+    svgEl.setAttribute('viewBox','0 0 1100 1060');
     svgEl.setAttribute('width','100%');
     svgEl.style.minWidth='600px';
     svgEl.style.display='block';
     const bgRect=document.createElementNS('http://www.w3.org/2000/svg','rect');
-    bgRect.setAttribute('width','1100');bgRect.setAttribute('height','990');bgRect.setAttribute('fill','#FBF7EE');
+    bgRect.setAttribute('width','1100');bgRect.setAttribute('height','1060');bgRect.setAttribute('fill','#FBF7EE');
     svgEl.appendChild(bgRect);
     const svg=d3.select(svgEl);
     Object.entries(ZD).forEach(([k,z])=>{
