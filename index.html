@@ -714,6 +714,18 @@
       background: rgba(168,68,31,0.28);
       color: var(--c-ghost-l);
     }
+    a.prog-tag { text-decoration: none; }
+    a.prog-tag:hover { opacity: 0.8; }
+    .prog-card--featured a.prog-tag:hover { opacity: 0.85; }
+    .prog-tag-group {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: var(--s-3);
+      align-self: flex-start;
+      position: relative; z-index: 1;
+    }
+    .prog-tag-group .prog-tag { margin-top: 0; }
 
     /* ════════════════════════════════════════
        PLEDGE
@@ -1258,7 +1270,10 @@
         <div class="prog-num">1</div>
         <h3 class="prog-title">AI Builder Workshops</h3>
         <p class="prog-body">Hands-on sessions where students and community members learn to use AI tools to solve real-world problems. No coding background required. Participants leave with projects they can show employers.</p>
-        <span class="prog-tag">Work done in 2025</span>
+        <div class="prog-tag-group">
+          <a href="https://luma.com/aicv" class="prog-tag" target="_blank" rel="noopener">Work Done in 2025 →</a>
+          <a href="/events" class="prog-tag">2026 Events →</a>
+        </div>
       </div>
 
       <div class="prog-card">
@@ -1266,7 +1281,7 @@
         <div class="prog-num">2</div>
         <h3 class="prog-title">Community Build Sprints</h3>
         <p class="prog-body">Participants work in small teams to build simple AI tools that solve real problems for local organizations and small businesses. Community needs become real project briefs — and real portfolio work.</p>
-        <span class="prog-tag">Coming 2026</span>
+        <a href="/events" class="prog-tag">Coming 2026</a>
       </div>
 
       <div class="prog-card prog-card--featured">
