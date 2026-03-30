@@ -1785,6 +1785,7 @@
       })
       .on('end',(e,d)=>{if(!e.active)sim.alphaTarget(0);d.fx=null;d.fy=null;});
     nEls.call(drag);
+    let tipAbove=false;
     nEls.on('mouseover',function(e,d){
       const conn=new Set([d.id]);
       links.forEach(l=>{if(l.source.id===d.id)conn.add(l.target.id);if(l.target.id===d.id)conn.add(l.source.id);});
@@ -1795,13 +1796,16 @@
       const city=ZC[d.zone]?ZC[d.zone].label:'';
       const conns=cc[d.id]||0;
       tip.innerHTML=`<div style="font-weight:500;font-size:13px;color:#1A2744;margin:0 0 4px;">${d.label.replace(/-/g,' ')}</div><div><span style="display:inline-block;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:#fff;margin-bottom:5px;background:${SC[d.sub]||'#888'}">${sub}</span></div><div style="color:#5F5E5A;font-size:11px;">${city}</div><div style="color:#888780;font-size:11px;margin-top:2px;">${conns} connection${conns!==1?'s':''}</div>`;
+      tipAbove=ZONE_MAP[d.id]==='adjacent-communities';
       const wr=wrapper.getBoundingClientRect();
       let tx=e.clientX-wr.left+16;if(tx+184>wr.width)tx=e.clientX-wr.left-200;
-      tip.style.left=tx+'px';tip.style.top=(e.clientY-wr.top-14)+'px';tip.style.opacity='1';
+      const ty=tipAbove?e.clientY-wr.top-tip.offsetHeight-14:e.clientY-wr.top-14;
+      tip.style.left=tx+'px';tip.style.top=ty+'px';tip.style.opacity='1';
     }).on('mousemove',function(e){
       const wr=wrapper.getBoundingClientRect();
       let tx=e.clientX-wr.left+16;if(tx+184>wr.width)tx=e.clientX-wr.left-200;
-      tip.style.left=tx+'px';tip.style.top=(e.clientY-wr.top-14)+'px';
+      const ty=tipAbove?e.clientY-wr.top-tip.offsetHeight-14:e.clientY-wr.top-14;
+      tip.style.left=tx+'px';tip.style.top=ty+'px';
     }).on('mouseout',function(e,d){
       nEls.attr('opacity',1);
       allEdges.attr('opacity',l=>ES[l.type].op);
