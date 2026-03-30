@@ -434,7 +434,6 @@
       flex-direction: column;
       gap: var(--s-5);
       margin-top: var(--s-5);
-      max-width: 720px;
     }
     .partner-group__label {
       font-size: var(--fs-10);
@@ -469,6 +468,77 @@
       text-decoration: none;
     }
     .location-block a:hover { text-decoration: underline; }
+
+    /* ════════════════════════════════════════
+       HERO — CREAM VARIANT
+    ════════════════════════════════════════ */
+    .hero--cream {
+      background: var(--c-cream);
+      border-bottom: 1px solid var(--c-ghost);
+    }
+    .hero--cream::before         { display: none; }
+    .hero--cream .hero__ghost    { display: none; }
+    .hero--cream .h1             { color: var(--c-ink); }
+    .hero--cream .eyebrow        { color: var(--c-terracotta); opacity: 1; }
+    .hero--cream .hero__body     { color: var(--c-ink-m); }
+
+    /* ════════════════════════════════════════
+       CONTEXT BAND — two-column sand section
+    ════════════════════════════════════════ */
+    .context-band {
+      background: var(--c-sand);
+      padding: var(--s-10) var(--gutter);
+      border-bottom: 1px solid var(--c-ghost);
+    }
+    .context-band__inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--s-10);
+    }
+    .context-col__heading {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: var(--fs-h2);
+      font-weight: 700;
+      color: var(--c-ink);
+      line-height: 1.12;
+      margin-bottom: var(--s-3);
+    }
+
+    /* ════════════════════════════════════════
+       WHERE WE ARE BAND
+    ════════════════════════════════════════ */
+    .where-band {
+      background: var(--c-dusk);
+      padding: var(--s-5) var(--gutter);
+    }
+    .where-band__inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: var(--s-4);
+      flex-wrap: wrap;
+    }
+    .where-band__text {
+      font-size: var(--fs-15);
+      font-weight: 300;
+      color: rgba(251,247,238,0.55);
+    }
+    .where-band__sep {
+      width: 1px; height: 16px;
+      background: rgba(234,212,192,0.2);
+      flex-shrink: 0;
+    }
+    .where-band__email {
+      font-size: var(--fs-15);
+      font-weight: 400;
+      color: var(--c-ghost-l);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .where-band__email:hover { color: var(--c-cream); }
 
     /* ════════════════════════════════════════
        FOOTER
@@ -549,6 +619,7 @@
     }
     @media (max-width: 860px) {
       :root { --gutter: 28px; }
+      .context-band__inner { grid-template-columns: 1fr; gap: var(--s-6); }
       .footer__top    { grid-template-columns: 1fr; gap: var(--s-5); }
       .footer__bottom { flex-direction: column; gap: 8px; text-align: center; }
     }
@@ -589,73 +660,66 @@
   <a href="/#get-involved" class="drawer-cta" onclick="document.getElementById('nav-drawer').classList.remove('is-open');document.getElementById('nav-toggle').classList.remove('is-open')">Get Involved</a>
 </div>
 
-<!-- ── HERO ── -->
-<section class="hero">
-  <div class="hero__ghost">760</div>
+<!-- ── SECTION 1: HERO ── -->
+<section class="hero hero--cream">
   <div class="hero__inner">
-    <span class="eyebrow eyebrow--lt">Events · AI Coachella Valley · The 760</span>
-    <h1 class="h1">The agent economy isn't coming.<br>It's here. We're building<br>for it in the desert.</h1>
-    <p class="hero__body hero__body--wide">AICV events are not AI 101. We run hands-on sessions on the tools that are already reshaping how work gets done — Claude CoWork, Claude Code, and OpenClaw. Autonomous agents. Generative workflows. Digital employees that don't clock out. If you want to understand what that means for your business, your career, or your next venture — this is where you start.</p>
-    <p class="hero__body hero__body--wide">We host workshops, founder meetups, startup sprints, and intelligence briefings for operators, builders, and investors who are paying attention to what's emerging in the Coachella Valley. The valley that hosts Coachella and Stagecoach, that's building Cotino, that sits two hours from Los Angeles and three from San Francisco — is also quietly becoming a serious node in the AI economy. AICV is the intelligence layer making that legible.</p>
-    <p class="hero__body hero__body--wide">If you're visiting, retreating, relocating, or considering where to put early capital — these events are where the conversation starts.</p>
-    <p class="hero__body hero__body--browse">Browse upcoming events below.</p>
+    <span class="eyebrow">Events · AI Coachella Valley · The 760</span>
+    <h1 class="h1">The agent economy is here.<br>We're building for it<br>in the desert.</h1>
+    <p class="hero__body hero__body--wide">AICV hosts workshops, founder meetups, startup sprints, and intelligence briefings for operators, builders, and investors paying attention to what's emerging in the Coachella Valley. Not AI 101 — hands-on sessions on Claude CoWork, Claude Code, and OpenClaw.</p>
   </div>
 </section>
 
-<!-- ── LUMA EMBED ── -->
-<section class="section section--sand">
+<!-- ── SECTION 2: CONTEXT BAND ── -->
+<div class="context-band">
+  <div class="context-band__inner">
+
+    <div class="context-col">
+      <h2 class="context-col__heading">Why These Events Exist</h2>
+      <p class="body">The Coachella Valley's workforce is concentrated in hospitality, healthcare, education, and services — the sectors facing the most direct pressure from AI-driven automation, and the ones with the most to gain from getting ahead of it.</p>
+      <p class="body" style="margin-top:var(--s-2);">The agent economy is creating a new category of worker — one who manages AI tools, builds generative workflows, and deploys digital employees to handle repeatable cognitive work. We're training that workforce here, in the desert, before the window closes.</p>
+      <p class="body" style="margin-top:var(--s-2);">If you're visiting, retreating, relocating, or considering where to put early capital — these events are where the conversation starts.</p>
+    </div>
+
+    <div class="context-col">
+      <h2 class="context-col__heading">Who We Work With</h2>
+      <div class="partner-groups">
+        <div>
+          <div class="partner-group__label">Academic &amp; Workforce Partners</div>
+          <p class="partner-group__list">California State University San Bernardino — Entrepreneurship Resource Center · College of the Desert · IE Journalism Innovation Hub &amp; Fund</p>
+        </div>
+        <div>
+          <div class="partner-group__label">Civic &amp; Philanthropic Partners</div>
+          <p class="partner-group__list">Desert Community Foundation (Fiscal Sponsor) · TEDx Rancho Mirage · Palm Desert Chamber of Commerce</p>
+        </div>
+        <div>
+          <div class="partner-group__label">Municipal Partners</div>
+          <p class="partner-group__list">City of Palm Desert · City of Palm Springs</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── SECTION 3: LUMA EMBED ── -->
+<section class="section">
   <div class="wrap">
     <span class="eyebrow">On the Calendar</span>
     <h2 class="h2">Upcoming Events</h2>
     <div class="luma-wrap">
-      <iframe src="https://lu.ma/embed/calendar/cal-123s6rDFxeKQjJd/events" width="100%" height="600" frameborder="0" style="border:none;" allowfullscreen></iframe>
+      <iframe src="https://luma.com/embed/calendar/cal-123s6rDFxeKQjJd/events" width="100%" height="600" frameborder="0" style="border:none;" allowfullscreen></iframe>
     </div>
   </div>
 </section>
 
-<!-- ── WHY THESE EVENTS EXIST ── -->
-<section class="section section--dark">
-  <div class="wrap">
-    <span class="eyebrow eyebrow--lt">Context</span>
-    <h2 class="h2 h2--lt">Why These Events Exist</h2>
-    <p class="body body--lt body--lead">The Coachella Valley's workforce is concentrated in hospitality, healthcare, education, and services. These are the sectors facing the most direct pressure from AI-driven automation — and the ones with the most to gain from getting ahead of it. AICV builds events around one conviction: that the people who live and work here deserve real access to what's coming. Not a demo day. Not a weekend seminar. Real fluency in the tools that are redefining what a productive workforce looks like.</p>
-    <p class="body body--lt" style="margin-top:var(--s-3);">The agent economy is creating a new category of worker — one who manages AI tools, builds generative workflows, and deploys digital employees to handle repeatable cognitive work. We're training that workforce here, in the desert, before the window closes.</p>
+<!-- ── SECTION 4: WHERE WE ARE ── -->
+<div class="where-band">
+  <div class="where-band__inner">
+    <span class="where-band__text">Anchored at the CSUSB Entrepreneurship Resource Center · 37023 Cook Street, Palm Desert, CA</span>
+    <div class="where-band__sep"></div>
+    <a href="mailto:sat@aicv.co" class="where-band__email">sat@aicv.co</a>
   </div>
-</section>
-
-<!-- ── WHO WE WORK WITH ── -->
-<section class="section">
-  <div class="wrap">
-    <span class="eyebrow">Partners</span>
-    <h2 class="h2">Who We Work With</h2>
-    <div class="partner-groups">
-      <div>
-        <div class="partner-group__label">Academic &amp; Workforce Partners</div>
-        <p class="partner-group__list">California State University San Bernardino — Entrepreneurship Resource Center · College of the Desert · IE Journalism Innovation Hub &amp; Fund</p>
-      </div>
-      <div>
-        <div class="partner-group__label">Civic &amp; Philanthropic Partners</div>
-        <p class="partner-group__list">Desert Community Foundation (Fiscal Sponsor) · TEDx Rancho Mirage · Palm Desert Chamber of Commerce</p>
-      </div>
-      <div>
-        <div class="partner-group__label">Municipal Partners</div>
-        <p class="partner-group__list">City of Palm Desert · City of Palm Springs</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── WHERE WE ARE ── -->
-<section class="section section--alt">
-  <div class="wrap">
-    <span class="eyebrow">Location</span>
-    <h2 class="h2">Where We Are</h2>
-    <div class="location-block">
-      <p>Anchored at the CSUSB Entrepreneurship Resource Center · 37023 Cook Street, Palm Desert, CA</p>
-      <p style="margin-top:var(--s-2);"><a href="mailto:sat@aicv.co">sat@aicv.co</a></p>
-    </div>
-  </div>
-</section>
+</div>
 
 <!-- ── FOOTER ── -->
 <footer class="footer">
