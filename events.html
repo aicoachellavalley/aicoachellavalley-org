@@ -404,6 +404,73 @@
     }
 
     /* ════════════════════════════════════════
+       HERO VARIANTS
+    ════════════════════════════════════════ */
+    .hero__body--wide  { max-width: 720px; }
+    .hero__body + .hero__body { margin-top: var(--s-2); }
+    .hero__body--browse {
+      margin-top: var(--s-4);
+      font-size: var(--fs-13);
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: rgba(251,247,238,0.45);
+    }
+
+    /* ════════════════════════════════════════
+       LUMA EMBED
+    ════════════════════════════════════════ */
+    .luma-wrap {
+      margin-top: var(--s-5);
+      border: 1px solid var(--c-ghost);
+      overflow: hidden;
+    }
+
+    /* ════════════════════════════════════════
+       PARTNER GROUPS
+    ════════════════════════════════════════ */
+    .partner-groups {
+      display: flex;
+      flex-direction: column;
+      gap: var(--s-5);
+      margin-top: var(--s-5);
+      max-width: 720px;
+    }
+    .partner-group__label {
+      font-size: var(--fs-10);
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--c-terracotta);
+      margin-bottom: var(--s-1);
+    }
+    .partner-group__list {
+      font-size: var(--fs-15);
+      font-weight: 300;
+      color: var(--c-ink-m);
+      line-height: 1.75;
+    }
+
+    /* ════════════════════════════════════════
+       WHERE WE ARE
+    ════════════════════════════════════════ */
+    .location-block {
+      max-width: 560px;
+      margin-top: var(--s-4);
+    }
+    .location-block p {
+      font-size: var(--fs-15);
+      font-weight: 300;
+      color: var(--c-ink-m);
+      line-height: 1.75;
+    }
+    .location-block a {
+      color: var(--c-terracotta);
+      text-decoration: none;
+    }
+    .location-block a:hover { text-decoration: underline; }
+
+    /* ════════════════════════════════════════
        FOOTER
     ════════════════════════════════════════ */
     .footer {
@@ -524,36 +591,69 @@
 
 <!-- ── HERO ── -->
 <section class="hero">
-  <div class="hero__ghost">EV</div>
+  <div class="hero__ghost">760</div>
   <div class="hero__inner">
-    <span class="eyebrow eyebrow--lt">Nonprofit · Coachella Valley · Est. 2025</span>
-    <h1 class="h1">Events</h1>
-    <p class="hero__subhead">Workshops, bootcamps, office hours, and community meetups across the Coachella Valley.</p>
-    <p class="hero__body">Every AICV event is designed to move participants forward — from building foundational AI skills to applying them in the real world. No coding background required.</p>
+    <span class="eyebrow eyebrow--lt">Events · AI Coachella Valley · The 760</span>
+    <h1 class="h1">The agent economy isn't coming.<br>It's here. We're building<br>for it in the desert.</h1>
+    <p class="hero__body hero__body--wide">AICV events are not AI 101. We run hands-on sessions on the tools that are already reshaping how work gets done — Claude CoWork, Claude Code, and OpenClaw. Autonomous agents. Generative workflows. Digital employees that don't clock out. If you want to understand what that means for your business, your career, or your next venture — this is where you start.</p>
+    <p class="hero__body hero__body--wide">We host workshops, founder meetups, startup sprints, and intelligence briefings for operators, builders, and investors who are paying attention to what's emerging in the Coachella Valley. The valley that hosts Coachella and Stagecoach, that's building Cotino, that sits two hours from Los Angeles and three from San Francisco — is also quietly becoming a serious node in the AI economy. AICV is the intelligence layer making that legible.</p>
+    <p class="hero__body hero__body--wide">If you're visiting, retreating, relocating, or considering where to put early capital — these events are where the conversation starts.</p>
+    <p class="hero__body hero__body--browse">Browse upcoming events below.</p>
   </div>
 </section>
 
-<!-- ── UPCOMING EVENTS ── -->
-<section class="section">
+<!-- ── LUMA EMBED ── -->
+<section class="section section--sand">
   <div class="wrap">
     <span class="eyebrow">On the Calendar</span>
     <h2 class="h2">Upcoming Events</h2>
-    <div class="empty-state">
-      <p>Check back soon — new events are added regularly.</p>
+    <div class="luma-wrap">
+      <iframe src="https://lu.ma/embed/calendar/cal-123s6rDFxeKQjJd/events" width="100%" height="600" frameborder="0" style="border:none;" allowfullscreen></iframe>
     </div>
-    <a href="https://luma.com/aicv" class="btn btn--primary" target="_blank" rel="noopener">View All Events on Luma →</a>
   </div>
 </section>
 
-<!-- ── PAST EVENTS ── -->
+<!-- ── WHY THESE EVENTS EXIST ── -->
+<section class="section section--dark">
+  <div class="wrap">
+    <span class="eyebrow eyebrow--lt">Context</span>
+    <h2 class="h2 h2--lt">Why These Events Exist</h2>
+    <p class="body body--lt body--lead">The Coachella Valley's workforce is concentrated in hospitality, healthcare, education, and services. These are the sectors facing the most direct pressure from AI-driven automation — and the ones with the most to gain from getting ahead of it. AICV builds events around one conviction: that the people who live and work here deserve real access to what's coming. Not a demo day. Not a weekend seminar. Real fluency in the tools that are redefining what a productive workforce looks like.</p>
+    <p class="body body--lt" style="margin-top:var(--s-3);">The agent economy is creating a new category of worker — one who manages AI tools, builds generative workflows, and deploys digital employees to handle repeatable cognitive work. We're training that workforce here, in the desert, before the window closes.</p>
+  </div>
+</section>
+
+<!-- ── WHO WE WORK WITH ── -->
+<section class="section">
+  <div class="wrap">
+    <span class="eyebrow">Partners</span>
+    <h2 class="h2">Who We Work With</h2>
+    <div class="partner-groups">
+      <div>
+        <div class="partner-group__label">Academic &amp; Workforce Partners</div>
+        <p class="partner-group__list">California State University San Bernardino — Entrepreneurship Resource Center · College of the Desert · IE Journalism Innovation Hub &amp; Fund</p>
+      </div>
+      <div>
+        <div class="partner-group__label">Civic &amp; Philanthropic Partners</div>
+        <p class="partner-group__list">Desert Community Foundation (Fiscal Sponsor) · TEDx Rancho Mirage · Palm Desert Chamber of Commerce</p>
+      </div>
+      <div>
+        <div class="partner-group__label">Municipal Partners</div>
+        <p class="partner-group__list">City of Palm Desert · City of Palm Springs</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── WHERE WE ARE ── -->
 <section class="section section--alt">
   <div class="wrap">
-    <span class="eyebrow">Looking Back</span>
-    <h2 class="h2">Work Done in 2025</h2>
-    <div class="past-block">
-      <p>AICV hosted 30+ workshops, bootcamps, and community sessions across the Coachella Valley in 2025 — in partnership with CSUSB, College of the Desert, and the cities of Palm Desert and Palm Springs.</p>
+    <span class="eyebrow">Location</span>
+    <h2 class="h2">Where We Are</h2>
+    <div class="location-block">
+      <p>Anchored at the CSUSB Entrepreneurship Resource Center · 37023 Cook Street, Palm Desert, CA</p>
+      <p style="margin-top:var(--s-2);"><a href="mailto:sat@aicv.co">sat@aicv.co</a></p>
     </div>
-    <a href="https://luma.com/aicv" class="btn btn--primary" target="_blank" rel="noopener">View 2025 Event Archive →</a>
   </div>
 </section>
 
