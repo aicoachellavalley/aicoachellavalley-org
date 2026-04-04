@@ -1541,6 +1541,7 @@
     'adjacent-communities/desert-jet-center':'adjacent-communities',
     'valley-wide/creative-economy-coachella-valley':'valley-wide',
     'valley-wide/ai-startup-activity':'valley-wide',
+    'valley-wide/visit-greater-palm-springs':'valley-wide',
   };
   const SUB_MAP={
     'node-zero':'innovation','coachella-valley-intelligence-index':'intelligence',
@@ -1575,6 +1576,7 @@
     'jw-marriott-desert-springs':'hospitality',
     'creative-economy-coachella-valley':'innovation',
     'ai-startup-activity':'innovation',
+    'visit-greater-palm-springs':'economic',
   };
   const STATIC_LINKS=[
     {s:'node-zero',t:'ai-economy-coachella-valley',type:'spine'},
@@ -1664,7 +1666,7 @@
     within:      {stroke:'#A8A49C',sw:1.0,op:0.4,dash:'3 2'},
     cross:       {stroke:'#C0B8AC',sw:0.9,op:0.32},
   };
-  const VW_ORDER=['nonprofit-philanthropy','coachella-valley-intelligence-index','coachella-valley-economic-development','riverside-county-economic-development','cv-giving-day','node-zero','coachella-valley-ai-events','workforce-talent','highway-111-corridor','ai-economy-coachella-valley','creative-economy-coachella-valley','ai-startup-activity'];
+  const VW_ORDER=['nonprofit-philanthropy','coachella-valley-intelligence-index','coachella-valley-economic-development','riverside-county-economic-development','cv-giving-day','node-zero','coachella-valley-ai-events','workforce-talent','highway-111-corridor','ai-economy-coachella-valley','creative-economy-coachella-valley','ai-startup-activity','visit-greater-palm-springs'];
   function slugFromPath(p){return p.split('/').pop();}
   function buildGraph(data){
     const mount=document.getElementById('aicv-graph-mount');
