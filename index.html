@@ -1551,6 +1551,12 @@
     'valley-wide/wellness-positioning':'valley-wide',
     'valley-wide/aviation-gateway':'valley-wide',
     'valley-wide/golf-destination':'valley-wide',
+    'valley-wide/desert-sun':'valley-wide',
+    'valley-wide/palm-springs-life':'valley-wide',
+    'valley-wide/kesq-news-channel-3':'valley-wide',
+    'valley-wide/nbc-palm-springs':'valley-wide',
+    'valley-wide/coachella-valley-independent':'valley-wide',
+    'valley-wide/coachella-valley-weekly':'valley-wide',
   };
   const SUB_MAP={
     'node-zero':'innovation','coachella-valley-intelligence-index':'intelligence',
@@ -1595,6 +1601,12 @@
     'wellness-positioning':'intelligence',
     'aviation-gateway':'intelligence',
     'golf-destination':'intelligence',
+    'desert-sun':'media',
+    'palm-springs-life':'media',
+    'kesq-news-channel-3':'media',
+    'nbc-palm-springs':'media',
+    'coachella-valley-independent':'media',
+    'coachella-valley-weekly':'media',
   };
   const STATIC_LINKS=[
     {s:'node-zero',t:'ai-economy-coachella-valley',type:'spine'},
@@ -1743,6 +1755,23 @@
     {s:'visit-greater-palm-springs',t:'retreat-economy',type:'intelligence'},
     {s:'visit-greater-palm-springs',t:'desert-season',type:'intelligence'},
     {s:'visit-greater-palm-springs',t:'luxury-corridor',type:'intelligence'},
+    // Media node connections
+    {s:'desert-sun',t:'coachella-valley-economic-development',type:'cross'},
+    {s:'desert-sun',t:'visit-greater-palm-springs',type:'cross'},
+    {s:'desert-sun',t:'development-pipeline',type:'cross'},
+    {s:'desert-sun',t:'agua-caliente-casino',type:'cross'},
+    {s:'palm-springs-life',t:'desert-sun',type:'within'},
+    {s:'palm-springs-life',t:'luxury-corridor',type:'cross'},
+    {s:'palm-springs-life',t:'el-paseo',type:'cross'},
+    {s:'kesq-news-channel-3',t:'desert-sun',type:'within'},
+    {s:'kesq-news-channel-3',t:'coachella-festival',type:'cross'},
+    {s:'kesq-news-channel-3',t:'tennis-garden',type:'cross'},
+    {s:'nbc-palm-springs',t:'desert-sun',type:'within'},
+    {s:'nbc-palm-springs',t:'kesq-news-channel-3',type:'within'},
+    {s:'coachella-valley-independent',t:'desert-sun',type:'within'},
+    {s:'coachella-valley-independent',t:'creative-economy-coachella-valley',type:'cross'},
+    {s:'coachella-valley-weekly',t:'desert-sun',type:'within'},
+    {s:'coachella-valley-weekly',t:'coachella-valley-independent',type:'within'},
   ];
   const ES={
     spine:       {stroke:'#C8552A',sw:2.5,op:0.82},
@@ -1752,7 +1781,7 @@
     within:      {stroke:'#A8A49C',sw:1.0,op:0.4,dash:'3 2'},
     cross:       {stroke:'#C0B8AC',sw:0.9,op:0.32},
   };
-  const VW_ORDER=['nonprofit-philanthropy','coachella-valley-intelligence-index','coachella-valley-economic-development','riverside-county-economic-development','cv-giving-day','node-zero','coachella-valley-ai-events','workforce-talent','highway-111-corridor','ai-economy-coachella-valley','creative-economy-coachella-valley','ai-startup-activity','visit-greater-palm-springs','retreat-economy','innovation-economy','development-pipeline','luxury-corridor','desert-season','wellness-positioning','aviation-gateway','golf-destination'];
+  const VW_ORDER=['nonprofit-philanthropy','coachella-valley-intelligence-index','coachella-valley-economic-development','riverside-county-economic-development','cv-giving-day','node-zero','coachella-valley-ai-events','workforce-talent','highway-111-corridor','ai-economy-coachella-valley','creative-economy-coachella-valley','ai-startup-activity','visit-greater-palm-springs','retreat-economy','innovation-economy','development-pipeline','luxury-corridor','desert-season','wellness-positioning','aviation-gateway','golf-destination','desert-sun','palm-springs-life','kesq-news-channel-3','nbc-palm-springs','coachella-valley-independent','coachella-valley-weekly'];
   function slugFromPath(p){return p.split('/').pop();}
   function buildGraph(data){
     const mount=document.getElementById('aicv-graph-mount');
