@@ -1556,6 +1556,7 @@
     'valley-wide/nbc-palm-springs':'valley-wide',
     'valley-wide/coachella-valley-independent':'valley-wide',
     'valley-wide/coachella-valley-weekly':'valley-wide',
+    'valley-wide/civic-infrastructure':'valley-wide',
   };
   const SUB_MAP={
     'node-zero':'innovation','coachella-valley-intelligence-index':'intelligence',
@@ -1592,6 +1593,7 @@
     'ai-startup-activity':'innovation',
     'visit-greater-palm-springs':'economic',
     'coachella-economic-development':'economic',
+    'civic-infrastructure':'economic',
     'retreat-economy':'intelligence',
     'innovation-economy':'intelligence',
     'development-pipeline':'intelligence',
@@ -1771,6 +1773,19 @@
     {s:'coachella-valley-independent',t:'creative-economy-coachella-valley',type:'cross'},
     {s:'coachella-valley-weekly',t:'desert-sun',type:'within'},
     {s:'coachella-valley-weekly',t:'coachella-valley-independent',type:'within'},
+    // Civic Infrastructure
+    {s:'civic-infrastructure',t:'innovation-economy',type:'cross'},
+    {s:'civic-infrastructure',t:'development-pipeline',type:'cross'},
+    {s:'civic-infrastructure',t:'coachella-valley-economic-development',type:'cross'},
+    {s:'civic-infrastructure',t:'palm-desert-economic-development',type:'cross'},
+    {s:'civic-infrastructure',t:'cook-street-university-row',type:'cross'},
+    {s:'civic-infrastructure',t:'nonprofit-philanthropy',type:'cross'},
+    {s:'civic-infrastructure',t:'workforce-talent',type:'cross'},
+    // Nonprofit & Philanthropy
+    {s:'nonprofit-philanthropy',t:'innovation-economy',type:'cross'},
+    {s:'nonprofit-philanthropy',t:'desert-community-foundation',type:'philanthropy'},
+    {s:'nonprofit-philanthropy',t:'civic-infrastructure',type:'cross'},
+    {s:'nonprofit-philanthropy',t:'education-corridor',type:'cross'},
   ];
   const ES={
     spine:       {stroke:'#C8552A',sw:2.5,op:0.82},
@@ -1780,7 +1795,7 @@
     within:      {stroke:'#A8A49C',sw:1.0,op:0.4,dash:'3 2'},
     cross:       {stroke:'#C0B8AC',sw:0.9,op:0.32},
   };
-  const VW_ORDER=['nonprofit-philanthropy','coachella-valley-intelligence-index','coachella-valley-economic-development','riverside-county-economic-development','cv-giving-day','node-zero','coachella-valley-ai-events','workforce-talent','highway-111-corridor','ai-economy-coachella-valley','creative-economy-coachella-valley','ai-startup-activity','visit-greater-palm-springs','retreat-economy','innovation-economy','development-pipeline','luxury-corridor','desert-season','wellness-positioning','aviation-gateway','golf-destination','desert-sun','palm-springs-life','kesq-news-channel-3','nbc-palm-springs','coachella-valley-independent','coachella-valley-weekly'];
+  const VW_ORDER=['nonprofit-philanthropy','coachella-valley-intelligence-index','coachella-valley-economic-development','riverside-county-economic-development','cv-giving-day','node-zero','coachella-valley-ai-events','workforce-talent','highway-111-corridor','ai-economy-coachella-valley','creative-economy-coachella-valley','ai-startup-activity','visit-greater-palm-springs','retreat-economy','innovation-economy','development-pipeline','luxury-corridor','desert-season','wellness-positioning','aviation-gateway','golf-destination','desert-sun','palm-springs-life','kesq-news-channel-3','nbc-palm-springs','coachella-valley-independent','coachella-valley-weekly','civic-infrastructure'];
   function slugFromPath(p){return p.split('/').pop();}
   function buildGraph(data){
     const mount=document.getElementById('aicv-graph-mount');
