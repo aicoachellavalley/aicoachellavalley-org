@@ -757,6 +757,16 @@
     }
     .prog-card--featured .prog-title { color: var(--c-cream); }
 
+    .prog-tagline {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-style: italic;
+      font-size: 14px;
+      color: var(--c-ink-l);
+      margin: 0 0 16px 0;
+      line-height: 1.4;
+      position: relative; z-index: 1;
+    }
+
     .prog-body {
       font-size: 13px;
       font-weight: 300;
@@ -1351,6 +1361,16 @@
         <span class="prog-tag">Contact sat@aicv.co for updates</span>
       </div>
 
+      <div class="prog-card">
+        <div class="prog-step">LIVE</div>
+        <div class="prog-num">3</div>
+        <h3 class="prog-title">AICV Intelligence Layer</h3>
+        <p class="prog-tagline">Built for agents. Powered by humans.</p>
+        <p class="prog-body">The Intelligence Layer for the Coachella Valley, built for the era when foundational models like ChatGPT, Claude, and Gemini increasingly shape where capital flows and where people go.</p>
+        <p class="prog-body">AICV publishes daily intelligence briefs, snapshots, reviews, and reports showing how visible Coachella Valley businesses are to AI systems — and runs live workflows measuring how ready the region is for AI agents and the agentic world.</p>
+        <a href="https://aicoachellavalley.com" class="prog-tag" target="_blank" rel="noopener">Visit the intelligence layer →</a>
+      </div>
+
     </div>
   </div>
 </section>
@@ -1551,17 +1571,17 @@
     'adjacent-communities': {fill:'rgba(90,80,70,0.06)',stroke:'rgba(90,80,70,0.28)',dash:'4 3',ghost:true,label:'Adjacent',lc:'rgba(90,80,70,0.45)'},
   };
   const ZD={
-    'valley-wide':   {x:10,y:10,w:1080,h:80},
-    'dhs':           {x:10,y:100,w:174,h:155},
-    'palm-springs':  {x:10,y:265,w:174,h:485},
-    'cathedral-city':{x:194,y:100,w:170,h:155},
-    'rancho-mirage': {x:194,y:265,w:170,h:485},
-    'palm-desert':   {x:374,y:100,w:290,h:650},
-    'indian-wells':  {x:674,y:100,w:196,h:320},
-    'la-quinta':     {x:674,y:430,w:196,h:320},
-    'indio':         {x:880,y:100,w:210,h:320},
-    'coachella':     {x:880,y:430,w:210,h:320},
-    'adjacent-communities': {x:10,y:790,w:1080,h:80},
+    'valley-wide':   {x:10,y:10,w:1080,h:140},
+    'dhs':           {x:10,y:160,w:174,h:155},
+    'palm-springs':  {x:10,y:325,w:174,h:485},
+    'cathedral-city':{x:194,y:160,w:170,h:155},
+    'rancho-mirage': {x:194,y:325,w:170,h:485},
+    'palm-desert':   {x:374,y:160,w:290,h:650},
+    'indian-wells':  {x:674,y:160,w:196,h:320},
+    'la-quinta':     {x:674,y:490,w:196,h:320},
+    'indio':         {x:880,y:160,w:210,h:320},
+    'coachella':     {x:880,y:490,w:210,h:320},
+    'adjacent-communities': {x:10,y:850,w:1080,h:80},
   };
   Object.values(ZD).forEach(z=>{z.cx=z.x+z.w/2;z.cy=z.y+z.h/2;});
   const ZONE_MAP={
@@ -1902,7 +1922,7 @@
     hdr.innerHTML=`<div><p style="font-size:11px;font-weight:600;letter-spacing:0.09em;text-transform:uppercase;color:#C8552A;margin:0 0 2px;">AICV \u00b7 ${ND.length} nodes live</p><h3 style="font-size:15px;font-weight:500;color:#1A2744;margin:0;">Coachella Valley Intelligence Graph</h3></div><div style="display:flex;flex-direction:column;gap:4px;font-size:11px;color:#5F5E5A;"><div style="display:flex;align-items:center;gap:6px;"><div style="width:22px;height:3px;background:#C8552A;border-radius:2px;"></div>Innovation spine</div><div style="display:flex;align-items:center;gap:6px;"><div style="width:22px;height:3px;background:#2E8B1A;border-radius:2px;"></div>Philanthropy spine</div><div style="display:flex;align-items:center;gap:6px;"><div style="width:22px;height:2.5px;background:#8AAAC0;border-radius:2px;"></div>Gateway (PSP)</div><div style="display:flex;align-items:center;gap:6px;"><div style="width:22px;height:2px;background:#B4B2A9;border-radius:2px;"></div>Cross-link</div></div>`;
     wrapper.appendChild(hdr);
     const svgEl=document.createElementNS('http://www.w3.org/2000/svg','svg');
-    svgEl.setAttribute('viewBox','0 0 1100 900');
+    svgEl.setAttribute('viewBox','0 0 1100 960');
     svgEl.setAttribute('width','100%');
     svgEl.style.minWidth='600px';
     svgEl.style.display='block';
