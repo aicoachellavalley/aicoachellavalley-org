@@ -1531,11 +1531,11 @@
   </div>
 </footer>
 
-<!-- AICV Node Graph — live from docs.json -->
+<!-- AICV Node Graph — live from nodes.json -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
 <script>
 (function(){
-  const DOCS_URL='https://raw.githubusercontent.com/aicoachellavalley/docs/main/docs.json';
+  const NODES_URL='https://aicoachellavalley.com/nodes.json';
   const SC={innovation:'#C8552A',economic:'#6E6D68',intelligence:'#1A7FCC',hospitality:'#C47B10',golf:'#4E8A1A',wellness:'#0F8A60',cultural:'#6B5FCC',entertainment:'#D4820A',education:'#0F5FA5',retail:'#C04820',nonprofit:'#2E6010','real-estate':'#4A4A46'};
   const ZC={
     'valley-wide':   {fill:'rgba(200,85,42,0.06)',stroke:'rgba(200,85,42,0.28)',dash:'none',ghost:false,label:'Valley Wide',lc:'rgba(180,70,30,0.55)'},
@@ -1859,18 +1859,12 @@
   function buildGraph(data){
     const mount=document.getElementById('aicv-graph-mount');
     if(!mount)return;
-    const allPages=[];
-    for(const tab of(data.navigation?.tabs||[])){
-      if(tab.tab==='Nodes'){
-        for(const grp of(tab.groups||[])){
-          for(const pg of(grp.pages||[])){
-            if(typeof pg==='string'&&pg.startsWith('nodes/')){
-              allPages.push(pg.replace('nodes/',''));
-            }
-          }
-        }
-      }
-    }
+    const allPages = data
+      .map(n => {
+        const citySlug = (n.city || '').toLowerCase().replace(/\s+/g, '-');
+        return citySlug + '/' + n.slug;
+      })
+      .filter(rel => rel !== '/' && !VW_ORDER.includes(rel.split('/')[1]));
     const ND=[];
     const vwStep=1080/VW_ORDER.length;
     VW_ORDER.forEach((slug,i)=>{
@@ -2003,10 +1997,10 @@
       tip.style.opacity='0';
     });
   }
-  fetch(DOCS_URL)
+  fetch(NODES_URL)
     .then(r=>r.json())
     .then(buildGraph)
-    .catch(err=>console.warn('AICV graph: could not load docs.json',err));
+    .catch(err=>console.warn('AICV graph: could not load nodes.json',err));
 })();
 </script>
 
