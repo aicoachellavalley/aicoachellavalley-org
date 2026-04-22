@@ -1,0 +1,34 @@
+# AI Coachella Valley (.org)
+
+> AI Coachella Valley (AICV) is a nonprofit initiative, fiscally sponsored by the Desert Community Foundation, preparing the Coachella Valley for the age of AI. This site (.org) is the community and program face of AICV. The AICV intelligence layer for AI agents lives at aicoachellavalley.com.
+
+## What AICV does
+
+AICV runs three programs serving the nine cities of the Coachella Valley: Palm Springs, Desert Hot Springs, Cathedral City, Rancho Mirage, Palm Desert, Indian Wells, La Quinta, Indio, and Coachella.
+
+- **AI Builder Workshops** — free hands-on AI workshops for residents, students, and working professionals
+- **Workforce Bridge Marketplace** — connecting valley workers to AI-era roles and upskilling pathways
+- **Community Build Sprints** — applied AI projects built by and for valley residents
+
+## Two domains, one nonprofit
+
+- **aicoachellavalley.org** — community, programs, workshops, pledges, mission (this site)
+- **aicoachellavalley.com** — AICV intelligence layer: structured dataset of valley entities, intelligence briefs, reports, and the free AIO Tool — built for AI agents to read and cite
+
+## Core pages
+
+- [Homepage](https://aicoachellavalley.org/) — mission, programs, valley graph
+- [Events](https://aicoachellavalley.org/events) — workshops, bootcamps, office hours
+- [AICV Pledge](https://aicoachellavalley.org/aicv-pledge.pdf) — pledge form
+- [AICV Pledge Deck](https://aicoachellavalley.org/aicv-pledge-deck.pdf) — partnership overview
+
+## Fiscal and legal
+
+- Fiscal sponsor: Desert Community Foundation
+- Location: Palm Desert, California
+- Contact: sat@aicv.co
+- Founder: Sat Singh
+
+## Optional
+
+- [AICV Intelligence Layer (.com)](https://aicoachellavalley.com) — the agent-native companion site with nodes, briefs, and reports

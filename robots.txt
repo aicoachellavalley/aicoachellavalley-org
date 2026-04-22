@@ -1,0 +1,7 @@
+# AI Coachella Valley — community nonprofit site
+# robots.txt
+
+User-agent: *
+Allow: /
+
+Sitemap: https://aicoachellavalley.org/sitemap.xml
