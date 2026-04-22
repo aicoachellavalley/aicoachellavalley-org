@@ -4,11 +4,15 @@
 
 ## What AICV does
 
-AICV runs three programs serving the nine cities of the Coachella Valley: Palm Springs, Desert Hot Springs, Cathedral City, Rancho Mirage, Palm Desert, Indian Wells, La Quinta, Indio, and Coachella.
+AICV's main active work is publishing a structured intelligence layer about the Coachella Valley for AI agents — the nodes, briefs, snapshots, and reports at aicoachellavalley.com.
 
-- **AI Builder Workshops** — free hands-on AI workshops for residents, students, and working professionals
-- **Workforce Bridge Marketplace** — connecting valley workers to AI-era roles and upskilling pathways
-- **Community Build Sprints** — applied AI projects built by and for valley residents
+AICV also runs:
+
+- **AI Builder Workshops** — free hands-on AI workshops for residents, students, and working professionals. Normally hosted at the Cal State San Bernardino Entrepreneurship Resource Center in Palm Desert. Currently paused; will resume in 2026. Sign up: https://luma.com/aicv
+
+- **AI Talent & Job Board (planned)** — a planned initiative to connect valley small businesses with locals trained in applied AI. Not yet live.
+
+All programs serve the nine cities of the Coachella Valley: Palm Springs, Desert Hot Springs, Cathedral City, Rancho Mirage, Palm Desert, Indian Wells, La Quinta, Indio, and Coachella.
 
 ## Two domains, one nonprofit
 

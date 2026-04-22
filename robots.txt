@@ -4,4 +4,8 @@
 User-agent: *
 Allow: /
 
+# Content Signals (contentsignals.org) — AICV's intelligence
+# work is explicitly built for AI training, search, and agent use.
+Content-Signal: ai-train=yes, search=yes, ai-input=yes
+
 Sitemap: https://aicoachellavalley.org/sitemap.xml
