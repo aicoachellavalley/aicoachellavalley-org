@@ -113,3 +113,28 @@ Both warnings addressed in this session via: status pill badges (Live / Paused /
 - **OAuth/OIDC discovery** + **OAuth Protected Resource** — not applicable. .org has no protected APIs by design.
 
 - **Phone number in Organization schema contactPoint** — deferred pending Twilio routing project (shared with .com).
+
+---
+
+## Post-Deploy Scan Results — 2026-04-23
+
+After commit 70915fe deployed, re-ran both scans.
+
+**Cloudflare** (isitagentready.com): 33 → 50, still Level 2
+- Discoverability: 2/3 (unchanged — needs investigation)
+- Content: 0/1 (Pro deferred)
+- Bot Access Control: 2/2
+- API/Auth/MCP: 0/6 → 2/6 (MCP server card + api-catalog credited)
+
+**AICV AIO Tool**: B → B (same grade, different HIGH finding)
+- Previous HIGH: program status ambiguity ✓ addressed
+- New HIGH: wants top-of-page program status summary line  
+  (pill badges are card-level; scanner wants hero-area banner)
+
+## Next .org Cleanup Cycle (scoped, not today)
+
+1. Investigate Discoverability 2/3 gap — compare .com llms.txt  
+   implementation against .org's, identify missing signal
+2. Add hero-area program status summary line (AIO Tool HIGH)
+3. Revisit Markdown for Agents + Pro upgrade when .org pitch  
+   traffic materializes
