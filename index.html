@@ -110,6 +110,7 @@
       },
       {
         "@type": "FAQPage",
+        "datePublished": "2026-04-23",
         "@id": "https://aicoachellavalley.org/#faq",
         "mainEntity": [
           {
@@ -807,6 +808,38 @@
     }
     .prog-tag-group .prog-tag { margin-top: 0; }
 
+    /* ─── PROGRAM STATUS PILLS + DIMMED STATE ─── */
+    .prog-pill {
+      display: inline-block;
+      padding: 4px 10px;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border-radius: 999px;
+      margin-bottom: var(--s-3);
+      position: relative; z-index: 1;
+    }
+    .prog-pill.pill-live {
+      background: var(--c-cream);
+      color: var(--c-terracotta);
+    }
+    .prog-pill.pill-paused {
+      background: rgba(26, 39, 68, 0.12);
+      color: var(--c-dusk);
+    }
+    .prog-pill.pill-planned {
+      background: rgba(107, 74, 56, 0.12);
+      color: var(--c-ink-l);
+    }
+    .prog-card.prog-dimmed {
+      opacity: 0.72;
+    }
+    .prog-card.prog-dimmed .prog-title,
+    .prog-card.prog-dimmed .prog-body {
+      color: var(--c-ink-l);
+    }
+
     /* ════════════════════════════════════════
        PLEDGE
     ════════════════════════════════════════ */
@@ -1345,24 +1378,24 @@
 
     <div class="prog-grid">
 
-      <div class="prog-card">
-        <div class="prog-step">Currently paused</div>
+      <div class="prog-card prog-dimmed" aria-label="Paused program">
+        <span class="prog-pill pill-paused">Paused</span>
         <div class="prog-num">1</div>
         <h3 class="prog-title">AI Builder Workshops</h3>
-        <p class="prog-body">Hands-on AI sessions for valley residents, students, and working professionals. Normally hosted at the Cal State San Bernardino Entrepreneurship Resource Center in Palm Desert. Currently paused while AICV focuses on the intelligence layer. Workshops will resume in 2026.</p>
+        <p class="prog-body">Continuation of our AI workshops, office hours, boot camps, and our super popular Saturday Morning AI Summer Series proposed to the CSUSB Entrepreneurship Resource Center, pending approval.</p>
         <a href="https://luma.com/aicv" class="prog-tag" target="_blank" rel="noopener">Join the Luma list →</a>
       </div>
 
-      <div class="prog-card prog-card--featured">
-        <div class="prog-step">Planned initiative</div>
+      <div class="prog-card prog-dimmed" aria-label="Planned program">
+        <span class="prog-pill pill-planned">Planned</span>
         <div class="prog-num">2</div>
         <h3 class="prog-title">AI Talent &amp; Job Board</h3>
         <p class="prog-body">A planned AICV initiative to connect valley small businesses with locals trained in applied AI. Businesses will post short applied-AI projects; vetted local workers bid and deliver. Designed to turn AI literacy into paid work in the valley. Not yet live; expected to launch as the intelligence layer at aicoachellavalley.com matures.</p>
         <span class="prog-tag">Contact sat@aicv.co for updates</span>
       </div>
 
-      <div class="prog-card">
-        <div class="prog-step">LIVE</div>
+      <div class="prog-card prog-card--featured" aria-label="Live program">
+        <span class="prog-pill pill-live">Live</span>
         <div class="prog-num">3</div>
         <h3 class="prog-title">AICV Intelligence Layer</h3>
         <p class="prog-tagline">Built for agents. Powered by humans.</p>

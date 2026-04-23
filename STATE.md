@@ -71,3 +71,33 @@ If any program changes status: update index.html cards + FAQPage answers + Organ
 - Inland Empire Journalism Hub and Fund
 
 TEDx Rancho Mirage is NOT in the partnership list — it's a founder credibility signal with link to Sat's talk (https://www.youtube.com/watch?v=oYG2kFC2_D4) in the founder section.
+
+---
+
+## Agent-Readiness Baselines — 2026-04-23
+
+Pre-change baseline captured before today's content truth + Option B agent infrastructure deployment.
+
+**Cloudflare Agentic Readability** (isitagentready.com):
+- Score: 33 / Level 2 "Bot-Aware"
+- Discoverability: 2/3
+- Content: 0/1 (Markdown for Agents not enabled — Pro upgrade deferred)
+- Bot Access Control: 2/2 ✓
+- API, Auth, MCP & Skill Discovery: 0/6
+
+**AICV AIO Tool** (self-grade of aicoachellavalley.org):
+- Grade: B
+- HIGH warning: AI Builder Workshops program status ambiguity ("Workshops will resume in 2026" unclear in April 2026 context)
+- MED warning: Program section needed clearer status hierarchy
+
+Both warnings addressed in this session via: status pill badges (Live / Paused / Planned), prog-dimmed card styling on paused and planned cards, revised workshop copy naming the Saturday Morning AI Summer Series as the active proposal to CSUSB ERC.
+
+## Agent-Readiness Items Intentionally Deferred
+
+- **Markdown for Agents / Cloudflare Pro upgrade** — deferred ~2 weeks. Revisit if pitch activity or agent traffic on .org materializes. Current rationale: .org serves human institutional stakeholders; the structured intelligence layer and agent corpus live at .com.
+
+- **WebMCP** — deferred to same dedicated session scheduled for .com. Will mirror .com's implementation when built.
+
+- **OAuth/OIDC discovery** + **OAuth Protected Resource** — not applicable. .org has no protected APIs by design.
+
+- **Phone number in Organization schema contactPoint** — deferred pending Twilio routing project (shared with .com).

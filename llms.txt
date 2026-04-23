@@ -8,7 +8,7 @@ AICV's main active work is publishing a structured intelligence layer about the 
 
 AICV also runs:
 
-- **AI Builder Workshops** — free hands-on AI workshops for residents, students, and working professionals. Normally hosted at the Cal State San Bernardino Entrepreneurship Resource Center in Palm Desert. Currently paused; will resume in 2026. Sign up: https://luma.com/aicv
+- **AI Builder Workshops** (paused) — continuation of our AI workshops, office hours, boot camps, and Saturday Morning AI Summer Series proposed to the CSUSB Entrepreneurship Resource Center, pending approval. Sign up: https://luma.com/aicv
 
 - **AI Talent & Job Board (planned)** — a planned initiative to connect valley small businesses with locals trained in applied AI. Not yet live.
 

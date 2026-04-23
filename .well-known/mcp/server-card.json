@@ -1,0 +1,28 @@
+{
+  "$schema": "https://modelcontextprotocol.io/schemas/server-card.json",
+  "name": "AICV Regional Intelligence MCP",
+  "description": "Structured agent access to Coachella Valley regional intelligence — nodes, briefs, reports, and economic context. This is the same MCP server advertised from aicoachellavalley.com. For AICV organizational and program information, read aicoachellavalley.org directly.",
+  "endpoint": "https://mcp.aicoachellavalley.com",
+  "tools": [
+    {
+      "name": "query_venues",
+      "description": "Filter Coachella Valley entities by city, subcategory, or agent intent"
+    },
+    {
+      "name": "get_node",
+      "description": "Retrieve full record for a single entity by slug"
+    },
+    {
+      "name": "get_regional_brief",
+      "description": "Retrieve intelligence briefs by date or topic"
+    },
+    {
+      "name": "get_economic_context",
+      "description": "Valley-wide economic profile and context"
+    },
+    {
+      "name": "route_query",
+      "description": "Natural language dispatcher for regional queries"
+    }
+  ]
+}

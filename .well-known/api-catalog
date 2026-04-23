@@ -1,0 +1,52 @@
+{
+  "linkset": [
+    {
+      "anchor": "https://aicoachellavalley.org/",
+      "service-doc": [
+        {
+          "href": "https://aicoachellavalley.org/",
+          "type": "text/html",
+          "title": "AI Coachella Valley nonprofit homepage"
+        },
+        {
+          "href": "https://aicoachellavalley.org/llms.txt",
+          "type": "text/plain",
+          "title": "AICV .org llms.txt — nonprofit mission and program summary"
+        }
+      ],
+      "service-desc": [
+        {
+          "href": "https://aicoachellavalley.com/nodes.json",
+          "type": "application/json",
+          "title": "AICV Nodes — structured entity dataset for the Coachella Valley"
+        },
+        {
+          "href": "https://aicoachellavalley.com/briefs.json",
+          "type": "application/json",
+          "title": "AICV Intelligence Briefs"
+        },
+        {
+          "href": "https://aicoachellavalley.com/snapshots.json",
+          "type": "application/json",
+          "title": "AICV Snapshots — public-facing entity assessments"
+        },
+        {
+          "href": "https://aicoachellavalley.com/reports.json",
+          "type": "application/json",
+          "title": "AICV Intelligence Reports — regional analyses"
+        }
+      ],
+      "service-meta": [
+        {
+          "href": "https://mcp.aicoachellavalley.com/",
+          "title": "AICV MCP Server — agent-native access via Model Context Protocol (JSON-RPC 2.0 over HTTP)"
+        },
+        {
+          "href": "https://aicoachellavalley.org/.well-known/mcp/server-card.json",
+          "type": "application/json",
+          "title": "AICV MCP Server Card — capabilities and tool listing"
+        }
+      ]
+    }
+  ]
+}
