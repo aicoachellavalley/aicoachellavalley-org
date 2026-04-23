@@ -74,6 +74,18 @@ TEDx Rancho Mirage is NOT in the partnership list — it's a founder credibility
 
 ---
 
+## 2026-04-23 — Program pills + agent discovery (commit 70915fe)
+
+- Status pill badges (Live/Paused/Planned) + `.prog-dimmed` card treatment for inactive programs
+- `_headers` added: security headers (`/*`) + CORS + correct Content-Type for agent endpoints
+- `/.well-known/api-catalog` (RFC 9727 linkset) — points to .com JSON feeds + shared MCP
+- `/.well-known/mcp/server-card.json` — points to `mcp.aicoachellavalley.com`, 5 tools
+- `llms.txt` updated: workshop copy reflects paused status + Saturday Summer Series proposal
+- `FAQPage` schema: `datePublished: 2026-04-23` added
+- Deployed: https://7a7f62ea.aicoachellavalley-org.pages.dev
+
+---
+
 ## Agent-Readiness Baselines — 2026-04-23
 
 Pre-change baseline captured before today's content truth + Option B agent infrastructure deployment.
