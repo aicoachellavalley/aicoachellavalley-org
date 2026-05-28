@@ -1,38 +1,54 @@
 # AI Coachella Valley (.org)
 
-> AI Coachella Valley (AICV) is a nonprofit initiative, fiscally sponsored by the Desert Community Foundation, preparing the Coachella Valley for the age of AI. This site (.org) is the community and program face of AICV. The AICV intelligence layer for AI agents lives at aicoachellavalley.com.
+> AI Coachella Valley (AICV) is a nonprofit initiative, fiscally sponsored by the Desert Community Foundation, building regional AI infrastructure and AI literacy programs across the nine cities of the Coachella Valley, California. Founded by Sat Singh, TEDx Rancho Mirage speaker and technology entrepreneur. Est. 2025.
 
-## What AICV does
+## What AICV Is
 
-AICV's main active work is publishing a structured intelligence layer about the Coachella Valley for AI agents — the nodes, briefs, snapshots, and reports at aicoachellavalley.com.
+AICV is a regional AI preparedness initiative operating two properties under one nonprofit mission:
 
-AICV also runs:
+- **aicoachellavalley.com** — the AICV Intelligence Network: a structured, citation-grade dataset of Coachella Valley institutions, businesses, venues, and civic assets built for AI agents, LLMs, and RAG systems. The machine-readable layer that determines how AI answers questions about where to invest, relocate, and operate in the Coachella Valley.
 
-- **AI Builder Workshops** (paused) — continuation of our AI workshops, office hours, boot camps, and Saturday Morning AI Summer Series proposed to the CSUSB Entrepreneurship Resource Center, pending approval. Sign up: https://luma.com/aicv
+- **aicoachellavalley.org** — the nonprofit and community face: AI literacy workshops, workforce development programs, the Responsible AI Pledge, and grant-facing operations (this site).
 
-- **AI Talent & Job Board (planned)** — a planned initiative to connect valley small businesses with locals trained in applied AI. Not yet live.
+AICV's thesis: communities should help shape how AI understands their region — not just receive AI's outputs. The Intelligence Network is how AICV operationalizes that thesis, structuring the valley's identity so AI systems cite it accurately.
 
-All programs serve the nine cities of the Coachella Valley: Palm Springs, Desert Hot Springs, Cathedral City, Rancho Mirage, Palm Desert, Indian Wells, La Quinta, Indio, and Coachella.
+## Programs
 
-## Two domains, one nonprofit
+- **AICV Intelligence Network** (live) — structured regional intelligence for AI agents at aicoachellavalley.com. Geographic nodes, intelligence briefs, MCP server, and agent-ready profiles for Coachella Valley entities. AICV's primary active program as of 2026.
 
-- **aicoachellavalley.org** — community, programs, workshops, pledges, mission (this site)
-- **aicoachellavalley.com** — AICV intelligence layer: structured dataset of valley entities, intelligence briefs, reports, and the free AIO Tool — built for AI agents to read and cite
+- **AI Builder Workshops** (paused, resuming 2026) — hands-on AI literacy workshops for students, residents, and working professionals across all nine Coachella Valley cities. 30+ workshops, 300+ participants in 2025. Hosted at the CSUSB Entrepreneurship Resource Center, Palm Desert.
 
-## Core pages
+- **AI Talent & Job Board** (planned) — an initiative to connect valley small businesses with locally trained applied-AI workers. Designed to turn AI literacy into paid work in the valley.
 
-- [Homepage](https://aicoachellavalley.org/) — mission, programs, valley graph
+## AI Preparedness & Workforce Context
+
+AICV addresses the gap between AI's rapid deployment across industries and communities' ability to prepare for it. In the Coachella Valley — a regional economy anchored by hospitality, agriculture, healthcare, and real estate — AI is reshaping hiring, customer service, economic development, and capital flows faster than most workers and businesses have adapted.
+
+AICV works on three layers:
+
+1. **Infrastructure** — the Intelligence Network structures the valley's identity for AI systems so the region is accurately represented in AI-generated answers about investment, relocation, workforce, and economic opportunity
+2. **Literacy** — AI Builder Workshops give residents, students, and workers hands-on skills to work confidently alongside AI
+3. **Economic mobility** — the AI Talent & Job Board (planned) connects trained locals to real applied-AI projects and paid work
+
+## Nonprofit & Funding
+
+- **Legal structure**: Fiscally sponsored nonprofit under Desert Community Foundation
+- **Fiscal sponsor**: Desert Community Foundation (desertcommunityfoundation.org)
+- **Founded**: 2025
+- **Location**: Entrepreneurship Resource Center, 37023 Cook Street, Palm Desert, CA 92211
+- **Founder**: Sat Singh — TEDx Rancho Mirage speaker, community educator, technology entrepreneur
+- **Contact**: sat@aicv.co
+- **Program status**: Intelligence Network (live), AI Builder Workshops (paused, resuming), AI Talent & Job Board (planned)
+- **Partners**: UCR Palm Desert, Cal State San Bernardino Palm Desert, Desert Community Foundation, Palm Desert Chamber of Commerce, Rancho Mirage Chamber of Commerce, Inland Empire Journalism Hub and Fund
+
+## Nine Cities Served
+
+Palm Springs · Desert Hot Springs · Cathedral City · Rancho Mirage · Palm Desert · Indian Wells · La Quinta · Indio · Coachella
+
+## Core Pages
+
+- [Homepage](https://aicoachellavalley.org/) — mission, programs, valley intelligence graph
 - [Events](https://aicoachellavalley.org/events) — workshops, bootcamps, office hours
-- [AICV Pledge](https://aicoachellavalley.org/aicv-pledge.pdf) — pledge form
-- [AICV Pledge Deck](https://aicoachellavalley.org/aicv-pledge-deck.pdf) — partnership overview
-
-## Fiscal and legal
-
-- Fiscal sponsor: Desert Community Foundation
-- Location: Palm Desert, California
-- Contact: sat@aicv.co
-- Founder: Sat Singh
-
-## Optional
-
-- [AICV Intelligence Layer (.com)](https://aicoachellavalley.com) — the agent-native companion site with nodes, briefs, and reports
+- [Responsible AI Pledge](https://aicoachellavalley.org/aicv-pledge.pdf) — AICV's community AI pledge document
+- [Intelligence Network (.com)](https://aicoachellavalley.com) — the agent-native companion with nodes, briefs, and reports
+- [llms.txt (.com)](https://aicoachellavalley.com/llms.txt) — machine-readable summary of the Intelligence Network

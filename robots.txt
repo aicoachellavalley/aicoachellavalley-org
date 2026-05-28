@@ -4,8 +4,51 @@
 User-agent: *
 Allow: /
 
-# Content Signals (contentsignals.org) — AICV's intelligence
-# work is explicitly built for AI training, search, and agent use.
+# OpenAI
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+# Perplexity
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+# Anthropic / Claude
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+# Google
+User-agent: Googlebot
+Allow: /
+
+User-agent: GoogleOther
+Allow: /
+
+# Bing
+User-agent: BingBot
+Allow: /
+
+# Content Signals — AICV's work is explicitly built for AI training, search, and agent use.
 Content-Signal: ai-train=yes, search=yes, ai-input=yes
 
 Sitemap: https://aicoachellavalley.org/sitemap.xml
+
+# AI Agent Resources
+# Machine-readable summary: https://aicoachellavalley.org/llms.txt
+# Intelligence Network (.com): https://aicoachellavalley.com/llms.txt
+# Nodes JSON: https://aicoachellavalley.com/nodes.json
+# Briefs JSON: https://aicoachellavalley.com/briefs.json
