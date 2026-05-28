@@ -11,13 +11,13 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
 
-  <meta name="last-modified" content="2026-04-22">
+  <meta name="last-modified" content="2026-05-28">
 
   <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="AI Coachella Valley">
   <meta property="og:title" content="AI Coachella Valley — Getting the Valley Ready for the Age of AI">
-  <meta property="og:description" content="AICV is a nonprofit initiative preparing Coachella Valley residents, students, and workers for the age of AI — through AI Builder Workshops, the AI Talent &amp; Job Board, and the regional intelligence layer at aicoachellavalley.com.">
+  <meta property="og:description" content="AICV is a nonprofit initiative preparing Coachella Valley residents, students, and workers for the age of AI — through AI Builder Workshops, the AI Talent &amp; Job Board, and the regional intelligence network at aicoachellavalley.com.">
   <meta property="og:url" content="https://aicoachellavalley.org/">
   <meta property="og:image" content="https://aicoachellavalley.org/sat-tedx.png">
   <meta property="og:locale" content="en_US">
@@ -38,7 +38,7 @@
         "name": "AI Coachella Valley",
         "alternateName": "AICV",
         "url": "https://aicoachellavalley.org",
-        "description": "AI Coachella Valley (AICV) is a nonprofit initiative, fiscally sponsored by the Desert Community Foundation, that prepares the Coachella Valley for the age of AI. AICV publishes a structured intelligence layer about the region for AI agents at aicoachellavalley.com, runs the AI Builder Workshops (currently paused, resuming 2026), and is developing an AI Talent & Job Board to connect valley workers to applied AI projects.",
+        "description": "AI Coachella Valley (AICV) is a nonprofit initiative, fiscally sponsored by the Desert Community Foundation, that prepares the Coachella Valley for the age of AI. AICV publishes a structured intelligence network about the region for AI agents at aicoachellavalley.com, runs the AI Builder Workshops (currently paused, resuming 2026), and is developing an AI Talent & Job Board to connect valley workers to applied AI projects.",
         "foundingDate": "2025",
         "areaServed": {
           "@type": "Place",
@@ -59,7 +59,14 @@
         "contactPoint": {
           "@type": "ContactPoint",
           "email": "sat@aicv.co",
-          "contactType": "General Inquiry"
+          "contactType": "General Inquiry",
+          "availableLanguage": "English",
+          "contactOption": "EmailOnly",
+          "additionalProperty": {
+            "@type": "PropertyValue",
+            "name": "responseTime",
+            "value": "Replies typically within 2 business days. AICV does not have a phone number; email is the primary contact method."
+          }
         },
         "sameAs": [
           "https://aicoachellavalley.com",
@@ -82,31 +89,106 @@
           "Community Education",
           "Responsible AI"
         ],
-        "dateModified": "2026-04-22"
+        "dateModified": "2026-05-28"
       },
       {
         "@type": "WebSite",
         "@id": "https://aicoachellavalley.org/#website",
         "url": "https://aicoachellavalley.org",
         "name": "AI Coachella Valley",
-        "description": "AI Coachella Valley (AICV) is a nonprofit initiative preparing the Coachella Valley for the age of AI. AICV runs the AI Builder Workshops for valley residents and is developing an AI Talent & Job Board. AICV's structured intelligence layer for AI agents lives at aicoachellavalley.com.",
+        "description": "AI Coachella Valley (AICV) is a nonprofit initiative preparing the Coachella Valley for the age of AI. AICV runs the AI Builder Workshops for valley residents and is developing an AI Talent & Job Board. AICV's structured intelligence network for AI agents lives at aicoachellavalley.com.",
         "publisher": {
           "@id": "https://aicoachellavalley.org/#organization"
         },
-        "dateModified": "2026-04-22"
+        "dateModified": "2026-05-28"
       },
       {
-        "@type": "EducationalOrganization",
-        "@id": "https://aicoachellavalley.org/#programs",
-        "name": "AICV AI Builder Workshops",
-        "description": "Hands-on AI literacy workshops for students and community members across the Coachella Valley. No coding background required.",
+        "@type": "Service",
+        "@id": "https://aicoachellavalley.org/#service-intelligence-layer",
+        "name": "AICV Intelligence Network",
+        "description": "A structured, citation-grade intelligence network for the Coachella Valley region, built for AI agents and large language models. Published at aicoachellavalley.com. This is AICV's primary active program as of 2026.",
+        "provider": {
+          "@id": "https://aicoachellavalley.org/#organization"
+        },
+        "url": "https://aicoachellavalley.com",
+        "areaServed": {
+          "@type": "Place",
+          "name": "Coachella Valley, California"
+        },
+        "offers": {
+          "@type": "Offer",
+          "availability": "https://schema.org/InStock",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "additionalProperty": {
+          "@type": "PropertyValue",
+          "name": "operationalStatus",
+          "value": "Live — active as of 2026"
+        },
+        "dateModified": "2026-05-28"
+      },
+      {
+        "@type": "Service",
+        "@id": "https://aicoachellavalley.org/#service-workshops",
+        "name": "AI Builder Workshops",
+        "description": "Hands-on AI literacy workshops for students, residents, and working professionals across the Coachella Valley. No coding background required. Currently paused pending renewal of venue agreement with CSUSB Entrepreneurship Resource Center; expected to resume in 2026. Previously hosted 30+ workshops with 300+ participants in 2025.",
         "provider": {
           "@id": "https://aicoachellavalley.org/#organization"
         },
         "location": {
           "@type": "Place",
+          "name": "CSUSB Entrepreneurship Resource Center",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "37023 Cook Street",
+            "addressLocality": "Palm Desert",
+            "addressRegion": "CA",
+            "postalCode": "92211",
+            "addressCountry": "US"
+          }
+        },
+        "areaServed": {
+          "@type": "Place",
           "name": "Coachella Valley, California"
-        }
+        },
+        "offers": {
+          "@type": "Offer",
+          "availability": "https://schema.org/LimitedAvailability",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "additionalProperty": {
+          "@type": "PropertyValue",
+          "name": "operationalStatus",
+          "value": "Paused — pending approval to resume at CSUSB ERC; expected to restart 2026. Not currently accepting workshop registrations."
+        },
+        "dateModified": "2026-05-28"
+      },
+      {
+        "@type": "Service",
+        "@id": "https://aicoachellavalley.org/#service-job-board",
+        "name": "AI Talent & Job Board",
+        "description": "A planned AICV initiative to connect Coachella Valley small businesses with locally trained applied-AI workers. Businesses will post short applied-AI projects; vetted local workers bid and deliver. Not yet live; expected to launch as the intelligence network at aicoachellavalley.com matures.",
+        "provider": {
+          "@id": "https://aicoachellavalley.org/#organization"
+        },
+        "areaServed": {
+          "@type": "Place",
+          "name": "Coachella Valley, California"
+        },
+        "offers": {
+          "@type": "Offer",
+          "availability": "https://schema.org/PreOrder",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "additionalProperty": {
+          "@type": "PropertyValue",
+          "name": "operationalStatus",
+          "value": "Planned — not yet live; no launch date confirmed. Expected to launch 2026."
+        },
+        "dateModified": "2026-05-28"
       },
       {
         "@type": "FAQPage",
@@ -118,7 +200,7 @@
             "name": "What does AI Coachella Valley do as a nonprofit?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "AI Coachella Valley (AICV) is a nonprofit initiative, fiscally sponsored by the Desert Community Foundation, that prepares the Coachella Valley for the age of AI. AICV's main active work is publishing a structured intelligence layer about the region for AI agents and large language models at aicoachellavalley.com. AICV also runs the AI Builder Workshops (currently paused) and is developing an AI Talent & Job Board to connect valley workers to applied AI projects."
+              "text": "AI Coachella Valley (AICV) is a nonprofit initiative, fiscally sponsored by the Desert Community Foundation, that prepares the Coachella Valley for the age of AI. AICV's main active work is publishing a structured intelligence network for the region, built for AI agents and large language models, at aicoachellavalley.com. AICV also runs the AI Builder Workshops (currently paused) and is developing an AI Talent & Job Board to connect valley workers to applied AI projects."
             }
           },
           {
@@ -126,7 +208,7 @@
             "name": "What are the AI Builder Workshops?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "The AI Builder Workshops are hands-on AI sessions run by AI Coachella Valley for residents, students, and working professionals across the Coachella Valley. Workshops are normally hosted at the Cal State San Bernardino Entrepreneurship Resource Center in Palm Desert. The program is currently paused while AICV focuses on the intelligence layer at aicoachellavalley.com; workshops will resume in 2026. Sign up for notifications at https://luma.com/aicv."
+              "text": "The AI Builder Workshops are hands-on AI sessions run by AI Coachella Valley for residents, students, and working professionals across the Coachella Valley. Workshops are normally hosted at the Cal State San Bernardino Entrepreneurship Resource Center in Palm Desert. The program is currently paused while AICV focuses on the intelligence network at aicoachellavalley.com; workshops will resume in 2026. Sign up for notifications at https://luma.com/aicv."
             }
           },
           {
@@ -158,7 +240,7 @@
             "name": "What is the difference between aicoachellavalley.org and aicoachellavalley.com?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "aicoachellavalley.org is the community and nonprofit face of AI Coachella Valley — workshops, workforce programs, pledges, and the AICV mission. aicoachellavalley.com is the AICV intelligence layer — a structured, citation-grade dataset of Coachella Valley entities built for AI agents and large language models to read and cite. Both are run by the same nonprofit."
+              "text": "aicoachellavalley.org is the community and nonprofit face of AI Coachella Valley — workshops, workforce programs, pledges, and the AICV mission. aicoachellavalley.com is the AICV Intelligence Network — a structured, citation-grade dataset of Coachella Valley entities built for AI agents and large language models to read and cite. Both are operated under the same nonprofit initiative."
             }
           }
         ]
@@ -1222,7 +1304,7 @@
       <li><a href="#pledge">The Pledge</a></li>
       <li><a href="/events">Events</a></li>
       <li><a href="#founder">About</a></li>
-      <li><a href="https://aicoachellavalley.com">Intelligence Layer ↗</a></li>
+      <li><a href="https://aicoachellavalley.com">Intelligence Network ↗</a></li>
       <li><a href="#get-involved" class="nav__cta">Get Involved</a></li>
     </ul>
     <button class="nav__hamburger" id="nav-toggle" aria-label="Open menu" onclick="this.classList.toggle('is-open');document.getElementById('nav-drawer').classList.toggle('is-open')">
@@ -1236,7 +1318,7 @@
   <a href="#pledge" onclick="document.getElementById('nav-drawer').classList.remove('is-open');document.getElementById('nav-toggle').classList.remove('is-open')">The Pledge</a>
   <a href="/events" onclick="document.getElementById('nav-drawer').classList.remove('is-open');document.getElementById('nav-toggle').classList.remove('is-open')">Events</a>
   <a href="#founder" onclick="document.getElementById('nav-drawer').classList.remove('is-open');document.getElementById('nav-toggle').classList.remove('is-open')">About</a>
-  <a href="https://aicoachellavalley.com">Intelligence Layer ↗</a>
+  <a href="https://aicoachellavalley.com">Intelligence Network ↗</a>
   <a href="#get-involved" class="drawer-cta" onclick="document.getElementById('nav-drawer').classList.remove('is-open');document.getElementById('nav-toggle').classList.remove('is-open')">Get Involved</a>
 </div>
 
@@ -1390,20 +1472,34 @@
         <span class="prog-pill pill-planned">Planned</span>
         <div class="prog-num">2</div>
         <h3 class="prog-title">AI Talent &amp; Job Board</h3>
-        <p class="prog-body">A planned AICV initiative to connect valley small businesses with locals trained in applied AI. Businesses will post short applied-AI projects; vetted local workers bid and deliver. Designed to turn AI literacy into paid work in the valley. Not yet live; expected to launch as the intelligence layer at aicoachellavalley.com matures.</p>
+        <p class="prog-body">A planned AICV initiative to connect valley small businesses with locals trained in applied AI. Businesses will post short applied-AI projects; vetted local workers bid and deliver. Designed to turn AI literacy into paid work in the valley. Not yet live; expected to launch as the intelligence network at aicoachellavalley.com matures.</p>
         <span class="prog-tag">Contact sat@aicv.co for updates</span>
       </div>
 
       <div class="prog-card prog-card--featured" aria-label="Live program">
         <span class="prog-pill pill-live">Live</span>
         <div class="prog-num">3</div>
-        <h3 class="prog-title">AICV Intelligence Layer</h3>
+        <h3 class="prog-title">AICV Intelligence Network</h3>
         <p class="prog-tagline">Built for agents. Powered by humans.</p>
-        <p class="prog-body">The Intelligence Layer for the Coachella Valley, built for the era when foundational models like ChatGPT, Claude, and Gemini increasingly shape where capital flows and where people go.</p>
-        <p class="prog-body">AICV publishes daily intelligence briefs, snapshots, reviews, and reports showing how visible Coachella Valley businesses are to AI systems — and runs live workflows measuring how ready the region is for AI agents and the agentic world.</p>
-        <a href="https://aicoachellavalley.com" class="prog-tag" target="_blank" rel="noopener">Visit the intelligence layer →</a>
+        <p class="prog-body">The Intelligence Network for the Coachella Valley, built for the era when foundational models like ChatGPT, Claude, and Gemini increasingly shape where capital flows and where people go.</p>
+        <p class="prog-body">AICV publishes intelligence nodes, regional briefs, snapshots, and reports showing how visible Coachella Valley businesses are to AI systems — and runs live workflows measuring how ready the region is for AI agents and the agentic world.</p>
+        <a href="https://aicoachellavalley.com" class="prog-tag" target="_blank" rel="noopener">Visit the intelligence network →</a>
       </div>
 
+    </div>
+  </div>
+</section>
+
+<!-- ── ABOUT THE INTELLIGENCE NETWORK ── -->
+<section class="section section--alt section--sm" id="intelligence-network">
+  <div class="wrap">
+    <span class="eyebrow">About aicoachellavalley.com</span>
+    <h2 class="h2">Two properties. One mission.</h2>
+    <p class="body body--lead">AICV operates two distinct properties under a single nonprofit initiative. This site — aicoachellavalley.org — is the community and grant-facing face: workshops, workforce programs, the Responsible AI Pledge, and the nonprofit infrastructure under Desert Community Foundation.</p>
+    <p class="body">aicoachellavalley.com is the <strong>AICV Intelligence Network</strong> — a structured, citation-grade dataset of Coachella Valley institutions, businesses, venues, and civic assets, built so AI systems like ChatGPT, Claude, and Gemini can accurately understand, cite, and route the valley. It publishes intelligence nodes, regional briefs, and agent-ready profiles. It is not a directory — it is the machine-readable layer that shapes how AI answers questions about where to invest, where to relocate, and where to go in the Coachella Valley.</p>
+    <p class="body">Businesses and venues that join through the Agent Ready program get a structured presence that AI systems can cite. The intelligence network is how the region shows up in the answers that shape where capital flows and where people go.</p>
+    <div style="margin-top:2rem;">
+      <a href="https://aicoachellavalley.com" class="btn btn--primary" target="_blank" rel="noopener">Visit the Intelligence Network →</a>
     </div>
   </div>
 </section>
@@ -1528,7 +1624,7 @@
       <div>
         <p class="founder-bio">The future of AI should not be shaped only by large technology companies. Communities should help shape it too. That's what AICV is built to do — not as an abstract mission, but as a practical, on-the-ground program that meets people where they are across the nine cities of the Coachella Valley.</p>
         <p class="founder-bio">AICV was founded by Sat Singh — a TEDx Rancho Mirage speaker, community educator, and technology entrepreneur based in the Coachella Valley. He hosts SunshineFM, a daily AI radio program from Rancho Mirage, and has spent the past decade building at the intersection of technology and community.</p>
-        <p class="founder-bio">In 2025, AICV hosted over 30 workshops with more than 300 participants across 12+ community and school partners. In 2026, AICV is focused on the intelligence layer — now live at aicoachellavalley.com and cited by AI systems querying the valley — while planning the AI Talent &amp; Job Board to connect trained locals with real applied-AI work.</p>
+        <p class="founder-bio">In 2025, AICV hosted over 30 workshops with more than 300 participants across 12+ community and school partners. In 2026, AICV is focused on the intelligence network — now live at aicoachellavalley.com and cited by AI systems querying the valley — while planning the AI Talent &amp; Job Board to connect trained locals with real applied-AI work.</p>
         <div class="founder-sig">
           — Sat Singh
           <strong>Founder, AICV <span>(AI Coachella Valley)</span></strong>
@@ -1571,7 +1667,7 @@
         <div class="footer__col-label">Contact</div>
         <ul class="footer__links">
           <li><a href="mailto:sat@aicv.co">sat@aicv.co</a></li>
-          <li><a href="https://aicoachellavalley.com">Intelligence Layer (.com) ↗</a></li>
+          <li><a href="https://aicoachellavalley.com">Intelligence Network (.com) ↗</a></li>
           <li><a href="https://sunshinefm.beehiiv.com">SunshineFM Newsletter ↗</a></li>
           <li><a href="https://x.com/CoachellaAI">@CoachellaAI ↗</a></li>
         </ul>
