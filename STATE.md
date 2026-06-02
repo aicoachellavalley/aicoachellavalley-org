@@ -5,11 +5,13 @@
 ## Current
 
 - Plain static HTML — no Astro, no build system
-- Two main files: `index.html` (~1970 lines), `events.html` (~940 lines)
+- Three main files: `index.html` (~1980 lines), `events.html` (~940 lines), `404.html`
 - Supporting files: `sitemap.xml`, `robots.txt`, `llms.txt`, PDFs
+- Agent endpoints: `/.well-known/api-catalog` (RFC 9727 linkset), `/.well-known/mcp/server-card.json`
+- `_headers`: security headers on `/*` + `Link: </.well-known/api-catalog>; rel="api-catalog"` + CORS + Content-Type overrides for agent endpoints
 - Cloudflare Pages — **manual deploy** (not auto-deploy)
 - Deploy: `cd ~/Projects/org && npx wrangler pages deploy . --project-name aicoachellavalley-org`
-- Zone: Cloudflare Free plan. Markdown for Agents NOT enabled — not justified given agent traffic levels on this property.
+- Zone: Cloudflare Free plan. Markdown for Agents NOT enabled — requires Cloudflare Pro / Transform Rules; deferred (see Agent-Readiness below).
 
 ## Functional role
 
@@ -57,7 +59,7 @@ The graph fetch uses `.catch(console.warn)` only. A failed fetch produces a blan
 Three cards:
 1. **AI Builder Workshops** (Currently paused) — hosted at CSUSB ERC Palm Desert, resumes 2026, Luma signup https://luma.com/aicv
 2. **AI Talent & Job Board** (Planned initiative) — not yet live, expected when .com intelligence layer matures
-3. **AICV Intelligence Layer** (LIVE) — "Built for agents. Powered by humans." Links to aicoachellavalley.com
+3. **AICV Intelligence Network** (LIVE) — "Built for agents. Powered by humans." Links to aicoachellavalley.com
 
 If any program changes status: update index.html cards + FAQPage answers + Organization/WebSite schema descriptions + llms.txt "What AICV does" section. All must stay in sync.
 
@@ -86,6 +88,29 @@ TEDx Rancho Mirage is NOT in the partnership list — it's a founder credibility
 
 ---
 
+## 2026-06-02 — Agent-readiness scan closure (three commits)
+
+### Commits (most recent first)
+
+- **54d5c9b** — feat(schema): operationalStatus PropertyValue added to Organization node (machine-readable partial-active summary); Service @id renamed `#service-intelligence-layer` → `#service-intelligence-network` (aligns with confirmed naming convention).
+- **131cd97** — feat: 404.html added. Cloudflare Pages was serving index.html at HTTP 200 for all unmatched paths (no 404.html = Pages fallback). Real 404 status now returned; clears phantom "HTML instead of JSON" scanner flags on correctly-absent `/.well-known/*` paths (openid-configuration, oauth-authorization-server, etc.). Chrome matches site identity — same tokens, nav, footer as events.html. No JS redirect or meta-refresh.
+- **a477354** — feat(headers): `Link: </.well-known/api-catalog>; rel="api-catalog"` added to `_headers` `/*` rule (RFC 9727). Closes Discoverability 2/3 gap from the April 23 scan.
+
+### Schema on homepage (as of 2026-06-02)
+
+`@graph` with 6 objects: Organization + NGO (with operationalStatus PropertyValue), WebSite, Service × 3 (Intelligence Network / live, AI Builder Workshops / paused, AI Talent & Job Board / planned — each with operationalStatus PropertyValue), FAQPage (6 questions). `EducationalOrganization` node removed in a prior session; replaced by the three typed Service objects.
+
+### Agent surfaces (as of 2026-06-02)
+
+- `/robots.txt` — Content-Signal + explicit Allow for all major AI crawlers; no Disallow rules
+- `/llms.txt` — nonprofit summary, program statuses, cross-reference to .com
+- `/sitemap.xml` — two URLs (homepage, events); `lastmod` dates stale at 2026-04-22
+- `/.well-known/api-catalog` — RFC 9727 linkset; CORS open; advertised via Link response header
+- `/.well-known/mcp/server-card.json` — 5 tools, points to `mcp.aicoachellavalley.com`
+- `404.html` — branded 404 page; unmatched paths now return genuine 404 status
+
+---
+
 ## Agent-Readiness Baselines — 2026-04-23
 
 Pre-change baseline captured before today's content truth + Option B agent infrastructure deployment.
@@ -106,13 +131,13 @@ Both warnings addressed in this session via: status pill badges (Live / Paused /
 
 ## Agent-Readiness Items Intentionally Deferred
 
-- **Markdown for Agents / Cloudflare Pro upgrade** — deferred ~2 weeks. Revisit if pitch activity or agent traffic on .org materializes. Current rationale: .org serves human institutional stakeholders; the structured intelligence layer and agent corpus live at .com.
+- **Markdown for Agents** — requires Cloudflare Pro / Transform Rules (content negotiation on `Accept: text/markdown`). Deferred indefinitely on Free plan. Revisit if .org pitch or agent traffic materializes.
 
-- **WebMCP** — deferred to same dedicated session scheduled for .com. Will mirror .com's implementation when built.
+- **WebMCP** — deferred; requires interactive browser tools on .org to justify. Mirror .com when built.
 
-- **OAuth/OIDC discovery** + **OAuth Protected Resource** — not applicable. .org has no protected APIs by design.
+- **DNS-AID** — DNS-layer agent discovery (draft spec). Deferred; no urgency on Free plan static site.
 
-- **Phone number in Organization schema contactPoint** — deferred pending Twilio routing project (shared with .com).
+**Confirmed N/A (not gaps):** OAuth/OIDC discovery, oauth-authorization-server, oauth-protected-resource, auth.md, agent-skills/index.json — .org has no protected APIs and no .org-resident agent skills by design. Phone number in contactPoint — deferred pending Twilio routing (shared with .com).
 
 ---
 
@@ -133,8 +158,7 @@ After commit 70915fe deployed, re-ran both scans.
 
 ## Next .org Cleanup Cycle (scoped, not today)
 
-1. Investigate Discoverability 2/3 gap — compare .com llms.txt  
-   implementation against .org's, identify missing signal
-2. Add hero-area program status summary line (AIO Tool HIGH)
-3. Revisit Markdown for Agents + Pro upgrade when .org pitch  
-   traffic materializes
+1. Add hero-area program status summary line (AIO Tool HIGH from April scan — pill badges are card-level; scanner wants hero-area banner)
+2. Fact-check `llms.txt` workshop count: "30+ workshops, 300+ participants in 2025" — verify against current program truth
+3. `404.html` eyebrow: "404 · Page Not Found" fits neither site eyebrow pattern (category label or brand/domain); cosmetic only
+4. `sitemap.xml` `lastmod` dates stale at 2026-04-22 — update to reflect actual last-modified dates when tree is next open
