@@ -48,7 +48,7 @@ Palm Springs · Desert Hot Springs · Cathedral City · Rancho Mirage · Palm De
 ## Core Pages
 
 - [Homepage](https://aicoachellavalley.org/) — mission, programs, valley intelligence graph
-- [Events](https://aicoachellavalley.org/events) — workshops, bootcamps, office hours
+- [Events](https://aicoachellavalley.org/events) — calendar of upcoming AI events in the Coachella Valley
 - [Responsible AI Pledge](https://aicoachellavalley.org/aicv-pledge.pdf) — AICV's community AI pledge document
 - [Intelligence Network (.com)](https://aicoachellavalley.com) — the agent-native companion with nodes, briefs, and reports
 - [llms.txt (.com)](https://aicoachellavalley.com/llms.txt) — machine-readable summary of the Intelligence Network
