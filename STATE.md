@@ -5,7 +5,7 @@
 ## Current
 
 - Plain static HTML — no Astro, no build system
-- Three main files: `index.html` (~1980 lines), `events.html` (~940 lines), `404.html`
+- Four main files: `index.html` (~1980 lines), `events.html` (~860 lines), `ai-readiness.html` (~916 lines), `404.html`
 - Supporting files: `sitemap.xml`, `robots.txt`, `llms.txt`, PDFs
 - Agent endpoints: `/.well-known/api-catalog` (RFC 9727 linkset), `/.well-known/mcp/server-card.json`
 - `_headers`: security headers on `/*` + `Link: </.well-known/api-catalog>; rel="api-catalog"` + CORS + Content-Type overrides for agent endpoints
@@ -110,6 +110,27 @@ TEDx Rancho Mirage is NOT in the partnership list — it's a founder credibility
 
 ---
 
+## 2026-06-09 — Naming repair + /events split (four commits)
+
+### Commits (most recent first)
+
+- **fe0c38f** — refactor: reduce /events to calendar-only surface. Strip SECTIONS 1, 2, 5, 6, 7 from events.html. h2 → h1 promotion on Luma section heading with .h1--lt cream-override rule added. /events meta last-modified + sitemap /events lastmod → 2026-06-09. llms.txt /events entry rewritten to "calendar of upcoming AI events in the Coachella Valley". Schema EventSeries preserved (page remains factually an event series). 860 lines.
+- **479760d** — chore: scaffold /ai-readiness route with migrated content from /events. New ai-readiness.html (~916 lines) carries SECTIONS 1, 2, 5, 6, 7, 8 verbatim from pre-strip events.html. Schema stripped (would have lied on a non-events page). Metadata/title/canonical/og rebound to /ai-readiness. sitemap.xml gains /ai-readiness entry at priority 0.8, monthly changefreq.
+- **a9d64c2** — docs: update .org deploy mechanism — auto-deploy on push is default, manual wrangler is fallback. Test push of 40507d6 created Cloudflare deployment without wrangler invocation; auto-deploy confirmed live as of 2026-06-09. STATE.md previously documented manual.
+- **40507d6** — fix: align naming to Intelligence Network across events.html and 404.html. Both files' nav + drawer + footer references updated from "Intelligence Layer" → "Intelligence Network" to match index.html.
+
+### /events ↔ /ai-readiness audience split
+
+Structural separation: /events serves the AICV calendar (audience: valley participants browsing programs); /ai-readiness serves the durable funder-facing surface (audience: AI-impact philanthropic funders). Page voice on /ai-readiness still reads participant-recruitment; copy session will shift to funder-evidence framing. Meta/OG/Twitter descriptions, schema, dead CSS, llms.txt /ai-readiness entry, and entry-point discoverability from index.html all deferred to copy session.
+
+### Agent surfaces (as of 2026-06-09)
+
+- `/sitemap.xml` — three URLs (homepage, events, ai-readiness); /events + /ai-readiness lastmod = 2026-06-09; homepage lastmod stale at 2026-04-22 (deferred to next index.html touch)
+- `/llms.txt` — /events entry updated to reflect calendar-only purpose; /ai-readiness entry pending copy session
+- Other agent surfaces unchanged from 2026-06-02
+
+---
+
 ## Agent-Readiness Baselines — 2026-04-23
 
 Pre-change baseline captured before today's content truth + Option B agent infrastructure deployment.
@@ -160,4 +181,4 @@ After commit 70915fe deployed, re-ran both scans.
 1. Add hero-area program status summary line (AIO Tool HIGH from April scan — pill badges are card-level; scanner wants hero-area banner)
 2. Fact-check `llms.txt` workshop count: "30+ workshops, 300+ participants in 2025" — verify against current program truth
 3. `404.html` eyebrow: "404 · Page Not Found" fits neither site eyebrow pattern (category label or brand/domain); cosmetic only
-4. `sitemap.xml` `lastmod` dates stale at 2026-04-22 — update to reflect actual last-modified dates when tree is next open
+4. `sitemap.xml` homepage `lastmod` stale at 2026-04-22 — update when index.html is next structurally modified (events.html + ai-readiness.html refreshed 2026-06-09)
