@@ -9,8 +9,7 @@
 - Supporting files: `sitemap.xml`, `robots.txt`, `llms.txt`, PDFs
 - Agent endpoints: `/.well-known/api-catalog` (RFC 9727 linkset), `/.well-known/mcp/server-card.json`
 - `_headers`: security headers on `/*` + `Link: </.well-known/api-catalog>; rel="api-catalog"` + CORS + Content-Type overrides for agent endpoints
-- Cloudflare Pages — **manual deploy** (not auto-deploy)
-- Deploy: `cd ~/Projects/org && npx wrangler pages deploy . --project-name aicoachellavalley-org`
+- Deploy: auto-deploy on push to `main`; manual `wrangler pages deploy` available as fallback.
 - Zone: Cloudflare Free plan. Markdown for Agents NOT enabled — requires Cloudflare Pro / Transform Rules; deferred (see Agent-Readiness below).
 
 ## Functional role
