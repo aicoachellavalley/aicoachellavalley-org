@@ -416,6 +416,7 @@
       color: var(--c-cream);
     }
     .h1 .accent { color: var(--c-ghost); font-style: italic; }
+    .hero__headline .accent { display: block; }
 
     .h2 {
       font-size: var(--fs-h2);
@@ -1372,6 +1373,21 @@
       color: var(--c-ink-m);
       line-height: 1.75;
     }
+    .partners-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      margin-top: var(--s-5);
+      background: var(--c-ghost);
+      border: 2px solid var(--c-ghost);
+    }
+    .partner-card {
+      background: var(--c-cream);
+      padding: 30px 26px;
+    }
+    @media (max-width: 640px) {
+      .partners-grid { grid-template-columns: 1fr; }
+    }
 
     /* ─── FAQ ACCORDION ─── */
     .faq-item {
@@ -1585,12 +1601,12 @@
   <div class="wrap">
     <span class="eyebrow">Partners</span>
     <h2 class="h2">Who we work with.</h2>
-    <div class="partner-groups">
-      <div>
+    <div class="partners-grid">
+      <div class="partner-card">
         <div class="partner-group__label">Academic &amp; Workforce</div>
         <p class="partner-group__list">California State University San Bernardino — Entrepreneurship Resource Center · UCR Palm Desert · Inland Empire Journalism Innovation Hub &amp; Fund</p>
       </div>
-      <div>
+      <div class="partner-card">
         <div class="partner-group__label">Civic &amp; Philanthropic</div>
         <p class="partner-group__list">Desert Community Foundation (Fiscal Sponsor) · City of Palm Desert · Palm Desert Chamber of Commerce · Rancho Mirage Chamber of Commerce</p>
       </div>
