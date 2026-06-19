@@ -655,7 +655,35 @@
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 2px;
       background: var(--c-ghost);
+      margin-top: 0;
+    }
+    .ticket-group__label {
+      font-size: var(--fs-10);
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--c-terracotta);
       margin-top: var(--s-5);
+      margin-bottom: var(--s-2);
+    }
+    .ticket-group__sub {
+      display: block;
+      margin-top: 5px;
+      font-size: var(--fs-12);
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      text-transform: none;
+      color: var(--c-ink-l);
+    }
+    .three-col-card.ticket-card--season {
+      background: #F3DDCF;
+      border-top: 3px solid var(--c-terracotta);
+    }
+    .ticket-note {
+      margin-top: var(--s-4);
+      font-size: var(--fs-13);
+      font-weight: 300;
+      color: var(--c-ink-l);
     }
     .three-col-card {
       background: var(--c-sand);
@@ -900,28 +928,32 @@
   <div class="wrap">
     <span class="eyebrow">Tickets</span>
     <h2 class="h2">Two ways in, plus the season.</h2>
+
+    <div class="ticket-group__label" style="margin-top:var(--s-3);">Single Session</div>
     <div class="tickets-grid">
-      <div class="three-col-card three-col-card--cream">
+      <div class="three-col-card">
         <div class="card-label">General Admission — $25</div>
         <p class="card-body">Your seat in the room: watch real ideas worked through live, ask questions, contribute, and learn HeyGen hands-on.</p>
       </div>
-      <div class="three-col-card three-col-card--cream">
+      <div class="three-col-card">
         <div class="card-label">Premium Featured Idea — $75</div>
         <p class="card-body">Bring your idea and have it worked through live with the room and our guest, from strategy to first build, with a one-page takeaway to keep. Limited slots.</p>
       </div>
     </div>
-    <p class="body" style="margin-top:var(--s-3);"><strong>Going all in? Get the season.</strong> Six monthly workshops July–December plus two pop-ups — season passes are the only tickets that include both pop-ups.</p>
-    <div class="tickets-grid" style="margin-top:var(--s-3);">
-      <div class="three-col-card three-col-card--cream">
+
+    <div class="ticket-group__label">Season Pass · July–December<span class="ticket-group__sub">The only tickets that include both pop-up sessions.</span></div>
+    <div class="tickets-grid">
+      <div class="three-col-card ticket-card--season">
         <div class="card-label">General Admission Pass — $100</div>
         <p class="card-body">Your guaranteed seat at all six workshops, plus both pop-ups. Show up, learn, and watch real ideas worked through live every month.</p>
       </div>
-      <div class="three-col-card three-col-card--cream">
+      <div class="three-col-card ticket-card--season">
         <div class="card-label">Premium Pass — $300</div>
         <p class="card-body">Everything in General Admission, plus bring or rework an idea every single session — yours worked through live with the room and that month's guest, with a takeaway each time. All six workshops, both pop-ups. Five Premium Passes only.</p>
       </div>
     </div>
-    <p class="body" style="margin-top:var(--s-3);">Season passes are available in person — at any session — or email <a href="mailto:sat@aicv.co" class="link">sat@aicv.co</a> to reserve one.</p>
+
+    <p class="ticket-note">Season passes are available in person — at any session — or email <a href="mailto:sat@aicv.co" class="link">sat@aicv.co</a> to reserve one.</p>
   </div>
 </section>
 
