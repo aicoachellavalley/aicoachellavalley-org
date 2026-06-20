@@ -1,11 +1,12 @@
 # org/ operational state
 
 > Operational state only. Strategic state lives in `aicv-playbook/STATE.md`.
+> **Fresh session? Read `HANDOFF.md` first** (tight orientation), then this file for full detail. Current HEAD: `6ecb093` (2026-06-20).
 
 ## Current
 
 - Plain static HTML — no Astro, no build system
-- Four main pages: `index.html` (~2280 lines), `events.html` (~1015 lines), `philanthropy.html` (~1100 lines), `404.html` (~440 lines). (`ai-readiness.html` was RETIRED in `e519554`; `philanthropy.html` added in `456dede` — both prior session, between the 2026-06-09 and 2026-06-20 entries below.)
+- Four main pages: `index.html` (~1770 lines — down from ~2280 after the D3 graph removal), `events.html` (~1015 lines), `philanthropy.html` (~1100 lines), `404.html` (~440 lines). (`ai-readiness.html` was RETIRED in `e519554`; `philanthropy.html` added in `456dede` — both prior session, between the 2026-06-09 and 2026-06-20 entries below.)
 - Supporting files: `sitemap.xml`, `robots.txt`, `llms.txt`, PDFs
 - Agent endpoints: `/.well-known/api-catalog` (RFC 9727 linkset), `/.well-known/mcp/server-card.json`
 - `_headers`: security headers on `/*` + `Link: </.well-known/api-catalog>; rel="api-catalog"` + CORS + Content-Type overrides for agent endpoints
@@ -14,7 +15,7 @@
 
 ## Functional role
 
-Community and nonprofit face of AICV. Mission, programs, AICV Pledge, events, D3 interactive node graph. Audience: grants officers, community partners, workshop alumni, valley residents. Distinct from .com which is the agent-native intelligence layer.
+Community and nonprofit face of AICV. Mission, programs, AICV Pledge, events, philanthropy. Audience: grants officers, community partners, workshop alumni, valley residents. Distinct from .com which is the agent-native intelligence layer. (The homepage D3 node graph was REMOVED 2026-06-20 — see that entry; the corpus lives on `.com`, "Intelligence Network ↗" is the pointer.)
 
 ---
 
@@ -39,17 +40,19 @@ Community and nonprofit face of AICV. Mission, programs, AICV Pledge, events, D3
 
 ---
 
-## D3 Node Graph
+## D3 Node Graph — REMOVED 2026-06-20 (`2e3dce8`)
 
-Live on homepage. Fetches `https://aicoachellavalley.com/nodes.json` (CORS-enabled) and renders ~80 nodes in zone bounding boxes for 9 cities + Valley Wide + Adjacent bands.
+> The homepage D3 node graph was deleted entirely (mount + D3 CDN lib + the ~470-line IIFE + the `.com/nodes.json` fetch). Rationale: it wasn't agent-legible, the node corpus lives on `.com`, and "Intelligence Network ↗" is the honest pointer. The homepage is now D3-dependency-free with no cross-domain fetch. **The two debts below are now MOOT** (no graph to drift or fail) — retained only as history.
 
-### Known debt — ZONE_MAP / SUB_MAP drift
+~~Live on homepage. Fetches `https://aicoachellavalley.com/nodes.json` (CORS-enabled) and renders ~80 nodes in zone bounding boxes for 9 cities + Valley Wide + Adjacent bands.~~
 
-`ZONE_MAP` and `SUB_MAP` are hardcoded in `index.html` and were last synced at commit `2ab7408` (civic-infrastructure node, ~2026-03-30). Any nodes added to `.com`'s nodes.json after that commit will fetch successfully but render unpositioned because they won't appear in ZONE_MAP. Long-term fix: auto-sync from nodes.json at deploy time, or have .com publish enriched nodes.json including zone/subcategory metadata. Separate architectural session — do not attempt manually.
+### ~~Known debt — ZONE_MAP / SUB_MAP drift~~ (MOOT — graph removed)
 
-### Known debt — silent fetch failure
+~~`ZONE_MAP`/`SUB_MAP` hardcoded in `index.html`, last synced `2ab7408`; nodes added to `.com` after that render unpositioned.~~ (At removal time the drift was near-nil: 80/81 nodes positioned.)
 
-The graph fetch uses `.catch(console.warn)` only. A failed fetch produces a blank SVG with no user-visible error. Should eventually render a visible error state.
+### ~~Known debt — silent fetch failure~~ (MOOT — graph removed)
+
+~~The graph fetch used `.catch(console.warn)` only — a failed fetch produced a blank SVG with no error state.~~
 
 ---
 
@@ -137,7 +140,7 @@ Structural separation: /events serves the AICV calendar (audience: valley partic
 
 ## 2026-06-16 → 06-20 — Four-surface rebuild (homepage reframe, /events rebuild, nav propagation, /philanthropy 3.0)
 
-HEAD at `1a52d78`. Commit arc from `adcf16a` forward (all live):
+Commit arc from `adcf16a` forward (all live). NOTE: HEAD has since advanced to `6ecb093` via the 2026-06-20 homepage-cleanup pass (separate entry below); this section covers `adcf16a`→`1a52d78`.
 
 ### Commits (most recent first)
 
@@ -151,14 +154,14 @@ HEAD at `1a52d78`. Commit arc from `adcf16a` forward (all live):
 
 ### Current page truth (as of 2026-06-20)
 
-- **index.html** — anchored on "The Coachella Valley's AI Startup Ecosystem". H1 break + Partners as two cards. FAQPage now 13 questions. Programs pills read **Live · Planned · Live** (AI Builder Workshops are **LIVE / resuming July 1**, NOT paused — supersedes the 2026-04-22 "paused" note below).
+- **index.html** — anchored on "The Coachella Valley's AI Startup Ecosystem". H1 break + Partners as two cards. FAQPage now 13 questions. Programs pills read **Live · Planned · Live** (AI Builder Workshops are **LIVE / resuming July 1**, NOT paused — supersedes the 2026-04-22 "paused" note below). (Further changed in the 2026-06-20 cleanup: hero now H1-only, "Two properties" band removed, D3 graph removed, About/Founder relocated to the page tail — see that entry.)
 - **events.html** — the **Saturday Morning AI: Idea Labs** conversion page (NOT calendar-only — that 2026-06-09 description is superseded). Featured event `evt-5czB0wpW6R66spG`, July 18; four-tier pricing; `EventSeries` + dated `Event` subEvent schema; in-page Luma embed (height 620).
 - **philanthropy.html** — "Philanthropy 3.0" (see `1a52d78` above). Replaces the retired `/ai-readiness`.
 - **404.html** — branded chrome, six-item nav matching the others.
 
 ### Agent surfaces (as of 2026-06-20)
 
-- `/sitemap.xml` — three URLs: homepage, `/events` (lastmod 2026-06-16 ✓), `/philanthropy` (lastmod 2026-06-11 — STALE, page rebuilt 2026-06-19). Homepage lastmod still 2026-04-22 — STALE (page reframed/polished, never bumped). No `/ai-readiness` entry (correctly removed).
+- `/sitemap.xml` — three URLs: homepage (lastmod 2026-06-20 ✓), `/events` (2026-06-16 ✓), `/philanthropy` (2026-06-19 ✓). All current as of the 2026-06-20 cleanup (`d907632` fixed the homepage + philanthropy stale dates). No `/ai-readiness` entry (correctly removed).
 - `/llms.txt` — `/events` entry = Idea Labs series; `/philanthropy` entry = agentic-philanthropy position. Both current. No ai-readiness entry.
 - Two JSON-LD blocks now on philanthropy.html (WebPage + FAQPage); homepage @graph FAQPage = 13 Q.
 
@@ -169,11 +172,33 @@ HEAD at `1a52d78`. Commit arc from `adcf16a` forward (all live):
 
 ### Queued (record in canon, non-urgent)
 
-- **Shipment 4** — `/network` D3 page + homepage static preview + add "Network" to the nav (the six-item menu is built to take it).
+- ~~**Shipment 4** — `/network` D3 page~~ **KILLED 2026-06-20.** Not built; instead the *existing* homepage D3 graph was removed. Rationale: a D3 graph isn't agent-legible, the node corpus lives on `.com`, and "Intelligence Network ↗" is the honest pointer. No `/network` route exists or should be created. (Recon confirmed zero dangling `/network` references anywhere.)
 - **AIQnA-as-Program-2** — strategy conversation.
 - **DCF + CV Giving Day agentic rebuilds** — the bigger play; `/philanthropy` is now their front door.
 - **events GA phone walk-through** — register for July 18 GA on the live page to confirm no wallet-verification wall (only-Sat, Monday-critical).
 - **Backlog** — homepage OG-image still `sat-tedx.png` (swap); dead CSS on events/philanthropy (orphaned `.three-col-grid` etc.).
+
+---
+
+## 2026-06-20 — Homepage cleanup pass (subtraction)
+
+HEAD now **`6ecb093`**. Theme: subtraction — removing the decorative/duplicative rather than building. (Shipment 4 flipped from "build `/network`" to "kill the existing graph".) All live, clean tree, pushed.
+
+### Commits (most recent first)
+
+- **6ecb093** — feat: relocate About/Founder section to page tail. Moved the Founder section (TEDx photo + bio + pull-quote) from between Programs and Stats → between CTA and footer, as a closing founder sign-off. New tail alternates CTA (terracotta) → About (cream) → footer (dusk); old spot now closes Programs (sand) → Stats (dusk) cleanly. `id="founder"` unique; all 4 nav/footer "About"/"Founder" `#founder` anchors still resolve (now scroll near-bottom, fine).
+- **2e3dce8** — feat: remove homepage D3 graph + restore Programs→Founder alternation. Deleted the graph entirely: mount section, D3 CDN `<script>`, the ~470-line IIFE, and the `.com/nodes.json` cross-domain fetch (graph was its sole consumer). Homepage now D3-dependency-free, no cross-domain fetch, −481 lines. Seam fix: recolored Founder sand→cream so Programs(sand)→Founder(cream)→Stats(dusk) alternation held (Founder later relocated in `6ecb093`). All "Intelligence Network ↗" `.com` links + Programs card 3 preserved.
+- **9105860** — feat: remove "Two properties. One mission." band from homepage. The About-aicoachellavalley.com section (`id="intelligence-network"`) was meta-info interrupting the pitch; FAQ Q4 already covers the .com/.org split. No links referenced the anchor; the JSON-LD `#service-intelligence-network` Service `@id` (separate abstract identifier) preserved.
+- **d907632** — feat: homepage hero — remove subhead, tighten to Why-Now + sitemap currency. Hero now H1-only ("The Coachella Valley's AI Startup Ecosystem"); the `.hero__mission` subhead removed from the visible hero (og/twitter share hooks keep the "making founders out of everyone" line — intentionally separate). Hero bottom-padding 110→48px + zeroed orphaned `.hero__headline` margin → 96px hand-off to Why-Now (both dusk). Dead `.hero__mission` CSS stripped. sitemap lastmods fixed (homepage→2026-06-20, /philanthropy→2026-06-19); index meta last-modified→2026-06-20.
+- **f313bec** — docs: STATE.md session-start resync (brought canon current through the four-surface rebuild).
+
+### Current homepage section rhythm (top→bottom)
+
+hero (dusk) · why-now (dusk) · programs (sand) · stats (dusk) · partners (sand) · pledge (dusk) · faq (sand) · cta (terracotta) · **about/founder (cream)** · footer (dusk). No D3 graph. FAQ `.faq-a` capped at `70ch` (deliberate reading measure — confirmed not a bug).
+
+### What did NOT change (protected)
+
+"Intelligence Network ↗" external links (nav/drawer/footer → `.com`) and Programs card 3 "AICV Intelligence Network" — all the honest pointers to where the corpus lives — untouched throughout.
 
 ---
 
