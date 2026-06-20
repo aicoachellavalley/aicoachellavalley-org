@@ -5,7 +5,7 @@
 ## Current
 
 - Plain static HTML — no Astro, no build system
-- Four main files: `index.html` (~1980 lines), `events.html` (~860 lines), `ai-readiness.html` (~916 lines), `404.html`
+- Four main pages: `index.html` (~2280 lines), `events.html` (~1015 lines), `philanthropy.html` (~1100 lines), `404.html` (~440 lines). (`ai-readiness.html` was RETIRED in `e519554`; `philanthropy.html` added in `456dede` — both prior session, between the 2026-06-09 and 2026-06-20 entries below.)
 - Supporting files: `sitemap.xml`, `robots.txt`, `llms.txt`, PDFs
 - Agent endpoints: `/.well-known/api-catalog` (RFC 9727 linkset), `/.well-known/mcp/server-card.json`
 - `_headers`: security headers on `/*` + `Link: </.well-known/api-catalog>; rel="api-catalog"` + CORS + Content-Type overrides for agent endpoints
@@ -54,6 +54,8 @@ The graph fetch uses `.catch(console.warn)` only. A failed fetch produces a blan
 ---
 
 ## Programs section (as of 2026-04-22)
+
+> SUPERSEDED 2026-06-20: AI Builder Workshops are now **Live** (homepage pills read Live · Planned · Live) — workshops resume July 1, not paused. The card structure below is still broadly accurate; the *paused* status is not. See the 2026-06-16 → 06-20 entry.
 
 Three cards:
 1. **AI Builder Workshops** (Currently paused) — hosted at CSUSB ERC Palm Desert, resumes 2026, Luma signup https://luma.com/aicv
@@ -112,6 +114,8 @@ TEDx Rancho Mirage is NOT in the partnership list — it's a founder credibility
 
 ## 2026-06-09 — Naming repair + /events split (four commits)
 
+> SUPERSEDED 2026-06-20: BOTH outcomes of this entry were later reversed. `/ai-readiness` (scaffolded here) was RETIRED in `e519554`; its funder-facing role is gone, replaced by `/philanthropy`. `/events` (reduced to calendar-only here) was REBUILT into the Idea Labs conversion page (`5a6af69`+). This entry is retained as history; for current page truth see the 2026-06-16 → 06-20 entry.
+
 ### Commits (most recent first)
 
 - **fe0c38f** — refactor: reduce /events to calendar-only surface. Strip SECTIONS 1, 2, 5, 6, 7 from events.html. h2 → h1 promotion on Luma section heading with .h1--lt cream-override rule added. /events meta last-modified + sitemap /events lastmod → 2026-06-09. llms.txt /events entry rewritten to "calendar of upcoming AI events in the Coachella Valley". Schema EventSeries preserved (page remains factually an event series). 860 lines.
@@ -128,6 +132,48 @@ Structural separation: /events serves the AICV calendar (audience: valley partic
 - `/sitemap.xml` — three URLs (homepage, events, ai-readiness); /events + /ai-readiness lastmod = 2026-06-09; homepage lastmod stale at 2026-04-22 (deferred to next index.html touch)
 - `/llms.txt` — /events entry updated to reflect calendar-only purpose; /ai-readiness entry pending copy session
 - Other agent surfaces unchanged from 2026-06-02
+
+---
+
+## 2026-06-16 → 06-20 — Four-surface rebuild (homepage reframe, /events rebuild, nav propagation, /philanthropy 3.0)
+
+HEAD at `1a52d78`. Commit arc from `adcf16a` forward (all live):
+
+### Commits (most recent first)
+
+- **1a52d78** — feat: rebuild /philanthropy — "Philanthropy 3.0". Prose wall → locked sourced copy + prescriptive design. Hero "Philanthropy 3.0 starts here." (terracotta-italic accent). Two DIFFERENTIATED on-ramp cards: CV Giving Day (warm terracotta wash / "give now" / heart icon → cvgivingday.org) and Desert Community Foundation (dusk navy / "go deeper" / columns icon → desertfoundation.org). 7-question icon-led FAQ ACCORDION (chat-bubble glyphs). Added `FAQPage` JSON-LD (7 Q&A, answers parity-matched to DOM verbatim) alongside the WebPage node. Inline-SVG icons (currentColor, no dependency). Sourced figures: $3M+ raised by CVGD over 4 yrs / $1M single-day first in 2026 / 149 orgs / 200+; DCF $121M AUM / Charity Navigator 4-star / $25M+ distributed / since 1999, CCF-seeded. CVGD url corrected cvgd.org → cvgivingday.org. Footer "age of AI" lines → ecosystem framing. Meta/OG updated to "Philanthropy 3.0".
+- **ef61af3** — feat: propagate six-item nav across all four pages. Unified menu everywhere: **Philanthropy · Programs · Events · The Pledge · About · Intelligence Network ↗**. "Get Involved" removed from all nav/drawer/footer menus (the `#get-involved` CTA *section* stays on the homepage). Philanthropy is FIRST and the nav CTA (`.nav__cta` button on pages where it isn't current; on philanthropy.html the active state wins). Per-page anchor forms preserved (homepage bare-hash, sub-pages back-ref). Active states: Events on events.html, Philanthropy on philanthropy.html. Nav is inlined per-page (NOT a shared include) → multi-file edit. Footer Navigate keeps its fuller labels + Philanthropy + Events − Get Involved.
+- **bf238dd** — fix: homepage hero H1 break (`display:block` on `.accent` → "AI Startup Ecosystem" on its own line, graceful mobile wrap) + Partners restructured from stacked text to two side-by-side cards (`.partners-grid`/`.partner-card`). Subhead font confirmed working-as-designed (DM Sans 300, same as body) — no change.
+- **54933cb** — refactor: card-ify /events Tickets band. Labeled groups (Single Session / Season Pass) + season tier visually distinguished (warm terracotta tint + accent). Replaced run-on prose divider with eyebrow labels.
+- **fea4257** — refactor: tighten /events layout + design pass. 5 bands → 4 (hero / indigo featured-event anchor / tickets / combined Series+Location tail). Dusk treatment moved to the featured July-18 band as the visual anchor; uniform type; tighter rhythm; iframe 450→620px to surface the Luma registration affordance in the narrower column. Removed orphaned `checkout-button.js`.
+- **5a6af69** — feat: rebuild /events into the Idea Labs conversion landing page. Replaced calendar-only stub with hero + in-page Luma event iframe (`evt-5czB0wpW6R66spG`, July 18, 10am–1pm, CSUSB ERC) + four-tier ticket ladder (GA $25 / Premium $75 online; GA Pass $100 / Premium Pass $300 in-person). `EventSeries` schema upgraded with a dated `subEvent` `Event` (offers). New asset `idea-labs-cover.png` (OG). llms.txt + sitemap refreshed.
+- **adcf16a** — feat: reframe homepage identity → **"The Coachella Valley's AI Startup Ecosystem"** (infrastructure demoted from identity to method). Subhead "AI is making founders out of everyone. This is where we build." Why-Now band rewritten (founder-barrier thesis); FAQ Q1/Q3/Q4/Q7/Q8 reframed + new Q13 → **13-question FAQPage**, schema + DOM in sync. Title trio, 3 meta descriptions, footer, Org/WebSite schema descriptions, Programs card 3 aligned to "agentic intelligence network" + LLMs.
+
+### Current page truth (as of 2026-06-20)
+
+- **index.html** — anchored on "The Coachella Valley's AI Startup Ecosystem". H1 break + Partners as two cards. FAQPage now 13 questions. Programs pills read **Live · Planned · Live** (AI Builder Workshops are **LIVE / resuming July 1**, NOT paused — supersedes the 2026-04-22 "paused" note below).
+- **events.html** — the **Saturday Morning AI: Idea Labs** conversion page (NOT calendar-only — that 2026-06-09 description is superseded). Featured event `evt-5czB0wpW6R66spG`, July 18; four-tier pricing; `EventSeries` + dated `Event` subEvent schema; in-page Luma embed (height 620).
+- **philanthropy.html** — "Philanthropy 3.0" (see `1a52d78` above). Replaces the retired `/ai-readiness`.
+- **404.html** — branded chrome, six-item nav matching the others.
+
+### Agent surfaces (as of 2026-06-20)
+
+- `/sitemap.xml` — three URLs: homepage, `/events` (lastmod 2026-06-16 ✓), `/philanthropy` (lastmod 2026-06-11 — STALE, page rebuilt 2026-06-19). Homepage lastmod still 2026-04-22 — STALE (page reframed/polished, never bumped). No `/ai-readiness` entry (correctly removed).
+- `/llms.txt` — `/events` entry = Idea Labs series; `/philanthropy` entry = agentic-philanthropy position. Both current. No ai-readiness entry.
+- Two JSON-LD blocks now on philanthropy.html (WebPage + FAQPage); homepage @graph FAQPage = 13 Q.
+
+### Traps logged this arc (see project memory `project_aicv_agent_readiness.md`)
+
+- **CF email-obfuscation parity trap** — Cloudflare rewrites visible-DOM emails into `__cf_email__` spans but leaves JSON-LD untouched; run schema↔DOM parity on SOURCE, not CDN-served HTML.
+- **Source-order CSS cascade trap (caught 3×)** — these single-file pages define some base layout rules AFTER their `@media` blocks / modifier rules, so a later base rule silently wins; put responsive/modifier overrides AFTER the base rule (or use a compound selector). Render-check mobile after any responsive CSS add.
+
+### Queued (record in canon, non-urgent)
+
+- **Shipment 4** — `/network` D3 page + homepage static preview + add "Network" to the nav (the six-item menu is built to take it).
+- **AIQnA-as-Program-2** — strategy conversation.
+- **DCF + CV Giving Day agentic rebuilds** — the bigger play; `/philanthropy` is now their front door.
+- **events GA phone walk-through** — register for July 18 GA on the live page to confirm no wallet-verification wall (only-Sat, Monday-critical).
+- **Backlog** — homepage OG-image still `sat-tedx.png` (swap); dead CSS on events/philanthropy (orphaned `.three-col-grid` etc.).
 
 ---
 
@@ -181,4 +227,4 @@ After commit 70915fe deployed, re-ran both scans.
 1. Add hero-area program status summary line (AIO Tool HIGH from April scan — pill badges are card-level; scanner wants hero-area banner)
 2. Fact-check `llms.txt` workshop count: "30+ workshops, 300+ participants in 2025" — verify against current program truth
 3. `404.html` eyebrow: "404 · Page Not Found" fits neither site eyebrow pattern (category label or brand/domain); cosmetic only
-4. `sitemap.xml` homepage `lastmod` stale at 2026-04-22 — update when index.html is next structurally modified (events.html + ai-readiness.html refreshed 2026-06-09)
+4. `sitemap.xml` stale `lastmod`s (STILL OPEN as of 2026-06-20): homepage = 2026-04-22 (should be 2026-06-16 — reframed/polished, never bumped); `/philanthropy` = 2026-06-11 (should be 2026-06-19 — rebuilt). `/events` 2026-06-16 is correct. Bump on next touch of each page.
