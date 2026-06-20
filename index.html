@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
 
-  <meta name="last-modified" content="2026-06-16">
+  <meta name="last-modified" content="2026-06-20">
 
   <!-- Open Graph -->
   <meta property="og:type" content="website">
@@ -552,7 +552,7 @@
     ════════════════════════════════════════ */
     .hero {
       background: var(--c-dusk);
-      padding: 120px var(--gutter) 110px;
+      padding: 120px var(--gutter) 48px;
       position: relative;
       overflow: hidden;
     }
@@ -581,20 +581,8 @@
       position: relative; z-index: 2;
     }
     .hero__headline {
-      margin-bottom: var(--s-4);
+      margin-bottom: 0;
     }
-    .hero__mission {
-      font-size: var(--fs-pull); /* ~clamp(20px, 2.6vw, 30px) — flagged for visual tuning */
-      font-weight: 300;
-      color: rgba(251,247,238,0.78);
-      line-height: 1.5;
-      max-width: 620px;
-    }
-    .hero__mission strong {
-      font-weight: 500;
-      color: rgba(251,247,238,0.95);
-    }
-
     /* hero fade-in */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(18px); }
@@ -602,7 +590,6 @@
     }
     .hero .eyebrow   { animation: fadeUp 0.55s ease both 0.1s; }
     .hero__headline  { animation: fadeUp 0.55s ease both 0.2s; }
-    .hero__mission   { animation: fadeUp 0.55s ease both 0.32s; }
 
     /* ════════════════════════════════════════
        HAMBURGER MENU
@@ -1466,9 +1453,6 @@
     <h1 class="h1 hero__headline">
       The Coachella Valley's <span class="accent">AI Startup Ecosystem</span>
     </h1>
-    <p class="hero__mission">
-      AI is making founders out of everyone. This is where we build.
-    </p>
   </div>
 </section>
 
