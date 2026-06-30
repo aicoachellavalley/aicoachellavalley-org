@@ -38,7 +38,7 @@
         "name": "AI Coachella Valley",
         "alternateName": "AICV",
         "url": "https://aicoachellavalley.org",
-        "description": "AI Coachella Valley (AICV) is a nonprofit initiative, fiscally sponsored by the Desert Community Foundation, building the Coachella Valley's AI Startup Ecosystem. AICV publishes a structured agentic intelligence network about the region for AI agents at aicoachellavalley.com, runs the AI Builder Workshops (funded by the CSUSB ERC, resuming July 1, 2026), and is developing an AI Talent & Job Board to connect valley workers to applied AI projects.",
+        "description": "AI Coachella Valley (AICV) is a nonprofit initiative, fiscally sponsored by the Desert Community Foundation, building the Coachella Valley's AI Startup Ecosystem. AICV publishes a structured agentic intelligence network about the region for AI agents at aicoachellavalley.com, runs the AI Builder Workshops (funded by the CSUSB ERC, resuming July 1, 2026), hosts AI Tinkerers Coachella Valley — the valley's chapter of the global hands-on AI builders' community — and runs AIQnA, a public conversation about how the region thinks about AI.",
         "foundingDate": "2025",
         "areaServed": {
           "@type": "Place",
@@ -92,7 +92,7 @@
         "additionalProperty": {
           "@type": "PropertyValue",
           "name": "operationalStatus",
-          "value": "Partially active — Intelligence Network live at aicoachellavalley.com; AI Builder Workshops funded by the CSUSB ERC and resuming July 1, 2026 (sign up for updates: https://luma.com/aicv); AI Talent & Job Board in development."
+          "value": "Active — Intelligence Network live at aicoachellavalley.com; AI Builder Workshops funded by the CSUSB ERC and resuming July 1, 2026 (sign up for updates: https://luma.com/aicv); AI Tinkerers Coachella Valley open now, first demo night this fall (https://coachella-valley.aitinkerers.org); AIQnA live at aiqna.org."
         },
         "dateModified": "2026-06-16"
       },
@@ -101,7 +101,7 @@
         "@id": "https://aicoachellavalley.org/#website",
         "url": "https://aicoachellavalley.org",
         "name": "AI Coachella Valley",
-        "description": "AI Coachella Valley (AICV) is a nonprofit initiative building the Coachella Valley's AI Startup Ecosystem. AICV runs founder programs, idea labs, and AI Builder Workshops for valley residents and is developing an AI Talent & Job Board. AICV's structured agentic intelligence network for AI agents lives at aicoachellavalley.com.",
+        "description": "AI Coachella Valley (AICV) is a nonprofit initiative building the Coachella Valley's AI Startup Ecosystem. AICV runs founder programs, idea labs, AI Builder Workshops, AI Tinkerers Coachella Valley, and AIQnA for valley residents. AICV's structured agentic intelligence network for AI agents lives at aicoachellavalley.com.",
         "publisher": {
           "@id": "https://aicoachellavalley.org/#organization"
         },
@@ -172,26 +172,53 @@
       },
       {
         "@type": "Service",
-        "@id": "https://aicoachellavalley.org/#service-job-board",
-        "name": "AI Talent & Job Board",
-        "description": "A planned AICV initiative to connect Coachella Valley small businesses with locally trained applied-AI workers. Businesses will post short applied-AI projects; vetted local workers bid and deliver. Not yet live; expected to launch as the intelligence network at aicoachellavalley.com matures.",
+        "@id": "https://aicoachellavalley.org/#service-aitinkerers",
+        "name": "AI Tinkerers Coachella Valley",
+        "description": "The Coachella Valley chapter of AI Tinkerers, the world's largest hands-on AI builders' community. Screened, demo-first, no pitches — it gathers the region's strongest AI builders into one room, the talent that mentors the next generation and trains the trainers. Open now; first demo night this fall.",
         "provider": {
           "@id": "https://aicoachellavalley.org/#organization"
         },
+        "url": "https://coachella-valley.aitinkerers.org",
         "areaServed": {
           "@type": "Place",
           "name": "Coachella Valley, California"
         },
         "offers": {
           "@type": "Offer",
-          "availability": "https://schema.org/PreOrder",
+          "availability": "https://schema.org/InStock",
           "price": "0",
           "priceCurrency": "USD"
         },
         "additionalProperty": {
           "@type": "PropertyValue",
           "name": "operationalStatus",
-          "value": "Planned — not yet live; no launch date confirmed. Expected to launch 2026."
+          "value": "Live — chapter open now; first demo night this fall."
+        },
+        "dateModified": "2026-06-16"
+      },
+      {
+        "@type": "Service",
+        "@id": "https://aicoachellavalley.org/#service-aiqna",
+        "name": "AIQnA",
+        "description": "A public conversation, not a survey: valley residents talk with Sage, an AI guide, about AI and what it means for the region — building a shared picture of how the Coachella Valley really thinks about AI. Live at aiqna.org.",
+        "provider": {
+          "@id": "https://aicoachellavalley.org/#organization"
+        },
+        "url": "https://aiqna.org",
+        "areaServed": {
+          "@type": "Place",
+          "name": "Coachella Valley, California"
+        },
+        "offers": {
+          "@type": "Offer",
+          "availability": "https://schema.org/InStock",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "additionalProperty": {
+          "@type": "PropertyValue",
+          "name": "operationalStatus",
+          "value": "Live — active at aiqna.org as of 2026."
         },
         "dateModified": "2026-06-16"
       },
@@ -1487,7 +1514,7 @@
     <span class="eyebrow">What We Do</span>
     <h2 class="h2">What we're building.</h2>
     <div class="programs-intro">
-      <p class="body">AICV's programs are designed to turn AI literacy into applied skills and paid work across the Coachella Valley.</p>
+      <p class="body">AICV's programs are designed to turn AI literacy into applied skills and real opportunity across the Coachella Valley.</p>
     </div>
 
     <div class="prog-grid">
@@ -1495,17 +1522,18 @@
       <div class="prog-card prog-card--featured" aria-label="Live program">
         <span class="prog-pill pill-live">Live</span>
         <div class="prog-num">1</div>
-        <h3 class="prog-title">AI Builder Workshops</h3>
-        <p class="prog-body">Hands-on AI workshops, office hours, boot camps, and our Saturday Morning AI series at the CSUSB Entrepreneurship Resource Center. Funded by the ERC and renewed for 2026, resuming July 1.</p>
-        <a href="https://luma.com/aicv" class="prog-tag" target="_blank" rel="noopener">Join the Luma list →</a>
+        <h3 class="prog-title">AI Tinkerers Coachella Valley</h3>
+        <p class="prog-body">The valley's chapter of the world's largest hands-on AI builders' community — screened, demo-first, no pitches. It gathers the region's strongest AI builders into one room: the talent that mentors the next generation and trains the trainers. Open now; first demo night this fall.</p>
+        <a href="https://coachella-valley.aitinkerers.org" class="prog-tag" target="_blank" rel="noopener">Join the chapter →</a>
       </div>
 
-      <div class="prog-card prog-dimmed" aria-label="Planned program">
-        <span class="prog-pill pill-planned">Planned</span>
+      <div class="prog-card prog-card--featured" aria-label="Live program">
+        <span class="prog-pill pill-live">Live</span>
         <div class="prog-num">2</div>
-        <h3 class="prog-title">AI Talent &amp; Job Board</h3>
-        <p class="prog-body">A planned AICV initiative to connect valley small businesses with locals trained in applied AI. Businesses will post short applied-AI projects; vetted local workers bid and deliver. Designed to turn AI literacy into paid work in the valley. Not yet live; expected to launch as the intelligence network at aicoachellavalley.com matures.</p>
-        <span class="prog-tag">Contact sat@aicv.co for updates</span>
+        <h3 class="prog-title">AIQnA</h3>
+        <p class="prog-tagline">Question. Answer. Collective intelligence.</p>
+        <p class="prog-body">A conversation, not a survey. Talk with Sage about AI and what it means for the valley — and help your neighbors understand how the region really thinks.</p>
+        <a href="https://aiqna.org" class="prog-tag" target="_blank" rel="noopener">Add your voice →</a>
       </div>
 
       <div class="prog-card prog-card--featured" aria-label="Live program">
