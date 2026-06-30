@@ -1,7 +1,7 @@
 # org/ operational state
 
 > Operational state only. Strategic state lives in `aicv-playbook/STATE.md`.
-> **Fresh session? Read `HANDOFF.md` first** (tight orientation), then this file for full detail. Current HEAD: `ee4242a` (2026-06-30).
+> **Fresh session? Read `HANDOFF.md` first** (tight orientation), then this file for full detail. Current HEAD: `9724b65` (2026-06-30).
 
 ## Current
 
@@ -204,10 +204,11 @@ hero (dusk) · why-now (dusk) · programs (sand) · stats (dusk) · partners (sa
 
 ## 2026-06-30 — Programs reshape: AI Tinkerers + AIQnA (three commits)
 
-HEAD now **`ee4242a`**. Theme: the Programs grid now reflects the two new live community programs; the planned AI Talent & Job Board is retired. Three separate single-purpose commits, each render-gated (desktop 1280 + mobile 375), approval-before-commit, and **verified in live edge bytes** (not inferred from push). All `index.html` only. Build courier came from the strategy thread.
+HEAD now **`9724b65`**. Theme: the Programs grid now reflects the two new live community programs; the planned AI Talent & Job Board is retired. Plus a follow-on legibility polish (`9724b65`). Each a separate single-purpose commit, render-gated (desktop 1280 + mobile 375), approval-before-commit, and **verified in live edge bytes** (not inferred from push). All `index.html` only. Build couriers came from the strategy thread.
 
 ### Commits (most recent first)
 
+- **9724b65** — feat(programs): card legibility + consistency polish. Card ① (AI Tinkerers) gained a tagline ("Demos, not decks. Builders, not spectators.") so all three cards share title→tagline→body→CTA. CSS: featured CTA pills (`.prog-card--featured .prog-tag`) restyled muddy `rgba(168,68,31,0.28)`/ghost-l → **cream bg + terracotta text, mirroring `.pill-live`** (light chip bookends top+bottom); featured tagline lifted to a warm apricot tier (`.prog-card--featured .prog-tagline { color: #F7D9BF }`) so the three per-card tiers (cream chips / apricot tagline / white body) all read on terracotta. Base `.prog-tagline` color (`--c-ink-l`) left intact for future light cards (mirrors the `.prog-body` featured-override pattern). NOTE: `#F7D9BF` is one tuned hex (no token fit the warm-light tier). Row-level tonal variation still NOT addressed (deferred). `.prog-card--featured .prog-num` keeps `rgba(168,68,31,0.28)` — that's the watermark digit, intentional.
 - **ee4242a** — feat(faq): add "I already build with AI — is there anything here for me?" Q at position #8 (right after "Who does AICV serve?"). Added to BOTH the DOM `<details>` list and the FAQPage JSON-LD `mainEntity`, answer text character-identical (parity checked on source, per the CF email-obfuscation trap). FAQ count 13→14. Q3 left as-is (smallest-fix, deliberate). Points existing builders to AI Tinkerers.
 - **3251fbe** — feat(about): founder bio para 3 trailing clause "…while planning the AI Talent & Job Board…" → "…while bringing the AI Tinkerers community to the desert: gathering the region's strongest builders to mentor the next generation and train the trainers." (comma+colon punctuation to avoid stacked em-dashes; "to the desert" avoids valley/valley repetition).
 - **c4edf1f** — feat(programs): reshape cards + schema truth. Card ① "AI Builder Workshops" → **AI Tinkerers Coachella Valley** (→ coachella-valley.aitinkerers.org, Sat browser-confirmed CV chapter). Card ② "AI Talent & Job Board" (Planned/dimmed) → **AIQnA** (Live/featured, tagline "Question. Answer. Collective intelligence.", → aiqna.org). In-place SWAP (not delete+append) so `prog-num` watermarks stay 1/2/3, grid unchanged (`repeat(3,1fr)`). Card ③ untouched. Programs intro "paid work" → "real opportunity". Schema: removed `#service-job-board`; added `#service-aitinkerers` + `#service-aiqna` (both Live/InStock); dropped the job-board clause from Org / operationalStatus / WebSite descriptions (operationalStatus "Partially active" → "Active"). `#service-workshops` left intact (workshops still real).
