@@ -2,10 +2,11 @@
 
 > Session-close orientation for a fresh session. Read this, then `STATE.md` for full detail. Everything below is reconstructable from disk + git; this is the fast path.
 
-## Where things stand (2026-06-20)
+## Where things stand (2026-06-30)
 
 - **Repo:** `aicoachellavalley.org` — the `.org` civic/nonprofit face of AICV. Static HTML, no build step, Cloudflare Pages, **auto-deploys on push to `main`**. Remote is `.org` (`git remote -v` → `aicoachellavalley-org.git`) — NOT `.com` (that's a separate repo, `aicoachellavalley/homepage`).
-- **HEAD: `6ecb093`** · branch `main` · **clean tree, all pushed.** Safe to start fresh.
+- **HEAD: `ee4242a`** · branch `main` · **clean tree, all pushed.** Safe to start fresh.
+- **Latest (2026-06-30) — Programs reshape SHIPPED + live-verified** (`c4edf1f` → `3251fbe` → `ee4242a`): Programs cards are now **AI Tinkerers Coachella Valley · AIQnA · AICV Intelligence Network**, all Live. The **AI Talent & Job Board concept is RETIRED** — gone from cards, schema (`#service-job-board` deleted, `#service-aitinkerers`+`#service-aiqna` added), founder bio, and all schema descriptions. **Do not restore a talent/job board.** Workshops survive only as `#service-workshops` + FAQ Q3/Q9 + /events. New FAQ Q at #8 ("I already build with AI…"). See STATE.md `2026-06-30` entry for full detail. Dead CSS `.pill-planned`/`.prog-dimmed` left orphaned on purpose (backlog, tied to possible row tonal-variation).
 - **Four pages:** `index.html`, `events.html`, `philanthropy.html`, `404.html`. (No `ai-readiness.html` — retired. No `/network` — never built; see below.)
 
 ## What shipped today (commit arc `adcf16a` → `6ecb093`, all live)

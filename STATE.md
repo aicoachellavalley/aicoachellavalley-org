@@ -1,7 +1,7 @@
 # org/ operational state
 
 > Operational state only. Strategic state lives in `aicv-playbook/STATE.md`.
-> **Fresh session? Read `HANDOFF.md` first** (tight orientation), then this file for full detail. Current HEAD: `6ecb093` (2026-06-20).
+> **Fresh session? Read `HANDOFF.md` first** (tight orientation), then this file for full detail. Current HEAD: `ee4242a` (2026-06-30).
 
 ## Current
 
@@ -58,9 +58,9 @@ Community and nonprofit face of AICV. Mission, programs, AICV Pledge, events, ph
 
 ## Programs section (as of 2026-04-22)
 
-> SUPERSEDED 2026-06-20: AI Builder Workshops are now **Live** (homepage pills read Live · Planned · Live) — workshops resume July 1, not paused. The card structure below is still broadly accurate; the *paused* status is not. See the 2026-06-16 → 06-20 entry.
+> ⚠️ FULLY SUPERSEDED 2026-06-30 — see the **2026-06-30 Programs reshape** entry below. The three cards listed here NO LONGER EXIST. AI Builder Workshops is no longer a Programs card (it survives as a service in schema + FAQ Q3/Q9 + /events); the AI Talent & Job Board concept is **RETIRED**. Current cards are **AI Tinkerers Coachella Valley · AIQnA · AICV Intelligence Network** (all Live). Do not restore a talent/job board — it was deliberately retired. Block retained only as history.
 
-Three cards:
+Three cards (HISTORICAL — removed 2026-06-30):
 1. **AI Builder Workshops** (Currently paused) — hosted at CSUSB ERC Palm Desert, resumes 2026, Luma signup https://luma.com/aicv
 2. **AI Talent & Job Board** (Planned initiative) — not yet live, expected when .com intelligence layer matures
 3. **AICV Intelligence Network** (LIVE) — "Built for agents. Powered by humans." Links to aicoachellavalley.com
@@ -199,6 +199,36 @@ hero (dusk) · why-now (dusk) · programs (sand) · stats (dusk) · partners (sa
 ### What did NOT change (protected)
 
 "Intelligence Network ↗" external links (nav/drawer/footer → `.com`) and Programs card 3 "AICV Intelligence Network" — all the honest pointers to where the corpus lives — untouched throughout.
+
+---
+
+## 2026-06-30 — Programs reshape: AI Tinkerers + AIQnA (three commits)
+
+HEAD now **`ee4242a`**. Theme: the Programs grid now reflects the two new live community programs; the planned AI Talent & Job Board is retired. Three separate single-purpose commits, each render-gated (desktop 1280 + mobile 375), approval-before-commit, and **verified in live edge bytes** (not inferred from push). All `index.html` only. Build courier came from the strategy thread.
+
+### Commits (most recent first)
+
+- **ee4242a** — feat(faq): add "I already build with AI — is there anything here for me?" Q at position #8 (right after "Who does AICV serve?"). Added to BOTH the DOM `<details>` list and the FAQPage JSON-LD `mainEntity`, answer text character-identical (parity checked on source, per the CF email-obfuscation trap). FAQ count 13→14. Q3 left as-is (smallest-fix, deliberate). Points existing builders to AI Tinkerers.
+- **3251fbe** — feat(about): founder bio para 3 trailing clause "…while planning the AI Talent & Job Board…" → "…while bringing the AI Tinkerers community to the desert: gathering the region's strongest builders to mentor the next generation and train the trainers." (comma+colon punctuation to avoid stacked em-dashes; "to the desert" avoids valley/valley repetition).
+- **c4edf1f** — feat(programs): reshape cards + schema truth. Card ① "AI Builder Workshops" → **AI Tinkerers Coachella Valley** (→ coachella-valley.aitinkerers.org, Sat browser-confirmed CV chapter). Card ② "AI Talent & Job Board" (Planned/dimmed) → **AIQnA** (Live/featured, tagline "Question. Answer. Collective intelligence.", → aiqna.org). In-place SWAP (not delete+append) so `prog-num` watermarks stay 1/2/3, grid unchanged (`repeat(3,1fr)`). Card ③ untouched. Programs intro "paid work" → "real opportunity". Schema: removed `#service-job-board`; added `#service-aitinkerers` + `#service-aiqna` (both Live/InStock); dropped the job-board clause from Org / operationalStatus / WebSite descriptions (operationalStatus "Partially active" → "Active"). `#service-workshops` left intact (workshops still real).
+
+### Current Programs composition (as of 2026-06-30) — CANONICAL
+
+Three cards, all **Live** (all `prog-card--featured` terracotta now — no dimmed/planned card remains):
+1. **AI Tinkerers Coachella Valley** — CV chapter of the global hands-on AI builders' community; → https://coachella-valley.aitinkerers.org ("Join the chapter →"). First demo night this fall.
+2. **AIQnA** — "A conversation, not a survey." Talk with Sage; → https://aiqna.org ("Add your voice →"). Tagline "Question. Answer. Collective intelligence."
+3. **AICV Intelligence Network** — unchanged; "Built for agents. Powered by humans." → https://aicoachellavalley.com
+
+If any program changes status: update index.html cards + FAQ answers + Org/WebSite/operationalStatus schema + the matching `#service-*` node + llms.txt. All must stay in sync.
+
+### Retired / notes
+
+- **AI Talent & Job Board — RETIRED.** Removed from cards, schema (`#service-job-board` deleted), founder bio, and all three schema description strings. Do not restore. Only the *workshops* survive (as `#service-workshops` + FAQ Q3/Q9 + /events), not the job board.
+- **Dead CSS (backlogged, deliberate):** `.prog-pill.pill-planned` + `.prog-card.prog-dimmed` (index.html ~990–998) are now orphaned — no card uses them. Left in place: harmless, part of the existing dead-CSS sweep (with `.three-col-grid` on events/philanthropy per HANDOFF), AND optionally load-bearing — `prog-dimmed` is the existing hook if tonal variation is ever wanted in the three-terracotta row. Sweep deliberately during the full CSS pass, tied to that row-variation decision — not as a drive-by.
+
+### What did NOT change (protected)
+
+Card ③ "AICV Intelligence Network" + all "Intelligence Network ↗" `.com` pointers; FAQ Q3 (smallest-fix); `#service-workshops`; `.faq-a` 70ch reading measure.
 
 ---
 
