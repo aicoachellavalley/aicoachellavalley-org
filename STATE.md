@@ -1,7 +1,7 @@
 # org/ operational state
 
 > Operational state only. Strategic state lives in `aicv-playbook/STATE.md`.
-> **Fresh session? Read `HANDOFF.md` first** (tight orientation), then this file for full detail. Current HEAD: `43c2e3f` (2026-06-30).
+> **Fresh session? Read `HANDOFF.md` first** (tight orientation), then this file for full detail. Current HEAD: `f86f83e` (2026-07-01).
 
 ## Current
 
@@ -231,6 +231,35 @@ If any program changes status: update index.html cards + FAQ answers + Org/WebSi
 ### What did NOT change (protected)
 
 Card ③ "AICV Intelligence Network" + all "Intelligence Network ↗" `.com` pointers; FAQ Q3 (smallest-fix); `#service-workshops`; `.faq-a` 70ch reading measure.
+
+---
+
+## 2026-07-01 — Partner intake form (STAGING; goes public in Commit 3)
+
+HEAD now **`f86f83e`**. Replaces the broken "Partner with AICV" CTA (a Cloudflare email-obfuscation casualty — its `mailto` is rewritten to `/cdn-cgi/l/email-protection` on the live edge; obfuscation stays ON) with an owned intake form on our own stack. **This is the `.org`'s first Pages Function + D1 + Turnstile.** Architecture = Shape 2 (D1 capture now, native email as fast-follow) because recon found AIQnA's email path is native CF Email Sending but **inert/unproven** (see [[project_aiqna]]). Pattern mirrors the verified live aiqna-agent partner-signup.
+
+### Commits (most recent first)
+
+- **f86f83e** — feat: `/api/partner` Pages Function (backend). `functions/api/partner.js`. POST captures name/email/note → D1 `inquiries` (self-healing table) behind honeypot → Turnstile `siteverify` → IP-hash soft rate-limit (≤5/24h). GET is a **key-gated read** (day-one stopgap; **fails closed** on unset/empty/mismatched `INQUIRY_KEY`) so leads pull with zero email dependency. Native-email notify is a marked fast-follow (row is the guaranteed capture; email non-fatal). **Live-verified inert-but-safe:** GET no/empty key → 401; POST no bindings → 500 "backend isn't configured yet, email sat@aicv.co". Adding `functions/` made Pages start compiling Functions automatically — no build-config change.
+- **3434dbf** — feat: `/partner` page (frontend). New `partner.html` (grantor-legible "Partner with AICV" + 3-field form + Turnstile + honeypot; error state preserves the typed note; `ContactPage` JSON-LD). Built from the events scaffold for nav/footer/token parity, then **trimmed ~330 lines of unused event-page CSS** (1043→713). Orphan page (CTA not repointed yet); posts to `/api/partner`. Turnstile uses the **test site key** as a placeholder. Live: `/partner` → 200 (`/partner.html` → 308 clean-URL).
+
+### Sat's dashboard switch-ons — ORDER MATTERS
+
+Set the secrets **before or with** the D1 binding (not after) so there's no exposure window. Four items on the `.org` Pages project:
+1. **`TURNSTILE_SECRET`**, **`INQUIRY_KEY`**, **`SALT`** (env vars) — first.
+2. **D1** database bound as **`DB`** (production **and** preview).
+3. **Turnstile widget** for `aicoachellavalley.org` → **site key** (goes into `partner.html` in Commit 3) + the secret above.
+
+### Close condition (the real bar — run with Sat)
+
+Not "endpoint returned 200." It's: a **live Turnstile'd submit → row lands in D1 → Sat pulls it back through the key-gated read** (`GET /api/partner?key=…`). Sat may need to do the Turnstile'd submit (behind the widget), like the Luma walk-through.
+
+### Pending
+
+- **Commit 3 (public go-live) — ONLY after the close condition passes:** repoint the closing CTA `mailto` → `/partner`, swap the Turnstile **test** site key → the **real** one, add `/partner` to `sitemap.xml`. Everything before Commit 3 is staging.
+- **Fast-follow:** native CF Email Sending notify to `sat@aicv.co` (drop-in at the marked slot once a sending domain is onboarded + `send_email` binding added).
+- **Deferred (separate commit, flagged not bundled):** FAQ Q10 institutional-inquiry email + footer contact `mailto` → repoint to `/partner` (retires the other two obfuscated mailtos).
+- **Turnstile keys = the lingering [[project_aiqna]] "real Turnstile keys" open item.** Standing up this form is the forcing function — when Sat generates them, **mark that item DONE in canon** (here + aiqna notes) so the next session doesn't rediscover it as open.
 
 ---
 
