@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Partner with AICV — AI Coachella Valley</title>
+  <meta name="description" content="Foundations, funders, academic programs, and civic partners — tell us how you'd like to work together with AI Coachella Valley, and we'll be in touch.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aicoachellavalley.org/partner">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+
+  <meta name="last-modified" content="2026-07-01">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="AI Coachella Valley">
+  <meta property="og:title" content="Partner with AICV — AI Coachella Valley">
+  <meta property="og:description" content="Foundations, funders, academic programs, and civic partners — tell us how you'd like to work together, and we'll be in touch.">
+  <meta property="og:url" content="https://aicoachellavalley.org/partner">
+  <meta property="og:locale" content="en_US">
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Partner with AICV — AI Coachella Valley">
+  <meta name="twitter:description" content="Foundations, funders, academic programs, and civic partners — tell us how you'd like to work together, and we'll be in touch.">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "@id": "https://aicoachellavalley.org/partner#contactpage",
+    "name": "Partner with AICV",
+    "description": "Partnership and inquiry contact page for AI Coachella Valley — for foundations, funders, academic programs, and civic partners who want to work with AICV.",
+    "url": "https://aicoachellavalley.org/partner",
+    "isPartOf": { "@id": "https://aicoachellavalley.org/#website" },
+    "about": { "@id": "https://aicoachellavalley.org/#organization" }
+  }
+  </script>
+  <style>
+    /* ════════════════════════════════════════
+       DESIGN TOKENS — single source of truth
+    ════════════════════════════════════════ */
+    :root {
+      /* Palette */
+      --c-terracotta:   #C8552A;
+      --c-terracotta-d: #A8441F;
+      --c-cream:        #FBF7EE;
+      --c-sand:         #F5EFE0;
+      --c-sand-d:       #EDE5D0;
+      --c-dusk:         #1A2744;
+      --c-dusk-m:       #22306B;
+      --c-ghost:        #EAD4C0;
+      --c-ghost-l:      #F2E4D6;
+      --c-ink:          #1C1008;
+      --c-ink-m:        #3D2518;
+      --c-ink-l:        #6B4A38;
+
+      /* Type scale */
+      --fs-10: 10px;
+      --fs-12: 12px;
+      --fs-13: 13px;
+      --fs-15: 15px;
+      --fs-17: 17px;
+      --fs-22: 22px;
+      --fs-h2: clamp(26px, 3.6vw, 42px);
+      --fs-h1: clamp(38px, 5.5vw, 68px);
+
+      /* Spacing — 8px base grid */
+      --s-1: 8px;
+      --s-2: 16px;
+      --s-3: 24px;
+      --s-4: 32px;
+      --s-5: 40px;
+      --s-6: 48px;
+      --s-8: 64px;
+      --s-10: 80px;
+      --s-14: 112px;
+
+      /* Layout */
+      --max-w: 1080px;
+      --gutter: 40px;
+    }
+
+    /* ════════════════════════════════════════
+       RESET & BASE
+    ════════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+
+    body {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: var(--fs-15);
+      line-height: 1.7;
+      color: var(--c-ink);
+      background: var(--c-cream);
+      overflow-x: hidden;
+    }
+
+    img { display: block; max-width: 100%; }
+    a   { color: inherit; }
+
+    /* ════════════════════════════════════════
+       LAYOUT UTILITIES
+    ════════════════════════════════════════ */
+    .wrap {
+      max-width: var(--max-w);
+      margin: 0 auto;
+    }
+
+    .section {
+      padding: var(--s-5) var(--gutter);
+    }
+    .section--sm   { padding-top: var(--s-6); padding-bottom: var(--s-6); }
+    .section--dark { background: var(--c-dusk); }
+    .section--sand { background: var(--c-sand); }
+    .section--alt  { background: var(--c-sand-d); }
+
+    /* ════════════════════════════════════════
+       TYPOGRAPHY UTILITIES
+    ════════════════════════════════════════ */
+    .eyebrow {
+      display: block;
+      font-size: var(--fs-10);
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--c-terracotta);
+      margin-bottom: var(--s-1);
+    }
+    .eyebrow--lt { color: var(--c-cream); opacity: 0.9; }
+
+    h1, h2, h3 {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-weight: 700;
+      line-height: 1.12;
+    }
+
+    .h1 {
+      font-size: var(--fs-h1);
+      color: var(--c-cream);
+    }
+
+    .h2 {
+      font-size: var(--fs-h2);
+      color: var(--c-ink);
+      margin-bottom: var(--s-2);
+    }
+    .h2--lt { color: var(--c-cream); }
+    .h1--lt { color: var(--c-cream); }
+
+    .h3 {
+      font-size: var(--fs-22);
+      color: var(--c-ink);
+      margin-bottom: var(--s-1);
+    }
+
+    .link { color: var(--c-terracotta); text-decoration: none; }
+    .link:hover { text-decoration: underline; }
+
+    .body {
+      font-size: var(--fs-15);
+      font-weight: 300;
+      color: var(--c-ink-m);
+      line-height: 1.75;
+    }
+    .body + .body { margin-top: var(--s-2); }
+    .body strong  { font-weight: 600; color: var(--c-ink); }
+    .body--lt     { color: rgba(251,247,238,0.65); }
+    .body--lead   { font-size: var(--fs-17); }
+
+    /* ════════════════════════════════════════
+       BUTTONS
+    ════════════════════════════════════════ */
+    .btn {
+      display: inline-block;
+      font-family: 'DM Sans', sans-serif;
+      font-size: var(--fs-13);
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      text-decoration: none;
+      padding: 13px 28px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.1s, border-color 0.15s, color 0.15s;
+      line-height: 1;
+    }
+    .btn:hover { transform: translateY(-1px); }
+
+    .btn--primary { background: var(--c-terracotta); color: var(--c-cream); }
+    .btn--primary:hover { background: var(--c-terracotta-d); }
+
+    .btn--cream { background: var(--c-cream); color: var(--c-terracotta); }
+    .btn--cream:hover { background: var(--c-ghost-l); }
+
+    .btn--ghost {
+      background: transparent;
+      color: var(--c-ghost-l);
+      border: 1px solid rgba(234,212,192,0.35);
+    }
+    .btn--ghost:hover { border-color: var(--c-ghost); color: var(--c-cream); }
+
+    /* ════════════════════════════════════════
+       NAV
+    ════════════════════════════════════════ */
+    .nav {
+      background: var(--c-cream);
+      border-bottom: 1px solid var(--c-ghost);
+      padding: 0 var(--gutter);
+      position: sticky;
+      top: 0;
+      z-index: 200;
+    }
+    .nav__inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+    }
+    .nav__logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .nav__mark {
+      width: 32px; height: 32px;
+      background: var(--c-terracotta);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 14px; font-weight: 700;
+      color: var(--c-cream);
+    }
+    .nav__name {
+      font-size: var(--fs-13);
+      font-weight: 500;
+      color: var(--c-ink);
+    }
+    .nav__links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      list-style: none;
+    }
+    .nav__links a {
+      font-size: var(--fs-13);
+      font-weight: 400;
+      color: var(--c-ink-m);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .nav__links a:hover { color: var(--c-terracotta); }
+    .nav__links a.is-active { color: var(--c-terracotta); font-weight: 500; }
+    .nav__cta {
+      background: var(--c-terracotta) !important;
+      color: var(--c-cream) !important;
+      padding: 7px 16px !important;
+      font-weight: 500 !important;
+    }
+    .nav__cta:hover { background: var(--c-terracotta-d) !important; }
+
+    /* ════════════════════════════════════════
+       HAMBURGER MENU
+    ════════════════════════════════════════ */
+    .nav__hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .nav__hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--c-ink);
+      transition: transform 0.2s, opacity 0.2s;
+    }
+    .nav__hamburger.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav__hamburger.is-open span:nth-child(2) { opacity: 0; }
+    .nav__hamburger.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .nav__drawer {
+      display: none;
+      position: fixed;
+      top: 60px; left: 0; right: 0;
+      background: var(--c-cream);
+      border-bottom: 1px solid var(--c-ghost);
+      padding: 24px var(--gutter);
+      z-index: 199;
+      flex-direction: column;
+      gap: 0;
+    }
+    .nav__drawer.is-open { display: flex; }
+    .nav__drawer a {
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--c-ink-m);
+      text-decoration: none;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--c-ghost);
+      transition: color 0.15s;
+    }
+    .nav__drawer a:last-child { border-bottom: none; }
+    .nav__drawer a:hover { color: var(--c-terracotta); }
+    .nav__drawer .drawer-cta {
+      margin-top: 16px;
+      background: var(--c-terracotta);
+      color: var(--c-cream) !important;
+      text-align: center;
+      padding: 13px !important;
+      border: none !important;
+      font-weight: 500;
+    }
+
+    /* ════════════════════════════════════════
+       HERO
+    ════════════════════════════════════════ */
+    .hero {
+      background: var(--c-dusk);
+      padding: 56px var(--gutter) 44px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: repeating-linear-gradient(
+        -45deg,
+        transparent, transparent 40px,
+        rgba(255,255,255,0.011) 40px, rgba(255,255,255,0.011) 41px
+      );
+      pointer-events: none;
+    }
+    .hero__ghost {
+      position: absolute;
+      right: -40px; bottom: -60px;
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 380px; font-weight: 700;
+      color: rgba(255,255,255,0.025);
+      line-height: 1;
+      pointer-events: none; user-select: none;
+    }
+    .hero__inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      position: relative; z-index: 2;
+    }
+    .hero__subhead {
+      font-size: var(--fs-17);
+      font-weight: 300;
+      color: rgba(251,247,238,0.8);
+      line-height: 1.6;
+      max-width: 600px;
+      margin-top: var(--s-2);
+      margin-bottom: var(--s-2);
+    }
+    .hero__body {
+      font-size: var(--fs-15);
+      font-weight: 300;
+      color: rgba(251,247,238,0.65);
+      line-height: 1.75;
+      max-width: 560px;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero .eyebrow   { animation: fadeUp 0.55s ease both 0.1s; }
+    .hero .h1        { animation: fadeUp 0.55s ease both 0.2s; }
+    .hero__subhead   { animation: fadeUp 0.55s ease both 0.28s; }
+    .hero__body      { animation: fadeUp 0.55s ease both 0.36s; }
+
+    /* ════════════════════════════════════════
+       HERO — CREAM VARIANT
+    ════════════════════════════════════════ */
+    .hero--cream {
+      background: var(--c-cream);
+      border-bottom: 1px solid var(--c-ghost);
+    }
+    .hero--cream::before         { display: none; }
+    .hero--cream .hero__ghost    { display: none; }
+    .hero--cream .h1             { color: var(--c-ink); }
+    .hero--cream .eyebrow        { color: var(--c-terracotta); opacity: 1; }
+    .hero--cream .hero__body     { color: var(--c-ink-m); }
+
+    /* ════════════════════════════════════════
+       HERO — CREAM TEXT OVERRIDES
+    ════════════════════════════════════════ */
+    .hero--cream .hero__subhead { color: var(--c-ink-m); max-width: 640px; }
+    .hero__proof {
+      margin-top: var(--s-3);
+      font-size: var(--fs-17);
+      font-weight: 500;
+      color: var(--c-terracotta);
+      line-height: 1.6;
+      max-width: 680px;
+    }
+
+    /* ════════════════════════════════════════
+       FOOTER
+    ════════════════════════════════════════ */
+    .footer {
+      background: var(--c-dusk);
+      padding: 56px var(--gutter) 36px;
+    }
+    .footer__inner { max-width: var(--max-w); margin: 0 auto; }
+    .footer__top {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr 1fr;
+      gap: var(--s-8);
+      padding-bottom: var(--s-6);
+      border-bottom: 1px solid rgba(234,212,192,0.08);
+      margin-bottom: var(--s-3);
+    }
+    .footer__mark {
+      font-size: var(--fs-10);
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--c-terracotta);
+      margin-bottom: 10px;
+    }
+    .footer__name {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 20px; font-weight: 700;
+      color: var(--c-cream);
+      margin-bottom: 10px;
+    }
+    .footer__desc {
+      font-size: var(--fs-12);
+      font-weight: 300;
+      color: rgba(251,247,238,0.4);
+      line-height: 1.7;
+    }
+    .footer__col-label {
+      font-size: var(--fs-10);
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(251,247,238,0.3);
+      margin-bottom: var(--s-2);
+    }
+    .footer__links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer__links a {
+      font-size: 13px;
+      font-weight: 300;
+      color: rgba(251,247,238,0.5);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .footer__links a:hover { color: var(--c-cream); }
+    .footer__bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .footer__copy {
+      font-size: var(--fs-12);
+      font-weight: 300;
+      color: rgba(251,247,238,0.25);
+    }
+    .footer__tagline {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 13px;
+      font-style: italic;
+      color: rgba(251,247,238,0.2);
+    }
+
+    /* ════════════════════════════════════════
+       RESPONSIVE
+    ════════════════════════════════════════ */
+    @media (max-width: 960px) {
+      .nav__links { display: none; }
+      .nav__hamburger { display: flex; }
+    }
+    @media (max-width: 860px) {
+      :root { --gutter: 28px; }
+      .footer__top            { grid-template-columns: 1fr; gap: var(--s-5); }
+      .footer__bottom         { flex-direction: column; gap: 8px; text-align: center; }
+    }
+    @media (max-width: 640px) {
+      :root { --gutter: 20px; }
+    }
+
+    /* ─── PARTNER FORM ─── */
+    .wrap--form { max-width: 640px; }
+    .pform { display: flex; flex-direction: column; gap: var(--s-4); }
+    .pfield { display: flex; flex-direction: column; gap: var(--s-1); }
+    .pfield label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: var(--fs-13); font-weight: 500; letter-spacing: 0.04em;
+      text-transform: uppercase; color: var(--c-ink-l);
+    }
+    .pfield input,
+    .pfield textarea {
+      font-family: 'DM Sans', sans-serif;
+      font-size: var(--fs-17); font-weight: 300; color: var(--c-ink-m);
+      background: var(--c-cream);
+      border: 1.5px solid var(--c-ghost);
+      border-radius: 8px;
+      padding: 12px 14px;
+      width: 100%; box-sizing: border-box;
+      transition: border-color 0.15s ease;
+    }
+    .pfield input::placeholder,
+    .pfield textarea::placeholder { color: var(--c-ink-l); opacity: 0.55; }
+    .pfield input:focus,
+    .pfield textarea:focus { outline: none; border-color: var(--c-terracotta); }
+    .pfield textarea { resize: vertical; min-height: 130px; line-height: 1.55; }
+    .pf-hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+    .pform-actions { margin-top: var(--s-1); }
+    .pform-error {
+      font-family: 'DM Sans', sans-serif; font-size: var(--fs-15);
+      font-weight: 400; color: var(--c-terracotta-d); margin: 0;
+    }
+    .pform-success {
+      background: var(--c-cream);
+      border: 1.5px solid var(--c-ghost);
+      border-radius: 12px;
+      padding: var(--s-5);
+      text-align: center;
+    }
+    .pform-success__title {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: var(--fs-22); font-weight: 600;
+      color: var(--c-terracotta); margin-bottom: var(--s-1);
+    }
+    .pform-success__body {
+      font-family: 'DM Sans', sans-serif; font-size: var(--fs-15);
+      font-weight: 300; color: var(--c-ink-m); margin: 0;
+    }
+    .cf-turnstile { min-height: 65px; }
+  </style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="/" class="nav__logo">
+      <div class="nav__mark">AI</div>
+      <span class="nav__name">AI Coachella Valley</span>
+    </a>
+    <ul class="nav__links">
+      <li><a href="/philanthropy" class="nav__cta">Philanthropy</a></li>
+      <li><a href="/#programs">Programs</a></li>
+      <li><a href="/events">Events</a></li>
+      <li><a href="/#pledge">The Pledge</a></li>
+      <li><a href="/#founder">About</a></li>
+      <li><a href="https://aicoachellavalley.com">Intelligence Network ↗</a></li>
+    </ul>
+    <button class="nav__hamburger" id="nav-toggle" aria-label="Open menu" onclick="this.classList.toggle('is-open');document.getElementById('nav-drawer').classList.toggle('is-open')">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="nav__drawer" id="nav-drawer">
+  <a href="/philanthropy" class="drawer-cta" onclick="document.getElementById('nav-drawer').classList.remove('is-open');document.getElementById('nav-toggle').classList.remove('is-open')">Philanthropy</a>
+  <a href="/#programs" onclick="document.getElementById('nav-drawer').classList.remove('is-open');document.getElementById('nav-toggle').classList.remove('is-open')">Programs</a>
+  <a href="/events" onclick="document.getElementById('nav-drawer').classList.remove('is-open');document.getElementById('nav-toggle').classList.remove('is-open')">Events</a>
+  <a href="/#pledge" onclick="document.getElementById('nav-drawer').classList.remove('is-open');document.getElementById('nav-toggle').classList.remove('is-open')">The Pledge</a>
+  <a href="/#founder" onclick="document.getElementById('nav-drawer').classList.remove('is-open');document.getElementById('nav-toggle').classList.remove('is-open')">About</a>
+  <a href="https://aicoachellavalley.com">Intelligence Network ↗</a>
+</div>
+
+<!-- ── HERO ── -->
+<section class="hero hero--cream">
+  <div class="hero__inner">
+    <span class="eyebrow">Partner with AICV</span>
+    <h1 class="h1">Let's work together.</h1>
+    <p class="hero__subhead">Foundations, funders, academic programs, and civic partners — tell us how you'd like to work together, and we'll be in touch.</p>
+  </div>
+</section>
+
+<!-- ── PARTNER FORM ── -->
+<section class="section">
+  <div class="wrap wrap--form">
+    <form id="partnerForm" class="pform" novalidate>
+      <div class="pfield">
+        <label for="pf-name">Name</label>
+        <input id="pf-name" name="name" type="text" required maxlength="120" autocomplete="name" placeholder="Your name">
+      </div>
+      <div class="pfield">
+        <label for="pf-email">Email</label>
+        <input id="pf-email" name="email" type="email" required maxlength="200" autocomplete="email" placeholder="you@organization.org">
+      </div>
+      <div class="pfield">
+        <label for="pf-note">How would you like to work together?</label>
+        <textarea id="pf-note" name="note" required maxlength="2000" rows="5" placeholder="A quick note about your organization and what you have in mind."></textarea>
+      </div>
+      <!-- honeypot: hidden from humans; bots fill it and get silently dropped -->
+      <input class="pf-hp" type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <div class="cf-turnstile" data-sitekey="1x00000000000000000000AA" data-theme="light"></div>
+      <div class="pform-actions">
+        <button type="submit" class="btn btn--cream" id="pf-submit">Send inquiry →</button>
+      </div>
+      <p class="pform-error" id="pf-error" role="alert" hidden></p>
+    </form>
+
+    <div class="pform-success" id="pf-success" hidden>
+      <div class="pform-success__title">Thanks — we've got it.</div>
+      <p class="pform-success__body">Sat will follow up with you soon.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__top">
+      <div>
+        <div class="footer__mark">AICV · aicoachellavalley.org</div>
+        <div class="footer__name">AICV</div>
+        <p class="footer__desc">Building the Coachella Valley's AI Startup Ecosystem.<br><br>A fiscally sponsored nonprofit under Desert Community Foundation.</p>
+      </div>
+      <div>
+        <div class="footer__col-label">Navigate</div>
+        <ul class="footer__links">
+          <li><a href="/philanthropy">Philanthropy</a></li>
+          <li><a href="/#programs">Programs</a></li>
+          <li><a href="/events">Events</a></li>
+          <li><a href="/#pledge">Responsible AI Pledge</a></li>
+          <li><a href="/#founder">About AICV</a></li>
+          <li><a href="/#founder">Founder</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer__col-label">Contact</div>
+        <ul class="footer__links">
+          <li><a href="mailto:sat@aicv.co">sat@aicv.co</a></li>
+          <li><a href="https://aicoachellavalley.com">Intelligence Network (.com) ↗</a></li>
+          <li><a href="https://sunshinefm.beehiiv.com">SunshineFM Newsletter ↗</a></li>
+          <li><a href="https://x.com/CoachellaAI">@CoachellaAI ↗</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <div class="footer__copy">© 2026 AI Coachella Valley · Fiscally sponsored under Desert Community Foundation</div>
+      <div class="footer__tagline">The Coachella Valley's AI Startup Ecosystem.</div>
+    </div>
+  </div>
+</footer>
+
+<!-- Cloudflare Turnstile -->
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+
+<!-- Partner form submit — posts to the /api/partner Pages Function -->
+<script>
+(function () {
+  var form = document.getElementById('partnerForm');
+  if (!form) return;
+  var errEl = document.getElementById('pf-error');
+  var successEl = document.getElementById('pf-success');
+  var btn = document.getElementById('pf-submit');
+  var ENDPOINT = '/api/partner';
+  var ERR = "Something went wrong sending that — your note is still here. Please try again; if it keeps failing, email sat@aicv.co.";
+
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+    errEl.hidden = true;
+    if (!form.checkValidity()) { form.reportValidity(); return; }
+
+    var el = form.elements;
+    var tsEl = el.namedItem('cf-turnstile-response');
+    var payload = {
+      name: el.namedItem('name').value.trim(),
+      email: el.namedItem('email').value.trim(),
+      note: el.namedItem('note').value.trim(),
+      company: el.namedItem('company').value, // honeypot
+      'cf-turnstile-response': tsEl ? tsEl.value : ''
+    };
+
+    btn.disabled = true;
+    var label = btn.innerHTML;
+    btn.textContent = 'Sending…';
+
+    function fail(msg) {
+      errEl.textContent = msg || ERR;
+      errEl.hidden = false;
+      btn.disabled = false;
+      btn.innerHTML = label;
+      if (window.turnstile) { try { window.turnstile.reset(); } catch (_) {} }
+    }
+
+    try {
+      var res = await fetch(ENDPOINT, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      var data = {};
+      try { data = await res.json(); } catch (_) {}
+      if (!res.ok || !data.ok) { fail(data && data.message); return; }
+      form.hidden = true;
+      successEl.hidden = false;
+      successEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } catch (err) {
+      fail();
+    }
+  });
+})();
+</script>
+
+</body>
+</html>
