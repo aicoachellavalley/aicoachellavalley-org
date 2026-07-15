@@ -274,7 +274,7 @@ HEAD now **`719a634`**. All live + edge-verified. Sat's call: the Luma event is 
 - **719a634** — sitemap: bump `/events` lastmod → 2026-07-15 (per the standing bump-on-touch rule; closes that item for /events).
 - **6b7f0f4** — events: evergreen meta/OG/Twitter descriptions + last-modified → 2026-07-15. "July 18: AI Avatars with HeyGen" dropped from all three descriptions → series-level copy. Titles + og:image (`idea-labs-cover.png` = evergreen "NO CODE" art, pixel-checked) unchanged.
 - **837279a** — events: Series blurb "July kicks off with AI avatars" → "Each month brings a new theme and a new guest" (last dated body-prose line).
-- **ddaba3e** — events: single-session tier cards (GA $25 / Premium $75) REMOVED — the embed sells + describes these. Tickets H2 → "The Season Pass."; one wayfinding line ("Single-session tickets are in the registration card above."), no prices restated. **Season passes ($100/$300) KEPT — the page's only commerce, deliberately hand-managed (Luma doesn't sell them; in-person/email-to-reserve).** No CSS newly dead (season cards reuse every class).
+- **ddaba3e** — events: single-session tier cards (GA $25 / Premium $75) REMOVED — the embed sells + describes these. Tickets H2 → "The Season Pass."; one wayfinding line ("Single-session tickets are in the registration card above."), no prices restated. ~~Season passes ($100/$300) KEPT — the page's only commerce~~ **SUPERSEDED same-day — see the Season Pass correction entry below: the passes never existed; the whole section was removed in `43767a0`.** No CSS newly dead (season cards reuse every class).
 - **76665fb** — events: featured band copy → evergreen "Next Lab / See what's coming. Grab your seat." Perks line KEPT in full — **Sat confirmed lunch is provided at every lab** (series-level fact, so `.event-perks` stays alive).
 
 ### Deliberately DEFERRED to after Sat 7/18 (approved, not yet built)
@@ -285,7 +285,18 @@ HEAD now **`719a634`**. All live + edge-verified. Sat's call: the Luma event is 
 
 ### Page truth after this arc
 
-`events.html` = evergreen series page: hero (series pitch) → "Next Lab" band (evergreen copy + untouched Luma iframe = date/theme/single-session tickets) → "The Season Pass." (the one hand-managed commerce block) → Series/Location → footer. Only remaining dated content on the page is inside the JSON-LD subEvent (deliberate, see Deferred #1). `llms.txt` /events line was already series-level — still true, untouched.
+`events.html` = evergreen series page: hero (series pitch) → "Next Lab" band (evergreen copy + untouched Luma iframe = date/theme/single-session tickets) → ~~"The Season Pass." (the one hand-managed commerce block)~~ *(removed same-day, see below)* → Series/Location → footer. Only remaining dated content on the page is inside the JSON-LD subEvent (deliberate, see Deferred #1). `llms.txt` /events line was already series-level — still true, untouched.
+
+---
+
+## 2026-07-15 (later) — CORRECTION: the Season Pass never existed. Removed.
+
+HEAD now **`43767a0`**, live + edge-verified. Sat's correction, same day as the evergreen cleanup: **the season passes DO NOT EXIST** — no $100 GA Season Pass, no $300 Premium Pass; not sold, not reservable, not real. The page had been advertising a nonexistent product with an email invitation to reserve it — a **false offer**, not a drift/duplication issue. This supersedes every earlier "season passes = Sat's highest-value products / the page's one hand-managed commerce" framing in this file (the 06-16 four-tier ladder in `5a6af69`, the 06-20 card-ification in `54933cb`, and this morning's `ddaba3e`).
+
+- **43767a0** — events: the entire Tickets/"The Season Pass." section deleted (heading, both season cards, reserve-by-email note, wayfinding line). **The page now carries ZERO commerce — Luma is the sole ticketing surface.** Nothing hand-managed, nothing to keep in sync. Bonus: one fewer CF-obfuscated mailto. Iframe + JSON-LD untouched; embed live-verified (July 18 + Get Tickets rendering).
+- **Newly orphaned CSS → added to the post-Saturday sweep:** `.tickets-grid` (+ its rule in the 640px media block — the block itself stays; it also sets the mobile `--gutter`), `.three-col-card`, `.ticket-card--season`, `.card-label`, `.card-body`, `.ticket-group__label`, `.ticket-group__sub`, `.ticket-note`, **`.section` and `.wrap`** (the Tickets section was their only body user; the `.section--*` variants were already orphaned).
+- **Sitemap lastmod already correct** (2026-07-15, bumped this morning — same-day rule satisfied).
+- **Pending in the same courier (Sat's wording eye required before commit):** Commit B — Series section loses the "Six labs, July through December" heading + count/pop-up claims (Sat has no future dates yet and won't claim a count/timeframe; describe the variety: hands-on AI, agents, agentic training); Commit C — the same count claim comes out of the JSON-LD **EventSeries `description` string ONLY** (subEvent stays byte-identical through Saturday; risk to the July-18 rich result judged negligible since no Event fields change).
 
 ---
 
