@@ -263,6 +263,32 @@ Not "endpoint returned 200." It's: a **live Turnstile'd submit → row lands in 
 
 ---
 
+## 2026-07-15 — /events evergreen cleanup (Luma embed = canonical truth)
+
+HEAD now **`719a634`**. All live + edge-verified. Sat's call: the Luma event is the truthful source; the page had drifted (hard-coded "10 AM–1 PM", July 18/HeyGen framing, restated single-session prices). Cleanup makes the page evergreen about the SERIES while the embed carries what's-next + registration. **The Luma iframe (`evt-5czB0wpW6R66spG`, line 921) is byte-identical across the whole arc** — verified zero occurrences in the cumulative diff, and live-edge screenshots confirm the embed loads with the July 18 event + ticket picker (desktop 1280 + mobile 375). Committed straight on `main` under Sat's blanket plan approval (no branch loop this pass).
+
+**Timing correction logged:** the courier's "page time is wrong" claim was itself wrong — Luma's time field IS 10:00–1:00 (the "Morning" string was prose description, not the time field). Times were accurate; the prose time was removed as a *duplicate copy of a fact*, not an error fix. The schema's 10:00–13:00 is correct.
+
+### Commits (most recent first)
+
+- **719a634** — sitemap: bump `/events` lastmod → 2026-07-15 (per the standing bump-on-touch rule; closes that item for /events).
+- **6b7f0f4** — events: evergreen meta/OG/Twitter descriptions + last-modified → 2026-07-15. "July 18: AI Avatars with HeyGen" dropped from all three descriptions → series-level copy. Titles + og:image (`idea-labs-cover.png` = evergreen "NO CODE" art, pixel-checked) unchanged.
+- **837279a** — events: Series blurb "July kicks off with AI avatars" → "Each month brings a new theme and a new guest" (last dated body-prose line).
+- **ddaba3e** — events: single-session tier cards (GA $25 / Premium $75) REMOVED — the embed sells + describes these. Tickets H2 → "The Season Pass."; one wayfinding line ("Single-session tickets are in the registration card above."), no prices restated. **Season passes ($100/$300) KEPT — the page's only commerce, deliberately hand-managed (Luma doesn't sell them; in-person/email-to-reserve).** No CSS newly dead (season cards reuse every class).
+- **76665fb** — events: featured band copy → evergreen "Next Lab / See what's coming. Grab your seat." Perks line KEPT in full — **Sat confirmed lunch is provided at every lab** (series-level fact, so `.event-perks` stays alive).
+
+### Deliberately DEFERRED to after Sat 7/18 (approved, not yet built)
+
+1. **Schema reshape → pure evergreen `EventSeries`**: drop the dated `subEvent` (July 18 date/times + both offers). Left untouched this week ON PURPOSE — the dated Event is earning the July-18 rich result during peak registration. Tradeoff already accepted by Sat: after the reshape, no per-event rich results until dated subEvents return (calendar-era move, once real dates exist). Series description's "Six workshops July through December 2026" also gets softened then.
+2. **Dead-CSS sweep on events.html** — large PRE-EXISTING orphan layer (unused today): `.event-card`, `.empty-state`, `.past-block`, `.luma-wrap`, `.luma-subline`, `.partner-groups*`, `.location-block`, `.where-band*`, `.where-section*`, `.tool-strip*`, `.three-col-grid` (+ its 860px media rule), `.three-col-card--cream`, `.btn` family, `.hero__ghost`, `.hero__proof`, `.hero__body--browse`, `.h1--lt`, `.body--lt`, `.section--sm/--dark/--sand/--alt`. Touches the responsive block → source-order cascade trap applies; zero user value during registration week.
+3. **NOT NOW / later move:** no calendar embed until Sat has the other dates — a one-event calendar is worse than the single-event embed.
+
+### Page truth after this arc
+
+`events.html` = evergreen series page: hero (series pitch) → "Next Lab" band (evergreen copy + untouched Luma iframe = date/theme/single-session tickets) → "The Season Pass." (the one hand-managed commerce block) → Series/Location → footer. Only remaining dated content on the page is inside the JSON-LD subEvent (deliberate, see Deferred #1). `llms.txt` /events line was already series-level — still true, untouched.
+
+---
+
 ## Agent-Readiness Baselines — 2026-04-23
 
 Pre-change baseline captured before today's content truth + Option B agent infrastructure deployment.

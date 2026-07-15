@@ -2,10 +2,11 @@
 
 > Session-close orientation for a fresh session. Read this, then `STATE.md` for full detail. Everything below is reconstructable from disk + git; this is the fast path.
 
-## Where things stand (2026-06-30)
+## Where things stand (2026-07-15)
 
 - **Repo:** `aicoachellavalley.org` — the `.org` civic/nonprofit face of AICV. Static HTML, no build step, Cloudflare Pages, **auto-deploys on push to `main`**. Remote is `.org` (`git remote -v` → `aicoachellavalley-org.git`) — NOT `.com` (that's a separate repo, `aicoachellavalley/homepage`).
-- **HEAD: `f86f83e`** · branch `main` · **clean tree, all pushed.** Safe to start fresh.
+- **HEAD: `719a634`** · branch `main` · **clean tree, all pushed.** Safe to start fresh.
+- **Latest (2026-07-15) — /events evergreen cleanup SHIPPED + live-verified** (`76665fb` → `719a634`): Luma embed is now the canonical carrier of what's-next + registration; page is evergreen about the series. Dated prose/meta gone; single-session tier cards gone (embed sells those); **season passes ($100/$300) kept as the page's only, deliberate hand-managed commerce**. Luma iframe byte-identical. **Two approved follow-ups wait until AFTER Sat 7/18:** (1) schema → pure `EventSeries` (drop dated subEvent + offers), (2) events.html dead-CSS sweep. See STATE.md `2026-07-15`.
 - **In flight (2026-07-01) — Partner intake form, STAGING** (`3434dbf` page + `f86f83e` backend): new `/partner` page + `functions/api/partner.js` Pages Function (D1 + Turnstile + honeypot; `.org`'s first Pages Function). **Live but inert-but-safe** pending Sat's dashboard bindings. **Do NOT treat as public yet** — the "Partner with AICV" CTA still points at the (obfuscated) mailto; Commit 3 repoints it + swaps the real Turnstile site key, and goes ONLY after the live close condition (submit → D1 row → key-gated read) passes. Full detail + Sat's ordered switch-ons in STATE.md `2026-07-01`. Turnstile keys = the shared AIQnA open item.
 - **Latest (2026-06-30) — card legibility polish + tagline-cream revert SHIPPED + live-verified** (`9724b65` → `43c2e3f`): card ① gained a tagline (all three cards now title→tagline→body→CTA); featured CTA pills restyled to mirror `.pill-live` (cream/terracotta); featured tagline is now `--c-cream` (apricot one-off `#F7D9BF` reverted to the on-palette token, orphan hex gone — italic EB-Garamond keeps it distinct from the 80%-cream body). Row-level tonal variation still deferred. See STATE.md `2026-06-30` entry.
 - **Programs reshape SHIPPED + live-verified** (`c4edf1f` → `3251fbe` → `ee4242a`): Programs cards are now **AI Tinkerers Coachella Valley · AIQnA · AICV Intelligence Network**, all Live. The **AI Talent & Job Board concept is RETIRED** — gone from cards, schema (`#service-job-board` deleted, `#service-aitinkerers`+`#service-aiqna` added), founder bio, and all schema descriptions. **Do not restore a talent/job board.** Workshops survive only as `#service-workshops` + FAQ Q3/Q9 + /events. New FAQ Q at #8 ("I already build with AI…"). See STATE.md `2026-06-30` entry for full detail. Dead CSS `.pill-planned`/`.prog-dimmed` left orphaned on purpose (backlog, tied to possible row tonal-variation).
@@ -25,10 +26,11 @@
 
 ## Queue (non-urgent)
 
+- **AFTER Sat 7/18 (approved, scoped in STATE.md `2026-07-15`):** events schema → pure evergreen `EventSeries` (drop dated subEvent + offers); events.html dead-CSS sweep (cascade trap applies).
 - **AIQnA-as-Program-2** — strategy conversation.
 - **DCF + CV Giving Day agentic rebuilds** — the bigger play; `/philanthropy` is now their front door.
 - **events GA phone walk-through** (Sat-only, Monday-relevant) — register July 18 GA on the live page, confirm no wallet-verification wall.
-- **Backlog:** homepage OG-image still `sat-tedx.png` (swap); dead CSS (orphaned `.three-col-grid` etc. on events/philanthropy).
+- **Backlog:** homepage OG-image still `sat-tedx.png` (swap); dead CSS on philanthropy (events dead CSS is now the scoped post-7/18 item above).
 
 ## Standing facts / traps a fresh session needs
 
