@@ -846,6 +846,24 @@
     }
 
     /* ════════════════════════════════════════
+       CALENDAR BAND
+    ════════════════════════════════════════ */
+    .calendar-band {
+      background: var(--c-cream);
+      padding: var(--s-8) var(--gutter) var(--s-10);
+    }
+    .calendar-band__inner {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .calendar-band__inner iframe {
+      display: block;
+      width: 100%;
+      border: 1px solid var(--c-ghost);
+      border-radius: 12px;
+    }
+
+    /* ════════════════════════════════════════
        RESPONSIVE
     ════════════════════════════════════════ */
     @media (max-width: 960px) {
@@ -901,42 +919,15 @@
 <!-- SECTION 1 — HERO -->
 <section class="hero hero--cream">
   <div class="hero__inner">
-    <span class="eyebrow">Saturday Morning AI: Idea Labs</span>
-    <h1 class="h1">Bring an idea. Build it with AI.</h1>
-    <p class="hero__subhead">A monthly morning lab for founders, builders, and the AI-curious — in the heart of the Coachella Valley.</p>
-    <p class="hero__body hero__body--wide">Bring an idea, see what it becomes with AI, and leave with something you can use Monday morning.</p>
+    <h1 class="h1">AI events in the Coachella Valley.</h1>
+    <p class="hero__subhead">Workshops, meetups, boot camps, and conferences — hands-on AI for founders, builders, and small business owners. Hosted by AI Coachella Valley and anchored at the CSUSB Entrepreneurship Resource Center in Palm Desert.</p>
   </div>
 </section>
 
-<!-- SECTION 2 — FEATURED EVENT (indigo anchor, two-column) -->
-<section class="event-band">
-  <div class="event-split">
-    <div class="event-split__copy">
-      <span class="eyebrow eyebrow--lt">Next Lab</span>
-      <h2 class="h2 h2--lt">See what's coming. Grab your seat.</h2>
-      <p class="body body--lead">Every lab is hands-on: bring an idea for your business and work it through live with the room and that month's guest. The next session — date, theme, and tickets — is right here.</p>
-      <p class="event-perks">Lunch included · Free parking · No coding needed</p>
-    </div>
-    <div class="event-card-light">
-      <iframe src="https://luma.com/embed/event/evt-5czB0wpW6R66spG/simple" width="100%" height="620" frameborder="0" style="border:none; display:block;" allow="fullscreen; payment" aria-hidden="false" tabindex="0"></iframe>
-    </div>
-  </div>
-</section>
-
-<!-- SECTION 3+4 — SERIES + LOCATION (combined two-column tail) -->
-<section class="context-band">
-  <div class="context-band__inner">
-    <div>
-      <span class="eyebrow">The Series</span>
-      <h2 class="h2">Hands-on AI for the Coachella Valley.</h2>
-      <p class="body">Saturday Morning AI: Idea Labs is a monthly series from AI Coachella Valley and the CSUSB Entrepreneurship Resource Center — hands-on labs in AI, agents, and agentic training for founders, builders, and teams across the valley. Each month brings a new theme and a new guest; the next session is always in the card above.</p>
-    </div>
-    <div>
-      <span class="eyebrow">Location</span>
-      <h2 class="h2">Where we are.</h2>
-      <p class="body">The CSUSB Entrepreneurship Resource Center · 37023 Cook Street, Suite 102, Palm Desert, CA</p>
-      <p class="body">Questions? <a href="mailto:sat@aicv.co" class="link">sat@aicv.co</a></p>
-    </div>
+<!-- SECTION 2 — CALENDAR -->
+<section class="calendar-band">
+  <div class="calendar-band__inner">
+    <iframe src="https://luma.com/embed/calendar/cal-123s6rDFxeKQjJd/events?lt=light" width="100%" height="560" frameborder="0" style="border:none; display:block;" allow="fullscreen; payment" aria-hidden="false" tabindex="0"></iframe>
   </div>
 </section>
 
