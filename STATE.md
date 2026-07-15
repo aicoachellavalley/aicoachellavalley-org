@@ -304,6 +304,30 @@ HEAD now **`43767a0`**, live + edge-verified. Sat's correction, same day as the 
 
 ---
 
+## 2026-07-15 (third pass) — /events IDENTITY CHANGE: single-program landing → AI events calendar page
+
+HEAD now **`fb36582`** (+ docs), all live + edge-verified. Sat's call: `/events` stops being an Idea Labs landing page (it said the same thing three times) and becomes **the AI events page for the Coachella Valley** — a lean frame around a centered Luma **calendar** embed that holds workshops, meetups, boot camps, and conferences as they come. Timing safe: the July 18 poster drives to `luma.com/aicv` (the calendar), NOT `/events`, so this page wasn't the registration funnel this week.
+
+### Commits
+
+- **69a1fdf** — the restructure. Page = Nav → H1 "AI events in the Coachella Valley." + one approved paragraph → centered calendar embed → Footer. Old hero copy, Next Lab band, perks line, Series section, and Location section all removed (venue survives in body prose as the NAP/local-SEO signal). **Embed swap:** single-event iframe → `https://luma.com/embed/calendar/cal-123s6rDFxeKQjJd/events?lt=light` (calendar = luma.com/aicv, verified rendering before commit; **`?lt=light` added because the dark default read as a bolted-on black slab on cream** — the see-it call Sat approved), height 560, centered 900px column, ghost hairline + 12px radius, new minimal `.calendar-band` CSS placed before the responsive block (cascade trap respected).
+- **88ea7b6** — meta/OG/title → general AI-events identity (Sat-approved copy). **og:image still `idea-labs-cover.png` ("NO CODE" art) — FLAGGED: no longer matches the page; replacement is Sat's call, later; an event poster would reintroduce monthly hand-surgery.**
+- **fb36582** — llms.txt events line: **removed two FALSE claims that had survived the earlier sweeps** ("six workshops July–December 2026" + "season-pass tickets") → new general-events description. Lesson: agent surfaces (llms.txt) must be greped in every claims-removal pass, not just page prose + schema.
+
+### Newly orphaned CSS (joins the post-Saturday sweep)
+
+`.eyebrow`, `.eyebrow--lt`, `.event-band`, `.event-split`, `.event-split__copy`, `.event-perks`, `.event-card-light`, `.h2`, `.h2--lt`, `.body`, `.body--lead`, `.context-band`, `.context-band__inner`, `.context-col__heading`, `.hero__body`, `.hero__body--wide`, `.link`, plus the 860px media rules for `.event-split`/`.context-band__inner`. (Still used: `.hero`, `.hero--cream`, `.hero__inner`, `.h1`, `.hero__subhead`, `.calendar-band*`, nav/footer chrome.)
+
+### Post-Saturday schema commit — SCOPE EXPANDED (was: drop subEvent; now also: reshape identity)
+
+The JSON-LD is untouched and deliberately **narrower than the new page identity for 3 days** (series-specific `EventSeries` + dated July-18 `subEvent` on a general events page — narrower isn't false; Idea Labs IS the running series and July 18 IS the next event, and the subEvent is earning the rich result during registration week). The queued post-7/18 commit now does BOTH: (1) drop the dated `subEvent` + offers, AND (2) reshape the top level to match the general-events identity (the `EventSeries` `name`/`description` are Idea-Labs-specific — decide whether the page-level schema becomes an events `CollectionPage`/`WebPage` + the Idea Labs `EventSeries` as one entry, or stays a single broader node — design it in that session with fresh eyes).
+
+### Sitemap / last-modified
+
+Both already `2026-07-15` from the morning commits — standing rule satisfied, no bump needed.
+
+---
+
 ## Agent-Readiness Baselines — 2026-04-23
 
 Pre-change baseline captured before today's content truth + Option B agent infrastructure deployment.
