@@ -48,7 +48,7 @@ Palm Springs · Desert Hot Springs · Cathedral City · Rancho Mirage · Palm De
 ## Core Pages
 
 - [Homepage](https://aicoachellavalley.org/) — mission, programs, valley intelligence graph
-- [Events](https://aicoachellavalley.org/events) — Saturday Morning AI: Idea Labs, AICV's monthly hands-on AI workshop series at the CSUSB ERC in Palm Desert; six workshops July–December 2026, single-session and season-pass tickets
+- [Events](https://aicoachellavalley.org/events) — AI events in the Coachella Valley: workshops, meetups, boot camps, and conferences from AI Coachella Valley, anchored at the CSUSB ERC in Palm Desert; live calendar with registration via Luma
 - [Philanthropy](https://aicoachellavalley.org/philanthropy) — AICV's position on agentic philanthropy in the Coachella Valley, the institutional fabric of Desert Community Foundation and California Community Foundation, and the pathways donors use to participate
 - [Responsible AI Pledge](https://aicoachellavalley.org/aicv-pledge.pdf) — AICV's community AI pledge document
 - [Intelligence Network (.com)](https://aicoachellavalley.com) — the agent-native companion with nodes, briefs, and reports
