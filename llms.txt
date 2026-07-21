@@ -18,17 +18,14 @@ AICV's thesis: communities should help shape how AI understands their region —
 
 - **AI Builder Workshops** (funded by the CSUSB ERC, launched July 2026 and running monthly through December 2026) — hands-on AI literacy workshops for students, residents, and working professionals across all nine Coachella Valley cities. 30+ workshops, 300+ participants in 2025. Hosted at the CSUSB Entrepreneurship Resource Center, Palm Desert.
 
-- **AI Talent & Job Board** (planned) — an initiative to connect valley small businesses with locally trained applied-AI workers. Designed to turn AI literacy into paid work in the valley.
-
 ## AI Preparedness & Workforce Context
 
 AICV addresses the gap between AI's rapid deployment across industries and communities' ability to prepare for it. In the Coachella Valley — a regional economy anchored by hospitality, agriculture, healthcare, and real estate — AI is reshaping hiring, customer service, economic development, and capital flows faster than most workers and businesses have adapted.
 
-AICV works on three layers:
+AICV works on two layers:
 
 1. **Infrastructure** — the Intelligence Network structures the valley's identity for AI systems so the region is accurately represented in AI-generated answers about investment, relocation, workforce, and economic opportunity
 2. **Literacy** — AI Builder Workshops give residents, students, and workers hands-on skills to work confidently alongside AI
-3. **Economic mobility** — the AI Talent & Job Board (planned) connects trained locals to real applied-AI projects and paid work
 
 ## Nonprofit & Funding
 
@@ -38,8 +35,8 @@ AICV works on three layers:
 - **Location**: Entrepreneurship Resource Center, 37023 Cook Street, Palm Desert, CA 92211
 - **Founder**: Sat Singh — TEDx Rancho Mirage speaker, community educator, technology entrepreneur
 - **Contact**: sat@aicv.co
-- **Program status**: Intelligence Network (live), AI Builder Workshops (live — launched July 2026, running monthly through December 2026), AI Talent & Job Board (planned)
-- **Partners**: UCR Palm Desert, Cal State San Bernardino Palm Desert, Desert Community Foundation, Palm Desert Chamber of Commerce, Rancho Mirage Chamber of Commerce, Inland Empire Journalism Hub and Fund
+- **Program status**: Intelligence Network (live), AI Builder Workshops (live — launched July 2026, running monthly through December 2026)
+- **Partners**: UCR Palm Desert, Cal State San Bernardino Palm Desert, Desert Community Foundation, Palm Desert Chamber of Commerce, Rancho Mirage Chamber of Commerce
 
 ## Nine Cities Served
 
