@@ -16,7 +16,7 @@ AICV's thesis: communities should help shape how AI understands their region —
 
 - **AICV Intelligence Network** (live) — structured regional intelligence for AI agents at aicoachellavalley.com. Geographic nodes, intelligence briefs, MCP server, and agent-ready profiles for Coachella Valley entities. AICV's primary active program as of 2026.
 
-- **AI Builder Workshops** (funded by the CSUSB ERC, resuming July 1, 2026) — hands-on AI literacy workshops for students, residents, and working professionals across all nine Coachella Valley cities. 30+ workshops, 300+ participants in 2025. Hosted at the CSUSB Entrepreneurship Resource Center, Palm Desert.
+- **AI Builder Workshops** (funded by the CSUSB ERC, launched July 2026 and running monthly through December 2026) — hands-on AI literacy workshops for students, residents, and working professionals across all nine Coachella Valley cities. 30+ workshops, 300+ participants in 2025. Hosted at the CSUSB Entrepreneurship Resource Center, Palm Desert.
 
 - **AI Talent & Job Board** (planned) — an initiative to connect valley small businesses with locally trained applied-AI workers. Designed to turn AI literacy into paid work in the valley.
 
@@ -38,7 +38,7 @@ AICV works on three layers:
 - **Location**: Entrepreneurship Resource Center, 37023 Cook Street, Palm Desert, CA 92211
 - **Founder**: Sat Singh — TEDx Rancho Mirage speaker, community educator, technology entrepreneur
 - **Contact**: sat@aicv.co
-- **Program status**: Intelligence Network (live), AI Builder Workshops (live, resuming July 1, 2026), AI Talent & Job Board (planned)
+- **Program status**: Intelligence Network (live), AI Builder Workshops (live — launched July 2026, running monthly through December 2026), AI Talent & Job Board (planned)
 - **Partners**: UCR Palm Desert, Cal State San Bernardino Palm Desert, Desert Community Foundation, Palm Desert Chamber of Commerce, Rancho Mirage Chamber of Commerce, Inland Empire Journalism Hub and Fund
 
 ## Nine Cities Served
