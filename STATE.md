@@ -357,6 +357,29 @@ HEAD now **`e3b028f`**, all live + edge-verified. Tuesday after the July 18 lab.
 
 ---
 
+## 2026-07-21 (later) — funding-copy correction + job-board removal (2 commits)
+
+HEAD now **`3a7c9a5`**, live + edge-verified. Follow-on to the post-event truth pass. Three fact corrections from Sat; scope was **broader than the courier expected** — the two "beginning July 1" clauses that the morning pass deliberately LEFT (as "genuine funding dates") turned out to be **wrong dates AND a grant Sat wants private**.
+
+### The corrected facts (from Sat)
+
+- **ERC funding began July 18, 2026** — same day as the first workshop, NOT July 1. The old "beginning July 1" was simply wrong (it wasn't even the right fiscal date). Now reads "2026 funding renewed and active since July 18."
+- **IEJIH+F grant (Inland Empire Journalism Innovation Hub & Fund): real and active — approved Apr 9 2026, term Jul 1 2026 – Nov 1 2027 — but Sat is keeping it PRIVATE.** ⚠️ **DO NOT re-add it to any public surface.** A future session "helpfully" restoring the funder name/terms would breach Sat's call. It was named in **three** public spots, all now removed (see below).
+- **AI Talent & Job Board: RELOCATING to the Tinkerers Coachella Valley pages — moved, not dead.** ⚠️ So its reappearance on a *Tinkerers* property is EXPECTED, not a straggler to re-clean. Removed from .org surfaces only.
+
+### Commits
+
+- **596246c** — index.html: ERC date "beginning July 1" → "active since July 18" in the funding FAQ (schema `#faq` + visible DOM twin, edited to **identical** text — parity verified on source). Removed the entire IEJIH+F clause (both sentences incl. the Google-for-Nonprofits detail) from that FAQ, AND removed "Inland Empire Journalism Innovation Hub & Fund" from the **Academic & Workforce partners card** (card now lists CSUSB ERC + UCR Palm Desert). last-modified + homepage sitemap already 2026-07-21 (bf09bc4) — no bump.
+- **3a7c9a5** — llms.txt: removed the AI Talent & Job Board from all **three** mentions (Programs entry, the "economic mobility" layer → list adjusted **three layers → two**, and the program-status line), and removed "Inland Empire Journalism Hub and Fund" from the partners list. No other retired stragglers found.
+
+**Live-edge verified:** "IEJIH" / "beginning July 1" / "AI Talent & Job Board" / "Journalism Innovation" = 0 sitewide (home, events, llms.txt, philanthropy); ERC reads "active since July 18"; FAQ schema↔DOM parity intact on source.
+
+### LEFT deliberately — flagged for Sat (does NOT name the grant, but adjacent)
+
+The **institutional-partnerships FAQ** on index.html (schema ~L316 + DOM twin ~L1717) still says: *"…research collaboration on AI adoption and workforce readiness in the Inland Empire, joint programming with academic and journalism institutions…"* — a **generic partnership-pathways** description that does NOT name IEJIH+F (fails all of Sat's grep terms: no "IEJIH", no "twelve-month", no "July 1"). But it thematically echoes the private grant's activity (AI-adoption research + Inland Empire + journalism). **Not touched** — deleting generic pathway copy is a judgment call about privacy-by-implication that's Sat's to make. **If Sat wants the grant fully invisible, this clause is the remaining hint.** Separately, the geographic *"delivered programs … across the broader Inland Empire"* (mission-area FAQ, ~L300/1709) is pure service-area and clearly fine.
+
+---
+
 ## Agent-Readiness Baselines — 2026-04-23
 
 Pre-change baseline captured before today's content truth + Option B agent infrastructure deployment.
