@@ -328,6 +328,35 @@ Both already `2026-07-15` from the morning commits — standing rule satisfied, 
 
 ---
 
+## 2026-07-21 — Post-event truth pass (3 commits; the parked schema item is now DONE)
+
+HEAD now **`e3b028f`**, all live + edge-verified. Tuesday after the July 18 lab. Two agent-facing truth bugs had gone live once Saturday passed; both fixed. **Sat's canonical fact:** the AI Builder Workshops series **launched July 2026 and runs monthly through December 2026** — running now. The earlier "resuming July 1, 2026" was stale AND wrong: it conflated the ERC funding-renewal date (genuinely July 1) with the workshop launch. Do not reintroduce "resuming," "July 1," or future-tense "beginning/resuming" for the *workshops*.
+
+### Commits
+
+- **bf09bc4** — index.html: fixed all **four** workshop-timing claims in the JSON-LD (Organization `description` + `PropertyValue`, Service `description` + `PropertyValue`) → "launched July 2026… running monthly through December 2026." 2025 retrospective (30+/300+) preserved. last-modified + homepage sitemap lastmod → 2026-07-21. Schema-only edits (no visible-DOM twin for these four), page render-confirmed.
+- **9860a32** — events.html: **the queued post-7/18 schema reshape — now executed.** Dropped the entire dated July-18 `subEvent` + both offers (GA 25 / Premium 75) — it was a past event still marked `EventScheduled`/`InStock`. Renamed top-level `EventSeries` `name` "Saturday Morning AI: Idea Labs" → **"AI events in the Coachella Valley"** (single broader node — Sat ruled AGAINST a CollectionPage wrapper). Description already evergreen (`ddea7c7`), organizer intact. JSON-LD validated; last-modified + sitemap → 07-21.
+- **e3b028f** — llms.txt: same tense fix, both instances (program list line + program-status line).
+
+**Live-edge verified:** "resuming July 1" = 0 sitewide (home/events/llms.txt); "launched July 2026" ×4 on home; events `2026-07-18`/`subEvent`/`InStock`/`HeyGen` = 0; events schema name = "AI events in the Coachella Valley".
+
+### Deliberately LEFT (flagged, not rewritten — per Sat's "only workshop timing changes" rule)
+
+- **The two "beginning July 1" clauses in the funding FAQ** (index.html schema ~L308 + DOM twin ~L1713) tie July 1 to **funding terms** — the ERC 2026 funding renewal and the IEJIH+F twelve-month term — NOT workshop timing. Genuine fiscal dates, correctly preserved (edge-verified still present ×2). **Open call for Sat:** as of 07-21 "beginning July 1" is 3 weeks past — if the *funding* tense wants a present-tense touch too, that's a separate, deliberate decision; not assumed here.
+
+### DISCOVERED stale items (NOT fixed this pass — flagged for Sat)
+
+1. **llms.txt L41 still lists "AI Talent & Job Board (planned)"** — but that concept was **RETIRED** on index.html (2026-06-30, "Do not restore a talent/job board"). llms.txt is the straggler still advertising it to agents. A retired-concept removal (different fix than the tense pass), so left for a scoped follow-up. Same file also carries "30+ workshops / 300+ participants in 2025" (true retrospective) and the older "Next Cleanup Cycle" flag to fact-check that count.
+2. **events calendar embed now shows "No Upcoming Events"** — July 18 passed and no new dates exist on `luma.com/aicv` yet. NOT a bug: the honest live state, and exactly why the self-updating calendar was the right architecture. Repopulates automatically when Sat adds dates to Luma.
+
+### Post-7/18 queue status after this pass
+
+- ✅ **Schema reshape — DONE** (was Deferred #1 in the 2026-07-15 evergreen entry).
+- ⏳ **Dead-CSS sweep — STILL QUEUED** (Deferred #2; the pre-existing orphan layer + the ticket classes + `.section`/`.wrap` + the third-pass additions). Not touched this pass.
+- Backlog unchanged: og:images (`sat-tedx.png` on home/philanthropy, `idea-labs-cover.png` on events); "first demo night this fall" left (still literally true); SiteNavigationElement/BreadcrumbList skipped (flat site, low leverage).
+
+---
+
 ## Agent-Readiness Baselines — 2026-04-23
 
 Pre-change baseline captured before today's content truth + Option B agent infrastructure deployment.
