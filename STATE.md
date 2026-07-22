@@ -380,6 +380,35 @@ The **institutional-partnerships FAQ** on index.html (schema ~L316 + DOM twin ~L
 
 ---
 
+## 2026-07-21 (positioning pass) — .org becomes the ecosystem front door (6 commits)
+
+HEAD now **`073f6e0`**, all live + edge-verified. Sat's strategic repositioning: the homepage stops being primarily "a nonprofit website" and becomes the **canonical front door to the Coachella Valley AI startup ecosystem, for humans and AI systems**. Consistent message everywhere: **AICV is building, connecting, and documenting the ecosystem — NOT claiming to BE it** (the H1 "The Coachella Valley's AI Startup Ecosystem" stays — the recorded June ownable-term decision — and the new closing copy "AICV is one part of a growing regional network" does the not-claiming-to-be-it work).
+
+### Commits
+
+- **1e50309** — nav "Programs" → **"Build"**, LABEL ONLY (15 spots: desktop nav + mobile drawer + footer × 5 pages), plus the homepage section eyebrow "What We Do" → "Build" (h2 "What we're building." already carried it). ⚠️ **The `id="programs"` and every `#programs` / `/#programs` href were LEFT UNCHANGED ON PURPOSE** (Sat's ruling): hash anchors can't be redirected, and inbound links / agent citations to `…/#programs` live in surfaces OUTSIDE this repo (`.com`, `llms-full.txt`, published briefs) we can't audit. The label/id mismatch is invisible to humans and agents, trivially changeable later. **Do not "fix" the mismatch by renaming the id.** Verified nav on all 5 pages incl. 404; "Build" still resolves to the section (click → scroll 0→5141).
+- **5d50344** — closing section: "Help Shape the Future of Work…" → **"Start Here. Build From Here."** + Sat's invitation copy. **"Partner with AICV" button REMOVED, no replacement** — Sat's framing: this is now an invitation, not a CTA. `.cta__sub` margin-bottom zeroed so the buttonless band stays balanced (desktop + mobile gated). Footer untouched. **`/partner` + `functions/api/partner.js` are PARKED for v2 — do NOT delete, do NOT link.**
+- **891d9bf** — metadata: description + og + twitter all → Sat's front-door copy ("Start here to understand, build, invest in, or join…"). Title unchanged.
+- **aee75ef** — structured data + FAQ: Org + WebSite descriptions and FAQ Q1/Q3 reframed to building/connecting/documenting + front door. **NGO type + DCF parentOrg + DCF FAQ (Q2) all preserved** (emphasis change, not deletion of credibility facts). Q1/Q3 edited via identical schema+DOM replacement — parity verified True on source.
+- **073f6e0** — llms.txt opening (blockquote + "What AICV Is" intro) → same positioning (DCF kept).
+
+### ⚠️ PHANTOM SWEEP — sprints / office hours / "founder programs" NEVER EXISTED (do-not-re-add)
+
+Same class as the retired **job board** and the nonexistent **season passes**: a false claim that had spread across MULTIPLE surfaces. Sat confirms AICV has **NO sprints and NO office hours** — they don't exist — and **"founder programs" as a named line of work is retired**. Swept from every surface: FAQ Q3 (schema+DOM) "Founder programs — meetups, sprints, and office hours", FAQ Q1, the WebSite node, and the meta/og descriptions. **DO NOT let a future session "helpfully" restore sprints, office hours, or a formal "founder programs" line of work.**
+
+- **Informal meetups exist but are DELIBERATELY NOT LISTED anywhere as a static claim.** When formalized they become **dated events on the Luma calendar**, which already flows to `/events` (humans) + structured data (agents). A dated event self-maintains; a static "we do meetups" claim rots. **Do not add a meetups claim to prose/schema.**
+- **KEPT + flagged:** the `/events` page + its `llms.txt` line say the AI-events *calendar* holds "workshops, meetups, boot camps, and conferences" — this is the deliberate calendar-page category framing (the dynamic surface Sat pointed to for meetups), NOT a static formal-program claim. Left as-is; flagged here so it's a conscious keep, not an oversight. One word from Sat removes it if wanted.
+- **Kept:** "Idea Labs" (the Saturday Morning AI: Idea Labs workshop series is real and running) — only sprints/office-hours/"founder programs" went.
+
+### Not bumped / not touched / follow-ups
+
+- `last-modified` + homepage sitemap lastmod already `2026-07-21` (bf09bc4) — no bump.
+- **`.com` / Intelligence Network language alignment — OUT OF SCOPE (different repo), queued as a follow-up.** Sat wants the "building/connecting/documenting, one part of the network" language consistent on `.com` too; that's a separate `~/AICV/core/com` pass.
+- Orphaned by the button removal: **`.btn--cream`** (index.html only) → joins the queued dead-CSS sweep (with the events.html orphan layer + `.section`/`.wrap` etc.). Not swept now.
+- Still deferred: dead-CSS sweep; og:images (`sat-tedx.png`); "first demo night this fall" (still true).
+
+---
+
 ## Agent-Readiness Baselines — 2026-04-23
 
 Pre-change baseline captured before today's content truth + Option B agent infrastructure deployment.
