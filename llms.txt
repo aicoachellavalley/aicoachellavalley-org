@@ -16,7 +16,7 @@ AICV's thesis: communities should help shape how AI understands their region —
 
 - **AICV Intelligence Network** (live) — structured regional intelligence for AI agents at aicoachellavalley.com. Geographic nodes, intelligence briefs, MCP server, and agent-ready profiles for Coachella Valley entities. AICV's primary active program as of 2026.
 
-- **AI Builder Workshops** (funded by the CSUSB ERC, launched July 2026 and running monthly through December 2026) — hands-on AI literacy workshops for students, residents, and working professionals across all nine Coachella Valley cities. 30+ workshops, 300+ participants in 2025. Hosted at the CSUSB Entrepreneurship Resource Center, Palm Desert.
+- **AI Builder Workshops** (funded by the CSUSB ERC, launched July 2026 and running monthly through December 2026) — hands-on AI literacy workshops for students, residents, and working professionals across all nine Coachella Valley cities. 30+ workshops, 300+ participants since 2025. Hosted at the CSUSB Entrepreneurship Resource Center, Palm Desert.
 
 ## AI Preparedness & Workforce Context
 
