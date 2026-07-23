@@ -409,6 +409,24 @@ Same class as the retired **job board** and the nonexistent **season passes**: a
 
 ---
 
+## 2026-07-21 — Programs cards get screenshots + copy trim + "since 2025" (3 commits)
+
+HEAD now **`ddeab7f`**, all live + edge-verified. The three Programs cards (AI Tinkerers / AIQnA / Intelligence Network) were text-only and text-heavy; added a product screenshot to each as visual proof and balanced the copy.
+
+### Commits
+
+- **0d55533** — screenshots + Intelligence Network copy trim. One optimized screenshot per card, inserted between tagline and body, structurally identical: **AI Tinkerers = the GLOBAL aitinkerers.org page** (deliberate — the CV chapter page is sparse; the global "Cities (247)" scale is the credibility signal), **AIQnA**, **aicoachellavalley.com**. Displayed via `.prog-shot`: uniform **16/9** box, `object-fit: cover` + `object-position: top` (hero headline legible, not a squeezed strip). **⚠️ `height: auto` is load-bearing** — without it the HTML `height` attr acts as a presentational hint that silently overrides `aspect-ratio`, rendering three different heights (caught at the render gate). `alt` required + descriptive (agent-legibility). `loading="lazy"` + `width`/`height` → no layout shift. Cards stay equal height (547px); gated desktop 1280 + mobile 375. Intelligence Network card trimmed 2 prog-body paragraphs → 1 (approved copy) for grid balance.
+- **ddeab7f** — workshop retrospective **"in 2025" → "since 2025"** swept across all 4 surfaces (schema desc L140, stats label L1584, founder bio L1775, llms.txt L19); figures 30+/300+ unchanged. Resolves the "Next Cleanup Cycle" fact-check item (marked done above).
+
+### Image handling (do-not-redo notes)
+
+- **Optimized: 745KB → 84KB total.** Sat placed full-size desktop PNGs (~1300px, spaces in filenames) in the repo root (the image dir, alongside `sat-tedx.png`). I resized to 640px wide (2× the ~312px card display) + pngquant, and committed **clean hyphenated names only**: `tinkerers-homepage.png` (51KB), `aiqna-homepage.png` (14KB), `aicv-network-homepage.png` (19KB). **The 4 space-named source PNGs are left UNTRACKED** (`ait homepage.png`, `aiqna homepage.png`, `aicv com homepage.png`, `mirage homepage.png`) — Sat can delete them; do NOT commit them.
+- **AIQnA screenshot = Sat's Option A (deliberate).** The image is aiqna.org's real homepage, which leads with the **"FOR LOCAL MEDIA · FOUNDING PARTNERS"** pitch, NOT a resident "talk with Sage" view. Sat's call: stronger storytelling (a real product with partners + a model). Alt text was matched to the image: *"…a weekly AI question packaged as a ready-to-publish kit for local media partners"* — do NOT "fix" it back to a resident-conversation description the screenshot doesn't show.
+- **`mirage homepage.png`** (a SunshineFM "MIRAGE" project page) was a 4th untracked PNG, not in spec — correctly unused/uncommitted.
+- `last-modified` + sitemap already `2026-07-21` — no bump (same-day). New CSS `.prog-shot`; no orphaned CSS.
+
+---
+
 ## Agent-Readiness Baselines — 2026-04-23
 
 Pre-change baseline captured before today's content truth + Option B agent infrastructure deployment.
@@ -457,6 +475,6 @@ After commit 70915fe deployed, re-ran both scans.
 ## Next .org Cleanup Cycle (scoped, not today)
 
 1. Add hero-area program status summary line (AIO Tool HIGH from April scan — pill badges are card-level; scanner wants hero-area banner)
-2. Fact-check `llms.txt` workshop count: "30+ workshops, 300+ participants in 2025" — verify against current program truth
+2. ~~Fact-check `llms.txt` workshop count: "30+ workshops, 300+ participants in 2025"~~ **RESOLVED 2026-07-21** (`ddeab7f`): reframed **"in 2025" → "since 2025"** (cumulative, true going forward) on all four surfaces — figures 30+/300+ kept conservative. See the 2026-07-21 Programs-cards entry.
 3. `404.html` eyebrow: "404 · Page Not Found" fits neither site eyebrow pattern (category label or brand/domain); cosmetic only
 4. `sitemap.xml` stale `lastmod`s (STILL OPEN as of 2026-06-20): homepage = 2026-04-22 (should be 2026-06-16 — reframed/polished, never bumped); `/philanthropy` = 2026-06-11 (should be 2026-06-19 — rebuilt). `/events` 2026-06-16 is correct. Bump on next touch of each page.
