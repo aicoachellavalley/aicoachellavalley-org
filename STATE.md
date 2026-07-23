@@ -380,7 +380,7 @@ The **institutional-partnerships FAQ** on index.html (schema ~L316 + DOM twin ~L
 
 ---
 
-## 2026-07-21 (positioning pass) — .org becomes the ecosystem front door (6 commits)
+## 2026-07-22 (positioning pass) — .org becomes the ecosystem front door (6 commits)
 
 HEAD now **`073f6e0`**, all live + edge-verified. Sat's strategic repositioning: the homepage stops being primarily "a nonprofit website" and becomes the **canonical front door to the Coachella Valley AI startup ecosystem, for humans and AI systems**. Consistent message everywhere: **AICV is building, connecting, and documenting the ecosystem — NOT claiming to BE it** (the H1 "The Coachella Valley's AI Startup Ecosystem" stays — the recorded June ownable-term decision — and the new closing copy "AICV is one part of a growing regional network" does the not-claiming-to-be-it work).
 
@@ -402,14 +402,14 @@ Same class as the retired **job board** and the nonexistent **season passes**: a
 
 ### Not bumped / not touched / follow-ups
 
-- `last-modified` + homepage sitemap lastmod already `2026-07-21` (bf09bc4) — no bump.
+- `last-modified`/sitemap were left at `2026-07-21` here — **mistaken: this pass was actually 2026-07-22** (git author-dates), the "July 21" carried forward from an earlier day in a multi-day thread. Corrected 2026-07-23 (see the date-correction entry below).
 - **`.com` / Intelligence Network language alignment — OUT OF SCOPE (different repo), queued as a follow-up.** Sat wants the "building/connecting/documenting, one part of the network" language consistent on `.com` too; that's a separate `~/AICV/core/com` pass.
 - Orphaned by the button removal: **`.btn--cream`** (index.html only) → joins the queued dead-CSS sweep (with the events.html orphan layer + `.section`/`.wrap` etc.). Not swept now.
 - Still deferred: dead-CSS sweep; og:images (`sat-tedx.png`); "first demo night this fall" (still true).
 
 ---
 
-## 2026-07-21 — Programs cards get screenshots + copy trim + "since 2025" (3 commits)
+## 2026-07-23 — Programs cards get screenshots + copy trim + "since 2025" (3 commits)
 
 HEAD now **`ddeab7f`**, all live + edge-verified. The three Programs cards (AI Tinkerers / AIQnA / Intelligence Network) were text-only and text-heavy; added a product screenshot to each as visual proof and balanced the copy.
 
@@ -423,7 +423,23 @@ HEAD now **`ddeab7f`**, all live + edge-verified. The three Programs cards (AI T
 - **Optimized: 745KB → 84KB total.** Sat placed full-size desktop PNGs (~1300px, spaces in filenames) in the repo root (the image dir, alongside `sat-tedx.png`). I resized to 640px wide (2× the ~312px card display) + pngquant, and committed **clean hyphenated names only**: `tinkerers-homepage.png` (51KB), `aiqna-homepage.png` (14KB), `aicv-network-homepage.png` (19KB). **The 4 space-named source PNGs are left UNTRACKED** (`ait homepage.png`, `aiqna homepage.png`, `aicv com homepage.png`, `mirage homepage.png`) — Sat can delete them; do NOT commit them.
 - **AIQnA screenshot = Sat's Option A (deliberate).** The image is aiqna.org's real homepage, which leads with the **"FOR LOCAL MEDIA · FOUNDING PARTNERS"** pitch, NOT a resident "talk with Sage" view. Sat's call: stronger storytelling (a real product with partners + a model). Alt text was matched to the image: *"…a weekly AI question packaged as a ready-to-publish kit for local media partners"* — do NOT "fix" it back to a resident-conversation description the screenshot doesn't show.
 - **`mirage homepage.png`** (a SunshineFM "MIRAGE" project page) was a 4th untracked PNG, not in spec — correctly unused/uncommitted.
-- `last-modified` + sitemap already `2026-07-21` — no bump (same-day). New CSS `.prog-shot`; no orphaned CSS.
+- New CSS `.prog-shot`; no orphaned CSS. (`last-modified`/sitemap: this work was actually **2026-07-23** — index bumped to 07-23 in the date-correction entry below.)
+
+---
+
+## 2026-07-23 — Date correction + metadata accuracy (dates were carried forward from an earlier day)
+
+⚠️ **STANDING DISCIPLINE (new): courier-stated dates are inferred, not canon — verify against the system clock, same as paths and counts.** This thread spans **multiple days** (started ~2026-07-15 reasoning "three days before Saturday"; a courier corrected the date to "Tuesday July 21"; the thread then carried into **Thursday 2026-07-23**). Several couriers kept saying "today is July 21" after that had gone stale, and I took it at face value and stamped it into `last-modified`, sitemap, and STATE headings without checking. Two independent clocks (Sat's + the iMac) read 07-23. **The ground truth is `git log --format='%ai'` (author timestamps), not the courier prose.**
+
+**What git author-dates actually show (verified this pass):**
+- **2026-07-21** — post-event truth pass (`bf09bc4`…`28692a4`) + funding-copy correction (`596246c`,`3a7c9a5`,`99c2e78`). Those STATE entries are **accurate** — left as-is.
+- **2026-07-22** — the "positioning pass" (`1e50309`…`ebec9ea`) + the closing-section left-align (`84452bf`). Was mislabeled "2026-07-21"; **heading re-dated → 07-22**. The `1e50309` nav relabel (Programs→Build) touched **all 5 pages**, so events/philanthropy/partner last changed 07-22.
+- **2026-07-23** — Programs cards + since-2025 sweep (`0d55533`,`ddeab7f`,`9f33c3b`). Was mislabeled "2026-07-21"; **heading re-dated → 07-23**.
+
+**Metadata corrected to git-verified actual last-change dates (this commit):**
+- `last-modified`: index.html **→ 2026-07-23** (touched today); events.html, philanthropy.html, partner.html **→ 2026-07-22** (their last real change was the 07-22 nav relabel — dates had been stale at 07-21 / 06-19 / 07-01). `404.html` has no `last-modified` meta.
+- `sitemap.xml` lastmod: `/` **→ 07-23**, `/events` **→ 07-22**, `/philanthropy` **→ 07-22**.
+- Older STATE entries genuinely dated 07-21 (post-event, funding) were **not** rewritten — only the two provably-misdated headings + their internal "no bump" lines were corrected. History for 07-21 stands.
 
 ---
 
