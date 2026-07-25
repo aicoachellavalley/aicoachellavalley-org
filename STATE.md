@@ -443,6 +443,48 @@ HEAD now **`ddeab7f`**, all live + edge-verified. The three Programs cards (AI T
 
 ---
 
+## 2026-07-25 — AI beat bridge + the "daily radio" retirement (2 commits)
+
+HEAD now **`15d1d7a`**, live + edge-verified. Sat writes the **AI beat for the Inland Empire** (grant-funded via the Inland Empire Journalism Hub & Fund). The Desert Sun is likely to write about him and link here, and `.org` said nothing about him as a writer. This adds a **bridge that points outward** — not a content section.
+
+### Commits
+
+- **9182500** — bridge line (founder bio closing paragraph, Sat-approved copy verbatim) + **Person schema** extended with `@id`, `description`, and `sameAs → https://sunshine.fm/`. New scoped `.founder-bio a` rule (the base `a { color: inherit }` would have rendered the link invisible). `last-modified` + homepage sitemap → 2026-07-25.
+- **15d1d7a** — the "daily AI radio" sweep (below).
+
+### ⚠️ ARCHITECTURE — written content stays OFF `.org` (do not propose a blog)
+
+`.org` = citation-grade / institutional. **SunshineFM = human voice, opinion, byline.** The bridge acknowledges the beat and points to SunshineFM; the writing itself never lands here. **Do NOT add a blog, news section, article listing, or RSS to `.org`.** This is deliberate architecture, not an oversight.
+
+### ⚠️ DO-NOT-ADD — "Informed IE" (same class as the private IEJIH+F grant)
+
+The **Informed IE** app is in **closed beta, members-only, not public**. It is deliberately absent from `.org` prose AND schema. The Journalism Hub and the grant are likewise absent from schema. **Do NOT "helpfully" add the platform name, "app coming soon," or the funder.** Edge-verified: `Informed IE` / `IEJIH` / `Journalism Innovation` all return **0** sitewide.
+
+**Queued five-word edit (do NOT do early):** once Informed IE is public *and Sat confirms with the Hub*, the bio line becomes "…writes the AI beat for the Inland Empire **at Informed IE**" + link. No rework needed.
+
+### ⚠️ DO-NOT-RESTORE — "daily AI radio" was ASPIRATIONAL
+
+**"Daily" was the plan, never the practice.** SunshineFM moved to **weekend radio for Palm Springs Coachella** to launch sooner, so the page had been asserting a cadence that does not exist — same phantom class as the **season passes** and the **sprints / office hours / "founder programs."** Swept all three surfaces in one pass, not spot-fixed:
+
+1. **Founder bio ¶2** — SunshineFM clause dropped entirely (¶4 now introduces it properly *with a link*; a second unlinked mention four lines up was redundant as well as contradictory).
+2. **FAQ answer — schema (`#faq`)** and 3. **its visible DOM twin** — "a daily AI radio program from Rancho Mirage" → "weekend radio for Palm Springs Coachella", edited identically, **parity re-verified True on source**.
+
+Zero `daily radio` claims remain sitewide (edge-verified).
+
+### GEOGRAPHY RULING — both framings are true, don't collapse them
+
+**Rancho Mirage = where Sat builds from. Palm Springs Coachella = the market SunshineFM serves.** They answer different questions. The FAQ now uses the **market** framing (more useful to a reader); **Rancho Mirage is untouched everywhere it describes Sat's base or the TEDx talk** (9 occurrences intact). Do not "correct" one into the other.
+
+### Judgment call recorded (the weekend show launches soon, hasn't aired)
+
+Asked whether the FAQ over-asserts an un-aired show. **Ruling: it does not.** The wording is `Sat hosts SunshineFM, weekend radio for Palm Springs Coachella` — the verb attaches to **SunshineFM, which exists and is live** (sunshine.fm returns 200), and the cadence sits in an appositive **describing the property's format**, not claiming episodes aired. Present tense is fine. **Re-check after first broadcast** if the framing ever shifts to per-episode claims.
+
+### Verification
+
+Live edge: bridge paragraph serves ✓ · `https://sunshine.fm/` link present and **resolves 200** ✓ · Person `@id`/`sameAs` in served bytes ✓ · JSON-LD parses ✓ · FAQ schema↔DOM parity True ✓ · `last-modified` + sitemap `2026-07-25` ✓ (one PoP briefly served a stale 07-23 sitemap; 6/6 re-fetches confirmed 07-25). **SunshineFM URL was reconned, not guessed** — `.org` previously linked only the beehiiv *newsletter*; the sunshine-fm repo's own `rel=canonical` + `og:url` declare `https://sunshine.fm/`.
+
+---
+
 ## Agent-Readiness Baselines — 2026-04-23
 
 Pre-change baseline captured before today's content truth + Option B agent infrastructure deployment.
