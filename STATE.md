@@ -1,12 +1,12 @@
 # org/ operational state
 
 > Operational state only. Strategic state lives in `aicv-playbook/STATE.md`.
-> **Fresh session? Read `HANDOFF.md` first** (tight orientation), then this file for full detail. Current HEAD: `f86f83e` (2026-07-01).
+> **Fresh session? Read `HANDOFF.md` first** (tight orientation), then this file for full detail. Current HEAD: **`bfc5418`** (2026-08-04, dead-CSS sweep) plus the STATE entry recording it. *(This pointer had been stale at `f86f83e`/2026-07-01 for five weeks — bump it every session.)*
 
 ## Current
 
 - Plain static HTML — no Astro, no build system
-- Four main pages: `index.html` (~1770 lines — down from ~2280 after the D3 graph removal), `events.html` (~1015 lines), `philanthropy.html` (~1100 lines), `404.html` (~440 lines). (`ai-readiness.html` was RETIRED in `e519554`; `philanthropy.html` added in `456dede` — both prior session, between the 2026-06-09 and 2026-06-20 entries below.)
+- **FIVE** pages, not four (line counts as of the 2026-08-04 dead-CSS sweep): `index.html` (1792), `events.html` (773), `philanthropy.html` (999), `partner.html` (698), `404.html` (438). **`partner.html` is live at 200 but deliberately unlinked** (parked for v2 — see the 2026-07-01 entry); it carries the nav and footer, so it is in scope for anything site-wide and is easy to forget. (`ai-readiness.html` was RETIRED in `e519554`; `philanthropy.html` added in `456dede` — both prior session, between the 2026-06-09 and 2026-06-20 entries below.)
 - Supporting files: `sitemap.xml`, `robots.txt`, `llms.txt`, PDFs
 - Agent endpoints: `/.well-known/api-catalog` (RFC 9727 linkset), `/.well-known/mcp/server-card.json`
 - `_headers`: security headers on `/*` + `Link: </.well-known/api-catalog>; rel="api-catalog"` + CORS + Content-Type overrides for agent endpoints
@@ -482,6 +482,77 @@ Asked whether the FAQ over-asserts an un-aired show. **Ruling: it does not.** Th
 ### Verification
 
 Live edge: bridge paragraph serves ✓ · `https://sunshine.fm/` link present and **resolves 200** ✓ · Person `@id`/`sameAs` in served bytes ✓ · JSON-LD parses ✓ · FAQ schema↔DOM parity True ✓ · `last-modified` + sitemap `2026-07-25` ✓ (one PoP briefly served a stale 07-23 sitemap; 6/6 re-fetches confirmed 07-25). **SunshineFM URL was reconned, not guessed** — `.org` previously linked only the beehiiv *newsletter*; the sunshine-fm repo's own `rel=canonical` + `og:url` declare `https://sunshine.fm/`.
+
+---
+
+## 2026-08-04 — Dead-CSS sweep: terracotta 108 → 78 (rebrand step 1 of 6)
+
+HEAD **`bfc5418`**. **Zero colour changes.** Pure deletion: **314 lines removed, 0
+inserted** across `index.html`, `events.html`, `philanthropy.html`, `partner.html`.
+`404.html` untouched — it had no dead rules at all.
+
+**Terracotta declarations 108 → 78.** index 30→25, events 20→8, philanthropy 29→20,
+partner 18→14, 404 11→11. 72 rules deleted: every terracotta-bearing dead rule, the
+dark-surface families named for this sweep (`.section--dark`, `.event-band`,
+`.where-band*`, `.tool-strip*`, `.where-section*` per page), orphaned `:hover` and
+descendant rules stranded by those deletions, and 5 section banner comments whose
+entire contents were removed.
+
+**⚠️ Recon's "29 dead" was five low. The verified figure is 34** — index 5, events 12,
+philanthropy 12, partner 5. The five it missed (events `.eyebrow`; philanthropy
+`.nav__cta`, `.nav__drawer .drawer-cta`; partner `.link`, `.nav__links a.is-active`)
+were each confirmed against the page's own DOM, with six live controls run to prove
+the method. **Treat prior recon counts as starting points, never authority.**
+
+**30 swept, not 34 — four dead NAV rules were deliberately left in place**
+(philanthropy `.nav__cta`, `.nav__cta:hover`, `.nav__drawer .drawer-cta`; partner
+`.nav__links a.is-active`). All provably dead — philanthropy uses `.is-active` for
+its own nav link, partner is not in the nav at all — but the nav ruling is pending
+and restoring a `nav__cta` on philanthropy later would silently find no CSS.
+**Held for the nav decision; do not sweep them without it.**
+
+**⚠️ Canon's pre-written list at `STATE.md:283` covers `events.html` ONLY.** That
+deferred item is titled "Dead-CSS sweep on events.html" and names a *different,
+broader* set (`.event-card`, `.empty-state`, `.luma-wrap`, the `.btn` family,
+`.section`, `.wrap`…). It says nothing about index, philanthropy or partner — so
+**those three pages' deletions rest on this session's DOM verification, not on prior
+approval.** Do not describe the whole sweep as pre-approved.
+
+### Proof
+
+**Primary:** all 72 deleted selectors match **ZERO elements** on their own page's live
+DOM. A rule matching nothing contributes nothing to any element's computed style, so
+the deletion is a no-op by construction.
+
+**Differential:** every element's full computed style and bounding rect, before vs
+after — 5 pages × 2 widths (1280/375) plus 6 toggled states (mobile drawer on all
+five pages, pledge lightbox on index). **16 comparisons, 0 mismatches**, identical
+element counts and document heights throughout.
+
+**⚠️ TRAP — the first harness lied, and its results were discarded.** An initial
+computed-style comparison returned "0 mismatches" across ten comparisons while being
+**nondeterministic**: `loading="lazy"` images in an offscreen iframe plus the `fadeUp`
+keyframes meant the two sides were sampled at different moments. A control run exposed
+it. The rebuilt harness freezes `animation`/`transition` and fixes image boxes
+identically on both sides, and was validated before its output was trusted —
+repeatability 0, a single-element `.nav__mark` colour change detected as exactly 1,
+and a rule targeting only deleted selectors correctly detected as 0. **Standing rule:
+a differential test that has not been shown capable of failing proves nothing. Run the
+positive control first.** (Second trap inside that: injecting a `<style>` node to
+mutate shifts every element index — append to an existing style node instead.)
+
+### Remaining dead layer — a separate future sweep, same proof method
+
+Rigorous analysis found far more dead CSS than the terracotta subset:
+**index 59 dead selectors, events 93, philanthropy 61, partner 27, 404 zero.** Only
+the in-scope rules were removed, which leaves visible residue: on events the whole
+`.btn` family is dead but only `.btn--primary`/`.btn--cream` carried terracotta, so
+`.btn` and `.btn--ghost` survive as orphans. Same shape for `.location-block` and the
+`.aud-*` family on index. Not urgent, fully mechanical, and provable the same way.
+
+Nav, wordmark and `id="programs"` untouched — no diff line references them. No token
+added, renamed or revalued. The source-order cascade question was left alone: it
+belongs to step 2.
 
 ---
 
