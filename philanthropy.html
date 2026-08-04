@@ -182,7 +182,6 @@
       padding: var(--s-10) var(--gutter);
     }
     .section--sm   { padding-top: var(--s-6); padding-bottom: var(--s-6); }
-    .section--dark { background: var(--c-dusk); }
     .section--sand { background: var(--c-sand); }
     .section--alt  { background: var(--c-sand-d); }
 
@@ -245,12 +244,6 @@
       line-height: 1;
     }
     .btn:hover { transform: translateY(-1px); }
-
-    .btn--primary { background: var(--c-terracotta); color: var(--c-cream); }
-    .btn--primary:hover { background: var(--c-terracotta-d); }
-
-    .btn--cream { background: var(--c-cream); color: var(--c-terracotta); }
-    .btn--cream:hover { background: var(--c-ghost-l); }
 
     .btn--ghost {
       background: transparent;
@@ -504,14 +497,6 @@
       gap: var(--s-5);
       margin-top: var(--s-5);
     }
-    .partner-group__label {
-      font-size: var(--fs-10);
-      font-weight: 500;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--c-terracotta);
-      margin-bottom: var(--s-1);
-    }
     .partner-group__list {
       font-size: var(--fs-15);
       font-weight: 300;
@@ -532,11 +517,6 @@
       color: var(--c-ink-m);
       line-height: 1.75;
     }
-    .location-block a {
-      color: var(--c-terracotta);
-      text-decoration: none;
-    }
-    .location-block a:hover { text-decoration: underline; }
 
     /* ════════════════════════════════════════
        HERO — CREAM VARIANT
@@ -576,51 +556,9 @@
     }
 
     /* ════════════════════════════════════════
-       WHERE WE ARE BAND
-    ════════════════════════════════════════ */
-    .where-band {
-      background: var(--c-dusk);
-      padding: var(--s-5) var(--gutter);
-    }
-    .where-band__inner {
-      max-width: var(--max-w);
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      gap: var(--s-4);
-      flex-wrap: wrap;
-    }
-    .where-band__text {
-      font-size: var(--fs-15);
-      font-weight: 300;
-      color: rgba(251,247,238,0.55);
-    }
-    .where-band__sep {
-      width: 1px; height: 16px;
-      background: rgba(234,212,192,0.2);
-      flex-shrink: 0;
-    }
-    .where-band__email {
-      font-size: var(--fs-15);
-      font-weight: 400;
-      color: var(--c-ghost-l);
-      text-decoration: none;
-      transition: color 0.15s;
-    }
-    .where-band__email:hover { color: var(--c-cream); }
-
-    /* ════════════════════════════════════════
        HERO — CREAM TEXT OVERRIDES
     ════════════════════════════════════════ */
     .hero--cream .hero__subhead { color: var(--c-ink-m); max-width: 640px; }
-    .hero__proof {
-      margin-top: var(--s-3);
-      font-size: var(--fs-17);
-      font-weight: 500;
-      color: var(--c-terracotta);
-      line-height: 1.6;
-      max-width: 680px;
-    }
 
     /* ════════════════════════════════════════
        THREE-COLUMN GRID CARDS
@@ -637,49 +575,11 @@
       padding: var(--s-5) var(--s-4);
     }
     .three-col-card--cream { background: var(--c-cream); }
-    .card-label {
-      font-size: var(--fs-10);
-      font-weight: 500;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--c-terracotta);
-      margin-bottom: var(--s-2);
-    }
     .card-body {
       font-size: var(--fs-15);
       font-weight: 300;
       color: var(--c-ink-m);
       line-height: 1.75;
-    }
-    .card-link {
-      color: var(--c-terracotta);
-      text-decoration: none;
-      font-weight: 500;
-      transition: color 0.15s;
-    }
-    .card-link:hover { color: var(--c-terracotta-d); }
-
-    /* ════════════════════════════════════════
-       TOOL STRIP
-    ════════════════════════════════════════ */
-    .tool-strip {
-      background: var(--c-dusk);
-      padding: var(--s-5) var(--gutter);
-      text-align: center;
-    }
-    .tool-strip__inner { max-width: var(--max-w); margin: 0 auto; }
-    .tool-strip__text {
-      font-family: 'EB Garamond', Georgia, serif;
-      font-size: clamp(18px, 2.2vw, 26px);
-      font-weight: 400;
-      font-style: italic;
-      color: rgba(251,247,238,0.7);
-      line-height: 1.5;
-    }
-    .tool-strip__text strong {
-      font-style: normal;
-      font-weight: 700;
-      color: var(--c-ghost-l);
     }
 
     /* ════════════════════════════════════════
