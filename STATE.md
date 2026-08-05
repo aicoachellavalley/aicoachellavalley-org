@@ -836,6 +836,107 @@ matches the document it previews. Accepted; regeneration is step 5.
 
 ---
 
+## 2026-08-05 (later) — post-swap corrections: dark nav, cards off volt, blush gone
+
+**Layered onto `fb204fd`. NOT pushed — the live site is still terracotta; we publish
+once, when it's right.** CSS-only, zero markup changed.
+
+### 1. Text-on-ground token family — the gap, closed once
+
+It had surfaced three times (footer mark, hero eyebrow + stats label, then the whole
+nav). Defined in `:root` on all five pages:
+
+| Token | Value | Role | On ground |
+|---|---|---|---|
+| `--c-on-ground` | `#E0EDD2` | body-weight text on dark | **14.50:1** |
+| `--c-on-ground-m` | `#C8DDB4` | muted labels and eyebrows | **12.18:1** |
+| `--c-on-ground-hi` | `#D8FF00` | marks + active states on dark | **15.35:1** |
+
+**⚠ I added the third token, which the brief did not name.** The brief says
+`.footer__mark` → volt, and nav hover/active → volt. Using `--c-accent-fill` for that
+would have broken the invariant that the fill token is **background-only** — the
+invariant the whole accent split exists to protect, and the one the doctrine check
+tests. `--c-on-ground-hi` carries volt-as-text-on-dark under its own name, with the
+"dark only" warning attached. **Verified: `--c-accent-fill*` still has zero
+non-background uses.**
+
+**⚠ ALL THREE ARE DARK-ONLY** — on paper they measure 1.17 / 1.39 / 1.10. Audited:
+**zero instances of the family landing on a light surface.**
+
+Reassigned: `.footer__mark` → `-hi` (5 pages) · `.stats__label` → `-m` ·
+`.hero .eyebrow` → `-m`, **scoped to index only** — it is the single plain `.eyebrow`
+on a dark ground (every other page uses `.hero--cream`, and the other eyebrows sit on
+light sections where they must stay `--c-accent-text`). A global `.eyebrow` change
+would have made every light-surface eyebrow 1.39:1.
+
+### 2. Nav is dark on all five pages
+
+Background → `--c-dusk`, matching the footer. `.nav__links a`, `.nav__name` and the
+hamburger bars → `--c-on-ground`; hover and `.is-active` → `--c-on-ground-hi`.
+Drawer given the same treatment (background, links, hover, dividers). `.nav__mark`
+stays a volt tile with pine text — the mockup. **Markup untouched: labels, order,
+hrefs, `id="programs"` and the wordmark are byte-identical.**
+
+**⚠ THE NAV BORDER — reporting, as asked.** It was `1px solid var(--c-ghost)`,
+sized as separation against cream. On ground that measures **12.18:1 — a bright mint
+rule**, clearly wrong. I set it to `rgba(var(--c-ghost-rgb),0.14)` = **1.39:1**, a
+hairline that reads on dark without shouting. The ladder, if you want a different
+weight: `0.30` → 2.23:1 · `0.20` → 1.66:1 · `0.14` → 1.39:1 · `0.10` → 1.25:1.
+**The honest alternative is removing it entirely** — the footer has no top border and
+separates by darkness alone. It only matters on index, where the dark nav meets the
+dark hero; everywhere else the nav sits on light content and the edge is already hard.
+One line either way.
+
+**`.nav__cta` kept as a fill, as instructed** — a volt pill with pine text inside the
+dark bar. It reads as the strongest thing in the nav, which is right for the
+Philanthropy CTA, but it is now competing with the volt wordmark tile two inches to
+its left. On philanthropy itself the CTA is absent and `.is-active` renders as volt
+*text*, which is quieter and arguably better. Worth a look in the screenshots.
+
+### 3. Program cards off volt
+
+`.prog-card--featured` → `--c-sand-d` `#E0EDD2`. Pine text on it is **9.08:1**. The
+volt moved to the card's button (`.prog-card--featured .prog-tag`), pine on volt
+**9.61:1**. **No border accent added** — `.prog-grid` already frames the cards in
+`--c-ghost` with 2px gutters, so they separate without one. Say the word if you want
+the accent anyway.
+
+**Volt as a LARGE fill now exists once per page: the `.cta` band on index.**
+Everything else volt is a small control — `.nav__mark` (32px), `.nav__cta`,
+`.drawer-cta`, `.btn--primary`, `.founder-credential`, the program buttons, and the
+pledge-replica header.
+
+### 4. Philanthropy cards, and `--c-blush` is gone
+
+`--give` → `--c-sand-d`, `--deep` → `--c-dusk-m` (off pure ground). They now read as
+siblings: 9.08:1 apart, both against a paper section. **`--c-blush` and `#F3DDCF`
+deleted entirely.** **Zero warm hex values remain anywhere in the tree** — verified
+across all five files with comments stripped.
+
+### Verification
+
+- **Contrast: 0 new failures, 7 fixed.** index 17 → 14, the other four 6 → 5 each.
+- **Zero pine-on-dark-ground text remains** — the check that motivated item 1.
+- **Zero on-ground-family tokens on a light surface.**
+- **Layout identical** across 12 combinations (5 pages × 2 widths + drawer open on two):
+  element counts, document heights and every bounding rect unchanged.
+- Token block: **23 declarations, byte-identical across all five pages.** Braces balanced.
+
+### ⚠ THE 16 REMAINING FAILURES ARE ONE FAMILY, AND NOW CHEAPLY FIXABLE
+
+All pre-existing, all the same shape: **low-alpha cream on the dark ground.**
+`.footer__desc` 3.44 · `.footer__col-label` 2.44 · `.footer__copy` 2.20 ·
+`.footer__tagline` 1.84 · `.stats__affil` 2.62 · `.stats__l` 4.29 ·
+`.pledge-thumb__hint` 3.83. Plus two decorative watermarks (fine) and the pledge
+eyebrow at 4.29 flagged earlier.
+
+**`--c-on-ground-m` fixes most of them outright — it is 12.18:1 where those are 2–4:1.**
+These are the "four already-failing pairs" BRAND.md §4 has carried as open since the
+audit. The tool to close them now exists. Not done here: out of scope, and the footer
+type hierarchy is a design call, not a substitution.
+
+---
+
 ## Agent-Readiness Baselines — 2026-04-23
 
 Pre-change baseline captured before today's content truth + Option B agent infrastructure deployment.

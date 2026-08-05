@@ -391,13 +391,21 @@
       --c-ink-l-rgb:        45,106,79;     /* --c-ink-l        #2D6A4F */
       --c-ink-rgb:          27,67,50;      /* --c-ink          #1B4332 */
 
-      /* Single-use card tint: philanthropy .onramp-card--give.
-         ⚠ DELIBERATELY NOT SWAPPED at step 6 — Sat's ruling. It is now the ONE
-         warm value left in a pine/volt palette and WILL read as off-brand next
-         to .onramp-card--deep. Accepted: whether it collapses into --c-ghost-l
-         or takes a pine-family value is a design decision for after the
-         palette lands, not part of a mechanical swap. */
-      --c-blush:        #F3DDCF;
+      /* ── TEXT ON THE DARK GROUND (added 2026-08-05) ──────────────────
+         BRAND.md §4 assumed accent text always sits on a LIGHT surface.
+         It does not: the footer mark, the hero eyebrow, the stats label and
+         the whole nav sit on --c-dusk. Pine on ground is 1.60:1 — invisible.
+         This family is the answer, defined once.
+         ⚠ ALL THREE ARE DARK-SURFACE ONLY. On paper they measure 1.17, 1.39
+         and 1.10 — unusable by design. Never put them on a light ground. */
+      --c-on-ground:    #E0EDD2;   /* pine-mist — body-weight text on dark.
+                                      14.50:1 on ground, 9.08:1 on card      */
+      --c-on-ground-m:  #C8DDB4;   /* pine-tint — muted labels + eyebrows.
+                                      12.18:1 on ground                      */
+      --c-on-ground-hi: #D8FF00;   /* volt — brand marks and ACTIVE states on
+                                      dark only. 15.35:1 on ground. Kept
+                                      separate from --c-accent-fill so that
+                                      token stays background-only.           */
 
       /* ── ACCENT SPLIT (rebrand step 3, 2026-08-04) ──────────────────
          One accent value does two jobs today. It cannot after the rebrand:
@@ -587,8 +595,8 @@
        NAV
     ════════════════════════════════════════ */
     .nav {
-      background: var(--c-cream);
-      border-bottom: 1px solid var(--c-ghost);
+      background: var(--c-dusk);
+      border-bottom: 1px solid rgba(var(--c-ghost-rgb),0.14);
       padding: 0 var(--gutter);
       position: sticky;
       top: 0;
@@ -619,7 +627,7 @@
     .nav__name {
       font-size: var(--fs-13);
       font-weight: 500;
-      color: var(--c-ink);
+      color: var(--c-on-ground);
     }
     .nav__links {
       display: flex;
@@ -630,11 +638,11 @@
     .nav__links a {
       font-size: var(--fs-13);
       font-weight: 400;
-      color: var(--c-ink-m);
+      color: var(--c-on-ground);
       text-decoration: none;
       transition: color 0.15s;
     }
-    .nav__links a:hover { color: var(--c-accent-text); }
+    .nav__links a:hover { color: var(--c-on-ground-hi); }
     .nav__cta {
       background: var(--c-accent-fill) !important;
       color: var(--c-ink) !important;
@@ -684,7 +692,11 @@
       from { opacity: 0; transform: translateY(18px); }
       to   { opacity: 1; transform: translateY(0); }
     }
-    .hero .eyebrow   { animation: fadeUp 0.55s ease both 0.1s; }
+    /* index is the only page with a DARK hero (the others use .hero--cream),
+       so its eyebrow is the one plain .eyebrow sitting on the ground. Pine
+       would be 1.60:1 here. Scoped, not global — .eyebrow on light pages must
+       stay --c-accent-text. */
+    .hero .eyebrow   { color: var(--c-on-ground-m); animation: fadeUp 0.55s ease both 0.1s; }
     .hero__headline  { animation: fadeUp 0.55s ease both 0.2s; }
 
     /* ════════════════════════════════════════
@@ -703,7 +715,7 @@
       display: block;
       width: 22px;
       height: 2px;
-      background: var(--c-ink);
+      background: var(--c-on-ground);
       transition: transform 0.2s, opacity 0.2s;
     }
     .nav__hamburger.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
@@ -714,8 +726,8 @@
       display: none;
       position: fixed;
       top: 60px; left: 0; right: 0;
-      background: var(--c-cream);
-      border-bottom: 1px solid var(--c-ghost);
+      background: var(--c-dusk);
+      border-bottom: 1px solid rgba(var(--c-ghost-rgb),0.14);
       padding: 24px var(--gutter);
       z-index: 199;
       flex-direction: column;
@@ -725,14 +737,14 @@
     .nav__drawer a {
       font-size: 15px;
       font-weight: 400;
-      color: var(--c-ink-m);
+      color: var(--c-on-ground);
       text-decoration: none;
       padding: 14px 0;
-      border-bottom: 1px solid var(--c-ghost);
+      border-bottom: 1px solid rgba(var(--c-ghost-rgb),0.14);
       transition: color 0.15s;
     }
     .nav__drawer a:last-child { border-bottom: none; }
-    .nav__drawer a:hover { color: var(--c-accent-text); }
+    .nav__drawer a:hover { color: var(--c-on-ground-hi); }
     .nav__drawer .drawer-cta {
       margin-top: 16px;
       background: var(--c-accent-fill);
@@ -788,7 +800,7 @@
       font-weight: 500;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: var(--c-accent-text);
+      color: var(--c-on-ground-m);
       text-align: center;
       margin-bottom: var(--s-4);
     }
@@ -951,7 +963,7 @@
       position: relative;
       overflow: hidden;
     }
-    .prog-card--featured { background: var(--c-accent-fill); }
+    .prog-card--featured { background: var(--c-sand-d); }
 
     .prog-num {
       position: absolute;
@@ -1023,7 +1035,7 @@
       align-self: flex-start;
     }
     .prog-card--featured .prog-tag {
-      background: var(--c-cream);
+      background: var(--c-accent-fill);
       color: var(--c-accent-text);
     }
     a.prog-tag { text-decoration: none; }
@@ -1337,7 +1349,7 @@
       font-weight: 500;
       letter-spacing: 0.15em;
       text-transform: uppercase;
-      color: var(--c-accent-text);
+      color: var(--c-on-ground-hi);
       margin-bottom: 10px;
     }
     .footer__name {
