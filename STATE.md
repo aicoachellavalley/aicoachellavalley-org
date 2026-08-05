@@ -1,7 +1,7 @@
 # org/ operational state
 
 > Operational state only. Strategic state lives in `aicv-playbook/STATE.md`.
-> **Fresh session? Read `HANDOFF.md` first** (tight orientation), then this file for full detail. Current HEAD: **pine/volt is complete and the site PASSES** — steps 1–6 plus post-swap corrections, all 2026-08-04/05. Zero failing text elements on four of five pages; index has two decorative watermarks only. Remaining: step 5 (regenerate the pledge deck PDF) and the hero photograph. *(This pointer had been stale at `f86f83e`/2026-07-01 for five weeks — bump it every session.)*
+> **Fresh session? Read `HANDOFF.md` first** (tight orientation), then this file for full detail. Current HEAD: **pine/volt complete, the site PASSES, and the index hero photograph is in** (2026-08-04/05). Favicon shipped. Remaining: step 5 — regenerate the pledge deck PDF, still warm. *(This pointer had been stale at `f86f83e`/2026-07-01 for five weeks — bump it every session.)*
 
 ## Current
 
@@ -1081,6 +1081,116 @@ a short pass once the file exists.
 
 **Standing consequence:** the index nav/hero edge that deleting the nav border gave up
 is **still open** until this lands.
+
+---
+
+## 2026-08-05 (hero) — the photograph is in; the index nav/hero edge is restored
+
+**Index only.** The other four pages use `.hero--cream` and have **zero diff lines.**
+Closes the dependency deleting the nav border created two sessions ago: the dark nav
+now meets a LIGHT photograph, so the edge reads without a rule.
+
+### Assets — hand-optimised, no build step
+
+| File | Dimensions | Bytes | Target |
+|---|---|---|---|
+| `hero-sunrise-1920.webp` | 1920×1080 | **81 KB** | ~250 KB |
+| `hero-sunrise-1920.jpg` | 1920×1080 | 189 KB | fallback |
+| `hero-sunrise-960.webp` | 960×751 | **26 KB** | ~120 KB |
+| `hero-sunrise-960.jpg` | 960×750 | 74 KB | fallback |
+
+**Three to four times under budget** — the frame is mostly smooth gradient, which WebP
+handles extremely well. q=88; checked for banding rather than assumed: a vertical
+sample through the sky gives a max step of 1.01 and **zero steps ≥2.0**.
+
+**Mobile is a genuine crop, not a resize** — `-crop 0 0 1966 1536` drops the right 28%
+of the frame, taking the sun blowout out entirely while keeping the palm line.
+
+**JPEG fallbacks are kept.** With `<picture>` only one source is ever fetched, so they
+cost modern visitors nothing and only serve the rare non-WebP client.
+
+**⚠ TOOLING CORRECTION.** An earlier session recorded that `sips` encodes WebP. **It
+does not** — `sips --formats` lists `org.webmproject.webp` **without** the `Writable`
+flag; it reads WebP only. ffmpeg here has the decoder but no `libwebp` encoder either.
+**`brew install webp` was run** to get `cwebp` 1.6.0. Small, standard, reversible
+(`brew uninstall webp`), and the only way to meet the WebP spec on this machine.
+
+### Hero treatment
+
+`<picture>` with an `<img>` — not a CSS background — because `fetchpriority` and
+`loading` are image attributes. **LCP element confirmed: the hero `<img>` at 647,680
+px² visible, four times the next candidate (the H1 at 164,498).** It carries
+`loading="eager"`, `fetchpriority="high"`, `decoding="async"`, explicit `width`/`height`.
+
+**Both old dark-hero devices are gone, and both were judged rather than swept:**
+
+- **`.hero::before`** was a 1.1%-white diagonal scanline — texture for a flat dark
+  field, invisible over a photograph. **Repurposed as the scrim** rather than deleted,
+  so the pseudo-element count is unchanged.
+- **`.hero__ghost`** was a 380px "AI" at 2.5% white, bottom-right. Over a photo it is
+  invisible, redundant now the image carries the interest, and it sat exactly where the
+  sun blows out. **Removed.**
+
+**Type inverted** — this hero is now light: `.hero .h1` → `--c-ink`, `.accent` →
+`--c-accent-text-d`, and the eyebrow override was **dropped entirely** so it inherits
+the same pine every other eyebrow on the site uses.
+
+### ⚠ THE SCRIM IS TWO DIFFERENT GRADIENTS, AND MOBILE IS WHY
+
+Desktop is the left-to-right paper gradient the brief specified — type sits left, the
+photo and the sun stay open on the right.
+
+**That does not work on mobile, and measuring caught it.** At 375 the type spans the
+full width, so a horizontal scrim protects nothing: the headline's last line ran
+straight into the palm silhouettes at `rgb(67,60,12)`, where pine measures **1.00:1** —
+literally invisible. Mobile therefore gets its own `@media (max-width: 700px)` block:
+a **vertical** gradient covering the type band and clearing for the palms, a taller
+hero (`min-height: 460px`) that drops the palm line below the text, and
+`object-position: 50% 72%`.
+
+**The media query is placed immediately after the base rules it overrides** — the
+source-order cascade trap this file has hit three times.
+
+**⚠ Measured, not assumed, and the first answer was wrong.** The raw haze gives pine
+5.03:1 at the mean but **4.25:1** against the darkest 2nd percentile — under AA, which
+is what forced a scrim at all.
+
+### Verification — composited, at nine breakpoints
+
+Contrast measured by rasterising the actual painted result: image with its real
+`object-fit`/`object-position`, then the real computed gradient, sampled under **tight
+glyph rects** (`Range.getClientRects` on text nodes, not element boxes).
+
+| vp | src | hero | scrim | eyebrow | h1 | accent |
+|---|---|---|---|---|---|---|
+| 1440 | 1920 | 1425×560 | horiz | 9.59 | 6.57 | 3.79 |
+| 1280 | 1920 | 1265×512 | horiz | 9.59 | 6.44 | 3.72 |
+| 1024 | 1920 | 1009×410 | horiz | 9.59 | 6.19 | 3.81 |
+| 768 | 1920 | 753×380 | horiz | 9.18 | 6.20 | 3.81 |
+| 700 | 960 | 685×460 | vert | 10.11 | 9.88 | 5.70 |
+| 600 | 960 | 585×460 | vert | 10.11 | 9.89 | 5.70 |
+| 430 | 960 | 415×460 | vert | 10.11 | 9.72 | 5.60 |
+| 375 | 960 | 360×460 | vert | 10.11 | 7.87 | 4.54 |
+| 320 | 960 | 305×460 | vert | 10.05 | 6.46 | 3.73 |
+
+**All pass.** Tightest margin **+0.72** over threshold (was +0.03 before the mobile
+scrim was lifted a second time).
+
+**CLS = 0.** Element count 292 → 292 and **zero geometry movement** when the image
+lands, at both 1280 and 375 — the `<img>` is absolutely positioned inside a
+`min-height` container, so it cannot shift anything.
+
+**Correct source selection verified:** 1920 at ≥768, 960 at ≤700.
+
+### Harness notes worth keeping
+
+- **Setting `iframe.src` before appending to the DOM breaks `<picture>`** — the element
+  resolves at parse time against the iframe's default 300px box and picks the mobile
+  source at every viewport. Append first, then set `src`. This produced a false
+  "mobile image at 1280" reading before it was caught.
+- **CSS drops `to bottom` from computed gradient values** because it is the default.
+  Testing for it inverts the direction; test for `to right` instead. This produced a
+  false failure on mobile.
 
 ---
 

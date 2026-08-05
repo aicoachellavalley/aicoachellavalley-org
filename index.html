@@ -663,35 +663,74 @@
     /* ════════════════════════════════════════
        HERO
     ════════════════════════════════════════ */
+    /* ── HERO — photograph, index only (2026-08-05) ──────────────────
+       The other four pages use .hero--cream and are untouched.
+       The dark-hero treatment is GONE and deliberately so:
+         · .hero::before was a 1.1%-white diagonal scanline — texture for a
+           flat dark field. Invisible over a photograph. REPURPOSED as the
+           scrim below rather than left as dead weight.
+         · .hero__ghost was a 380px "AI" at 2.5% white, bottom-right. Over
+           a photo it is invisible, redundant (the image now carries the
+           interest) and sat exactly where the sun blows out. REMOVED.
+       Fallback is LIGHT so a slow image never flashes dark behind dark type. */
     .hero {
-      background: var(--c-dusk);
-      padding: 120px var(--gutter) 48px;
+      background: var(--c-sand);
+      padding: 120px var(--gutter) 56px;
+      min-height: clamp(380px, 40vw, 560px);
       position: relative;
       overflow: hidden;
     }
+    .hero__media {
+      position: absolute; inset: 0; z-index: 0;
+    }
+    .hero__media img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: 50% 58%;
+      display: block;
+    }
+    /* Scrim. Measured, not guessed: pine on the raw haze is 5.03:1 at the mean
+       but 4.25:1 against the darkest 2nd percentile — under AA. Paper from the
+       left lifts the type region clear while leaving the right of the frame,
+       and the sun, fully open. */
     .hero::before {
       content: '';
-      position: absolute; inset: 0;
-      background-image: repeating-linear-gradient(
-        -45deg,
-        transparent, transparent 40px,
-        rgba(255,255,255,0.011) 40px, rgba(255,255,255,0.011) 41px
-      );
+      position: absolute; inset: 0; z-index: 1;
+      background: linear-gradient(to right,
+        rgba(var(--c-cream-rgb),0.92) 0%,
+        rgba(var(--c-cream-rgb),0.84) 32%,
+        rgba(var(--c-cream-rgb),0.48) 62%,
+        rgba(var(--c-cream-rgb),0) 86%);
       pointer-events: none;
-    }
-    .hero__ghost {
-      position: absolute;
-      right: -40px; bottom: -60px;
-      font-family: 'EB Garamond', Georgia, serif;
-      font-size: 380px; font-weight: 700;
-      color: rgba(255,255,255,0.025);
-      line-height: 1;
-      pointer-events: none; user-select: none;
     }
     .hero__inner {
       max-width: var(--max-w);
       margin: 0 auto;
       position: relative; z-index: 2;
+    }
+    /* Type inverts: this hero is now LIGHT. */
+    .hero .h1 { color: var(--c-ink); }
+    .hero .h1 .accent { color: var(--c-accent-text-d); }
+
+    /* MOBILE — the desktop scrim runs left-to-right because the type sits left.
+       On mobile the type spans the full width, so a horizontal scrim cannot
+       protect it: measured, the headline's last line ran straight into the palm
+       silhouettes at rgb(67,60,12) — pine on that is 1.00:1, invisible.
+       Two changes: a taller hero drops the palm line BELOW the type, and the
+       scrim turns vertical so it covers the type band and clears for the palms.
+       Placed immediately after the base rules it overrides — the source-order
+       cascade trap this file has hit three times. */
+    @media (max-width: 700px) {
+      .hero { min-height: 460px; }
+      .hero::before {
+        background: linear-gradient(to bottom,
+          rgba(var(--c-cream-rgb),0.94) 0%,
+          rgba(var(--c-cream-rgb),0.92) 56%,
+          rgba(var(--c-cream-rgb),0.66) 75%,
+          rgba(var(--c-cream-rgb),0.14) 90%,
+          rgba(var(--c-cream-rgb),0) 100%);
+      }
+      .hero__media img { object-position: 50% 72%; }
     }
     .hero__headline {
       margin-bottom: 0;
@@ -705,7 +744,7 @@
        so its eyebrow is the one plain .eyebrow sitting on the ground. Pine
        would be 1.60:1 here. Scoped, not global — .eyebrow on light pages must
        stay --c-accent-text. */
-    .hero .eyebrow   { color: var(--c-on-ground-m); animation: fadeUp 0.55s ease both 0.1s; }
+    .hero .eyebrow   { animation: fadeUp 0.55s ease both 0.1s; }  /* colour inherits .eyebrow = pine */
     .hero__headline  { animation: fadeUp 0.55s ease both 0.2s; }
 
     /* ════════════════════════════════════════
@@ -1545,7 +1584,14 @@
 
 <!-- ── HERO ── -->
 <section class="hero">
-  <div class="hero__ghost">AI</div>
+  <picture class="hero__media">
+    <source media="(max-width: 700px)" type="image/webp" srcset="/hero-sunrise-960.webp">
+    <source media="(max-width: 700px)" srcset="/hero-sunrise-960.jpg">
+    <source type="image/webp" srcset="/hero-sunrise-1920.webp">
+    <img src="/hero-sunrise-1920.jpg" width="1920" height="1080"
+         alt="Sunrise over the Coachella Valley, mountains rising above a palm-lined city"
+         loading="eager" fetchpriority="high" decoding="async">
+  </picture>
   <div class="hero__inner">
     <span class="eyebrow">Nonprofit · Coachella Valley · Est. 2025</span>
     <h1 class="h1 hero__headline">
