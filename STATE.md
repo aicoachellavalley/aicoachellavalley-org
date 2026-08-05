@@ -1,7 +1,7 @@
 # org/ operational state
 
 > Operational state only. Strategic state lives in `aicv-playbook/STATE.md`.
-> **Fresh session? Read `HANDOFF.md` first** (tight orientation), then this file for full detail. Current HEAD: **steps 1–3 of the rebrand all shipped 2026-08-04** — `bfc5418` dead-CSS sweep → `e0e0078` rgba refactor + accent split → follow-on applying Sat's three rulings. All at zero visual change. Next: step 4 (flip text on accent fills). *(This pointer had been stale at `f86f83e`/2026-07-01 for five weeks — bump it every session.)*
+> **Fresh session? Read `HANDOFF.md` first** (tight orientation), then this file for full detail. Current HEAD: **the pine/volt palette is LIVE** — steps 1–3 (zero-pixel, 2026-08-04) then **steps 4+6 shipped 2026-08-05, the visible one**. Remaining: step 5 (regenerate the pledge deck PDF) + three flagged items in the 2026-08-05 entry. *(This pointer had been stale at `f86f83e`/2026-07-01 for five weeks — bump it every session.)*
 
 ## Current
 
@@ -747,6 +747,92 @@ build while `index`/`events`/`philanthropy`/`404` were still pre-push, and a sin
 cache-busted fetch is not proof.** Confirmed with 3 fetches per page and 12 consecutive
 on `events` (12/12 new) before declaring it live. Same shape as the 2026-07-30 `llms.txt`
 and 2026-07-25 sitemap PoP notes.
+
+---
+
+## 2026-08-05 — THE VISIBLE ONE: steps 4 + 6, pine/volt is live
+
+**The site's appearance changed.** Steps 1–3 were zero-pixel; this is not. 313
+insertions / 213 deletions, 5 files. **Only 2 markup lines changed** (the pledge
+replica's inline styles) — everything else is CSS.
+
+**Shipped as ONE commit, deliberately.** Step 4 alone is a *regression* on the warm
+palette: flipping button text to dark drops the hover-fill pair from 5.59:1 to
+3.12:1 on `#A8441F`. Only step 6 makes it right (7.71:1 on `#C2E600`). Committing
+them separately would have put a knowingly-worse state in history.
+
+### Step 4 — 25 flips, every light value on an accent fill became dark
+
+`--c-cream` → `--c-ink` on `.btn--primary` ×2, `.nav__mark` ×5, `.nav__cta` ×5,
+`.drawer-cta` ×5, `.prog-title`, `.prog-tagline`, `.founder-credential`,
+`.cta__headline`, and the pledge replica title. Alpha-derived light values moved to a
+new `--c-ink-rgb`: `.prog-body` @0.8, `.cta__sub` @0.75, pledge eyebrow @0.7.
+**Zero light values remain on any fill surface.**
+
+### Step 6 — palette swapped, per BRAND.md §4
+
+`--c-terracotta`, `--c-terracotta-d` and `--c-terracotta-d-rgb` were **deleted** —
+once the accent aliases became literals nothing referenced them. All 5 `-rgb`
+triplets updated in lockstep with their hexes. `--c-blush` untouched per ruling.
+Token block: **21 declarations, byte-identical across all five pages.**
+
+### ⚠ NAMING DEBT — deliberate, and recorded
+
+Values were swapped; **names were not**. `--c-cream` is now paper-white, `--c-dusk` a
+near-black green, `--c-ink` pine. A rename touches ~300 usages and would have mixed a
+mechanical change into a visible one, so it is queued as its own zero-pixel step.
+**This is the identical defect `.com` carries on `--sand`** (BRAND.md §3) — do not let
+it sit for three months.
+
+### Verification
+
+**Layout provably unmoved.** 5 pages × 2 widths: element counts, document heights, and
+**every element's bounding rect** identical before and after. `geometry_moved: 0` on
+all ten. Only colour changed.
+
+**Contrast, measured on the real rendered pairs** (not the theoretical matrix) —
+compositing translucent backgrounds and walking up for the effective background:
+
+| | before | after |
+|---|---|---|
+| index | 54 failing | **17** |
+| events | 10 | **6** |
+| philanthropy | 13 | **6** |
+| partner | 11 | **6** |
+| 404 | 11 | **6** |
+
+**62 contrast failures fixed. ZERO new failures.** Every one of the 41 remaining was
+already failing on the warm palette.
+
+**Doctrine holds: `--c-accent-fill*` appears as `background` and nothing else** — zero
+uses as colour, border or stroke. Volt is never text on light.
+
+### ⚠ THREE THINGS FOR SAT — flagged, NOT fixed
+
+1. **Accent text on the dark ground went 3.38:1 → 1.60:1.** `.eyebrow` (index hero),
+   `.stats__label`, and `.footer__mark` (**all five pages**) put `--c-accent-text`
+   (pine `#1B4332`) on `--c-dusk` (`#081C15`). Both are dark now, so it is effectively
+   invisible — visible in the screenshots. Already failing before (3.38), so not a new
+   failure, but a material degradation. **§4's spec assumed accent text sits on light
+   surfaces; these three selectors do not.** Fix is a dark-ground variant using volt
+   (volt on ground = 15.35:1, and BRAND.md §1 permits volt as text on dark — .com
+   already does this in the how-we-do-this modal). Needs a token and a ruling.
+2. **`--c-blush` `#F3DDCF` is now the one warm value on the site** and reads as an
+   off-brand pink card next to `.onramp-card--deep`. Clearly visible in the
+   philanthropy screenshot. Kept per ruling; flagged as predicted.
+3. **Pledge replica eyebrow lands at 4.30:1** (9px, needs 4.5). Raising alpha 0.7 →
+   0.75 gives 4.89:1 and matches `.cta__sub`. One-character change, not made.
+
+### Watermarks — pine-on-volt, confirmed not muddy
+
+`.cta__ghost` **improved** 1.06 → 1.42:1 and `.prog-num` reads as a clean darker-pine
+numeral on volt. The fill-family ruling was right.
+
+### KNOWN GAP — accepted, not a defect
+
+**The pledge deck PDF stays warm.** `aicv-pledge-deck.pdf` is baked with the old
+palette, and its HTML thumbnail recolours automatically — so the thumbnail no longer
+matches the document it previews. Accepted; regeneration is step 5.
 
 ---
 
