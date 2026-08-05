@@ -1019,6 +1019,71 @@ in the drawer body and has no wordmark competing beside it.
 
 ---
 
+## 2026-08-05 (favicon) — the icon gap is closed; hero BLOCKED on the asset
+
+**Favicon shipped. The hero photograph did not — the image file was never on disk.**
+See the blocker at the end.
+
+### Favicon — closed, recon's oldest structural gap
+
+Recon found **no `<link rel="icon">` on any page**. Four assets now serve from root,
+wired into all five pages (`<head>` only — 45 insertions, 0 deletions, 9 lines each):
+
+| File | Bytes | Notes |
+|---|---|---|
+| `favicon.svg` | **407** | primary, scalable |
+| `favicon-32.png` | 621 | |
+| `favicon-16.png` | 313 | |
+| `apple-touch-icon.png` | 2,973 | 180×180, iOS |
+
+**~4.3 KB total.** Verified serving with correct MIME types and dimensions; the SVG
+decodes and paints (495 pine pixels in the tile — the glyphs render, not just the
+ground).
+
+**It is the `.nav__mark` treatment**, built from that rule's actual spec: volt
+`#D8FF00` tile, `--c-ink` `#1B4332` serif "AI", Georgia — the local fallback in the
+mark's own `'EB Garamond', Georgia, serif` stack, and the one that renders identically
+without a webfont round-trip.
+
+**One deliberate deviation: type scale.** The nav mark is 14px in a 32px tile (0.44).
+At favicon sizes that renders about 7px — illegible. The icon uses **19px in 32
+(0.59)**, so it holds at 16px. Same treatment, scaled for the medium.
+
+**⚠ INTERIM, as instructed.** This is the CURRENT mark. It is **not** the AiCV/sun
+wordmark — that exists only inside a hero mockup (`~/Downloads/aicv org hero draft
+page.png`) as composited pixels, not as artwork. **When that wordmark is drawn
+properly, the favicon should be re-exported from it.** Do not treat this as final.
+
+**Also added: `<meta name="theme-color" content="#081C15">`** on all five pages —
+recon found none, and mobile browser chrome now matches the dark nav. Not requested;
+one line; say the word and it comes out.
+
+### ⚠ BLOCKED — the hero photograph was never handed over as a file
+
+The image is visible in the session but **exists nowhere on disk.** Searched
+`~/Downloads`, `~/Desktop`, `~/Documents`, `~/Pictures`, and the session scratch. The
+two hero-named files in Downloads are **mockups, not sources**:
+
+- `aicv org hero draft page.png` (1672×941) — a full-page comp with the headline,
+  buttons, feature bar and the AiCV/sun wordmark **baked in**, over a scrim that is
+  already composited. Cropping a hero out of it would ship someone else's flattened
+  layout at half the resolution needed for a 1920w asset.
+- `aicv hero page.png` (2730×1536) — same class.
+
+**Nothing was guessed or substituted.** Items 1 and 2 are untouched: no image
+prepped, no `.hero` CSS changed, `.hero::before` and `.hero__ghost` left exactly as
+they are pending a judgement that needs the real photograph behind them.
+
+**What is needed:** the source file (JPEG/PNG/HEIC, ideally ≥2400px wide) dropped
+anywhere on disk with the path named. Tooling is confirmed ready — `sips` encodes
+WebP (`org.webmproject.webp`), `rsvg-convert` handles vector, so srcset generation is
+a short pass once the file exists.
+
+**Standing consequence:** the index nav/hero edge that deleting the nav border gave up
+is **still open** until this lands.
+
+---
+
 ## Agent-Readiness Baselines — 2026-04-23
 
 Pre-change baseline captured before today's content truth + Option B agent infrastructure deployment.
