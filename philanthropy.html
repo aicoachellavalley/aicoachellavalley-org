@@ -324,7 +324,6 @@
     ════════════════════════════════════════ */
     .nav {
       background: var(--c-dusk);
-      border-bottom: 1px solid rgba(var(--c-ghost-rgb),0.14);
       padding: 0 var(--gutter);
       position: sticky;
       top: 0;
@@ -373,12 +372,13 @@
     .nav__links a:hover { color: var(--c-on-ground-hi); }
     .nav__links a.is-active { color: var(--c-on-ground-hi); font-weight: 500; }
     .nav__cta {
-      background: var(--c-accent-fill) !important;
-      color: var(--c-ink) !important;
-      padding: 7px 16px !important;
+      background: transparent !important;
+      color: var(--c-on-ground-hi) !important;
+      border: 1px solid var(--c-on-ground-hi) !important;
+      padding: 6px 15px !important;   /* -1px absorbs the border: outer box unchanged */
       font-weight: 500 !important;
     }
-    .nav__cta:hover { background: var(--c-accent-fill-h) !important; }
+    .nav__cta:hover { background: var(--c-accent-fill) !important; color: var(--c-ink) !important; }
 
     /* ════════════════════════════════════════
        HAMBURGER MENU
@@ -729,7 +729,7 @@
     .footer__desc {
       font-size: var(--fs-12);
       font-weight: 300;
-      color: rgba(var(--c-cream-rgb),0.4);
+      color: var(--c-on-ground-m);
       line-height: 1.7;
     }
     .footer__col-label {
@@ -737,14 +737,14 @@
       font-weight: 500;
       letter-spacing: 0.15em;
       text-transform: uppercase;
-      color: rgba(var(--c-cream-rgb),0.3);
+      color: var(--c-on-ground-m);
       margin-bottom: var(--s-2);
     }
     .footer__links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
     .footer__links a {
       font-size: 13px;
       font-weight: 300;
-      color: rgba(var(--c-cream-rgb),0.5);
+      color: var(--c-on-ground);
       text-decoration: none;
       transition: color 0.15s;
     }
@@ -757,13 +757,13 @@
     .footer__copy {
       font-size: var(--fs-12);
       font-weight: 300;
-      color: rgba(var(--c-cream-rgb),0.25);
+      color: var(--c-on-ground-m);
     }
     .footer__tagline {
       font-family: 'EB Garamond', Georgia, serif;
       font-size: 13px;
       font-style: italic;
-      color: rgba(var(--c-cream-rgb),0.2);
+      color: var(--c-on-ground-m);
     }
 
     /* ════════════════════════════════════════

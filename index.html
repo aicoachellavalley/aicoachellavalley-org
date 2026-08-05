@@ -596,7 +596,6 @@
     ════════════════════════════════════════ */
     .nav {
       background: var(--c-dusk);
-      border-bottom: 1px solid rgba(var(--c-ghost-rgb),0.14);
       padding: 0 var(--gutter);
       position: sticky;
       top: 0;
@@ -644,12 +643,13 @@
     }
     .nav__links a:hover { color: var(--c-on-ground-hi); }
     .nav__cta {
-      background: var(--c-accent-fill) !important;
-      color: var(--c-ink) !important;
-      padding: 7px 16px !important;
+      background: transparent !important;
+      color: var(--c-on-ground-hi) !important;
+      border: 1px solid var(--c-on-ground-hi) !important;
+      padding: 6px 15px !important;   /* -1px absorbs the border: outer box unchanged */
       font-weight: 500 !important;
     }
-    .nav__cta:hover { background: var(--c-accent-fill-h) !important; }
+    .nav__cta:hover { background: var(--c-accent-fill) !important; color: var(--c-ink) !important; }
 
     /* ════════════════════════════════════════
        HERO
@@ -827,19 +827,19 @@
     .stats__l {
       font-size: var(--fs-12);
       font-weight: 400;
-      color: rgba(var(--c-cream-rgb),0.48);
+      color: var(--c-on-ground);
       line-height: 1.4;
     }
     .stats__affil {
       text-align: center;
       margin-top: var(--s-4);
       font-size: var(--fs-12);
-      color: rgba(var(--c-cream-rgb),0.3);
+      color: var(--c-on-ground-m);
       max-width: var(--max-w);
       margin-left: auto;
       margin-right: auto;
     }
-    .stats__affil strong { color: rgba(var(--c-cream-rgb),0.5); font-weight: 500; }
+    .stats__affil strong { color: var(--c-on-ground); font-weight: 500; }
 
     /* ════════════════════════════════════════
        DCF BAND
@@ -1127,7 +1127,7 @@
       gap: 8px;
       padding: 14px;
       font-size: var(--fs-12);
-      color: rgba(var(--c-cream-rgb),0.42);
+      color: var(--c-on-ground-m);
     }
 
     /* right col */
@@ -1361,7 +1361,7 @@
     .footer__desc {
       font-size: var(--fs-12);
       font-weight: 300;
-      color: rgba(var(--c-cream-rgb),0.38);
+      color: var(--c-on-ground-m);
       line-height: 1.65;
       max-width: 240px;
     }
@@ -1370,14 +1370,14 @@
       font-weight: 500;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: rgba(var(--c-cream-rgb),0.28);
+      color: var(--c-on-ground-m);
       margin-bottom: 16px;
     }
     .footer__links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
     .footer__links a {
       font-size: 13px;
       font-weight: 300;
-      color: rgba(var(--c-cream-rgb),0.48);
+      color: var(--c-on-ground);
       text-decoration: none;
       transition: color 0.15s;
     }
@@ -1389,13 +1389,14 @@
     }
     .footer__copy {
       font-size: var(--fs-12);
-      color: rgba(var(--c-cream-rgb),0.25);
+      font-weight: 300;
+      color: var(--c-on-ground-m);
     }
     .footer__tagline {
       font-family: 'EB Garamond', Georgia, serif;
       font-size: var(--fs-13);
       font-style: italic;
-      color: rgba(var(--c-cream-rgb),0.28);
+      color: var(--c-on-ground-m);
     }
 
     /* ════════════════════════════════════════
@@ -1676,7 +1677,7 @@
           <!-- Slide 1 replica — terracotta header, cream body -->
           <div style="width:100%; height:100%; display:flex; flex-direction:column;">
             <div style="background:var(--c-accent-fill); padding:18px 28px 16px; flex-shrink:0;">
-              <div style="font-size:9px; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; color:rgba(var(--c-ink-rgb),0.7); margin-bottom:6px;">AICV · aicoachellavalley.org</div>
+              <div style="font-size:9px; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; color:rgba(var(--c-ink-rgb),0.75); margin-bottom:6px;">AICV · aicoachellavalley.org</div>
               <div style="font-family:'EB Garamond',Georgia,serif; font-size:clamp(16px,2.2vw,26px); font-weight:700; color:var(--c-ink); line-height:1.15;">The AICV Responsible<br>AI Pledge</div>
             </div>
             <div style="background:var(--c-cream); flex:1; padding:16px 28px; display:flex; flex-direction:column; justify-content:space-between;">

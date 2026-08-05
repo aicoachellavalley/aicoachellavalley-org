@@ -1,7 +1,7 @@
 # org/ operational state
 
 > Operational state only. Strategic state lives in `aicv-playbook/STATE.md`.
-> **Fresh session? Read `HANDOFF.md` first** (tight orientation), then this file for full detail. Current HEAD: **the pine/volt palette is LIVE** — steps 1–3 (zero-pixel, 2026-08-04) then **steps 4+6 shipped 2026-08-05, the visible one**. Remaining: step 5 (regenerate the pledge deck PDF) + three flagged items in the 2026-08-05 entry. *(This pointer had been stale at `f86f83e`/2026-07-01 for five weeks — bump it every session.)*
+> **Fresh session? Read `HANDOFF.md` first** (tight orientation), then this file for full detail. Current HEAD: **pine/volt is complete and the site PASSES** — steps 1–6 plus post-swap corrections, all 2026-08-04/05. Zero failing text elements on four of five pages; index has two decorative watermarks only. Remaining: step 5 (regenerate the pledge deck PDF) and the hero photograph. *(This pointer had been stale at `f86f83e`/2026-07-01 for five weeks — bump it every session.)*
 
 ## Current
 
@@ -934,6 +934,88 @@ eyebrow at 4.29 flagged earlier.
 These are the "four already-failing pairs" BRAND.md §4 has carried as open since the
 audit. The tool to close them now exists. Not done here: out of scope, and the footer
 type hierarchy is a design call, not a substitution.
+
+---
+
+## 2026-08-05 (final) — the site passes: 31 contrast failures closed, nav finished
+
+Four rulings applied. **.org now audits at ZERO failing text elements on four of
+five pages.** Index retains two, both decorative watermarks (see below).
+
+### 1. The 31 failures — closed, §4's oldest open item
+
+They were all one pattern: **low-alpha cream on the dark ground.** 29 declarations
+substituted for the `--c-on-ground` family across footer, stats and pledge-thumb on
+all five pages.
+
+| | before | after |
+|---|---|---|
+| `.footer__links a` | 4.75 | **14.50** |
+| `.footer__desc` | 3.43 | **12.18** |
+| `.footer__col-label` | 2.44 | **12.18** |
+| `.footer__copy` | 2.21 | **12.18** |
+| `.footer__tagline` | 2.44 | **12.18** |
+| `.stats__l` | 4.30 | **11.46** |
+| `.stats__affil` | 2.64 | **12.18** |
+| `.stats__affil strong` | 5.03 | **14.50** |
+| `.pledge-thumb__hint` | 3.81 | **11.04** |
+
+**Hierarchy moved from opacity to role + weight + size**, which is the durable form.
+Two tiers: `--c-on-ground` for what reads first (interactive links, stat captions,
+emphasised runs); `--c-on-ground-m` for supporting and fine print. Within the muted
+tier, separation comes from the existing 10/12/13px sizes, 300/500 weights, the
+uppercase letter-spacing on `.footer__col-label` and the italic serif on
+`.footer__tagline`.
+
+**One weight change was required.** `.footer__copy` had no `font-weight` and inherited
+400 while `.footer__desc` is 300. Once both became solid, the copyright line would
+have read *heavier* than the description above it — an inverted hierarchy. Set to 300.
+It is the only typographic change in this pass.
+
+**Also fixed:** the pledge-replica eyebrow, `rgba(ink,0.7)` → `0.75` on volt,
+**4.30 → 4.89**. One character. It was the last non-decorative element under 4.5:1,
+and leaving it would have meant the site did not actually pass.
+
+### 2–3. Nav finished
+
+**Border deleted.** The footer separates by darkness alone and nothing misses a rule
+there. On index the nav now merges into the dark hero; the hero photograph lands next
+session and restores that edge naturally.
+
+**`.nav__cta` is an outline, not a fill** — volt border, volt text, transparent
+ground; hover fills volt with pine text. **The wordmark tile is now the only volt
+block in the bar**, which is right: it is the brand mark. Volt on ground is 15.35:1,
+so the outline still reads as the strongest control without shouting.
+
+**Padding was reduced 7px/16px → 6px/15px to absorb the new 1px border**, so the
+pill's outer box is unchanged at **109×31** — verified.
+
+### 4. `--c-on-ground-hi` confirmed
+
+Stays as defined. Reaching for `--c-accent-fill` would have broken the
+background-only invariant the accent split exists to protect.
+
+### Verification
+
+- **Contrast: 0 new failures, 31 fixed.** index 14 → 2, events/philanthropy/partner/404
+  **5 → 0** each.
+- **The 2 remaining are `.hero__ghost` (380px) and `.cta__ghost` (280px)** — watermark
+  letterforms, `pointer-events:none`, `user-select:none`. They are decoration, not
+  content; making them pass would defeat their purpose. **Every real text element on
+  the site passes.**
+- **Layout moved by exactly 1px, fully accounted:** deleting the nav border took `.nav`
+  from 61 → 60px, which shifts 220 elements down-page by 1. The only other delta is
+  `.footer__copy` 473 → 468px wide from the weight change — same height, no reflow.
+  **Zero unexplained movement.** `.nav__cta` and `.nav__mark` boxes identical.
+- Token block: **23 declarations, byte-identical across five pages.** Braces balanced.
+  Zero warm hex values.
+
+### Still deliberately kept
+
+The drawer's dividers (`.nav__drawer`, `.nav__drawer a` at `rgba(ghost,0.14)`) were
+**not** deleted — they give the mobile link list its structure, which is a different
+job from the nav's bottom edge. The drawer CTA stays a volt fill; it is the only volt
+in the drawer body and has no wordmark competing beside it.
 
 ---
 
