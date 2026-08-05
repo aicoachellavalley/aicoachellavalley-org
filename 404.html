@@ -47,19 +47,27 @@
 
       /* ── ACCENT SPLIT (rebrand step 3, 2026-08-04) ──────────────────
          One accent value does two jobs today. It cannot after the rebrand:
-         a fill and the text on it must diverge. These four names record the
-         ROLE so step 6 is a value change, not 87 judgment calls.
-         ALL FOUR ALIAS THE CURRENT TERRACOTTA — nothing changes colour here.
-         Step 6 replaces each alias with its target literal.
-         NOTE: --c-accent-text-d has no counterpart in BRAND.md section 4's
-         target spec; it needs a value assigned before step 6. */
+         a fill and the text on it must diverge. These five names record the
+         ROLE so step 6 is a value change, not 87 judgment calls. All 87 accent
+         declarations are now assigned — nav and wordmark included (ruled 2026-08-04).
+         ALL FIVE ALIAS THE CURRENT TERRACOTTA — nothing changes colour here.
+         Step 6 replaces each alias with its target literal. Targets ruled
+         2026-08-04 — see playbook BRAND.md section 4. */
       --c-accent-fill:   var(--c-terracotta);    /* #C8552A — fills/backgrounds   */
       --c-accent-fill-h: var(--c-terracotta-d);  /* #A8441F — hover fill          */
       --c-accent-text:   var(--c-terracotta);    /* #C8552A — text/border/stroke  */
       --c-accent-text-d: var(--c-terracotta-d);  /* #A8441F — darker accent TEXT
                                                     (static, for contrast — not a
                                                     hover state: .onramp-tag,
-                                                    .pform-error)                 */
+                                                    .pform-error)
+                                                    STEP 6 -> #2D6A4F (pine-light,
+                                                    same as the caption tier)     */
+
+      /* Watermarks drawn ON the accent fill (.cta__ghost, .prog-card--featured
+         .prog-num). FILL family — ruled 2026-08-04: their colour follows the
+         fill they sit on, not the body text. STEP 6 -> pine 27,67,50, giving
+         pine-on-volt. Triplet form because both are used at low alpha. */
+      --c-accent-on-fill-rgb: var(--c-terracotta-d-rgb);  /* 168,68,31 today */
 
       /* Type scale */
       --fs-10: 10px;
@@ -177,7 +185,7 @@
     }
     .nav__mark {
       width: 32px; height: 32px;
-      background: var(--c-terracotta);
+      background: var(--c-accent-fill);
       display: flex; align-items: center; justify-content: center;
       font-family: 'EB Garamond', Georgia, serif;
       font-size: 14px; font-weight: 700;
@@ -201,14 +209,14 @@
       text-decoration: none;
       transition: color 0.15s;
     }
-    .nav__links a:hover { color: var(--c-terracotta); }
+    .nav__links a:hover { color: var(--c-accent-text); }
     .nav__cta {
-      background: var(--c-terracotta) !important;
+      background: var(--c-accent-fill) !important;
       color: var(--c-cream) !important;
       padding: 7px 16px !important;
       font-weight: 500 !important;
     }
-    .nav__cta:hover { background: var(--c-terracotta-d) !important; }
+    .nav__cta:hover { background: var(--c-accent-fill-h) !important; }
 
     /* ════════════════════════════════════════
        HAMBURGER MENU
@@ -255,10 +263,10 @@
       transition: color 0.15s;
     }
     .nav__drawer a:last-child { border-bottom: none; }
-    .nav__drawer a:hover { color: var(--c-terracotta); }
+    .nav__drawer a:hover { color: var(--c-accent-text); }
     .nav__drawer .drawer-cta {
       margin-top: 16px;
-      background: var(--c-terracotta);
+      background: var(--c-accent-fill);
       color: var(--c-cream) !important;
       text-align: center;
       padding: 13px !important;

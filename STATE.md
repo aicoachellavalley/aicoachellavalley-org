@@ -1,7 +1,7 @@
 # org/ operational state
 
 > Operational state only. Strategic state lives in `aicv-playbook/STATE.md`.
-> **Fresh session? Read `HANDOFF.md` first** (tight orientation), then this file for full detail. Current HEAD: **`bfc5418`** (dead-CSS sweep) → **steps 2+3** (rgba refactor + accent split, 2026-08-04) plus the STATE entries recording them. *(This pointer had been stale at `f86f83e`/2026-07-01 for five weeks — bump it every session.)*
+> **Fresh session? Read `HANDOFF.md` first** (tight orientation), then this file for full detail. Current HEAD: **steps 1–3 of the rebrand all shipped 2026-08-04** — `bfc5418` dead-CSS sweep → `e0e0078` rgba refactor + accent split → follow-on applying Sat's three rulings. All at zero visual change. Next: step 4 (flip text on accent fills). *(This pointer had been stale at `f86f83e`/2026-07-01 for five weeks — bump it every session.)*
 
 ## Current
 
@@ -679,6 +679,74 @@ exists in only one tree will always mismatch. Two hover checks failed that way b
 being rewritten to apply **each tree's own expression** (`var(--c-terracotta-d)` before,
 `var(--c-accent-fill-h)` after) — both resolve to `#A8441F`, 0 mismatches, and a control
 using a genuinely wrong colour correctly returns 1.
+
+---
+
+## 2026-08-04 (later still) — three rulings applied: the accent split is now COMPLETE
+
+**Zero visual change.** 90 insertions / 55 deletions, 5 files, **CSS-only — 0 markup
+lines changed.** Verified by 20 differential comparisons against `e0e0078`, all zero,
+with the positive controls run first.
+
+Sat's rulings on the three items step 3 left open:
+
+**1. Nav and wordmark ARE split (33 declarations).** *"Nav untouched" meant structure
+and labels, not role assignment.* 15 → `--c-accent-fill` (`.nav__mark`, `.nav__cta`,
+`.drawer-cta`), 5 → `--c-accent-fill-h` (`.nav__cta:hover`), 13 → `--c-accent-text`
+(`.nav__links a:hover`, `.nav__links a.is-active`, `.nav__drawer a:hover`).
+**Structure, labels and the wordmark glyph are untouched** — the diff changes colour
+token names only, and nav labels still read
+`Philanthropy · Build · Events · The Pledge · About · Intelligence Network ↗`,
+`id="programs"` intact, `class="nav__mark">AI` intact.
+
+**2. The two watermarks follow the FILL.** `.cta__ghost` and
+`.prog-card--featured .prog-num` → new `--c-accent-on-fill-rgb`, aliasing
+`--c-terracotta-d-rgb` today. `ROLE UNRULED` markers removed. **Step 6 sets it to
+pine `27,67,50`, giving pine-on-volt.** Triplet form because both are used at low
+alpha (0.2 / 0.28); a hex token could not carry them.
+
+**3. `--c-accent-text-d` → `#2D6A4F` at step 6** (pine-light, the same value as the
+caption tier). Recorded in `playbook/BRAND.md` §4, which previously had no entry for it.
+
+**`--c-blush` stays named.** Collapsing it into `--c-ghost-l` is a design decision for
+after the palette lands, not before.
+
+### The accent surface is now 100% role-assigned
+
+| Token | Uses |
+|---|---|
+| `--c-accent-fill` | **21** |
+| `--c-accent-fill-h` | **7** |
+| `--c-accent-text` | **55** |
+| `--c-accent-text-d` | **2** |
+| `--c-accent-on-fill-rgb` | **2** |
+| **TOTAL** | **87** |
+
+**Zero `var(--c-terracotta*)` remains outside the five `:root` aliases.** All five
+`:root` blocks stay byte-identical (**23** `--c-*` declarations, md5 match). That is
+the invariant that makes step 6 one `sed` across five files — protect it.
+
+### Verification
+
+Controls first, all passing: repeatability 0 · single-element `.nav__mark` change → **1**
+· `--c-accent-fill` → **10** (was 7 before the nav split — proof the nav additions are
+live) · `--c-accent-text` → **43** · `--c-accent-on-fill-rgb` → **4** · pseudo-element
+→ **14** · nonexistent selector → **0**.
+
+Then 20 comparisons, all zero: 5 pages × 2 widths, drawer on all five, lightbox and
+drawer+lightbox on index, and nav-hover resolution on index/events/404. The nav-hover
+checks apply **each tree's own expression** (`var(--c-terracotta-d)` before,
+`var(--c-accent-fill-h)` after) because a test that injects a token existing in only one
+tree always mismatches — with a wrong-colour control correctly returning 1.
+
+### Deploy note — partial propagation is normal, verify across PoPs
+
+The steps 2+3 push (`e0e0078`) initially served **mixed** content: `partner` had the new
+build while `index`/`events`/`philanthropy`/`404` were still pre-push, and a single
+`events` re-fetch went stale again *after* four pages had converged. **A single
+cache-busted fetch is not proof.** Confirmed with 3 fetches per page and 12 consecutive
+on `events` (12/12 new) before declaring it live. Same shape as the 2026-07-30 `llms.txt`
+and 2026-07-25 sitemap PoP notes.
 
 ---
 
