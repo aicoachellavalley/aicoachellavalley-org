@@ -126,6 +126,37 @@
       --c-ink-m:        #3D2518;
       --c-ink-l:        #6B4A38;
 
+      /* RGB triplets — ONLY for rgba() alpha use. Each MUST stay in sync with
+         its hex above; a palette change updates BOTH lines. Added 2026-08-04
+         (rebrand step 2) so no translucency carries a raw literal. */
+      --c-cream-rgb:        251,247,238;   /* --c-cream        #FBF7EE */
+      --c-ghost-rgb:        234,212,192;   /* --c-ghost        #EAD4C0 */
+      --c-terracotta-d-rgb: 168,68,31;     /* --c-terracotta-d #A8441F */
+      --c-dusk-rgb:         26,39,68;      /* --c-dusk         #1A2744 */
+      --c-ink-l-rgb:        107,74,56;     /* --c-ink-l        #6B4A38 */
+
+      /* Single-use card tint: philanthropy .onramp-card--give. NOT a duplicate
+         of --c-ghost-l #F2E4D6 — 7/255 apart on G and B, so distinct values,
+         not drift. Named rather than mapped: mapping would move pixels. The
+         rebrand must give it a counterpart. */
+      --c-blush:        #F3DDCF;
+
+      /* ── ACCENT SPLIT (rebrand step 3, 2026-08-04) ──────────────────
+         One accent value does two jobs today. It cannot after the rebrand:
+         a fill and the text on it must diverge. These four names record the
+         ROLE so step 6 is a value change, not 87 judgment calls.
+         ALL FOUR ALIAS THE CURRENT TERRACOTTA — nothing changes colour here.
+         Step 6 replaces each alias with its target literal.
+         NOTE: --c-accent-text-d has no counterpart in BRAND.md section 4's
+         target spec; it needs a value assigned before step 6. */
+      --c-accent-fill:   var(--c-terracotta);    /* #C8552A — fills/backgrounds   */
+      --c-accent-fill-h: var(--c-terracotta-d);  /* #A8441F — hover fill          */
+      --c-accent-text:   var(--c-terracotta);    /* #C8552A — text/border/stroke  */
+      --c-accent-text-d: var(--c-terracotta-d);  /* #A8441F — darker accent TEXT
+                                                    (static, for contrast — not a
+                                                    hover state: .onramp-tag,
+                                                    .pform-error)                 */
+
       /* Type scale */
       --fs-10: 10px;
       --fs-12: 12px;
@@ -194,7 +225,7 @@
       font-weight: 500;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: var(--c-terracotta);
+      color: var(--c-accent-text);
       margin-bottom: var(--s-2);
     }
     .eyebrow--lt { color: var(--c-cream); opacity: 0.9; }
@@ -224,7 +255,7 @@
       line-height: 1.75;
     }
     .body + .body { margin-top: var(--s-2); }
-    .body--lt     { color: rgba(251,247,238,0.65); }
+    .body--lt     { color: rgba(var(--c-cream-rgb),0.65); }
     .body--lead   { font-size: var(--fs-17); }
 
     /* ════════════════════════════════════════
@@ -248,7 +279,7 @@
     .btn--ghost {
       background: transparent;
       color: var(--c-ghost-l);
-      border: 1px solid rgba(234,212,192,0.35);
+      border: 1px solid rgba(var(--c-ghost-rgb),0.35);
     }
     .btn--ghost:hover { border-color: var(--c-ghost); color: var(--c-cream); }
 
@@ -405,7 +436,7 @@
     .hero__subhead {
       font-size: var(--fs-17);
       font-weight: 300;
-      color: rgba(251,247,238,0.8);
+      color: rgba(var(--c-cream-rgb),0.8);
       line-height: 1.6;
       max-width: 600px;
       margin-top: var(--s-3);
@@ -414,7 +445,7 @@
     .hero__body {
       font-size: var(--fs-15);
       font-weight: 300;
-      color: rgba(251,247,238,0.65);
+      color: rgba(var(--c-cream-rgb),0.65);
       line-height: 1.75;
       max-width: 560px;
     }
@@ -474,7 +505,7 @@
       font-weight: 500;
       letter-spacing: 0.06em;
       text-transform: uppercase;
-      color: rgba(251,247,238,0.45);
+      color: rgba(var(--c-cream-rgb),0.45);
     }
 
     /* ════════════════════════════════════════
@@ -484,7 +515,7 @@
       margin-top: var(--s-5);
       border-radius: 12px;
       overflow: hidden;
-      border: 1px solid rgba(251,247,238,0.15);
+      border: 1px solid rgba(var(--c-cream-rgb),0.15);
       background: transparent;
     }
 
@@ -528,7 +559,7 @@
     .hero--cream::before         { display: none; }
     .hero--cream .hero__ghost    { display: none; }
     .hero--cream .h1             { color: var(--c-ink); }
-    .hero--cream .eyebrow        { color: var(--c-terracotta); opacity: 1; }
+    .hero--cream .eyebrow        { color: var(--c-accent-text); opacity: 1; }
     .hero--cream .hero__body     { color: var(--c-ink-m); }
 
     /* ════════════════════════════════════════
@@ -604,7 +635,7 @@
     .where-section__line {
       font-size: var(--fs-15);
       font-weight: 300;
-      color: rgba(251,247,238,0.6);
+      color: rgba(var(--c-cream-rgb),0.6);
       line-height: 1.75;
       margin-top: var(--s-2);
     }
@@ -617,10 +648,10 @@
     .where-section__cta {
       margin-top: var(--s-5);
       padding-top: var(--s-4);
-      border-top: 1px solid rgba(234,212,192,0.08);
+      border-top: 1px solid rgba(var(--c-ghost-rgb),0.08);
       font-size: var(--fs-15);
       font-weight: 300;
-      color: rgba(251,247,238,0.4);
+      color: rgba(var(--c-cream-rgb),0.4);
       line-height: 1.7;
     }
     .where-section__cta a {
@@ -642,7 +673,7 @@
       grid-template-columns: 1.2fr 1fr 1fr;
       gap: var(--s-8);
       padding-bottom: var(--s-6);
-      border-bottom: 1px solid rgba(234,212,192,0.08);
+      border-bottom: 1px solid rgba(var(--c-ghost-rgb),0.08);
       margin-bottom: var(--s-3);
     }
     .footer__mark {
@@ -650,7 +681,7 @@
       font-weight: 500;
       letter-spacing: 0.15em;
       text-transform: uppercase;
-      color: var(--c-terracotta);
+      color: var(--c-accent-text);
       margin-bottom: 10px;
     }
     .footer__name {
@@ -662,7 +693,7 @@
     .footer__desc {
       font-size: var(--fs-12);
       font-weight: 300;
-      color: rgba(251,247,238,0.4);
+      color: rgba(var(--c-cream-rgb),0.4);
       line-height: 1.7;
     }
     .footer__col-label {
@@ -670,14 +701,14 @@
       font-weight: 500;
       letter-spacing: 0.15em;
       text-transform: uppercase;
-      color: rgba(251,247,238,0.3);
+      color: rgba(var(--c-cream-rgb),0.3);
       margin-bottom: var(--s-2);
     }
     .footer__links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
     .footer__links a {
       font-size: 13px;
       font-weight: 300;
-      color: rgba(251,247,238,0.5);
+      color: rgba(var(--c-cream-rgb),0.5);
       text-decoration: none;
       transition: color 0.15s;
     }
@@ -690,13 +721,13 @@
     .footer__copy {
       font-size: var(--fs-12);
       font-weight: 300;
-      color: rgba(251,247,238,0.25);
+      color: rgba(var(--c-cream-rgb),0.25);
     }
     .footer__tagline {
       font-family: 'EB Garamond', Georgia, serif;
       font-size: 13px;
       font-style: italic;
-      color: rgba(251,247,238,0.2);
+      color: rgba(var(--c-cream-rgb),0.2);
     }
 
     /* ════════════════════════════════════════
@@ -720,7 +751,7 @@
     /* ════════════════════════════════════════
        PHILANTHROPY V2
     ════════════════════════════════════════ */
-    .hero--cream .accent { color: var(--c-terracotta); font-style: italic; }
+    .hero--cream .accent { color: var(--c-accent-text); font-style: italic; }
 
     /* ── Two on-ramps (differentiated cards) ── */
     .onramp-grid {
@@ -735,13 +766,13 @@
       display: flex;
       flex-direction: column;
     }
-    .onramp-card--give { background: #F3DDCF; border-top: 3px solid var(--c-terracotta); }
+    .onramp-card--give { background: var(--c-blush); border-top: 3px solid var(--c-accent-text); }
     .onramp-card--deep { background: var(--c-dusk); border-top: 3px solid var(--c-ghost); }
-    .onramp-icon { width: 38px; height: 38px; margin-bottom: var(--s-3); color: var(--c-terracotta); }
+    .onramp-icon { width: 38px; height: 38px; margin-bottom: var(--s-3); color: var(--c-accent-text); }
     .onramp-card--deep .onramp-icon { color: var(--c-ghost-l); }
     .onramp-tag {
       font-size: var(--fs-10); font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
-      color: var(--c-terracotta-d); margin-bottom: var(--s-2);
+      color: var(--c-accent-text-d); margin-bottom: var(--s-2);
     }
     .onramp-card--deep .onramp-tag { color: var(--c-ghost-l); }
     .onramp-name {
@@ -750,11 +781,11 @@
     }
     .onramp-card--deep .onramp-name { color: var(--c-cream); }
     .onramp-body { font-size: var(--fs-15); font-weight: 300; color: var(--c-ink-m); line-height: 1.75; flex: 1; }
-    .onramp-card--deep .onramp-body { color: rgba(251,247,238,0.74); }
+    .onramp-card--deep .onramp-body { color: rgba(var(--c-cream-rgb),0.74); }
     .onramp-link {
       display: inline-block; margin-top: var(--s-4);
       font-size: var(--fs-13); font-weight: 600; letter-spacing: 0.02em;
-      color: var(--c-terracotta); text-decoration: none;
+      color: var(--c-accent-text); text-decoration: none;
     }
     .onramp-card--deep .onramp-link { color: var(--c-ghost-l); }
     .onramp-link:hover { text-decoration: underline; }
@@ -770,21 +801,21 @@
       color: var(--c-ink); line-height: 1.3;
     }
     .faq-q::-webkit-details-marker { display: none; }
-    .faq-q__icon { width: 19px; height: 19px; flex-shrink: 0; color: var(--c-terracotta); margin-top: 4px; }
+    .faq-q__icon { width: 19px; height: 19px; flex-shrink: 0; color: var(--c-accent-text); margin-top: 4px; }
     .faq-q__txt { flex: 1; }
-    .faq-q__plus { flex-shrink: 0; color: var(--c-terracotta); font-size: 22px; line-height: 1.1; transition: transform 0.2s; }
+    .faq-q__plus { flex-shrink: 0; color: var(--c-accent-text); font-size: 22px; line-height: 1.1; transition: transform 0.2s; }
     .faq-item[open] .faq-q__plus { transform: rotate(45deg); }
     .faq-a {
       padding: 0 var(--s-4) var(--s-4) calc(var(--s-4) + 19px + var(--s-2));
       font-size: var(--fs-15); font-weight: 300; color: var(--c-ink-m); line-height: 1.75;
     }
-    .faq-a a { color: var(--c-terracotta); text-decoration: none; }
+    .faq-a a { color: var(--c-accent-text); text-decoration: none; }
     .faq-a a:hover { text-decoration: underline; }
 
     /* ── Go deeper callout ── */
-    .deeper { max-width: var(--max-w); margin: 0 auto; border-left: 3px solid var(--c-terracotta); padding-left: var(--s-4); }
+    .deeper { max-width: var(--max-w); margin: 0 auto; border-left: 3px solid var(--c-accent-text); padding-left: var(--s-4); }
     .deeper p { font-size: var(--fs-17); font-weight: 300; color: var(--c-ink-m); line-height: 1.7; max-width: 72ch; }
-    .deeper a { color: var(--c-terracotta); font-weight: 500; text-decoration: none; }
+    .deeper a { color: var(--c-accent-text); font-weight: 500; text-decoration: none; }
     .deeper a:hover { text-decoration: underline; }
 
     /* ── Source line ── */

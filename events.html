@@ -64,6 +64,37 @@
       --c-ink-m:        #3D2518;
       --c-ink-l:        #6B4A38;
 
+      /* RGB triplets — ONLY for rgba() alpha use. Each MUST stay in sync with
+         its hex above; a palette change updates BOTH lines. Added 2026-08-04
+         (rebrand step 2) so no translucency carries a raw literal. */
+      --c-cream-rgb:        251,247,238;   /* --c-cream        #FBF7EE */
+      --c-ghost-rgb:        234,212,192;   /* --c-ghost        #EAD4C0 */
+      --c-terracotta-d-rgb: 168,68,31;     /* --c-terracotta-d #A8441F */
+      --c-dusk-rgb:         26,39,68;      /* --c-dusk         #1A2744 */
+      --c-ink-l-rgb:        107,74,56;     /* --c-ink-l        #6B4A38 */
+
+      /* Single-use card tint: philanthropy .onramp-card--give. NOT a duplicate
+         of --c-ghost-l #F2E4D6 — 7/255 apart on G and B, so distinct values,
+         not drift. Named rather than mapped: mapping would move pixels. The
+         rebrand must give it a counterpart. */
+      --c-blush:        #F3DDCF;
+
+      /* ── ACCENT SPLIT (rebrand step 3, 2026-08-04) ──────────────────
+         One accent value does two jobs today. It cannot after the rebrand:
+         a fill and the text on it must diverge. These four names record the
+         ROLE so step 6 is a value change, not 87 judgment calls.
+         ALL FOUR ALIAS THE CURRENT TERRACOTTA — nothing changes colour here.
+         Step 6 replaces each alias with its target literal.
+         NOTE: --c-accent-text-d has no counterpart in BRAND.md section 4's
+         target spec; it needs a value assigned before step 6. */
+      --c-accent-fill:   var(--c-terracotta);    /* #C8552A — fills/backgrounds   */
+      --c-accent-fill-h: var(--c-terracotta-d);  /* #A8441F — hover fill          */
+      --c-accent-text:   var(--c-terracotta);    /* #C8552A — text/border/stroke  */
+      --c-accent-text-d: var(--c-terracotta-d);  /* #A8441F — darker accent TEXT
+                                                    (static, for contrast — not a
+                                                    hover state: .onramp-tag,
+                                                    .pform-error)                 */
+
       /* Type scale */
       --fs-10: 10px;
       --fs-12: 12px;
@@ -161,7 +192,7 @@
     }
     .body + .body { margin-top: var(--s-2); }
     .body strong  { font-weight: 600; color: var(--c-ink); }
-    .body--lt     { color: rgba(251,247,238,0.65); }
+    .body--lt     { color: rgba(var(--c-cream-rgb),0.65); }
     .body--lead   { font-size: var(--fs-17); }
 
     /* ════════════════════════════════════════
@@ -185,7 +216,7 @@
     .btn--ghost {
       background: transparent;
       color: var(--c-ghost-l);
-      border: 1px solid rgba(234,212,192,0.35);
+      border: 1px solid rgba(var(--c-ghost-rgb),0.35);
     }
     .btn--ghost:hover { border-color: var(--c-ghost); color: var(--c-cream); }
 
@@ -342,7 +373,7 @@
     .hero__subhead {
       font-size: var(--fs-17);
       font-weight: 300;
-      color: rgba(251,247,238,0.8);
+      color: rgba(var(--c-cream-rgb),0.8);
       line-height: 1.6;
       max-width: 600px;
       margin-top: var(--s-2);
@@ -351,7 +382,7 @@
     .hero__body {
       font-size: var(--fs-15);
       font-weight: 300;
-      color: rgba(251,247,238,0.65);
+      color: rgba(var(--c-cream-rgb),0.65);
       line-height: 1.75;
       max-width: 560px;
     }
@@ -410,7 +441,7 @@
       font-weight: 500;
       letter-spacing: 0.06em;
       text-transform: uppercase;
-      color: rgba(251,247,238,0.45);
+      color: rgba(var(--c-cream-rgb),0.45);
     }
 
     /* ════════════════════════════════════════
@@ -420,7 +451,7 @@
       margin-top: var(--s-5);
       border-radius: 12px;
       overflow: hidden;
-      border: 1px solid rgba(251,247,238,0.15);
+      border: 1px solid rgba(var(--c-cream-rgb),0.15);
       background: transparent;
     }
 
@@ -501,7 +532,7 @@
       gap: var(--s-6);
       align-items: start;
     }
-    .event-split__copy .body { color: rgba(251,247,238,0.7); }
+    .event-split__copy .body { color: rgba(var(--c-cream-rgb),0.7); }
     .event-perks {
       margin-top: var(--s-4);
       font-size: var(--fs-13);
@@ -589,7 +620,7 @@
       grid-template-columns: 1.2fr 1fr 1fr;
       gap: var(--s-8);
       padding-bottom: var(--s-6);
-      border-bottom: 1px solid rgba(234,212,192,0.08);
+      border-bottom: 1px solid rgba(var(--c-ghost-rgb),0.08);
       margin-bottom: var(--s-3);
     }
     .footer__mark {
@@ -597,7 +628,7 @@
       font-weight: 500;
       letter-spacing: 0.15em;
       text-transform: uppercase;
-      color: var(--c-terracotta);
+      color: var(--c-accent-text);
       margin-bottom: 10px;
     }
     .footer__name {
@@ -609,7 +640,7 @@
     .footer__desc {
       font-size: var(--fs-12);
       font-weight: 300;
-      color: rgba(251,247,238,0.4);
+      color: rgba(var(--c-cream-rgb),0.4);
       line-height: 1.7;
     }
     .footer__col-label {
@@ -617,14 +648,14 @@
       font-weight: 500;
       letter-spacing: 0.15em;
       text-transform: uppercase;
-      color: rgba(251,247,238,0.3);
+      color: rgba(var(--c-cream-rgb),0.3);
       margin-bottom: var(--s-2);
     }
     .footer__links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
     .footer__links a {
       font-size: 13px;
       font-weight: 300;
-      color: rgba(251,247,238,0.5);
+      color: rgba(var(--c-cream-rgb),0.5);
       text-decoration: none;
       transition: color 0.15s;
     }
@@ -637,13 +668,13 @@
     .footer__copy {
       font-size: var(--fs-12);
       font-weight: 300;
-      color: rgba(251,247,238,0.25);
+      color: rgba(var(--c-cream-rgb),0.25);
     }
     .footer__tagline {
       font-family: 'EB Garamond', Georgia, serif;
       font-size: 13px;
       font-style: italic;
-      color: rgba(251,247,238,0.2);
+      color: rgba(var(--c-cream-rgb),0.2);
     }
 
     /* ════════════════════════════════════════

@@ -1,7 +1,7 @@
 # org/ operational state
 
 > Operational state only. Strategic state lives in `aicv-playbook/STATE.md`.
-> **Fresh session? Read `HANDOFF.md` first** (tight orientation), then this file for full detail. Current HEAD: **`bfc5418`** (2026-08-04, dead-CSS sweep) plus the STATE entry recording it. *(This pointer had been stale at `f86f83e`/2026-07-01 for five weeks — bump it every session.)*
+> **Fresh session? Read `HANDOFF.md` first** (tight orientation), then this file for full detail. Current HEAD: **`bfc5418`** (dead-CSS sweep) → **steps 2+3** (rgba refactor + accent split, 2026-08-04) plus the STATE entries recording them. *(This pointer had been stale at `f86f83e`/2026-07-01 for five weeks — bump it every session.)*
 
 ## Current
 
@@ -553,6 +553,132 @@ the in-scope rules were removed, which leaves visible residue: on events the who
 Nav, wordmark and `id="programs"` untouched — no diff line references them. No token
 added, renamed or revalued. The source-order cascade question was left alone: it
 belongs to step 2.
+
+---
+
+## 2026-08-04 (later) — rgba refactor + accent split (rebrand steps 2 and 3)
+
+**Zero visual change across the entire session.** 282 insertions / 127 deletions, 5
+files. No hex value changed. Verified by 21 differential comparisons against HEAD
+`713cce8`, all zero.
+
+### Step 2 — rgba refactor
+
+**75 token-equivalent rgba literals** converted to token-derived syntax (recon said
+~86; the dead-CSS sweep had already removed 11 — **re-derive, never trust a carried
+count**). Breakdown: cream 56, ghost 15, terracotta-d 2, dusk 1, ink-l 1.
+
+Approach: **five `-rgb` triplet tokens**, e.g. `rgba(var(--c-cream-rgb),0.7)`.
+Chosen over `color-mix(in srgb, var(--c-cream) 70%, transparent)` — color-mix is a
+single source of truth and would have been more elegant, but it is a newer feature
+and `.org` ships raw with **no build step, no autoprefixer and no staging**. An
+unsupported `color-mix` is an invalid declaration, which silently drops the colour.
+`rgba(var(--x-rgb), a)` needs only custom-property support and is provably identical.
+**Cost of that choice: a palette change must update BOTH the hex and its `-rgb`
+triplet.** Both lines carry a keep-in-sync comment. Revisit color-mix once support is
+a non-issue.
+
+Also converted: the **7 rocket-divider SVG strokes** (`stroke="#C8552A"` →
+`stroke="var(--c-accent-text)"` after step 3 — `var()` in an SVG presentation
+attribute works, and the harness proves it: a forced stroke change moves 6 elements)
+and the hardcoded `rgba(251,247,238,0.7)` in the inline pledge-replica style.
+
+**Left alone, deliberately — genuinely achromatic (16 literals):**
+`rgba(255,255,255,…)` ×14 (hero scanline + ghost letterform), `rgba(0,0,0,0.3)`,
+`rgba(8,12,24,0.94)` (lightbox scrim). These carry no brand hue and must not be
+tokenised.
+
+### `#F3DDCF` ruling — NAMED, not mapped
+
+After the sweep it had **one** instance left (`philanthropy .onramp-card--give`; the
+`events` one died with `.ticket-card--season`). Now `--c-blush`.
+
+**Named rather than mapped, because mapping would move pixels.** It sits **7/255 on
+G and B** from `--c-ghost-l` `#F2E4D6` — close enough to look like drift, far enough
+that collapsing them is a visible change. Nearest neighbours measured:
+ghost-l Δ7 · sand-d Δ8 · ghost Δ15 · sand Δ18 · cream Δ31.
+**Whether to collapse `--c-blush` into `--c-ghost-l` is a deliberate design decision,
+not a refactor — it belongs to Sat, not to a zero-pixel step.** Declared on all five
+pages to keep the `:root` blocks byte-identical (see invariant below); unused on four.
+
+### Step 3 — the accent split
+
+Four role tokens, **all four aliasing the current terracotta** so nothing changes
+colour: `--c-accent-fill` and `--c-accent-text` (→ `--c-terracotta`),
+`--c-accent-fill-h` and `--c-accent-text-d` (→ `--c-terracotta-d`).
+
+**87 accent declarations total** (85 `var(--c-terracotta*)` — the 78 carried from
+step 1 plus the 7 newly-tokenised SVG strokes — plus 2 `rgba(var(--c-terracotta-d-rgb))`).
+
+| Bucket | Count |
+|---|---|
+| `--c-accent-fill` (backgrounds) | **6** |
+| `--c-accent-fill-h` (hover backgrounds) | **2** |
+| `--c-accent-text` (text, borders, SVG strokes) | **42** |
+| `--c-accent-text-d` (darker accent text) | **2** |
+| **Split subtotal** | **52** |
+| Nav/wordmark — deliberately NOT split | **33** |
+| Role unruled — awaiting Sat | **2** |
+
+Recon's pre-sweep guess was 35 fill / 67 text / 6 border. **The real split is far more
+lopsided: 8 fill vs 44 text-family.** The fill surface is small and concentrated
+(`.btn--primary`, `.prog-card--featured`, `.founder-credential`, `.cta`, the pledge
+replica header, `404 .btn--primary`) — which is good news for the rebrand, because
+volt-as-fill touches only 8 places.
+
+**⚠️ `--c-accent-text-d` has no counterpart in `playbook/BRAND.md` §4's target spec.**
+It exists because two declarations use the darker accent as *static text for contrast*,
+not as a hover state (`philanthropy .onramp-tag`, `partner .pform-error`). Mapping them
+to `--c-accent-text` would have changed `#A8441F` → `#C8552A`. **Step 6 needs a value
+assigned for it.**
+
+### OPEN — three rulings for Sat
+
+1. **Nav and wordmark excluded from the split (33 declarations).** `.nav__mark`,
+   `.nav__cta`(+hover), `.drawer-cta`, `.nav__links a:hover`, `.nav__links a.is-active`,
+   `.nav__drawer a:hover` — all still on `var(--c-terracotta*)`. The session brief lists
+   "nav, wordmark, `id=programs` untouched" as a **verify criterion**, and it was honoured
+   literally, as in the dead-CSS sweep. **Consequence: step 6 is NOT a two-line edit until
+   these are ruled on** — it would be two lines plus 33 nav declarations. Including them
+   is mechanical and zero-pixel; it needs one word.
+2. **Two tone-on-tone watermarks, role genuinely ambiguous** — marked in place with
+   `/* ROLE UNRULED (step 3) */`: `index .cta__ghost` (`rgba(td-rgb,0.2)` over the
+   terracotta `.cta` band) and `.prog-card--featured .prog-num` (`rgba(td-rgb,0.28)` over
+   the terracotta card). They are set via `color:` (text-shaped) but are **decoration
+   derived from the fill they sit on**. At rebrand they should probably follow the fill,
+   not the text — but that is a design call, so they were left unassigned rather than guessed.
+3. **`--c-blush` vs `--c-ghost-l`** — collapse or keep (see above).
+
+### Invariant worth protecting
+
+**All five `:root` blocks remain byte-identical — 22 `--c-*` declarations, md5 match.**
+That is what keeps step 6 a single `sed` across five files. New tokens were added to all
+five even where unused, specifically to preserve it. All 4 accent declarations sit far
+above each page's first `@media` (lines 56–155 vs 375–1364), so the cascade trap is clear.
+
+### ⚠️ HARNESS TRAP — custom properties inflate the fingerprint
+
+The first step-2 comparison reported **every element mismatched** (284/284, 101/101,
+197/197) while element counts and document heights were identical. Not a regression:
+`getComputedStyle` enumerates **custom properties**, and custom properties **inherit to
+every element** — so adding 6 tokens to `:root` grew every element's property list by 6.
+Measured directly: 32 → 38 custom props on a probe element, with its rendered colour
+byte-identical (`rgb(200,85,42)` both sides).
+
+**Fix, now standing: a rendered-state fingerprint must skip `--*` properties.** A custom
+property only reaches the screen through `var()` resolution, which lands in a standard
+property. Harness v2 also adds `::before`/`::after`/`::marker` capture — v1 would have
+missed a pseudo-element change entirely (the new control detects 14).
+
+**Controls that must pass before any zero is trusted** (all did): repeatability 0 ·
+single-element `.nav__mark` change → exactly 1 · SVG stroke → 6 · pseudo-element → 14 ·
+`--c-accent-fill` → 7 · `--c-accent-text` → 43 · nonexistent selector → 0.
+
+**Second trap logged:** a differential test whose injected CSS references a token that
+exists in only one tree will always mismatch. Two hover checks failed that way before
+being rewritten to apply **each tree's own expression** (`var(--c-terracotta-d)` before,
+`var(--c-accent-fill-h)` after) — both resolve to `#A8441F`, 0 mismatches, and a control
+using a genuinely wrong colour correctly returns 1.
 
 ---
 

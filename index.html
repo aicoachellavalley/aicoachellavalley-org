@@ -369,6 +369,37 @@
       --c-ink-m:        #3D2518;
       --c-ink-l:        #6B4A38;
 
+      /* RGB triplets — ONLY for rgba() alpha use. Each MUST stay in sync with
+         its hex above; a palette change updates BOTH lines. Added 2026-08-04
+         (rebrand step 2) so no translucency carries a raw literal. */
+      --c-cream-rgb:        251,247,238;   /* --c-cream        #FBF7EE */
+      --c-ghost-rgb:        234,212,192;   /* --c-ghost        #EAD4C0 */
+      --c-terracotta-d-rgb: 168,68,31;     /* --c-terracotta-d #A8441F */
+      --c-dusk-rgb:         26,39,68;      /* --c-dusk         #1A2744 */
+      --c-ink-l-rgb:        107,74,56;     /* --c-ink-l        #6B4A38 */
+
+      /* Single-use card tint: philanthropy .onramp-card--give. NOT a duplicate
+         of --c-ghost-l #F2E4D6 — 7/255 apart on G and B, so distinct values,
+         not drift. Named rather than mapped: mapping would move pixels. The
+         rebrand must give it a counterpart. */
+      --c-blush:        #F3DDCF;
+
+      /* ── ACCENT SPLIT (rebrand step 3, 2026-08-04) ──────────────────
+         One accent value does two jobs today. It cannot after the rebrand:
+         a fill and the text on it must diverge. These four names record the
+         ROLE so step 6 is a value change, not 87 judgment calls.
+         ALL FOUR ALIAS THE CURRENT TERRACOTTA — nothing changes colour here.
+         Step 6 replaces each alias with its target literal.
+         NOTE: --c-accent-text-d has no counterpart in BRAND.md section 4's
+         target spec; it needs a value assigned before step 6. */
+      --c-accent-fill:   var(--c-terracotta);    /* #C8552A — fills/backgrounds   */
+      --c-accent-fill-h: var(--c-terracotta-d);  /* #A8441F — hover fill          */
+      --c-accent-text:   var(--c-terracotta);    /* #C8552A — text/border/stroke  */
+      --c-accent-text-d: var(--c-terracotta-d);  /* #A8441F — darker accent TEXT
+                                                    (static, for contrast — not a
+                                                    hover state: .onramp-tag,
+                                                    .pform-error)                 */
+
       /* Type scale — strict, no deviations */
       --fs-10: 10px;   /* eyebrows, micro labels        */
       --fs-12: 12px;   /* captions, footer copyright    */
@@ -439,10 +470,10 @@
       font-weight: 500;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: var(--c-terracotta);
+      color: var(--c-accent-text);
       margin-bottom: var(--s-2);
     }
-    .eyebrow--dim { color: rgba(251,247,238,0.5); }
+    .eyebrow--dim { color: rgba(var(--c-cream-rgb),0.5); }
     .eyebrow--lt  { color: var(--c-cream); opacity: 0.9; }
 
     h1, h2, h3 {
@@ -479,8 +510,8 @@
     }
     .body + .body { margin-top: var(--s-2); }
     .body strong  { font-weight: 500; color: var(--c-ink); }
-    .body--lt     { color: rgba(251,247,238,0.65); }
-    .body--dim    { color: rgba(251,247,238,0.45); }
+    .body--lt     { color: rgba(var(--c-cream-rgb),0.65); }
+    .body--dim    { color: rgba(var(--c-cream-rgb),0.45); }
     .body--lead   { font-size: var(--fs-17); }
 
     .pull-quote {
@@ -490,10 +521,10 @@
       font-weight: 400;
       line-height: 1.5;
       color: var(--c-ink);
-      border-left: 3px solid var(--c-terracotta);
+      border-left: 3px solid var(--c-accent-text);
       padding-left: var(--s-3);
     }
-    .pull-quote--lt { color: rgba(251,247,238,0.88); }
+    .pull-quote--lt { color: rgba(var(--c-cream-rgb),0.88); }
     .pull-quote span { font-style: normal; font-weight: 700; }
 
     /* ════════════════════════════════════════
@@ -514,13 +545,13 @@
     }
     .btn:hover { transform: translateY(-1px); }
 
-    .btn--primary { background: var(--c-terracotta); color: var(--c-cream); }
-    .btn--primary:hover { background: var(--c-terracotta-d); }
+    .btn--primary { background: var(--c-accent-fill); color: var(--c-cream); }
+    .btn--primary:hover { background: var(--c-accent-fill-h); }
 
     .btn--ghost {
       background: transparent;
       color: var(--c-ghost-l);
-      border: 1px solid rgba(234,212,192,0.35);
+      border: 1px solid rgba(var(--c-ghost-rgb),0.35);
     }
     .btn--ghost:hover { border-color: var(--c-ghost); color: var(--c-cream); }
 
@@ -729,7 +760,7 @@
       font-weight: 500;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: var(--c-terracotta);
+      color: var(--c-accent-text);
       text-align: center;
       margin-bottom: var(--s-4);
     }
@@ -737,7 +768,7 @@
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 2px;
-      background: rgba(234,212,192,0.07);
+      background: rgba(var(--c-ghost-rgb),0.07);
       max-width: var(--max-w);
       margin: 0 auto;
     }
@@ -752,23 +783,23 @@
       color: var(--c-cream); line-height: 1;
       margin-bottom: var(--s-1);
     }
-    .stats__n em { color: var(--c-terracotta); font-style: normal; }
+    .stats__n em { color: var(--c-accent-text); font-style: normal; }
     .stats__l {
       font-size: var(--fs-12);
       font-weight: 400;
-      color: rgba(251,247,238,0.48);
+      color: rgba(var(--c-cream-rgb),0.48);
       line-height: 1.4;
     }
     .stats__affil {
       text-align: center;
       margin-top: var(--s-4);
       font-size: var(--fs-12);
-      color: rgba(251,247,238,0.3);
+      color: rgba(var(--c-cream-rgb),0.3);
       max-width: var(--max-w);
       margin-left: auto;
       margin-right: auto;
     }
-    .stats__affil strong { color: rgba(251,247,238,0.5); font-weight: 500; }
+    .stats__affil strong { color: rgba(var(--c-cream-rgb),0.5); font-weight: 500; }
 
     /* ════════════════════════════════════════
        DCF BAND
@@ -823,7 +854,7 @@
     .why-body {
       font-size: var(--fs-15);
       font-weight: 300;
-      color: rgba(251,247,238,0.68);
+      color: rgba(var(--c-cream-rgb),0.68);
       line-height: 1.75;
     }
     .why-body + .why-body { margin-top: var(--s-2); }
@@ -892,7 +923,7 @@
       position: relative;
       overflow: hidden;
     }
-    .prog-card--featured { background: var(--c-terracotta); }
+    .prog-card--featured { background: var(--c-accent-fill); }
 
     .prog-num {
       position: absolute;
@@ -904,7 +935,7 @@
       pointer-events: none;
       user-select: none;
     }
-    .prog-card--featured .prog-num { color: rgba(168,68,31,0.28); }
+    .prog-card--featured .prog-num { color: rgba(var(--c-terracotta-d-rgb),0.28); }  /* ROLE UNRULED (step 3) — tone-on-tone watermark derived from the FILL it sits on, but set via `color`. Not assigned to an accent token. See STATE.md 2026-08-04. */
 
     .prog-title {
       font-family: 'EB Garamond', Georgia, serif;
@@ -948,7 +979,7 @@
       flex: 1;
       position: relative; z-index: 1;
     }
-    .prog-card--featured .prog-body { color: rgba(251,247,238,0.8); }
+    .prog-card--featured .prog-body { color: rgba(var(--c-cream-rgb),0.8); }
 
     .prog-tag {
       display: inline-block;
@@ -957,7 +988,7 @@
       font-weight: 500;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: var(--c-terracotta);
+      color: var(--c-accent-text);
       background: var(--c-ghost-l);
       padding: 5px 10px;
       position: relative; z-index: 1;
@@ -965,7 +996,7 @@
     }
     .prog-card--featured .prog-tag {
       background: var(--c-cream);
-      color: var(--c-terracotta);
+      color: var(--c-accent-text);
     }
     a.prog-tag { text-decoration: none; }
     a.prog-tag:hover { opacity: 0.8; }
@@ -994,14 +1025,14 @@
     }
     .prog-pill.pill-live {
       background: var(--c-cream);
-      color: var(--c-terracotta);
+      color: var(--c-accent-text);
     }
     .prog-pill.pill-paused {
-      background: rgba(26, 39, 68, 0.12);
+      background: rgba(var(--c-dusk-rgb),0.12);
       color: var(--c-dusk);
     }
     .prog-pill.pill-planned {
-      background: rgba(107, 74, 56, 0.12);
+      background: rgba(var(--c-ink-l-rgb),0.12);
       color: var(--c-ink-l);
     }
     .prog-card.prog-dimmed {
@@ -1026,11 +1057,11 @@
     /* PDF thumbnail / click-to-open */
     .pledge-thumb {
       cursor: pointer;
-      border: 1px solid rgba(234,212,192,0.18);
+      border: 1px solid rgba(var(--c-ghost-rgb),0.18);
       background: rgba(255,255,255,0.04);
       transition: border-color 0.2s;
     }
-    .pledge-thumb:hover { border-color: rgba(234,212,192,0.38); }
+    .pledge-thumb:hover { border-color: rgba(var(--c-ghost-rgb),0.38); }
 
     .pledge-preview {
       width: 100%;
@@ -1039,7 +1070,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      border-bottom: 1px solid rgba(234,212,192,0.1);
+      border-bottom: 1px solid rgba(var(--c-ghost-rgb),0.1);
     }
     .pledge-preview__inner { text-align: center; padding: 24px; }
     .pledge-preview__title {
@@ -1056,14 +1087,14 @@
       gap: 8px;
       padding: 14px;
       font-size: var(--fs-12);
-      color: rgba(251,247,238,0.42);
+      color: rgba(var(--c-cream-rgb),0.42);
     }
 
     /* right col */
     .pledge-copy {
       font-size: var(--fs-15);
       font-weight: 300;
-      color: rgba(251,247,238,0.58);
+      color: rgba(var(--c-cream-rgb),0.58);
       line-height: 1.75;
     }
     .pledge-copy + .pledge-copy { margin-top: var(--s-2); }
@@ -1072,7 +1103,7 @@
     /* full-width closer */
     .pledge-closer {
       padding-top: var(--s-8);
-      border-top: 1px solid rgba(234,212,192,0.1);
+      border-top: 1px solid rgba(var(--c-ghost-rgb),0.1);
       text-align: center;
     }
     .pledge-closer__text {
@@ -1178,7 +1209,7 @@
     }
     .founder-credential {
       position: absolute; bottom: 0; left: 0; right: 0;
-      background: var(--c-terracotta);
+      background: var(--c-accent-fill);
       padding: 9px 14px;
       font-size: var(--fs-10);
       font-weight: 500;
@@ -1193,14 +1224,14 @@
       line-height: 1.75;
       margin-bottom: var(--s-2);
     }
-    .founder-bio a { color: var(--c-terracotta); text-decoration: none; }
+    .founder-bio a { color: var(--c-accent-text); text-decoration: none; }
     .founder-bio a:hover { text-decoration: underline; }
     .founder-sig {
       margin-top: var(--s-3);
       font-family: 'EB Garamond', Georgia, serif;
       font-size: 17px;
       font-style: italic;
-      color: var(--c-terracotta);
+      color: var(--c-accent-text);
     }
     .founder-sig strong {
       display: block;
@@ -1220,7 +1251,7 @@
        CTA
     ════════════════════════════════════════ */
     .cta {
-      background: var(--c-terracotta);
+      background: var(--c-accent-fill);
       padding: var(--s-10) var(--gutter);
       text-align: left;
       position: relative;
@@ -1232,7 +1263,7 @@
       transform: translateY(-50%);
       font-family: 'EB Garamond', Georgia, serif;
       font-size: 280px; font-weight: 700;
-      color: rgba(168,68,31,0.2);
+      color: rgba(var(--c-terracotta-d-rgb),0.2);  /* ROLE UNRULED (step 3) — tone-on-tone watermark derived from the FILL it sits on, but set via `color`. Not assigned to an accent token. See STATE.md 2026-08-04. */
       line-height: 1;
       pointer-events: none; user-select: none; white-space: nowrap;
     }
@@ -1251,7 +1282,7 @@
     .cta__sub {
       font-size: var(--fs-15);
       font-weight: 300;
-      color: rgba(251,247,238,0.75);
+      color: rgba(var(--c-cream-rgb),0.75);
       line-height: 1.7;
       max-width: 70ch;
       margin-bottom: 0;
@@ -1270,7 +1301,7 @@
       grid-template-columns: 1.2fr 1fr 1fr;
       gap: var(--s-8);
       padding-bottom: var(--s-6);
-      border-bottom: 1px solid rgba(234,212,192,0.08);
+      border-bottom: 1px solid rgba(var(--c-ghost-rgb),0.08);
       margin-bottom: var(--s-3);
     }
     .footer__mark {
@@ -1278,7 +1309,7 @@
       font-weight: 500;
       letter-spacing: 0.15em;
       text-transform: uppercase;
-      color: var(--c-terracotta);
+      color: var(--c-accent-text);
       margin-bottom: 10px;
     }
     .footer__name {
@@ -1290,7 +1321,7 @@
     .footer__desc {
       font-size: var(--fs-12);
       font-weight: 300;
-      color: rgba(251,247,238,0.38);
+      color: rgba(var(--c-cream-rgb),0.38);
       line-height: 1.65;
       max-width: 240px;
     }
@@ -1299,14 +1330,14 @@
       font-weight: 500;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: rgba(251,247,238,0.28);
+      color: rgba(var(--c-cream-rgb),0.28);
       margin-bottom: 16px;
     }
     .footer__links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
     .footer__links a {
       font-size: 13px;
       font-weight: 300;
-      color: rgba(251,247,238,0.48);
+      color: rgba(var(--c-cream-rgb),0.48);
       text-decoration: none;
       transition: color 0.15s;
     }
@@ -1318,13 +1349,13 @@
     }
     .footer__copy {
       font-size: var(--fs-12);
-      color: rgba(251,247,238,0.25);
+      color: rgba(var(--c-cream-rgb),0.25);
     }
     .footer__tagline {
       font-family: 'EB Garamond', Georgia, serif;
       font-size: var(--fs-13);
       font-style: italic;
-      color: rgba(251,247,238,0.28);
+      color: rgba(var(--c-cream-rgb),0.28);
     }
 
     /* ════════════════════════════════════════
@@ -1368,7 +1399,7 @@
       font-weight: 500;
       letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: var(--c-terracotta);
+      color: var(--c-accent-text);
       margin-bottom: var(--s-1);
     }
     .partner-group__list {
@@ -1415,7 +1446,7 @@
       right: 0;
       top: 50%;
       transform: translateY(-50%);
-      color: var(--c-terracotta);
+      color: var(--c-accent-text);
       font-weight: 400;
       font-size: var(--fs-22);
     }
@@ -1486,15 +1517,15 @@
 <!-- ── ROCKET DIVIDER ── -->
 <div class="rocket-divider">
   <svg viewBox="0 0 900 70" width="100%" height="70" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-    <path d="M20 50 Q160 28 310 42 Q390 52 432 38" stroke="#C8552A" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-dasharray="5 8" opacity="0.38"/>
+    <path d="M20 50 Q160 28 310 42 Q390 52 432 38" stroke="var(--c-accent-text)" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-dasharray="5 8" opacity="0.38"/>
     <g transform="translate(434,12)">
-      <path d="M17 36 C15 27 12 14 17 4 C22 14 19 27 17 36Z" stroke="#C8552A" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-      <circle cx="17" cy="16" r="3.5" stroke="#C8552A" stroke-width="1.4" fill="none"/>
-      <path d="M12 31 L7 40 L15 36" stroke="#C8552A" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M22 31 L27 40 L19 36" stroke="#C8552A" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M13 37 Q15 46 17 50 Q19 46 21 37" stroke="#C8552A" stroke-width="1.3" fill="none" stroke-linecap="round" opacity="0.5"/>
+      <path d="M17 36 C15 27 12 14 17 4 C22 14 19 27 17 36Z" stroke="var(--c-accent-text)" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="17" cy="16" r="3.5" stroke="var(--c-accent-text)" stroke-width="1.4" fill="none"/>
+      <path d="M12 31 L7 40 L15 36" stroke="var(--c-accent-text)" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M22 31 L27 40 L19 36" stroke="var(--c-accent-text)" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M13 37 Q15 46 17 50 Q19 46 21 37" stroke="var(--c-accent-text)" stroke-width="1.3" fill="none" stroke-linecap="round" opacity="0.5"/>
     </g>
-    <path d="M468 38 Q510 26 640 40 Q750 52 880 36" stroke="#C8552A" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-dasharray="5 8" opacity="0.38"/>
+    <path d="M468 38 Q510 26 640 40 Q750 52 880 36" stroke="var(--c-accent-text)" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-dasharray="5 8" opacity="0.38"/>
   </svg>
 </div>
 
@@ -1604,14 +1635,14 @@
         <div class="pledge-preview">
           <!-- Slide 1 replica — terracotta header, cream body -->
           <div style="width:100%; height:100%; display:flex; flex-direction:column;">
-            <div style="background:var(--c-terracotta); padding:18px 28px 16px; flex-shrink:0;">
-              <div style="font-size:9px; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; color:rgba(251,247,238,0.7); margin-bottom:6px;">AICV · aicoachellavalley.org</div>
+            <div style="background:var(--c-accent-fill); padding:18px 28px 16px; flex-shrink:0;">
+              <div style="font-size:9px; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; color:rgba(var(--c-cream-rgb),0.7); margin-bottom:6px;">AICV · aicoachellavalley.org</div>
               <div style="font-family:'EB Garamond',Georgia,serif; font-size:clamp(16px,2.2vw,26px); font-weight:700; color:var(--c-cream); line-height:1.15;">The AICV Responsible<br>AI Pledge</div>
             </div>
             <div style="background:var(--c-cream); flex:1; padding:16px 28px; display:flex; flex-direction:column; justify-content:space-between;">
               <div style="font-family:'EB Garamond',Georgia,serif; font-size:clamp(11px,1.4vw,16px); font-style:italic; color:var(--c-ink-m); line-height:1.4;">"We believe AI should be used in ways that are human-centered, transparent, and grounded in our community's values."</div>
               <div style="display:flex; gap:6px; flex-wrap:wrap; margin-top:10px;">
-                <span style="font-size:9px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:var(--c-terracotta); background:var(--c-ghost-l); padding:3px 7px;">7 Principles</span>
+                <span style="font-size:9px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:var(--c-accent-text); background:var(--c-ghost-l); padding:3px 7px;">7 Principles</span>
                 <span style="font-size:9px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:var(--c-ink-l); background:var(--c-sand-d); padding:3px 7px;">For the Coachella Valley</span>
               </div>
             </div>
