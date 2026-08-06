@@ -1,7 +1,7 @@
 # org/ operational state
 
 > Operational state only. Strategic state lives in `aicv-playbook/STATE.md`.
-> **Fresh session? Read `HANDOFF.md` first** (tight orientation), then this file for full detail. Current HEAD: **the site is SIX pages, `/pledge` is live, and the rebrand backlog is EMPTY** (2026-08-05). Step 5 (regenerate the pledge deck) and the X-Frame-Options item are both CLOSED BY REMOVAL — the deck and the lightbox no longer exist. Fiscal wording is canon-aligned on "project". `/pledge` is in the nav, drawer and footer on all six pages. Remaining known divergence: the six `footer__copy` lines still read "Fiscally sponsored under Desert Community Foundation". A 24-placement fiscal inventory is below, awaiting a ruling. *(This pointer had been stale at `f86f83e`/2026-07-01 for five weeks — bump it every session.)*
+> **Fresh session? Read `HANDOFF.md` first** (tight orientation), then this file for full detail. Current HEAD: **the site is SIX pages, `/pledge` is live, and the rebrand backlog is EMPTY** (2026-08-05). Step 5 (regenerate the pledge deck) and the X-Frame-Options item are both CLOSED BY REMOVAL — the deck and the lightbox no longer exist. Fiscal wording is canon-aligned on "project". `/pledge` is in the nav, drawer and footer on all six pages. The fiscal inventory is CUT: 24 placements to 14, and both "initiative" and "under Desert Community Foundation" are now zero sitewide. No known wording divergence remains. *(This pointer had been stale at `f86f83e`/2026-07-01 for five weeks — bump it every session.)*
 
 ## Current
 
@@ -1193,6 +1193,57 @@ lands, at both 1280 and 375 — the `<img>` is absolutely positioned inside a
   false failure on mobile.
 
 ---
+
+## Fiscal inventory cut — 24 to 14 — 2026-08-05 (ninth pass)
+
+Executed the ruling: item 2 (`index:118`, the second JSON-LD description), items 7-8
+(the "two properties" schema + DOM twin), item 10 and the `footer__copy` clause on
+all six pages, and `llms.txt:7`. Everything marked keep is untouched.
+
+**TWO ARITHMETIC / RECON CORRECTIONS, both mine.**
+
+1. **The result is 14, not 13.** I reported "24 → 13" last pass; the cut list I
+   recommended removes 10 placements, so 24 − 10 = 14. The ruling adopted my list
+   verbatim, so the list is right and only my subtraction was wrong. The 14 keepers
+   are: `index:50` (JSON-LD Organization), the "What is AICV" pair (`250`/`1684`),
+   the governance pair (`258`/`1688`), six `footer__desc` lines, `pledge:962`
+   (print attribution), and `llms.txt:3` + `:32`.
+
+2. **Items 7-8 each carried TWO fiscal references, and my inventory only caught
+   one.** The inventory was built by matching `fiscally sponsored`. The same
+   sentence also ended "...and fiscal-sponsorship infrastructure under Desert
+   Community Foundation" — a *different* string, so it never appeared in the 24.
+   It surfaced only because the ruling asked for a zero-check on "under Desert
+   Community Foundation", which came back **2** after the cut. Removed as part of
+   the same items; the list now reads "workshops, programs, and the Responsible AI
+   Pledge."
+
+   **Standing lesson: an inventory is only as complete as its widest pattern.** A
+   sweep keyed to one phrasing will report itself finished while a synonym of the
+   same claim sits untouched in the same sentence. The zero-check caught it; the
+   inventory did not.
+
+**Both required zero-checks pass:** `initiative` **0**, `under Desert Community
+Foundation` **0**, `sponsored under` **0**.
+
+**Deliberately left — DCF-as-sponsor, not AICV-status:** four `fiscal sponsor` hits
+that were never in the inventory and are correct as written — `index:322`/`1720`
+("All AICV funds are held by Desert Community Foundation as fiscal sponsor"),
+`index:1657` (the partner list label "Desert Community Foundation (Fiscal Sponsor)"),
+and `llms.txt:33` (the `**Fiscal sponsor**:` metadata field). These name DCF's role
+rather than asserting AICV's legal status, which is exactly the distinction the
+whole sweep was drawing.
+
+**The footer redundancy is resolved.** Each footer stated its sponsorship twice —
+`footer__desc` and, ~20px below in the same block, `footer__copy`. The `copy` line
+is now just "© 2026 AI Coachella Valley". That closed the "under Desert Community
+Foundation" wording divergence at the same time, as the ruling anticipated.
+
+**Verified:** zero moved or resized on all six pages at 1280, document heights
+identical. At 375, index and pledge each lose 21px / 20px of height because
+`footer__copy` no longer wraps to a second line — the intended consequence, and the
+only two elements that move are `.footer` and `.footer__inner` themselves. All
+JSON-LD parses on all five schema-bearing pages; sitemap and api-catalog valid.
 
 ## /pledge gets volt; nav routed to the page — 2026-08-05 (eighth pass)
 
