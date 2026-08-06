@@ -1,7 +1,7 @@
 # org/ operational state
 
 > Operational state only. Strategic state lives in `aicv-playbook/STATE.md`.
-> **Fresh session? Read `HANDOFF.md` first** (tight orientation), then this file for full detail. Current HEAD: **pine/volt complete, the site PASSES, and the hero now carries the photo with the stats band as its bottom edge** (2026-08-05). Favicon shipped. Remaining: step 5 — regenerate the pledge deck PDF, still warm; and an OPEN QUESTION on the mobile scrim (see the 2026-08-05 hero-refinement entry). *(This pointer had been stale at `f86f83e`/2026-07-01 for five weeks — bump it every session.)*
+> **Fresh session? Read `HANDOFF.md` first** (tight orientation), then this file for full detail. Current HEAD: **pine/volt complete, the site PASSES, and the hero now carries the photo with the stats band as its bottom edge** (2026-08-05). Favicon shipped. The mobile-scrim open question is CLOSED — mobile went 0.0% -> 33.7-46.5% photo visible. Remaining: step 5 — regenerate the pledge deck PDF, still warm. *(This pointer had been stale at `f86f83e`/2026-07-01 for five weeks — bump it every session.)*
 
 ## Current
 
@@ -1193,6 +1193,68 @@ lands, at both 1280 and 375 — the `<img>` is absolutely positioned inside a
   false failure on mobile.
 
 ---
+
+## Hero scrim re-derived against the band — 2026-08-05 (same day, follow-on)
+
+Follow-on to `4ee0259`. `index.html` only, and **zero-pixel** — the whole change is
+two `::before` gradient values. 232 elements compared at 1280 and 375 at sub-pixel
+precision: none moved or resized, document heights identical.
+
+**Both scrims were re-derived from MEASURED type extents rather than tuned by eye.**
+That is the transferable part of this entry.
+
+| | before | after |
+|---|---|---|
+| desktop | `0.80 / 0.72@32 / 0.40@62 / 0@86` | `0.70 / 0.72@34 / 0.40@62 / 0@72` |
+| mobile | `0.94 / 0.92@56 / 0.66@75 / 0.14@90 / 0@100` | `0.88 / 0.66@36 / 0.36@55 / 0@100` |
+| photo visible, desktop | 49.6% | **57.8-62.1%** (ceiling is 62.1%) |
+| photo visible, mobile | **0.0%** | **33.7-46.5%** (ceiling is 56.7%) |
+| tightest margin | +0.35 | **+0.38** |
+
+"Photo visible" = share of hero area not under the band where scrim alpha < 0.75,
+i.e. the photograph contributes more than 25%. The ceiling is set by the band.
+
+**THE LEFT STOP WAS NEVER THE BINDING KNOB — and last session's "0.75 floor,
++0.19 margin" was an artefact of moving the wrong one.** That figure came from
+scaling every stop down together. Hold the mid stops where the type needs them and
+sweep the left stop alone: from **0.74 down to 0.60 the tightest margin does not
+move off +0.38**. Only the eyebrow degrades (8.82 -> 8.23 against a 4.5 threshold).
+The binding element is the accent, and its alpha is set by the stop at 34%, not by
+the left edge. **Shipped 0.70 for looks, not for safety.**
+
+**Measure where the type actually ends before placing a stop.** At 1280 the h1's
+longest line reaches 57% of hero width and the accent 53.8%; everything right of
+57% is type-free. The old chain did not clear until 86% — 14 points of frame dimmed
+for no contrast reason. Pulling the clear point to 72% costs nothing and is what
+makes the mountains read across the frame.
+
+**Mobile had no gap to reveal into.** The type runs 24%->52% of the hero and the
+band starts at 55-67%, leaving ~4.6%. So a reveal placed "between the type and the
+band" is invisible — it lands under the band. The reveal has to pass through the
+type region, which mobile can afford (it started at +2.70 of margin).
+
+**A two-zone shape scored better and lost anyway.** Buying the reveal from the
+text-free sky above the type (0-20%) gave the same 35.4% at a better margin
+(+0.75 vs +0.48). Rejected on looks: the top of the mobile crop is featureless
+haze, so it rendered as a grey wash under the dark nav. Monotone reads as morning
+light. **Both were screenshotted and compared before choosing — the number alone
+would have picked the worse one.**
+
+**Shortening the band buys back NOTHING.** Tested 216 -> 206 -> 163px at 1280:
+photo area stayed **exactly 353px** in all three. `.hero__inner` is sized by its
+content, so the band never competed with the photo for space — shrinking it just
+shortens the hero (569 -> 516). Band share falls 38% -> 32% but that is the hero
+getting smaller, not the photograph getting bigger. **If more photo is ever wanted,
+the lever is the hero's min-height, not the band.** Band left at 216px desktop /
+252px mobile. (Recorded because the band was quoted at 189px desktop; measured
+216px at both 1440 and 1280.)
+
+**Harness note — the >25% metric saturates.** Once the left stop is <= 0.74 the
+entire non-band area passes the threshold and the number pins at the ceiling, so it
+cannot discriminate between good and better. Mean photo strength across the frame is
+the honest tiebreaker (54.1% -> 57.5%). Positive controls were run first, as standing
+practice: no scrim drove the tightest margin to -1.38 and opaque drove photo
+visibility to 0%, so the harness was shown capable of failing before its passes counted.
 
 ## Hero refinement — scrim relaxed, stats band moved into the hero — 2026-08-05
 

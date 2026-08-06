@@ -699,11 +699,20 @@
     .hero::before {
       content: '';
       position: absolute; inset: 0; z-index: 1;
+      /* Stops are placed against MEASURED type extents, not by eye. At 1280 the
+         h1's longest line reaches 57% of the hero width and the accent 53.8%;
+         everything right of 57% is type-free. So the 0.72 stop sits at 34% to
+         hold the accent (it is the binding element at 3:1 large-text, nothing
+         else comes close) and the fall-off is pulled in to clear by 72% instead
+         of 86% — 14 points of frame that were being dimmed for no reason.
+         The left stop is NOT the binding knob: from 0.74 down to 0.60 the
+         tightest margin never moves off +0.38, because alpha at the accent is
+         set by the 34% stop. 0.70 keeps some paper under the headline. */
       background: linear-gradient(to right,
-        rgba(var(--c-cream-rgb),0.80) 0%,
-        rgba(var(--c-cream-rgb),0.72) 32%,
+        rgba(var(--c-cream-rgb),0.70) 0%,
+        rgba(var(--c-cream-rgb),0.72) 34%,
         rgba(var(--c-cream-rgb),0.40) 62%,
-        rgba(var(--c-cream-rgb),0) 86%);
+        rgba(var(--c-cream-rgb),0) 72%);
       pointer-events: none;
     }
     .hero__inner {
@@ -760,11 +769,24 @@
     @media (max-width: 700px) {
       .hero { min-height: 460px; }
       .hero::before {
+        /* The old chain cleared only in its bottom quarter (0.66@75% -> 0@100%)
+           and the band now starts at ~57%, so the entire clear zone sat BEHIND
+           the band: measured 0.0% of the mobile hero showed the photo at better
+           than 25% strength. We shipped a 27KB image that rendered as nothing.
+           Note there is NO usable gap between type and band to reveal into —
+           the type runs 24%->52% and the band starts at 55-67%, leaving ~4.6%.
+           So the reveal necessarily passes through the type region, which mobile
+           can afford: it starts from +2.70 of margin and the accent (3:1 large)
+           is the only element anywhere near a threshold.
+           A two-zone variant that bought its reveal from the text-free sky above
+           the type scored the same 35.4% at a better margin (+0.75 vs +0.48), but
+           the top of the mobile crop is featureless haze — it rendered as a grey
+           wash under the dark nav. Monotone reads as morning light; it won on
+           looks, not numbers. */
         background: linear-gradient(to bottom,
-          rgba(var(--c-cream-rgb),0.94) 0%,
-          rgba(var(--c-cream-rgb),0.92) 56%,
-          rgba(var(--c-cream-rgb),0.66) 75%,
-          rgba(var(--c-cream-rgb),0.14) 90%,
+          rgba(var(--c-cream-rgb),0.88) 0%,
+          rgba(var(--c-cream-rgb),0.66) 36%,
+          rgba(var(--c-cream-rgb),0.36) 55%,
           rgba(var(--c-cream-rgb),0) 100%);
       }
       .hero__media img { object-position: 50% 72%; }
