@@ -1,7 +1,7 @@
 # org/ operational state
 
 > Operational state only. Strategic state lives in `aicv-playbook/STATE.md`.
-> **Fresh session? Read `HANDOFF.md` first** (tight orientation), then this file for full detail. Current HEAD: **the site is SIX pages — `/pledge` is live as a real page, and it supersedes both the pledge PDF and the broken lightbox** (2026-08-05). pine/volt complete, nonprofit sweep done, favicon shipped. AWAITING A RULING: whether to delete the homepage lightbox + slide replica (see the 2026-08-05 pledge-page entry) — doing so closes step 5 and the X-Frame-Options item together. *(This pointer had been stale at `f86f83e`/2026-07-01 for five weeks — bump it every session.)*
+> **Fresh session? Read `HANDOFF.md` first** (tight orientation), then this file for full detail. Current HEAD: **the site is SIX pages, `/pledge` is live, and the rebrand backlog is EMPTY** (2026-08-05). Step 5 (regenerate the pledge deck) and the X-Frame-Options item are both CLOSED BY REMOVAL — the deck and the lightbox no longer exist. Fiscal wording is canon-aligned on "project". Remaining known divergence: the six `footer__copy` lines still read "Fiscally sponsored under Desert Community Foundation". *(This pointer had been stale at `f86f83e`/2026-07-01 for five weeks — bump it every session.)*
 
 ## Current
 
@@ -1193,6 +1193,86 @@ lands, at both 1280 and 375 — the `<img>` is absolutely positioned inside a
   false failure on mobile.
 
 ---
+
+## Three rulings — subtraction, and the fiscal re-sweep — 2026-08-05 (seventh pass)
+
+**RULING 1 — the lightbox and slide replica are GONE. Two backlog items close by
+removal rather than by fix.**
+
+Deleted from `index.html`: the `#pledge-lb` lightbox (markup + all `.lightbox*`
+rules, 1045 bytes of CSS), the hand-built slide-1 replica, and the `.pledge-thumb`
+wrapper that contained it (1614 bytes of CSS). The two-column `.pledge-layout`
+collapsed to a single copy block plus one CTA pointing at `/pledge`.
+
+- **Step 5 is CLOSED, not done.** The lightbox's iframe was the only reference to
+  `aicv-pledge-deck.pdf` anywhere on the site. Count is now **0**. There is no
+  surface left that renders the warm-palette deck, so there is nothing to
+  regenerate. The file stays in the repo, unreferenced.
+- **The X-Frame-Options item is CLOSED, not fixed.** That iframe was the only
+  framed element. With nothing framed, `X-Frame-Options: DENY` on `/*` breaks
+  nothing and the header stays strict — the outcome the brief asked for.
+
+**Scope note on the ruling's own wording.** The ruling asked to re-point "all four
+remaining `aicv-pledge-deck.pdf` references". In fact three of those four were
+`aicv-pledge.pdf` (a different file), and one of them — "Open full PDF" at :1808 —
+lived *inside* the lightbox, so it was deleted rather than re-pointed. Net: the deck
+had **1** reference (the iframe, deleted); `aicv-pledge.pdf` had **4**, of which 1
+was deleted with the lightbox and **3 were re-pointed** — the CTA (now `/pledge`,
+`target="_blank"` dropped since it is internal) and both FAQ prose twins. Both PDFs
+now have **zero** references sitewide.
+
+Also removed: `.pledge-preview__inner` and `.pledge-preview__title`, which had
+**already been dead** — zero markup uses. They survived the 2026-08-04 dead-CSS
+sweep because that pass worked from a recon list rather than from the DOM.
+
+`.pledge-copy` gained `max-width: 62ch`; it had been measured by the grid column
+that no longer exists.
+
+**RULING 2 — fiscal wording re-swept to canon. 17 placements.**
+
+The single canonical formulation is `OPERATING-RULES.md:452-453`:
+"A fiscally sponsored **project** of Desert Community Foundation, a 501(c)(3)
+nonprofit organization." **There is no separate locked shorthand in canon** — so
+where a short form was the right job, the string used is that same sentence
+truncated at its clause boundary ("A fiscally sponsored project of Desert Community
+Foundation."), which introduces no new words. Flagging that explicitly because the
+ruling said to pull both from canon and only one exists.
+
+- **Full string** (legal standing is the subject): the governance FAQ answer,
+  schema + DOM twin; `llms.txt` "Legal structure".
+- **Shorthand**: six footers, two index JSON-LD descriptions, the "What is AICV"
+  twins, the "two properties" twins, two `llms.txt` lines.
+
+Two incidental fixes made while sweeping: the WebSite JSON-LD description read
+"is a fiscally sponsored initiative building, connecting…" — it never named DCF at
+all, and now does; and `llms.txt` said "under one fiscally sponsored **mission**",
+which is now "project" to match its index twin.
+
+**Zero instances of "initiative" remain anywhere on the site.**
+
+**WHY THE FIRST SWEEP DRIFTED — the lesson.** The 2026-08-05 nonprofit sweep took
+its replacement noun from a sentence already on disk (`index.html:258`, "the first
+and only fiscally sponsored initiative") instead of from canon. That line was itself
+drift. Matching a line on disk propagates whatever error that line contains; the
+sweep was internally consistent and uniformly wrong. **Anchor a sweep to the
+playbook string, then verify disk against it — never the reverse.**
+
+**Still divergent, outside the ruling's scope and NOT changed:** the six
+`footer__copy` lines read "© 2026 AI Coachella Valley · Fiscally sponsored under
+Desert Community Foundation". That construction contains neither "initiative" nor
+"project", so it was not swept. It is not wrong, but it is the last formulation on
+the site that is not canon's. Wants a ruling of its own.
+
+**RULING 3 — workshop line shipped as drafted.**
+
+**Verified:** zero deformed on events, philanthropy, partner, 404 and pledge —
+every element at 0px shift, document heights unchanged. index shows two rigid
+groups (0px above `#pledge`, −218.52px at 1280 / −397.71px at 375 below it) as the
+section shrank; doc height 6426 → 6208. **One deformation, expected and checked:**
+the governance FAQ paragraph grew 210 → 236px at 375 because the 501(c)(3) clause
+added a line — x and width identical, height identical at 1280. All JSON-LD parses
+on all six pages; sitemap, api-catalog and server-card valid; `llms.txt` has zero
+"initiative" and one "nonprofit" (the 501(c)(3) clause), all four URLs resolve.
 
 ## New page — /pledge, the Responsible AI Pledge — 2026-08-05 (sixth pass)
 
