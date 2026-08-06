@@ -654,33 +654,48 @@
       font-weight: 400;
       line-height: 1.45;
       color: var(--c-ink);
-      margin: 0;
+      margin: 0 0 var(--s-7);
+      padding-bottom: var(--s-6);
+      border-bottom: 1px solid var(--c-ghost);
     }
+    /* The thesis line. Carries the most weight on the page after the h1. */
     .pledge-preamble__close {
       display: block;
-      margin-top: var(--s-3);
+      margin-top: var(--s-4);
       font-style: normal;
-      font-weight: 600;
+      font-weight: 700;
+      letter-spacing: -0.01em;
     }
 
     /* Principles. The numeral is a display element but it carries meaning —
        it is the principle's number — so it uses accent-text-d (6.11:1 on
        paper), not the ghost tint used for decorative watermarks. */
-    .principles { margin-top: var(--s-8); }
+    .principles { margin-top: 0; }
     .principle {
       display: grid;
-      grid-template-columns: 96px 1fr;
+      grid-template-columns: 64px 1fr;
       gap: 0 var(--s-4);
       padding: var(--s-6) 0;
       border-top: 1px solid var(--c-ghost);
     }
     .principle:first-child { border-top: 0; padding-top: 0; }
+    /* Volt tile, pine numeral — the same treatment as .nav__mark and the
+       favicon, so the page carries the brand mark rather than borrowing a
+       one-off. Doctrine (BRAND.md §1): volt #D8FF00 is ~1.1:1 on any light
+       surface, so it is a FILL behind dark text and never text itself.
+       Pine on volt measures 9.61:1. */
     .principle__num {
+      width: 64px;
+      height: 64px;
+      background: var(--c-accent-fill);
+      color: var(--c-ink);
+      display: flex;
+      align-items: center;
+      justify-content: center;
       font-family: 'EB Garamond', Georgia, serif;
-      font-size: 56px;
-      line-height: 0.9;
-      font-weight: 400;
-      color: var(--c-accent-text-d);
+      font-size: 26px;
+      font-weight: 700;
+      line-height: 1;
       font-variant-numeric: lining-nums tabular-nums;
     }
     .principle__title {
@@ -736,18 +751,18 @@
     .pledge-mantra {
       margin-top: var(--s-8);
       font-family: 'EB Garamond', Georgia, serif;
-      font-size: clamp(22px, 3vw, 34px);
-      font-weight: 600;
+      font-size: clamp(24px, 3.2vw, 38px);
+      font-weight: 700;
       color: var(--c-ink);
-      letter-spacing: 0.01em;
+      letter-spacing: -0.01em;
     }
     .pledge-mantra span { margin-right: 0.75em; }
     .pledge-final {
       margin-top: var(--s-4);
       font-family: 'EB Garamond', Georgia, serif;
-      font-size: clamp(18px, 2.2vw, 24px);
+      font-size: clamp(19px, 2.4vw, 26px);
       font-style: italic;
-      color: var(--c-ink-l);
+      color: var(--c-ink);
       line-height: 1.4;
     }
 
@@ -770,8 +785,8 @@
     .print-attribution { display: none; }
 
     @media (max-width: 640px) {
-      .principle { grid-template-columns: 60px 1fr; gap: 0 var(--s-3); }
-      .principle__num { font-size: 38px; }
+      .principle { grid-template-columns: 48px 1fr; gap: 0 var(--s-3); }
+      .principle__num { width: 48px; height: 48px; font-size: 20px; }
       .sign-lines { grid-template-columns: 1fr; }
     }
 
@@ -787,14 +802,23 @@
       .hero::before, .hero__ghost { display: none !important; }
       .wrap, .pledge-wrap { max-width: 100% !important; }
       * { color: #000 !important; }
-      .principle__num { color: #444 !important; }
+      /* No volt on paper: the tile becomes plain type. Background printing is
+         off by default in most browsers anyway, which would have left pine on
+         white with the tile's centring still applied. */
+      .principle__num {
+        background: transparent !important;
+        color: #000 !important;
+        width: auto; height: auto;
+        display: block;
+        font-size: 20pt;
+        font-weight: 700;
+      }
       .principle {
         break-inside: avoid; page-break-inside: avoid;
         padding: 10pt 0; border-top: 0.5pt solid #999;
       }
       .principle__body { font-size: 10pt; line-height: 1.45; max-width: 100%; }
       .principle__title { font-size: 12pt; margin-bottom: 3pt; }
-      .principle__num { font-size: 26pt; }
       .pledge-preamble { font-size: 12pt; line-height: 1.4; }
       .pledge-preamble__close { margin-top: 6pt; }
       .principles { margin-top: 14pt; }
@@ -831,7 +855,7 @@
       <li><a href="/philanthropy" class="nav__cta">Philanthropy</a></li>
       <li><a href="/#programs">Build</a></li>
       <li><a href="/events">Events</a></li>
-      <li><a href="/#pledge">The Pledge</a></li>
+      <li><a href="/pledge" class="is-active">The Pledge</a></li>
       <li><a href="/#founder">About</a></li>
       <li><a href="https://aicoachellavalley.com">Intelligence Network ↗</a></li>
     </ul>
@@ -845,7 +869,7 @@
   <a href="/philanthropy" class="drawer-cta" onclick="document.getElementById('nav-drawer').classList.remove('is-open');document.getElementById('nav-toggle').classList.remove('is-open')">Philanthropy</a>
   <a href="/#programs" onclick="document.getElementById('nav-drawer').classList.remove('is-open');document.getElementById('nav-toggle').classList.remove('is-open')">Build</a>
   <a href="/events" onclick="document.getElementById('nav-drawer').classList.remove('is-open');document.getElementById('nav-toggle').classList.remove('is-open')">Events</a>
-  <a href="/#pledge" onclick="document.getElementById('nav-drawer').classList.remove('is-open');document.getElementById('nav-toggle').classList.remove('is-open')">The Pledge</a>
+  <a href="/pledge" onclick="document.getElementById('nav-drawer').classList.remove('is-open');document.getElementById('nav-toggle').classList.remove('is-open')">The Pledge</a>
   <a href="/#founder" onclick="document.getElementById('nav-drawer').classList.remove('is-open');document.getElementById('nav-toggle').classList.remove('is-open')">About</a>
   <a href="https://aicoachellavalley.com">Intelligence Network ↗</a>
 </div>
@@ -956,7 +980,7 @@
           <li><a href="/philanthropy">Philanthropy</a></li>
           <li><a href="/#programs">Build</a></li>
           <li><a href="/events">Events</a></li>
-          <li><a href="/#pledge">Responsible AI Pledge</a></li>
+          <li><a href="/pledge">Responsible AI Pledge</a></li>
           <li><a href="/#founder">About AICV</a></li>
           <li><a href="/#founder">Founder</a></li>
         </ul>

@@ -1,7 +1,7 @@
 # org/ operational state
 
 > Operational state only. Strategic state lives in `aicv-playbook/STATE.md`.
-> **Fresh session? Read `HANDOFF.md` first** (tight orientation), then this file for full detail. Current HEAD: **the site is SIX pages, `/pledge` is live, and the rebrand backlog is EMPTY** (2026-08-05). Step 5 (regenerate the pledge deck) and the X-Frame-Options item are both CLOSED BY REMOVAL — the deck and the lightbox no longer exist. Fiscal wording is canon-aligned on "project". Remaining known divergence: the six `footer__copy` lines still read "Fiscally sponsored under Desert Community Foundation". *(This pointer had been stale at `f86f83e`/2026-07-01 for five weeks — bump it every session.)*
+> **Fresh session? Read `HANDOFF.md` first** (tight orientation), then this file for full detail. Current HEAD: **the site is SIX pages, `/pledge` is live, and the rebrand backlog is EMPTY** (2026-08-05). Step 5 (regenerate the pledge deck) and the X-Frame-Options item are both CLOSED BY REMOVAL — the deck and the lightbox no longer exist. Fiscal wording is canon-aligned on "project". `/pledge` is in the nav, drawer and footer on all six pages. Remaining known divergence: the six `footer__copy` lines still read "Fiscally sponsored under Desert Community Foundation". A 24-placement fiscal inventory is below, awaiting a ruling. *(This pointer had been stale at `f86f83e`/2026-07-01 for five weeks — bump it every session.)*
 
 ## Current
 
@@ -1193,6 +1193,68 @@ lands, at both 1280 and 375 — the `<img>` is absolutely positioned inside a
   false failure on mobile.
 
 ---
+
+## /pledge gets volt; nav routed to the page — 2026-08-05 (eighth pass)
+
+**VOLT RESTORED, per doctrine.** The page had shipped all-safe — every element on
+pine or pine-light, no accent anywhere, worst margin +1.61. The seven principle
+numerals are now **volt tiles with pine numerals on them**: 64px square on desktop,
+48px on mobile, the same treatment as `.nav__mark` and the favicon, so the page
+carries the existing brand mark rather than inventing one.
+
+Measured: pine `#1B4332` on volt `#D8FF00` = **9.61:1**, exactly the figure BRAND.md
+§1 records. Volt appears *only* as fill — never as text on the light ground, where
+it measures ~1.1:1. The one place volt appears as text is the nav's `is-active`
+marker on `/pledge`, which sits on the dark nav ground at **15.35:1** (`--c-on-ground-hi`,
+the case doctrine explicitly permits).
+
+**Typographic weight — the page now reads as a document.** The preamble closes with
+a `--c-ghost` rule and a bottom margin, so it reads as a masthead block rather than
+a lede running into the list. The thesis line ("Powerful tools require thoughtful
+people.") went to weight 700 with tightened tracking. The mantra went 34px/600 to
+38px/700, and the closing line moved off `--c-ink-l` onto full `--c-ink` (6.11 to
+**10.59:1**) and up a step in size — it is the last line of a document people sign,
+and it was the palest thing on the page.
+
+**Print keeps its head.** The volt tile is explicitly reverted in `@media print`:
+background transparent, plain dark type, `display: block`. Background printing is off
+by default in most browsers, which would otherwise have left the tile's centring
+applied to a numeral on white with no fill behind it.
+
+All 15 type elements pass at 1280 and 375. Worst margin **+1.61**, unchanged — the
+volt tile did not become the tightest element.
+
+**NAV ROUTED TO THE PAGE — 18 links, not 12.** The brief said "six pages, two blocks
+each". There is a **third** `#pledge` link per page: the mobile drawer. Leaving it
+would have routed every phone visitor through the homepage section, which is the
+exact behaviour being retired. All 18 changed — nav, drawer and footer on all six
+pages — and `pledge.html`'s own nav link now carries `is-active`, matching what
+`events.html` and `philanthropy.html` already do for their own pages.
+
+Zero `#pledge` anchors remain. The homepage `#pledge` section is untouched and still
+holds its CTA to `/pledge`.
+
+Verified: **zero moved or resized** on index, events, philanthropy, partner and 404
+at 1280/375, document heights identical — the href changes are non-visual.
+`pledge.html` moves as intended (it is the page redesigned; its nav shifts because
+`is-active` adds `font-weight: 500`, the site's own convention).
+
+## Fiscal-sponsorship inventory — 24 placements, awaiting a ruling — 2026-08-05
+
+**The count is 24, not 17.** 17 was how many the re-sweep *changed*. The full
+inventory adds the six `footer__copy` lines (which never said "initiative", so were
+never swept) and `pledge.html`'s print attribution (already correct when written).
+17 + 6 + 1 = 24.
+
+**The strongest finding: every footer states it twice.** `footer__desc` carries
+"A fiscally sponsored project of Desert Community Foundation." and `footer__copy`,
+about 20px below it in the same visual block, carries "· Fiscally sponsored under
+Desert Community Foundation". Twelve of the 24 placements are footer lines, and half
+of those restate the other half at arm's length. That is the redundancy worth cutting,
+and it also resolves the wording divergence for free — deleting the `footer__copy`
+clause removes the last non-canon formulation on the site.
+
+Nothing removed. Recorded here for the ruling.
 
 ## Three rulings — subtraction, and the fiscal re-sweep — 2026-08-05 (seventh pass)
 
