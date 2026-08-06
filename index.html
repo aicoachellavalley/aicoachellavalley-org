@@ -505,6 +505,7 @@
     .section--dark { background: var(--c-dusk); }
     .section--sand { background: var(--c-sand); }
     .section--alt  { background: var(--c-sand-d); }
+    .section--edge { border-top: 1px solid var(--c-ghost); }
 
     /* ════════════════════════════════════════
        TYPOGRAPHY UTILITIES
@@ -675,10 +676,12 @@
        Fallback is LIGHT so a slow image never flashes dark behind dark type. */
     .hero {
       background: var(--c-sand);
-      padding: 120px var(--gutter) 56px;
+      padding: 120px var(--gutter) 0;
       min-height: clamp(380px, 40vw, 560px);
       position: relative;
       overflow: hidden;
+      display: flex;
+      flex-direction: column;
     }
     .hero__media {
       position: absolute; inset: 0; z-index: 0;
@@ -697,17 +700,51 @@
       content: '';
       position: absolute; inset: 0; z-index: 1;
       background: linear-gradient(to right,
-        rgba(var(--c-cream-rgb),0.92) 0%,
-        rgba(var(--c-cream-rgb),0.84) 32%,
-        rgba(var(--c-cream-rgb),0.48) 62%,
+        rgba(var(--c-cream-rgb),0.80) 0%,
+        rgba(var(--c-cream-rgb),0.72) 32%,
+        rgba(var(--c-cream-rgb),0.40) 62%,
         rgba(var(--c-cream-rgb),0) 86%);
       pointer-events: none;
     }
     .hero__inner {
       max-width: var(--max-w);
       margin: 0 auto;
+      width: 100%;
+      /* grow into spare height, never shrink below the type. Without the 0
+         shrink the flex children compress and the headline collides with the
+         band below — measured at 1.17:1, pine on the dark band. */
+      flex: 1 0 auto;
+      padding-bottom: var(--s-6);
       position: relative; z-index: 2;
     }
+    /* The stats band is the hero's bottom edge. margin-top:auto pins it there;
+       the negative side margins let it bleed past the hero's gutter so it runs
+       full width, the way the mockup has it. It sits ABOVE the scrim (z-index 3)
+       because it is an opaque surface, not something the scrim should wash. */
+    .hero__stats {
+      flex: 0 0 auto;
+      margin-top: auto;
+      margin-left: calc(var(--gutter) * -1);
+      margin-right: calc(var(--gutter) * -1);
+      position: relative; z-index: 3;
+      /* TRANSLUCENT, not solid. Two reasons, both learned by building it solid
+         first: (1) a solid band merges into #why-now directly below, which is
+         also ground — the page loses the hero's bottom edge entirely;
+         (2) letting the sunset read faintly through keeps the band part of the
+         photograph rather than a lid on top of it. */
+      background: rgba(var(--c-dusk-rgb), 0.88);
+      backdrop-filter: blur(2px);
+      border-top: 1px solid rgba(var(--c-ghost-rgb), 0.18);
+    }
+    /* Compact for the hero. The standalone band could afford 50px numerals and
+       30px cell padding; as the hero's edge it cannot — at full size it took
+       more than half the hero and squeezed the photograph to a strip. */
+    .hero__stats.stats            { background: rgba(var(--c-dusk-rgb), 0.88); padding: var(--s-3) var(--gutter); }
+    .hero__stats .stats__label    { margin-bottom: var(--s-2); }
+    .hero__stats .stats__grid     { background: rgba(var(--c-ghost-rgb), 0.10); }
+    .hero__stats .stats__cell     { padding: 14px 16px; background: rgba(var(--c-dusk-rgb), 0.35); }
+    .hero__stats .stats__n        { font-size: 34px; margin-bottom: 2px; }
+    .hero__stats .stats__affil    { margin-top: var(--s-2); }
     /* Type inverts: this hero is now LIGHT. */
     .hero .h1 { color: var(--c-ink); }
     .hero .h1 .accent { color: var(--c-accent-text-d); }
@@ -731,6 +768,19 @@
           rgba(var(--c-cream-rgb),0) 100%);
       }
       .hero__media img { object-position: 50% 72%; }
+
+      /* BAND ON MOBILE — kept two-up, compacted. Judged, not guessed:
+         at 375 the band was 353px of a 724px hero. A horizontal scroller
+         would cut it to ~120px, but it hides two of the four figures behind
+         a swipe with no affordance — and these numbers ARE the community
+         proof on a funder-facing page, so hiding half is the wrong trade.
+         Instead: drop the campus-home line (the brief made it conditional
+         on fitting, it is the least load-bearing element, and it survives
+         on desktop), and tighten the cells. */
+      .hero__stats .stats__affil { display: none; }
+      .hero__stats .stats__cell  { padding: 10px 12px; }
+      .hero__stats .stats__n     { font-size: 28px; }
+      .hero__stats.stats         { padding: var(--s-2) var(--gutter); }
     }
     .hero__headline {
       margin-bottom: 0;
@@ -841,7 +891,7 @@
     ════════════════════════════════════════ */
     .stats {
       background: var(--c-dusk);
-      padding: var(--s-8) var(--gutter) var(--s-6);
+      padding: var(--s-4) var(--gutter) var(--s-4);
     }
     .stats__label {
       font-size: var(--fs-10);
@@ -1598,6 +1648,32 @@
       The Coachella Valley's <span class="accent">AI Startup Ecosystem</span>
     </h1>
   </div>
+
+  <!-- ── STATS — the hero's bottom edge (moved from a standalone band 2026-08-05) ── -->
+  <div class="stats hero__stats">
+    <div class="stats__label">On the ground in the Coachella Valley · Since 2025</div>
+    <div class="stats__grid wrap">
+      <div class="stats__cell">
+        <div class="stats__n">30<em>+</em></div>
+        <div class="stats__l">AI workshops<br>hosted since 2025</div>
+      </div>
+      <div class="stats__cell">
+        <div class="stats__n">300<em>+</em></div>
+        <div class="stats__l">Students in<br>attendance</div>
+      </div>
+      <div class="stats__cell">
+        <div class="stats__n">9</div>
+        <div class="stats__l">Cities across<br>the Valley</div>
+      </div>
+      <div class="stats__cell">
+        <div class="stats__n">12<em>+</em></div>
+        <div class="stats__l">Community &amp;<br>school partners</div>
+      </div>
+    </div>
+    <div class="stats__affil wrap">
+      <strong>Campus home:</strong> Entrepreneurship Resource Center · 37023 Cook Street, Palm Desert · In affiliation with CSUSB
+    </div>
+  </div>
 </section>
 
 <!-- ── WHY NOW ── -->
@@ -1670,34 +1746,13 @@
   </div>
 </section>
 
-<!-- ── STATS ── -->
-<div class="stats">
-  <div class="stats__label">On the ground in the Coachella Valley · Since 2025</div>
-  <div class="stats__grid wrap">
-    <div class="stats__cell">
-      <div class="stats__n">30<em>+</em></div>
-      <div class="stats__l">AI workshops<br>hosted since 2025</div>
-    </div>
-    <div class="stats__cell">
-      <div class="stats__n">300<em>+</em></div>
-      <div class="stats__l">Students in<br>attendance</div>
-    </div>
-    <div class="stats__cell">
-      <div class="stats__n">9</div>
-      <div class="stats__l">Cities across<br>the Valley</div>
-    </div>
-    <div class="stats__cell">
-      <div class="stats__n">12<em>+</em></div>
-      <div class="stats__l">Community &amp;<br>school partners</div>
-    </div>
-  </div>
-  <div class="stats__affil wrap">
-    <strong>Campus home:</strong> Entrepreneurship Resource Center · 37023 Cook Street, Palm Desert · In affiliation with CSUSB
-  </div>
-</div>
 
 <!-- ── PARTNERS ── -->
-<section class="section section--sand">
+<!-- section--edge: the stats band used to separate this from #programs above.
+     With the band moved into the hero the two sand sections butt directly and
+     read as one field (identical #F3F7EB, 1.00:1). This restores the boundary
+     using the site's existing hairline, not a tone change. -->
+<section class="section section--sand section--edge">
   <div class="wrap">
     <span class="eyebrow">Partners</span>
     <h2 class="h2">Who we work with.</h2>

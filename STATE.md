@@ -1,7 +1,7 @@
 # org/ operational state
 
 > Operational state only. Strategic state lives in `aicv-playbook/STATE.md`.
-> **Fresh session? Read `HANDOFF.md` first** (tight orientation), then this file for full detail. Current HEAD: **pine/volt complete, the site PASSES, and the index hero photograph is in** (2026-08-04/05). Favicon shipped. Remaining: step 5 — regenerate the pledge deck PDF, still warm. *(This pointer had been stale at `f86f83e`/2026-07-01 for five weeks — bump it every session.)*
+> **Fresh session? Read `HANDOFF.md` first** (tight orientation), then this file for full detail. Current HEAD: **pine/volt complete, the site PASSES, and the hero now carries the photo with the stats band as its bottom edge** (2026-08-05). Favicon shipped. Remaining: step 5 — regenerate the pledge deck PDF, still warm; and an OPEN QUESTION on the mobile scrim (see the 2026-08-05 hero-refinement entry). *(This pointer had been stale at `f86f83e`/2026-07-01 for five weeks — bump it every session.)*
 
 ## Current
 
@@ -1193,6 +1193,75 @@ lands, at both 1280 and 375 — the `<img>` is absolutely positioned inside a
   false failure on mobile.
 
 ---
+
+## Hero refinement — scrim relaxed, stats band moved into the hero — 2026-08-05
+
+Follow-on to the hero photograph (`1f8f81b`). Two changes, both to `index.html` only.
+Not pushed at time of writing — contained session, reported first.
+
+**1. Desktop scrim relaxed.** Left stop `0.92 -> 0.80`; the stop chain is now
+`0.80 / 0.72 / 0.40 / 0` at `0 / 32 / 62 / 86%`. The photograph reads through the
+headline area instead of dying behind it. Mobile's vertical gradient was left
+untouched, per the brief.
+
+**2. The stats band is now the hero's bottom edge.** The standalone `<div class="stats">`
+between the hero and `#why-now` was removed and re-parented into `.hero` as
+`.stats.hero__stats`. `.hero` became `display:flex; flex-direction:column`.
+
+- **Safe to move — verified, not assumed.** The band was a `<div>` with **no `id`**;
+  zero `#stats` anchors sitewide, zero nav/sitemap/llms.txt references, zero
+  cross-page use of `stats__*`. Nothing could link to it, so nothing broke.
+
+**Three things went wrong before this worked. Do not re-derive them.**
+
+- **A solid band eats the hero.** Built full-size and opaque first: it took over half
+  the hero and merged visually into `#why-now` (also ground) into one dark slab.
+  Fixed with `rgba(var(--c-dusk-rgb),0.88)` + a `--c-ghost` top border + compacted
+  padding and numerals. Translucency is load-bearing: the palms show faintly through it.
+- **Flex children shrink below their content.** The h1 collided with the band and
+  measured **1.17:1**. `.hero__inner { flex: 1 0 auto }` + `.hero__stats { flex: 0 0 auto }`.
+  A hero that mixes flowed text and a pinned bottom band needs both, explicitly.
+- **The removed band was a separator, and removing it merged two sections.**
+  `#programs` and the partners section are BOTH `.section--sand` `#F3F7EB`. The band
+  had held a 365px gap between them (556px at 375); with it gone the gap is **0** and
+  the two backgrounds are identical — **1.00:1**, one continuous light field. Restored
+  with `.section--edge { border-top: 1px solid var(--c-ghost) }` on partners, which is
+  the site's existing hairline (`philanthropy.html` `.source-band` uses the same rule).
+  **Standing lesson: before deleting a band, check what it was separating — a divider
+  can be doing structural work nobody assigned it.**
+
+**Measured — nine breakpoints, composited (photo + scrim + band + cell layers):**
+all PASS, tightest margin **+0.35** (accent at 1280, 3.35 vs the 3:1 large threshold).
+Numerals 12.06, label ~9.0, caption ~10.3 across the range.
+
+**Scrim floor — probed, not guessed.** A throwaway copy at `0.75` also passes, but the
+tightest margin drops to **+0.19** at 1280 (vs `+0.35` at `0.80`). Shipped `0.80`.
+`0.75` is the floor, and the brief's own "do not ship under 0.75" is the right line.
+
+**Mobile band: two-up, not horizontal scroll.** At 375 the band is 252px of a 623px hero.
+Compacted (`.stats__affil` hidden, cells `10px 12px`, numeral 28px) which took the hero
+724 -> 623. Horizontal scroll was rejected: it hides two of four figures behind an
+undiscoverable swipe, on the one element that is community proof for funders.
+
+**OPEN QUESTION — the mobile scrim now hides the photo completely.** Left unchanged
+because the brief said so, but the premise changed underneath it. The mobile gradient
+only clears in its bottom quarter (`0.66@75% -> 0@100%`) and **the band now starts at
+57% of the hero**, so the entire clear zone is behind the band. Above the band the scrim
+never drops below **0.92**. Measured: **0.0%** of the mobile hero shows the photo at
+better than 25% strength. At 375 we ship a 27KB image that contributes nothing visible.
+Fix if wanted: pull the mobile stops back to roughly `0.90 / 0.72@40% / 0.45@57%` so the
+reveal happens ABOVE the band instead of under it. Not done this session.
+
+**Layout invariance outside the hero and the moved section:** 202 elements compared at
+1280 and 375, measured at **sub-pixel precision**. **Zero deformed** — every element kept
+identical x, width and height. Y-shifts collapse to exactly **three rigid groups**:
+`0` (sticky nav), `+57.30` / `+120.85` (content above the old band position — the hero grew),
+and `-306.69` / `-434.13` (everything below it — the band left, net of hero growth).
+
+- **Harness note: round your rects last, or not at all.** Rounding y to integers split
+  those three groups into five (`-306`/`-307`, `+57`/`+58`) and manufactured a phantom
+  "the hairline shifted things" story that survived one round of investigation. At full
+  precision the split vanished. Compare at sub-pixel and round only for display.
 
 ## Agent-Readiness Baselines — 2026-04-23
 
