@@ -1207,14 +1207,17 @@ Coachella Valley's emerging AI startup ecosystem" mid-sentence, which reads
 correctly), and 404.html's separate copy ("Preparing the Valley for the age of
 AI"). Post-pass there are zero instances of the old tagline anywhere.
 
-**TITLE LENGTH — flagged.** `<title>` is now **81 characters**, up from 72.
-Search engines truncate display around 60, so the visible portion is roughly
-"AI Coachella Valley (AICV) — Building the Coachella Valley's…" and the phrase
-that carries the positioning — "AI Startup Ecosystem" — falls off the end. It
-was already over at 72; this makes it 9 worse. The tag is correct and consistent
-as instructed; if the truncation matters more than the consistency, the fix is
-to shorten the prefix (e.g. "AICV — Building the Coachella Valley's AI Startup
-Ecosystem", 57 chars) rather than to revert the tagline. Not changed.
+**TITLE LENGTH — flagged, then fixed in the same session.** The consistent title
+came to **81 characters**, up from 72, and search engines truncate display around
+60 — so "AI Startup Ecosystem", the phrase carrying the positioning, fell off the
+end. Founder call: shorten the prefix rather than revert the tagline. All three
+tags now read **"AICV — Building the Coachella Valley's AI Startup Ecosystem"**,
+which measures **59 characters** (not the 57 estimated — the em dash and its two
+spaces account for the difference). Fits the limit with the positioning phrase intact.
+
+Dropping "AI Coachella Valley" from the title does not lose the full brand name:
+it survives in `og:site_name`, twice in the JSON-LD `name` fields, and in the
+visible nav wordmark. Checked before making the change, not assumed.
 
 **Verified:** zero moved or resized across all five pages at 1280 and 375 (229
 elements on index, 68 events, 88 partner, 133 philanthropy, 65 on 404), document
