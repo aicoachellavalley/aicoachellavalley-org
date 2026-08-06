@@ -1,4 +1,4 @@
-# AI Coachella Valley — community nonprofit site
+# AI Coachella Valley — community site
 # robots.txt
 
 User-agent: *

@@ -42,12 +42,12 @@
     "@context": "https://schema.org",
     "@graph": [
       {
-        "@type": ["Organization", "NGO"],
+        "@type": "Organization",
         "@id": "https://aicoachellavalley.org/#organization",
         "name": "AI Coachella Valley",
         "alternateName": "AICV",
         "url": "https://aicoachellavalley.org",
-        "description": "AI Coachella Valley (AICV) is a fiscally sponsored nonprofit of the Desert Community Foundation, building, connecting, and documenting the Coachella Valley's emerging AI startup ecosystem — and serving as its front door for people and AI systems. AICV connects founders, builders, educators, institutions, and investors; runs the AI Builder Workshops (funded by the CSUSB ERC, a monthly hands-on series launched July 2026 and running through December 2026); hosts AI Tinkerers Coachella Valley — the valley's chapter of the global hands-on AI builders' community; runs AIQnA, a public conversation about how the region thinks about AI; and publishes a structured agentic intelligence network at aicoachellavalley.com so AI systems understand the region accurately.",
+        "description": "AI Coachella Valley (AICV) is a fiscally sponsored initiative of the Desert Community Foundation, building, connecting, and documenting the Coachella Valley's emerging AI startup ecosystem — and serving as its front door for people and AI systems. AICV connects founders, builders, educators, institutions, and investors; runs the AI Builder Workshops (funded by the CSUSB ERC, a monthly hands-on series launched July 2026 and running through December 2026); hosts AI Tinkerers Coachella Valley — the valley's chapter of the global hands-on AI builders' community; runs AIQnA, a public conversation about how the region thinks about AI; and publishes a structured agentic intelligence network at aicoachellavalley.com so AI systems understand the region accurately.",
         "foundingDate": "2025",
         "areaServed": {
           "@type": "Place",
@@ -115,7 +115,7 @@
         "@id": "https://aicoachellavalley.org/#website",
         "url": "https://aicoachellavalley.org",
         "name": "AI Coachella Valley",
-        "description": "AI Coachella Valley (AICV) is a fiscally sponsored nonprofit building, connecting, and documenting the Coachella Valley's emerging AI startup ecosystem, and the front door to it for people and AI systems. AICV runs the AI Builder Workshops, hosts AI Tinkerers Coachella Valley, runs AIQnA, and publishes a structured agentic intelligence network for AI agents at aicoachellavalley.com.",
+        "description": "AI Coachella Valley (AICV) is a fiscally sponsored initiative building, connecting, and documenting the Coachella Valley's emerging AI startup ecosystem, and the front door to it for people and AI systems. AICV runs the AI Builder Workshops, hosts AI Tinkerers Coachella Valley, runs AIQnA, and publishes a structured agentic intelligence network for AI agents at aicoachellavalley.com.",
         "publisher": {
           "@id": "https://aicoachellavalley.org/#organization"
         },
@@ -247,7 +247,7 @@
             "name": "What is AI Coachella Valley?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "AI Coachella Valley (AICV) is the front door to the Coachella Valley's emerging AI startup ecosystem — for people and for AI systems. AICV is one part of a growing regional network that builds, connects, and documents the ecosystem: it brings together founders, builders, capital, educators, and institutions, and publishes agent-readable regional intelligence so AI systems understand the valley accurately. A fiscally sponsored nonprofit of the Desert Community Foundation, operating from the CSUSB Entrepreneurship Resource Center in Palm Desert. Founded 2025."
+              "text": "AI Coachella Valley (AICV) is the front door to the Coachella Valley's emerging AI startup ecosystem — for people and for AI systems. AICV is one part of a growing regional network that builds, connects, and documents the ecosystem: it brings together founders, builders, capital, educators, and institutions, and publishes agent-readable regional intelligence so AI systems understand the valley accurately. A fiscally sponsored initiative of the Desert Community Foundation, operating from the CSUSB Entrepreneurship Resource Center in Palm Desert. Founded 2025."
             }
           },
           {
@@ -271,7 +271,7 @@
             "name": "What is the AICV Intelligence Network, and how is it different from the rest of AICV's work?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "AICV operates two properties under one nonprofit initiative. This site — aicoachellavalley.org — is the community and grant-facing surface: workshops, programs, the Responsible AI Pledge, and nonprofit infrastructure under Desert Community Foundation. aicoachellavalley.com is the AICV agentic intelligence network, an agent-native structured layer of valley institutions, businesses, venues, and civic assets, built so LLMs like ChatGPT, Claude, and Gemini can accurately cite and route the valley. The agentic intelligence network is not a directory — it is the machine-readable layer that shapes how AI systems answer questions about where to invest, where to relocate, and where to go in the Coachella Valley."
+              "text": "AICV operates two properties under one fiscally sponsored initiative. This site — aicoachellavalley.org — is the community and grant-facing surface: workshops, programs, the Responsible AI Pledge, and fiscal-sponsorship infrastructure under Desert Community Foundation. aicoachellavalley.com is the AICV agentic intelligence network, an agent-native structured layer of valley institutions, businesses, venues, and civic assets, built so LLMs like ChatGPT, Claude, and Gemini can accurately cite and route the valley. The agentic intelligence network is not a directory — it is the machine-readable layer that shapes how AI systems answer questions about where to invest, where to relocate, and where to go in the Coachella Valley."
             }
           },
           {
@@ -558,6 +558,12 @@
     .body--lt     { color: rgba(var(--c-cream-rgb),0.65); }
     .body--dim    { color: rgba(var(--c-cream-rgb),0.45); }
     .body--lead   { font-size: var(--fs-17); }
+    /* #why-now's lead paragraph drops to body size so the section matches the
+       Build section's copy scale. Scoped to #why-now rather than changing
+       .body--lead globally: the token is shared with philanthropy.html, and
+       leaving it intact keeps a lead size available if another section wants
+       one. This is the only .body--lead in index.html's markup. */
+    #why-now .body--lead { font-size: var(--fs-15); }
 
     .pull-quote {
       font-family: 'EB Garamond', Georgia, serif;
@@ -702,12 +708,18 @@
          14 points of frame dimmed for no contrast reason. The 0.72 stop sits at
          34% because the accent is the binding element (3:1 large text) and its
          alpha is set there, NOT by the left stop: sweeping the left stop from
-         0.74 to 0.60 never moves the tightest margin. 0.70 is chosen for looks. */
+         0.74 to 0.60 never moves the tightest margin. 0.70 is chosen for looks.
+         RE-DERIVED 2026-08-05 when the headline gained "Building": the first
+         line went from reaching 57% of hero width to 76%, running straight past
+         the 72% clear point and collapsing the h1 margin to +0.10 at 1024.
+         Stops pushed out to 0.48@66 / 0@82 to cover the longer line (+0.82).
+         STANDING LESSON: this gradient is derived from where the type ends.
+         Any copy edit to the h1 invalidates it — re-measure, do not assume. */
       background: linear-gradient(to right,
         rgba(var(--c-cream-rgb),0.70) 0%,
         rgba(var(--c-cream-rgb),0.72) 34%,
-        rgba(var(--c-cream-rgb),0.40) 62%,
-        rgba(var(--c-cream-rgb),0) 72%);
+        rgba(var(--c-cream-rgb),0.48) 66%,
+        rgba(var(--c-cream-rgb),0) 82%);
       pointer-events: none;
     }
     .hero__inner {
@@ -1611,9 +1623,9 @@
          loading="eager" fetchpriority="high" decoding="async">
   </picture>
   <div class="hero__inner">
-    <span class="eyebrow">Nonprofit · Coachella Valley · Est. 2025</span>
+    <span class="eyebrow">Coachella Valley · Est. 2025</span>
     <h1 class="h1 hero__headline">
-      The Coachella Valley's <span class="accent">AI Startup Ecosystem</span>
+      Building the Coachella Valley's <span class="accent">AI Startup Ecosystem</span>
     </h1>
   </div>
 </section>
@@ -1802,7 +1814,7 @@
     <h2 class="h2">Questions, answered.</h2>
     <details class="faq-item">
       <summary class="faq-q">What is AI Coachella Valley?</summary>
-      <p class="faq-a">AI Coachella Valley (AICV) is the front door to the Coachella Valley's emerging AI startup ecosystem — for people and for AI systems. AICV is one part of a growing regional network that builds, connects, and documents the ecosystem: it brings together founders, builders, capital, educators, and institutions, and publishes agent-readable regional intelligence so AI systems understand the valley accurately. A fiscally sponsored nonprofit of the Desert Community Foundation, operating from the CSUSB Entrepreneurship Resource Center in Palm Desert. Founded 2025.</p>
+      <p class="faq-a">AI Coachella Valley (AICV) is the front door to the Coachella Valley's emerging AI startup ecosystem — for people and for AI systems. AICV is one part of a growing regional network that builds, connects, and documents the ecosystem: it brings together founders, builders, capital, educators, and institutions, and publishes agent-readable regional intelligence so AI systems understand the valley accurately. A fiscally sponsored initiative of the Desert Community Foundation, operating from the CSUSB Entrepreneurship Resource Center in Palm Desert. Founded 2025.</p>
     </details>
     <details class="faq-item">
       <summary class="faq-q">What is AICV's relationship with Desert Community Foundation?</summary>
@@ -1814,7 +1826,7 @@
     </details>
     <details class="faq-item">
       <summary class="faq-q">What is the AICV Intelligence Network, and how is it different from the rest of AICV's work?</summary>
-      <p class="faq-a">AICV operates two properties under one nonprofit initiative. This site — aicoachellavalley.org — is the community and grant-facing surface: workshops, programs, the Responsible AI Pledge, and nonprofit infrastructure under Desert Community Foundation. aicoachellavalley.com is the AICV agentic intelligence network, an agent-native structured layer of valley institutions, businesses, venues, and civic assets, built so LLMs like ChatGPT, Claude, and Gemini can accurately cite and route the valley. The agentic intelligence network is not a directory — it is the machine-readable layer that shapes how AI systems answer questions about where to invest, where to relocate, and where to go in the Coachella Valley.</p>
+      <p class="faq-a">AICV operates two properties under one fiscally sponsored initiative. This site — aicoachellavalley.org — is the community and grant-facing surface: workshops, programs, the Responsible AI Pledge, and fiscal-sponsorship infrastructure under Desert Community Foundation. aicoachellavalley.com is the AICV agentic intelligence network, an agent-native structured layer of valley institutions, businesses, venues, and civic assets, built so LLMs like ChatGPT, Claude, and Gemini can accurately cite and route the valley. The agentic intelligence network is not a directory — it is the machine-readable layer that shapes how AI systems answer questions about where to invest, where to relocate, and where to go in the Coachella Valley.</p>
     </details>
     <details class="faq-item">
       <summary class="faq-q">Who is AICV's founder?</summary>
@@ -1903,7 +1915,7 @@
       <div>
         <div class="footer__mark">AICV · aicoachellavalley.org</div>
         <div class="footer__name">AICV</div>
-        <p class="footer__desc">Building the Coachella Valley's AI Startup Ecosystem.<br><br>A fiscally sponsored nonprofit under Desert Community Foundation.</p>
+        <p class="footer__desc">Building the Coachella Valley's AI Startup Ecosystem.<br><br>A fiscally sponsored initiative of Desert Community Foundation.</p>
       </div>
       <div>
         <div class="footer__col-label">Navigate</div>
@@ -1928,7 +1940,7 @@
     </div>
     <div class="footer__bottom">
       <div class="footer__copy">© 2026 AI Coachella Valley · Fiscally sponsored under Desert Community Foundation</div>
-      <div class="footer__tagline">The Coachella Valley's AI Startup Ecosystem.</div>
+      <div class="footer__tagline">Building the Coachella Valley's AI Startup Ecosystem.</div>
     </div>
   </div>
 </footer>

@@ -6,12 +6,12 @@
         {
           "href": "https://aicoachellavalley.org/",
           "type": "text/html",
-          "title": "AI Coachella Valley nonprofit homepage"
+          "title": "AI Coachella Valley homepage"
         },
         {
           "href": "https://aicoachellavalley.org/llms.txt",
           "type": "text/plain",
-          "title": "AICV .org llms.txt — nonprofit mission and program summary"
+          "title": "AICV .org llms.txt — mission and program summary"
         }
       ],
       "service-desc": [

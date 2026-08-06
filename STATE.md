@@ -1,7 +1,7 @@
 # org/ operational state
 
 > Operational state only. Strategic state lives in `aicv-playbook/STATE.md`.
-> **Fresh session? Read `HANDOFF.md` first** (tight orientation), then this file for full detail. Current HEAD: **pine/volt complete, the site PASSES, the hero carries the photo, and the stats band is a standalone section again** (2026-08-05). The band-in-hero experiment was reverted; only the scrim work survives. Favicon shipped. Remaining: step 5 — regenerate the pledge deck PDF, still warm. *(This pointer had been stale at `f86f83e`/2026-07-01 for five weeks — bump it every session.)*
+> **Fresh session? Read `HANDOFF.md` first** (tight orientation), then this file for full detail. Current HEAD: **pine/volt complete, the site PASSES, and the nonprofit sweep is done — AICV is described as a fiscally sponsored initiative everywhere, on all five pages plus llms.txt, robots.txt and api-catalog** (2026-08-05). Favicon shipped. Remaining: step 5 — regenerate the pledge deck PDF, still warm; and the pledge lightbox is broken by `X-Frame-Options: DENY` (see below). *(This pointer had been stale at `f86f83e`/2026-07-01 for five weeks — bump it every session.)*
 
 ## Current
 
@@ -1193,6 +1193,83 @@ lands, at both 1280 and 375 — the `<img>` is absolutely positioned inside a
   false failure on mobile.
 
 ---
+
+## Copy, type scale, and the nonprofit sweep — 2026-08-05 (fourth pass)
+
+Eight files touched: all five pages, `llms.txt`, `robots.txt`, `.well-known/api-catalog`.
+
+**NONPROFIT SWEEP — 24 assertions fixed, not 22.** AICV is a *fiscally sponsored
+initiative* of Desert Community Foundation, not a nonprofit. Fixed:
+hero eyebrow (1), JSON-LD `@type` NGO on index + events (2), five footers (5),
+two index JSON-LD descriptions (2), three FAQ prose strings that each appear
+twice as schema/DOM twins (6), `llms.txt` (5), `robots.txt` (1), `api-catalog` (2).
+
+The count differs from the briefed 22 because **one FAQ answer contains two
+separate nonprofit assertions** — "operates two properties under one nonprofit
+initiative" AND "nonprofit infrastructure under Desert Community Foundation" —
+so that answer is 4 locations across its twins, not 2. Counting answers gives 22;
+counting assertions gives 24.
+
+Standing model sentence lives at **index.html:258 (schema) / 1809 (DOM)**, not 249:
+"AICV is the first and only fiscally sponsored initiative of Desert Community
+Foundation." Everything was matched to it.
+
+**KEPT deliberately** — correct usage about OTHER organizations, verified one by one:
+`community nonprofits nationwide` (OpenAI/Anthropic grantees, index ×2), nine
+philanthropy.html references to valley nonprofits / CV Giving Day / DCF / Charity
+Navigator, and `"@type": "NGO"` on Desert Community Foundation and California
+Community Foundation. Post-sweep, every remaining "nonprofit" on the site refers
+to a third party. Verified by re-reading each hit, not by string count.
+
+**COPY — hero and footer tagline** now read "Building the Coachella Valley's AI
+Startup Ecosystem." Held pending a decision: `<title>`, `og:title` and
+`twitter:title` on index still read "The Coachella Valley's AI Startup Ecosystem",
+and the footer taglines on events / partner / philanthropy still carry the old
+phrasing. 404.html's tagline is different copy ("Preparing the Valley for the age
+of AI") and is not part of this phrase family.
+
+**THE COPY EDIT BROKE THE SCRIM — and this is the lesson.** Adding "Building" took
+the h1's first line from reaching **57% of hero width to 76%**. The desktop scrim's
+clear point was at **72%**, derived in the previous session precisely *because* the
+type ended at 57%. The headline now ran past where the scrim gives up, and the h1
+margin collapsed to **+0.10 at 1024** (3.10 against a 3:1 threshold) — still passing,
+but far too thin to ship. Re-derived to `0.70 / 0.72@34 / 0.48@66 / 0@82`; worst
+margin across nine breakpoints is now **+0.68**, better than the +0.34 it replaced.
+Clear point 82% is still ahead of the pre-session 86%.
+
+**STANDING RULE: the hero scrim is derived from where the type ends. Any copy edit
+to the h1 or eyebrow invalidates it. Re-measure the type extents and re-sweep —
+never assume the gradient still fits.** Recorded in the CSS comment too.
+
+**TYPE SCALE.** `#why-now`'s lead paragraph was `--fs-17` (17px) via `.body--lead`;
+the Build section's copy is `.body` at `--fs-15` (15px). Scoped as
+`#why-now .body--lead { font-size: var(--fs-15) }` rather than editing `.body--lead`
+globally — the token is shared with philanthropy.html:921 and is worth keeping
+available. This is the only `.body--lead` in index.html's markup.
+
+**PLEDGE LIGHTBOX IS BROKEN — diagnosed, not fixed** (pledge page is its own session).
+"Click to view all 7 principles" fires `pledge-lb.classList.add('is-open')`. All of
+that works: the id exists (index.html:1786), `.lightbox.is-open{display:flex}` exists,
+and the lightbox does open. What fails is its `<iframe src="/aicv-pledge-deck.pdf">`.
+`_headers` sets **`X-Frame-Options: DENY` on `/*`**, which blocks framing by *any*
+page including same-origin. Confirmed live: console reports "Refused to display …
+because it set 'X-Frame-Options' to 'deny'", `transferSize: 0`, `contentDocument: null`.
+The PDF itself is fine (HTTP 200). Fix is a path-scoped header override or
+`SAMEORIGIN` — deliberately deferred.
+
+**Verified:** nine breakpoints all PASS (worst +0.68). Layout invariance outside
+hero / `#why-now` / footer: **zero deformed** on all five pages; events, philanthropy,
+partner and 404 are unmoved entirely (0px, every element), index shows one rigid
+translation (−10.5px at 1280, −61.25px at 375) from `#why-now` shrinking. All JSON-LD
+blocks parse on every page, `api-catalog` and `server-card.json` parse. `llms.txt`
+now contains zero "nonprofit", headings are consistent, and all four advertised
+`.org` URLs resolve on disk.
+
+**Self-inflicted defect caught in review:** the `llms.txt` line-11 rewrite produced
+"the community and grant-facing surface … and grant-facing operations" — the same
+phrase twice in one sentence. Changed the second to "philanthropic operations".
+Worth noting because the sweep was mechanical and the repetition was not visible
+in a diff of the changed token alone.
 
 ## Band-in-hero REVERTED, scrims kept — 2026-08-05 (third pass, same day)
 
