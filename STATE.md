@@ -1,7 +1,7 @@
 # org/ operational state
 
 > Operational state only. Strategic state lives in `aicv-playbook/STATE.md`.
-> **Fresh session? Read `HANDOFF.md` first** (tight orientation), then this file for full detail. Current HEAD: **pine/volt complete, the site PASSES, and the nonprofit sweep is done — AICV is described as a fiscally sponsored initiative everywhere, on all five pages plus llms.txt, robots.txt and api-catalog** (2026-08-05). Favicon shipped. Remaining: step 5 — regenerate the pledge deck PDF, still warm; and the pledge lightbox is broken by `X-Frame-Options: DENY` (see below). *(This pointer had been stale at `f86f83e`/2026-07-01 for five weeks — bump it every session.)*
+> **Fresh session? Read `HANDOFF.md` first** (tight orientation), then this file for full detail. Current HEAD: **the site is SIX pages — `/pledge` is live as a real page, and it supersedes both the pledge PDF and the broken lightbox** (2026-08-05). pine/volt complete, nonprofit sweep done, favicon shipped. AWAITING A RULING: whether to delete the homepage lightbox + slide replica (see the 2026-08-05 pledge-page entry) — doing so closes step 5 and the X-Frame-Options item together. *(This pointer had been stale at `f86f83e`/2026-07-01 for five weeks — bump it every session.)*
 
 ## Current
 
@@ -1193,6 +1193,91 @@ lands, at both 1280 and 375 — the `<img>` is absolutely positioned inside a
   false failure on mobile.
 
 ---
+
+## New page — /pledge, the Responsible AI Pledge — 2026-08-05 (sixth pass)
+
+The site is now **six pages**. `pledge.html` serves at `/pledge` via Cloudflare
+Pages' automatic clean URLs — the same mechanism `/partner`, `/events` and
+`/philanthropy` already use. `_redirects` needed no entry.
+
+**Built by extraction, not by hand.** The head prelude, the whole shared `<style>`
+base, the nav block and the footer block were lifted programmatically out of
+`partner.html`, so they are byte-identical by construction rather than by
+inspection. Verified after the fact by md5.
+
+**The "byte-identical across five pages" premise in the brief is not true today,
+and the page matches the majority rather than an ideal.** Measured before building:
+
+| block | index | events / philanthropy / partner / 404 | new /pledge |
+|---|---|---|---|
+| `:root` | 6570B (own hash) | 6217B, all identical | **6217B, matches** |
+| nav | own | partner+404 identical; events and philanthropy differ | **matches partner/404** |
+| footer | own | events+philanthropy+partner identical; 404 own | **matches those three** |
+
+index's `:root` differs by annotation comments plus one extra token (`--fs-pull`);
+the shared token *values* are the same. The nav differs per page by design — sub-pages
+use absolute `/#anchor` links where index uses bare `#anchor`, and the current page's
+own link carries `is-active`. So "byte-identical" is really "byte-identical within the
+sub-page family", which is what /pledge joins.
+
+**COPY IS VERBATIM.** Extracted independently from `aicv-pledge.pdf` (ReportLab,
+ASCII85+Flate) and diffed against the rendered page: **49 substance runs checked,
+0 missing.** The only two flagged were "NAME / SIGNATURE" and "DATE", which are in
+the markup title-case with `text-transform: uppercase` — they render exactly as the
+document has them.
+
+**NO PDF, per amendment.** The page links to no PDF. The print stylesheet is the
+signable artifact: `@media print` strips nav, drawer, site footer, the workshop line
+and the print hint, then lays out the preamble, seven principles and the signature
+lines on one sheet with a print-only attribution block. **This is the site's first
+print stylesheet** — there was none anywhere before.
+
+**MACHINE-READABLE.** JSON-LD `CreativeWork` with `hasPart` → `ItemList` of the seven
+principles, each an item with `name` and `description` carrying the full body copy.
+Registered in `llms.txt` (the Core Pages entry now points at `/pledge`, not the PDF),
+`sitemap.xml`, and `.well-known/api-catalog` under `service-doc` — that array already
+held HTML and text documents, so the pattern fit without inventing a category.
+
+**Homepage:** the thumbnail became a real `<a href="/pledge">`, replacing a
+`div[role=button]` with an onclick. **The site has no global anchor reset** — resets
+are per-class — so the conversion had to carry its own `text-decoration:none` and
+`color:inherit`, or the hint text inside would have inherited an underline and the
+default link colour. Geometry verified identical at 1280 and 375 despite the tag change.
+
+**TWO OPEN ITEMS THIS PAGE SUPERSEDES — recommendation, awaiting a ruling.**
+The lightbox is now **unreachable**: nothing on the page adds `is-open` to it any more
+(0 references), though its markup and the slide replica are still in the file.
+Recommendation is to delete both, because:
+- the lightbox's only content is `<iframe src="/aicv-pledge-deck.pdf">`, which is the
+  sole remaining reference to the deck. Delete it and **step 5 closes rather than gets
+  done** — there is no surface left that renders the warm-palette deck;
+- the iframe is also the only thing `X-Frame-Options: DENY` was breaking. With nothing
+  framed, **that item closes too, and the header stays strict** — which is the outcome
+  the brief asked for;
+- the slide replica is a hand-built HTML copy of slide 1 in the old terracotta palette
+  (`--c-accent-fill` header). It is a second thing to keep in sync with a document that
+  no longer has a reason to exist.
+
+Still pointing at the PDF and NOT changed this session (they were outside the brief's
+homepage scope): the `Read & Sign the Pledge` button (index.html:1791), the
+`Open full PDF` link inside the lightbox (:1808), and two FAQ answers that cite
+`aicoachellavalley.org/aicv-pledge.pdf` in prose (:290 schema, :1840 DOM twin).
+If the ruling is to delete, those four want re-pointing at `/pledge` in the same pass.
+
+**FISCAL-SPONSORSHIP STRING — divergence flagged.** The print attribution uses the
+locked civic wording from playbook `OPERATING-RULES.md:452`: "A fiscally sponsored
+**project** of Desert Community Foundation, a 501(c)(3) nonprofit organization."
+The five existing pages say "fiscally sponsored **initiative** of Desert Community
+Foundation" after the sweep two commits ago. Both are on disk and they disagree on the
+noun. The locked string is also the more precise one — it attributes 501(c)(3) to DCF
+rather than leaving it implied. Needs a single ruling: either update OPERATING-RULES to
+"initiative", or re-sweep the site to "project".
+
+**Verified:** all 15 new type elements pass at 1280 and 375, worst margin **+1.61**;
+nav/footer/`:root` md5-identical to the sub-page family; JSON-LD parses with 7
+ItemList items; sitemap valid XML; api-catalog valid JSON; llms.txt has zero
+"nonprofit" and all four advertised URLs resolve on disk; **zero moved or resized**
+across all five existing pages at 1280/375 with document heights identical.
 
 ## Tagline consistency pass — 2026-08-05 (fifth pass)
 

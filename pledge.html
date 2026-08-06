@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Favicon — the .nav__mark treatment (volt tile, dark serif "AI"), exported
+       2026-08-05. INTERIM: this is the CURRENT mark, not the AiCV/sun wordmark,
+       which does not exist as artwork yet. See STATE.md. -->
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta name="theme-color" content="#081C15">
+  <title>The Responsible AI Pledge — AI Coachella Valley</title>
+  <meta name="description" content="Seven principles for using AI thoughtfully, written for the Coachella Valley. Read it, sign it, and carry it forward — the full pledge, in plain language.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aicoachellavalley.org/pledge">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+
+  <meta name="last-modified" content="2026-08-05">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="AI Coachella Valley">
+  <meta property="og:title" content="The Responsible AI Pledge — AI Coachella Valley">
+  <meta property="og:description" content="Seven principles for using AI thoughtfully, written for the Coachella Valley. Read it, sign it, and carry it forward — the full pledge, in plain language.">
+  <meta property="og:url" content="https://aicoachellavalley.org/pledge">
+  <meta property="og:locale" content="en_US">
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="The Responsible AI Pledge — AI Coachella Valley">
+  <meta name="twitter:description" content="Seven principles for using AI thoughtfully, written for the Coachella Valley. Read it, sign it, and carry it forward — the full pledge, in plain language.">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  "@id": "https://aicoachellavalley.org/pledge#pledge",
+  "name": "The AICV Responsible AI Pledge",
+  "alternateName": "Pledge for Responsible AI",
+  "headline": "Pledge for Responsible AI",
+  "description": "A seven-principle commitment to using AI in ways that are human-centered, transparent, and grounded in the values of the Coachella Valley community.",
+  "url": "https://aicoachellavalley.org/pledge",
+  "inLanguage": "en",
+  "datePublished": "2026-06-27",
+  "dateModified": "2026-08-05",
+  "isPartOf": {
+    "@id": "https://aicoachellavalley.org/#website"
+  },
+  "author": {
+    "@id": "https://aicoachellavalley.org/#organization"
+  },
+  "publisher": {
+    "@id": "https://aicoachellavalley.org/#organization"
+  },
+  "about": {
+    "@id": "https://aicoachellavalley.org/#organization"
+  },
+  "license": "https://aicoachellavalley.org/pledge",
+  "abstract": "AI is part of everyday life — in school, work, and creativity. This pledge is not rules handed down to you. It’s the values you choose when you use powerful tools. Here are seven principles for using this technology thoughtfully. Powerful tools require thoughtful people.",
+  "hasPart": {
+    "@type": "ItemList",
+    "name": "The seven principles",
+    "numberOfItems": 7,
+    "itemListOrder": "https://schema.org/ItemListOrderAscending",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@type": "CreativeWork",
+          "name": "People Lead, AI Follows",
+          "description": "You are always the author. Use AI to expand what you can do — not to replace your thinking, your judgment, or your voice. If you stop questioning what AI gives you, you’re letting it make decisions for you."
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "item": {
+          "@type": "CreativeWork",
+          "name": "Be Honest About What’s AI",
+          "description": "If AI made it, say so. A voice, an image, a recommendation — don’t present AI-generated work as purely your own. Trust between people is fragile and hard to rebuild. Protect it like it matters, because it does."
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@type": "CreativeWork",
+          "name": "Guard What’s Private",
+          "description": "Before you share, pause. Personal information deserves more protection than most people give it. If something feels like more than you should be sharing, trust that instinct. Share less than you think you need to. Protect more than you think you have to."
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
+        "item": {
+          "@type": "CreativeWork",
+          "name": "Watch for What’s Unfair",
+          "description": "AI learns from the past — and the past wasn’t always fair. Bias gets built into algorithms quietly, showing up in who gets flagged, recommended, or left out. Stay curious. Ask questions. Make sure the tools you use treat everyone the same way."
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 5,
+        "item": {
+          "@type": "CreativeWork",
+          "name": "Think About Real People",
+          "description": "Whether you’re creating with AI or just using it, what you put out affects real people — your neighbors, your community, your family. Before you post, share, or publish, ask: does this actually help? Or does it just add more noise?"
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 6,
+        "item": {
+          "@type": "CreativeWork",
+          "name": "Share What You Learn",
+          "description": "Nobody has AI figured out. We’re all discovering its strengths, limits, and risks in real time. Share what you find — the wins, the surprises, the things that didn’t work. Those experiences help all of us grow wiser together."
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 7,
+        "item": {
+          "@type": "CreativeWork",
+          "name": "Stay Human",
+          "description": "AI can be a collaborator and sounding board — but it cannot be you. It doesn’t know you; it reflects you. Real connection, real friendship, real belonging still come from other people. Use AI to expand your humanity, not to replace it."
+        }
+      }
+    ]
+  }
+}
+  </script>
+  <style>
+    /* ════════════════════════════════════════
+       DESIGN TOKENS — single source of truth
+    ════════════════════════════════════════ */
+    :root {
+      /* Palette — PINE / VOLT. Swapped 2026-08-04 (rebrand step 6) from the
+         warm terracotta/cream/dusk set. Targets from playbook BRAND.md §4.
+         --c-terracotta / -d / -d-rgb were DELETED here: after the accent
+         aliases below became literals, nothing referenced them.
+
+         ⚠ NAMING DEBT, deliberate and recorded: these names describe the OLD
+         hues. --c-cream is now paper-white, --c-dusk is a near-black green,
+         --c-ink is pine. A value swap was chosen over a rename because a
+         rename touches every usage (~300) and would have mixed a mechanical
+         change into a visible one. Rename is queued as its own zero-pixel
+         step — same defect .com carries on --sand (BRAND.md §3). */
+      --c-cream:        #FAFAF7;   /* was #FBF7EE — role: paper / page bg     */
+      --c-sand:         #F3F7EB;   /* was #F5EFE0 — role: surface step        */
+      --c-sand-d:       #E0EDD2;   /* was #EDE5D0 — role: surface, distinct   */
+      --c-dusk:         #081C15;   /* was #1A2744 — role: ground (sections,
+                                      footer, dark hero)                      */
+      --c-dusk-m:       #1B4332;   /* was #22306B — role: raised card on
+                                      ground. 1.60:1 vs ground, up from 1.20  */
+      --c-ghost:        #C8DDB4;   /* was #EAD4C0 — role: border              */
+      --c-ghost-l:      #DDE7CC;   /* was #F2E4D6 — role: light border/tint   */
+      --c-ink:          #1B4332;   /* was #1C1008 — role: headings AND body   */
+      --c-ink-m:        #1B4332;   /* was #3D2518 — COLLAPSED into --c-ink:
+                                      §4 rules three text tiers become two    */
+      --c-ink-l:        #2D6A4F;   /* was #6B4A38 — role: captions/labels     */
+
+      /* RGB triplets — ONLY for rgba() alpha use. Each MUST stay in sync with
+         its hex above; a palette change updates BOTH lines. Added 2026-08-04
+         (rebrand step 2) so no translucency carries a raw literal.
+         ⚠ ALL SIX UPDATED IN LOCKSTEP AT STEP 6 — if a hex ever moves without
+         its triplet, translucency silently drifts away from the solids. */
+      --c-cream-rgb:        250,250,247;   /* --c-cream        #FAFAF7 */
+      --c-ghost-rgb:        200,221,180;   /* --c-ghost        #C8DDB4 */
+      --c-dusk-rgb:         8,28,21;       /* --c-dusk         #081C15 */
+      --c-ink-l-rgb:        45,106,79;     /* --c-ink-l        #2D6A4F */
+      --c-ink-rgb:          27,67,50;      /* --c-ink          #1B4332 */
+
+      /* ── TEXT ON THE DARK GROUND (added 2026-08-05) ──────────────────
+         BRAND.md §4 assumed accent text always sits on a LIGHT surface.
+         It does not: the footer mark, the hero eyebrow, the stats label and
+         the whole nav sit on --c-dusk. Pine on ground is 1.60:1 — invisible.
+         This family is the answer, defined once.
+         ⚠ ALL THREE ARE DARK-SURFACE ONLY. On paper they measure 1.17, 1.39
+         and 1.10 — unusable by design. Never put them on a light ground. */
+      --c-on-ground:    #E0EDD2;   /* pine-mist — body-weight text on dark.
+                                      14.50:1 on ground, 9.08:1 on card      */
+      --c-on-ground-m:  #C8DDB4;   /* pine-tint — muted labels + eyebrows.
+                                      12.18:1 on ground                      */
+      --c-on-ground-hi: #D8FF00;   /* volt — brand marks and ACTIVE states on
+                                      dark only. 15.35:1 on ground. Kept
+                                      separate from --c-accent-fill so that
+                                      token stays background-only.           */
+
+      /* ── ACCENT SPLIT (rebrand step 3, 2026-08-04) ──────────────────
+         One accent value does two jobs today. It cannot after the rebrand:
+         a fill and the text on it must diverge. These five names record the
+         ROLE so step 6 is a value change, not 87 judgment calls. All 87 accent
+         declarations are now assigned — nav and wordmark included (ruled 2026-08-04).
+         SWAPPED TO LITERALS AT STEP 6 (2026-08-04). Fill and text have now
+         genuinely diverged — that divergence is the whole reason the split
+         exists. VOLT IS A FILL, NEVER TEXT ON LIGHT (BRAND.md §1 doctrine:
+         volt measures ~1.1:1 on any light surface). */
+      --c-accent-fill:   #D8FF00;   /* volt. 21 fill uses. DARK TEXT ONLY.
+                                       pine on volt = 9.61:1                   */
+      --c-accent-fill-h: #C2E600;   /* deeper volt, hover. 7 uses.
+                                       pine on it = 7.71:1                     */
+      --c-accent-text:   #1B4332;   /* pine. 55 uses — accent text, borders,
+                                       and the 7 rocket-divider SVG strokes.
+                                       On paper = 10.59:1                      */
+      --c-accent-text-d: #2D6A4F;   /* pine-light. 2 uses — darker accent TEXT
+                                       used STATICALLY for contrast, not a
+                                       hover state (.onramp-tag, .pform-error).
+                                       On paper = 6.11:1                       */
+
+      /* Watermarks drawn ON the accent fill (.cta__ghost, .prog-card--featured
+         .prog-num). FILL family — ruled 2026-08-04: their colour follows the
+         fill they sit on, not the body text. STEP 6 -> pine 27,67,50, giving
+         pine-on-volt. Triplet form because both are used at low alpha.
+         De-aliased at step 6: had it kept following --c-terracotta-d-rgb it
+         would now be volt-on-volt, i.e. invisible. */
+      --c-accent-on-fill-rgb: 27,67,50;   /* pine #1B4332 */
+
+      /* Type scale */
+      --fs-10: 10px;
+      --fs-12: 12px;
+      --fs-13: 13px;
+      --fs-15: 15px;
+      --fs-17: 17px;
+      --fs-22: 22px;
+      --fs-h2: clamp(26px, 3.6vw, 42px);
+      --fs-h1: clamp(38px, 5.5vw, 68px);
+
+      /* Spacing — 8px base grid */
+      --s-1: 8px;
+      --s-2: 16px;
+      --s-3: 24px;
+      --s-4: 32px;
+      --s-5: 40px;
+      --s-6: 48px;
+      --s-8: 64px;
+      --s-10: 80px;
+      --s-14: 112px;
+
+      /* Layout */
+      --max-w: 1080px;
+      --gutter: 40px;
+    }
+
+    /* ════════════════════════════════════════
+       RESET & BASE
+    ════════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+
+    body {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: var(--fs-15);
+      line-height: 1.7;
+      color: var(--c-ink);
+      background: var(--c-cream);
+      overflow-x: hidden;
+    }
+
+    img { display: block; max-width: 100%; }
+    a   { color: inherit; }
+
+    /* ════════════════════════════════════════
+       LAYOUT UTILITIES
+    ════════════════════════════════════════ */
+    .wrap {
+      max-width: var(--max-w);
+      margin: 0 auto;
+    }
+
+    .section {
+      padding: var(--s-5) var(--gutter);
+    }
+    .section--sm   { padding-top: var(--s-6); padding-bottom: var(--s-6); }
+    .section--sand { background: var(--c-sand); }
+    .section--alt  { background: var(--c-sand-d); }
+
+    /* ════════════════════════════════════════
+       TYPOGRAPHY UTILITIES
+    ════════════════════════════════════════ */
+    .eyebrow {
+      display: block;
+      font-size: var(--fs-10);
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--c-accent-text);
+      margin-bottom: var(--s-1);
+    }
+    .eyebrow--lt { color: var(--c-cream); opacity: 0.9; }
+
+    h1, h2, h3 {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-weight: 700;
+      line-height: 1.12;
+    }
+
+    .h1 {
+      font-size: var(--fs-h1);
+      color: var(--c-cream);
+    }
+
+    .h2 {
+      font-size: var(--fs-h2);
+      color: var(--c-ink);
+      margin-bottom: var(--s-2);
+    }
+    .h2--lt { color: var(--c-cream); }
+    .h1--lt { color: var(--c-cream); }
+
+    .h3 {
+      font-size: var(--fs-22);
+      color: var(--c-ink);
+      margin-bottom: var(--s-1);
+    }
+
+    .body {
+      font-size: var(--fs-15);
+      font-weight: 300;
+      color: var(--c-ink-m);
+      line-height: 1.75;
+    }
+    .body + .body { margin-top: var(--s-2); }
+    .body strong  { font-weight: 600; color: var(--c-ink); }
+    .body--lt     { color: rgba(var(--c-cream-rgb),0.65); }
+    .body--lead   { font-size: var(--fs-17); }
+
+    /* ════════════════════════════════════════
+       BUTTONS
+    ════════════════════════════════════════ */
+    .btn {
+      display: inline-block;
+      font-family: 'DM Sans', sans-serif;
+      font-size: var(--fs-13);
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      text-decoration: none;
+      padding: 13px 28px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.1s, border-color 0.15s, color 0.15s;
+      line-height: 1;
+    }
+    .btn:hover { transform: translateY(-1px); }
+
+    .btn--cream { background: var(--c-cream); color: var(--c-accent-text); }
+    .btn--cream:hover { background: var(--c-ghost-l); }
+
+    .btn--ghost {
+      background: transparent;
+      color: var(--c-ghost-l);
+      border: 1px solid rgba(var(--c-ghost-rgb),0.35);
+    }
+    .btn--ghost:hover { border-color: var(--c-ghost); color: var(--c-cream); }
+
+    /* ════════════════════════════════════════
+       NAV
+    ════════════════════════════════════════ */
+    .nav {
+      background: var(--c-dusk);
+      padding: 0 var(--gutter);
+      position: sticky;
+      top: 0;
+      z-index: 200;
+    }
+    .nav__inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+    }
+    .nav__logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .nav__mark {
+      width: 32px; height: 32px;
+      background: var(--c-accent-fill);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 14px; font-weight: 700;
+      color: var(--c-ink);
+    }
+    .nav__name {
+      font-size: var(--fs-13);
+      font-weight: 500;
+      color: var(--c-on-ground);
+    }
+    .nav__links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      list-style: none;
+    }
+    .nav__links a {
+      font-size: var(--fs-13);
+      font-weight: 400;
+      color: var(--c-on-ground);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .nav__links a:hover { color: var(--c-on-ground-hi); }
+    .nav__links a.is-active { color: var(--c-on-ground-hi); font-weight: 500; }
+    .nav__cta {
+      background: transparent !important;
+      color: var(--c-on-ground-hi) !important;
+      border: 1px solid var(--c-on-ground-hi) !important;
+      padding: 6px 15px !important;   /* -1px absorbs the border: outer box unchanged */
+      font-weight: 500 !important;
+    }
+    .nav__cta:hover { background: var(--c-accent-fill) !important; color: var(--c-ink) !important; }
+
+    /* ════════════════════════════════════════
+       HAMBURGER MENU
+    ════════════════════════════════════════ */
+    .nav__hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .nav__hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--c-on-ground);
+      transition: transform 0.2s, opacity 0.2s;
+    }
+    .nav__hamburger.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav__hamburger.is-open span:nth-child(2) { opacity: 0; }
+    .nav__hamburger.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .nav__drawer {
+      display: none;
+      position: fixed;
+      top: 60px; left: 0; right: 0;
+      background: var(--c-dusk);
+      border-bottom: 1px solid rgba(var(--c-ghost-rgb),0.14);
+      padding: 24px var(--gutter);
+      z-index: 199;
+      flex-direction: column;
+      gap: 0;
+    }
+    .nav__drawer.is-open { display: flex; }
+    .nav__drawer a {
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--c-on-ground);
+      text-decoration: none;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(var(--c-ghost-rgb),0.14);
+      transition: color 0.15s;
+    }
+    .nav__drawer a:last-child { border-bottom: none; }
+    .nav__drawer a:hover { color: var(--c-on-ground-hi); }
+    .nav__drawer .drawer-cta {
+      margin-top: 16px;
+      background: var(--c-accent-fill);
+      color: var(--c-ink) !important;
+      text-align: center;
+      padding: 13px !important;
+      border: none !important;
+      font-weight: 500;
+    }
+
+    /* ════════════════════════════════════════
+       HERO
+    ════════════════════════════════════════ */
+    .hero {
+      background: var(--c-dusk);
+      padding: 56px var(--gutter) 44px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: repeating-linear-gradient(
+        -45deg,
+        transparent, transparent 40px,
+        rgba(255,255,255,0.011) 40px, rgba(255,255,255,0.011) 41px
+      );
+      pointer-events: none;
+    }
+    .hero__ghost {
+      position: absolute;
+      right: -40px; bottom: -60px;
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 380px; font-weight: 700;
+      color: rgba(255,255,255,0.025);
+      line-height: 1;
+      pointer-events: none; user-select: none;
+    }
+    .hero__inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      position: relative; z-index: 2;
+    }
+    .hero__subhead {
+      font-size: var(--fs-17);
+      font-weight: 300;
+      color: rgba(var(--c-cream-rgb),0.8);
+      line-height: 1.6;
+      max-width: 600px;
+      margin-top: var(--s-2);
+      margin-bottom: var(--s-2);
+    }
+    .hero__body {
+      font-size: var(--fs-15);
+      font-weight: 300;
+      color: rgba(var(--c-cream-rgb),0.65);
+      line-height: 1.75;
+      max-width: 560px;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero .eyebrow   { animation: fadeUp 0.55s ease both 0.1s; }
+    .hero .h1        { animation: fadeUp 0.55s ease both 0.2s; }
+    .hero__subhead   { animation: fadeUp 0.55s ease both 0.28s; }
+    .hero__body      { animation: fadeUp 0.55s ease both 0.36s; }
+
+    /* ════════════════════════════════════════
+       HERO — CREAM VARIANT
+    ════════════════════════════════════════ */
+    .hero--cream {
+      background: var(--c-cream);
+      border-bottom: 1px solid var(--c-ghost);
+    }
+    .hero--cream::before         { display: none; }
+    .hero--cream .hero__ghost    { display: none; }
+    .hero--cream .h1             { color: var(--c-ink); }
+    .hero--cream .eyebrow        { color: var(--c-accent-text); opacity: 1; }
+    .hero--cream .hero__body     { color: var(--c-ink-m); }
+
+    /* ════════════════════════════════════════
+       HERO — CREAM TEXT OVERRIDES
+    ════════════════════════════════════════ */
+    .hero--cream .hero__subhead { color: var(--c-ink-m); max-width: 640px; }
+
+    /* ════════════════════════════════════════
+       FOOTER
+    ════════════════════════════════════════ */
+    .footer {
+      background: var(--c-dusk);
+      padding: 56px var(--gutter) 36px;
+    }
+    .footer__inner { max-width: var(--max-w); margin: 0 auto; }
+    .footer__top {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr 1fr;
+      gap: var(--s-8);
+      padding-bottom: var(--s-6);
+      border-bottom: 1px solid rgba(var(--c-ghost-rgb),0.08);
+      margin-bottom: var(--s-3);
+    }
+    .footer__mark {
+      font-size: var(--fs-10);
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--c-on-ground-hi);
+      margin-bottom: 10px;
+    }
+    .footer__name {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 20px; font-weight: 700;
+      color: var(--c-cream);
+      margin-bottom: 10px;
+    }
+    .footer__desc {
+      font-size: var(--fs-12);
+      font-weight: 300;
+      color: var(--c-on-ground-m);
+      line-height: 1.7;
+    }
+    .footer__col-label {
+      font-size: var(--fs-10);
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--c-on-ground-m);
+      margin-bottom: var(--s-2);
+    }
+    .footer__links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer__links a {
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--c-on-ground);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .footer__links a:hover { color: var(--c-cream); }
+    .footer__bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .footer__copy {
+      font-size: var(--fs-12);
+      font-weight: 300;
+      color: var(--c-on-ground-m);
+    }
+    .footer__tagline {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 13px;
+      font-style: italic;
+      color: var(--c-on-ground-m);
+    }
+
+    /* ════════════════════════════════════════
+       RESPONSIVE
+    ════════════════════════════════════════ */
+    @media (max-width: 960px) {
+      .nav__links { display: none; }
+      .nav__hamburger { display: flex; }
+    }
+    @media (max-width: 860px) {
+      :root { --gutter: 28px; }
+      .footer__top            { grid-template-columns: 1fr; gap: var(--s-5); }
+      .footer__bottom         { flex-direction: column; gap: 8px; text-align: center; }
+    }
+    @media (max-width: 640px) {
+      :root { --gutter: 20px; }
+    }
+
+
+    /* ─── THE PLEDGE ───────────────────────────────────────────────────
+       The page IS the pledge. There is no PDF and no form: the print
+       stylesheet at the bottom of this block turns it into the signable
+       artifact, which is why the signature lines are real markup and not
+       decoration. Copy is verbatim from the published document — do not
+       edit it here without editing the document. */
+    .pledge-wrap { max-width: 760px; }
+
+    .pledge-preamble {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: var(--fs-pull, clamp(20px, 2.6vw, 30px));
+      font-style: italic;
+      font-weight: 400;
+      line-height: 1.45;
+      color: var(--c-ink);
+      margin: 0;
+    }
+    .pledge-preamble__close {
+      display: block;
+      margin-top: var(--s-3);
+      font-style: normal;
+      font-weight: 600;
+    }
+
+    /* Principles. The numeral is a display element but it carries meaning —
+       it is the principle's number — so it uses accent-text-d (6.11:1 on
+       paper), not the ghost tint used for decorative watermarks. */
+    .principles { margin-top: var(--s-8); }
+    .principle {
+      display: grid;
+      grid-template-columns: 96px 1fr;
+      gap: 0 var(--s-4);
+      padding: var(--s-6) 0;
+      border-top: 1px solid var(--c-ghost);
+    }
+    .principle:first-child { border-top: 0; padding-top: 0; }
+    .principle__num {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 56px;
+      line-height: 0.9;
+      font-weight: 400;
+      color: var(--c-accent-text-d);
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    .principle__title {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: var(--fs-22);
+      font-weight: 600;
+      color: var(--c-ink);
+      margin: 0 0 var(--s-2);
+      line-height: 1.25;
+    }
+    .principle__body {
+      font-size: var(--fs-15);
+      font-weight: 300;
+      color: var(--c-ink-m);
+      line-height: 1.75;
+      margin: 0;
+      max-width: 62ch;
+    }
+
+    /* Signing block — real markup so it prints. */
+    .pledge-sign { margin-top: var(--s-8); }
+    .pledge-sign__intro {
+      font-size: var(--fs-15);
+      font-weight: 300;
+      color: var(--c-ink-m);
+      line-height: 1.75;
+      margin: 0 0 var(--s-5);
+    }
+    .sign-lines {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: var(--s-5);
+      margin-top: var(--s-5);
+    }
+    .sign-line { border-bottom: 1px solid var(--c-ink); padding-bottom: 6px; }
+    .sign-line__label {
+      display: block;
+      margin-top: 44px;
+      font-size: var(--fs-10);
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--c-ink-l);
+    }
+    .pledge-print-hint {
+      margin-top: var(--s-4);
+      font-size: var(--fs-13);
+      font-weight: 300;
+      color: var(--c-ink-l);
+    }
+
+    /* Closing lines — both load-bearing copy. */
+    .pledge-mantra {
+      margin-top: var(--s-8);
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: clamp(22px, 3vw, 34px);
+      font-weight: 600;
+      color: var(--c-ink);
+      letter-spacing: 0.01em;
+    }
+    .pledge-mantra span { margin-right: 0.75em; }
+    .pledge-final {
+      margin-top: var(--s-4);
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: clamp(18px, 2.2vw, 24px);
+      font-style: italic;
+      color: var(--c-ink-l);
+      line-height: 1.4;
+    }
+
+    .pledge-workshop {
+      margin-top: var(--s-8);
+      padding-top: var(--s-5);
+      border-top: 1px solid var(--c-ghost);
+      font-size: var(--fs-15);
+      font-weight: 300;
+      color: var(--c-ink-m);
+      line-height: 1.75;
+      max-width: 62ch;
+    }
+    .pledge-workshop a { color: var(--c-accent-text-d); }
+
+    /* Print-only attribution. Hidden on screen; this is the line that
+       travels on a shared or pinned copy, so the fiscal-sponsorship
+       string is the locked civic wording from playbook OPERATING-RULES,
+       not a composed one. */
+    .print-attribution { display: none; }
+
+    @media (max-width: 640px) {
+      .principle { grid-template-columns: 60px 1fr; gap: 0 var(--s-3); }
+      .principle__num { font-size: 38px; }
+      .sign-lines { grid-template-columns: 1fr; }
+    }
+
+    /* ─── PRINT: the signable artifact ───────────────────────────────
+       Replaces the PDF. Strips the nav, drawer, site footer and the
+       workshop line, and prints the preamble, seven principles and the
+       signature lines on plain paper. */
+    @media print {
+      @page { margin: 16mm 14mm; }
+      html, body { background: #fff !important; }
+      .nav, .nav__drawer, .footer, .pledge-workshop, .pledge-print-hint { display: none !important; }
+      .hero, .section { padding: 0 !important; min-height: 0 !important; background: #fff !important; }
+      .hero::before, .hero__ghost { display: none !important; }
+      .wrap, .pledge-wrap { max-width: 100% !important; }
+      * { color: #000 !important; }
+      .principle__num { color: #444 !important; }
+      .principle {
+        break-inside: avoid; page-break-inside: avoid;
+        padding: 10pt 0; border-top: 0.5pt solid #999;
+      }
+      .principle__body { font-size: 10pt; line-height: 1.45; max-width: 100%; }
+      .principle__title { font-size: 12pt; margin-bottom: 3pt; }
+      .principle__num { font-size: 26pt; }
+      .pledge-preamble { font-size: 12pt; line-height: 1.4; }
+      .pledge-preamble__close { margin-top: 6pt; }
+      .principles { margin-top: 14pt; }
+      .pledge-sign { margin-top: 18pt; break-inside: avoid; page-break-inside: avoid; }
+      .sign-line { border-bottom: 0.5pt solid #000; }
+      .sign-line__label { margin-top: 30pt; font-size: 7pt; }
+      .pledge-mantra { margin-top: 16pt; font-size: 13pt; }
+      .pledge-final { margin-top: 6pt; font-size: 11pt; }
+      .print-attribution {
+        display: block;
+        margin-top: 18pt;
+        padding-top: 8pt;
+        border-top: 0.5pt solid #999;
+        font-size: 7.5pt;
+        line-height: 1.5;
+        color: #000 !important;
+      }
+      .h1 { font-size: 20pt !important; }
+      .eyebrow { font-size: 7.5pt !important; }
+      a { text-decoration: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="/" class="nav__logo">
+      <div class="nav__mark">AI</div>
+      <span class="nav__name">AI Coachella Valley</span>
+    </a>
+    <ul class="nav__links">
+      <li><a href="/philanthropy" class="nav__cta">Philanthropy</a></li>
+      <li><a href="/#programs">Build</a></li>
+      <li><a href="/events">Events</a></li>
+      <li><a href="/#pledge">The Pledge</a></li>
+      <li><a href="/#founder">About</a></li>
+      <li><a href="https://aicoachellavalley.com">Intelligence Network ↗</a></li>
+    </ul>
+    <button class="nav__hamburger" id="nav-toggle" aria-label="Open menu" onclick="this.classList.toggle('is-open');document.getElementById('nav-drawer').classList.toggle('is-open')">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="nav__drawer" id="nav-drawer">
+  <a href="/philanthropy" class="drawer-cta" onclick="document.getElementById('nav-drawer').classList.remove('is-open');document.getElementById('nav-toggle').classList.remove('is-open')">Philanthropy</a>
+  <a href="/#programs" onclick="document.getElementById('nav-drawer').classList.remove('is-open');document.getElementById('nav-toggle').classList.remove('is-open')">Build</a>
+  <a href="/events" onclick="document.getElementById('nav-drawer').classList.remove('is-open');document.getElementById('nav-toggle').classList.remove('is-open')">Events</a>
+  <a href="/#pledge" onclick="document.getElementById('nav-drawer').classList.remove('is-open');document.getElementById('nav-toggle').classList.remove('is-open')">The Pledge</a>
+  <a href="/#founder" onclick="document.getElementById('nav-drawer').classList.remove('is-open');document.getElementById('nav-toggle').classList.remove('is-open')">About</a>
+  <a href="https://aicoachellavalley.com">Intelligence Network ↗</a>
+</div>
+
+<!-- ── HERO ── -->
+<section class="hero hero--cream">
+  <div class="hero__inner">
+    <span class="eyebrow">Responsible AI Pledge</span>
+    <h1 class="h1">Pledge for Responsible AI</h1>
+  </div>
+</section>
+
+<!-- ── THE PLEDGE ── -->
+<section class="section">
+  <div class="wrap pledge-wrap">
+
+    <p class="pledge-preamble">“AI is part of everyday life — in school, work, and creativity. This pledge is not rules handed down to you. It’s the values you choose when you use powerful tools. Here are seven principles for using this technology thoughtfully.<span class="pledge-preamble__close">Powerful tools require thoughtful people.”</span></p>
+
+    <div class="principles">
+      <div class="principle">
+        <div class="principle__num">01</div>
+        <div>
+          <h2 class="principle__title">People Lead, AI Follows</h2>
+          <p class="principle__body">You are always the author. Use AI to expand what you can do — not to replace your thinking, your judgment, or your voice. If you stop questioning what AI gives you, you’re letting it make decisions for you.</p>
+        </div>
+      </div>
+      <div class="principle">
+        <div class="principle__num">02</div>
+        <div>
+          <h2 class="principle__title">Be Honest About What’s AI</h2>
+          <p class="principle__body">If AI made it, say so. A voice, an image, a recommendation — don’t present AI-generated work as purely your own. Trust between people is fragile and hard to rebuild. Protect it like it matters, because it does.</p>
+        </div>
+      </div>
+      <div class="principle">
+        <div class="principle__num">03</div>
+        <div>
+          <h2 class="principle__title">Guard What’s Private</h2>
+          <p class="principle__body">Before you share, pause. Personal information deserves more protection than most people give it. If something feels like more than you should be sharing, trust that instinct. Share less than you think you need to. Protect more than you think you have to.</p>
+        </div>
+      </div>
+      <div class="principle">
+        <div class="principle__num">04</div>
+        <div>
+          <h2 class="principle__title">Watch for What’s Unfair</h2>
+          <p class="principle__body">AI learns from the past — and the past wasn’t always fair. Bias gets built into algorithms quietly, showing up in who gets flagged, recommended, or left out. Stay curious. Ask questions. Make sure the tools you use treat everyone the same way.</p>
+        </div>
+      </div>
+      <div class="principle">
+        <div class="principle__num">05</div>
+        <div>
+          <h2 class="principle__title">Think About Real People</h2>
+          <p class="principle__body">Whether you’re creating with AI or just using it, what you put out affects real people — your neighbors, your community, your family. Before you post, share, or publish, ask: does this actually help? Or does it just add more noise?</p>
+        </div>
+      </div>
+      <div class="principle">
+        <div class="principle__num">06</div>
+        <div>
+          <h2 class="principle__title">Share What You Learn</h2>
+          <p class="principle__body">Nobody has AI figured out. We’re all discovering its strengths, limits, and risks in real time. Share what you find — the wins, the surprises, the things that didn’t work. Those experiences help all of us grow wiser together.</p>
+        </div>
+      </div>
+      <div class="principle">
+        <div class="principle__num">07</div>
+        <div>
+          <h2 class="principle__title">Stay Human</h2>
+          <p class="principle__body">AI can be a collaborator and sounding board — but it cannot be you. It doesn’t know you; it reflects you. Real connection, real friendship, real belonging still come from other people. Use AI to expand your humanity, not to replace it.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Signing. No form and no backend by design: the printed sheet is
+         the artifact. These lines are real markup so they print. -->
+    <div class="pledge-sign">
+      <h2 class="h2">Sign the Pledge</h2>
+      <p class="pledge-sign__intro">These are principles I hold for myself.</p>
+      <div class="sign-lines">
+        <div class="sign-line"><span class="sign-line__label">Name / Signature</span></div>
+        <div class="sign-line"><span class="sign-line__label">Date</span></div>
+      </div>
+      <p class="pledge-print-hint">Print this page to sign it — it lays out clean on one sheet.</p>
+    </div>
+
+    <div class="pledge-mantra"><span>Read it.</span><span>Sign it.</span><span>Breathe it.</span><span>Share it.</span></div>
+    <p class="pledge-final">The most important things about you cannot be generated.</p>
+
+    <p class="pledge-workshop">AICV runs workshops on responsible AI for companies, schools, and organizations across the Coachella Valley — <a href="/">aicoachellavalley.org</a>.</p>
+
+    <div class="print-attribution">
+      © 2026 AI Coachella Valley · aicoachellavalley.org<br>
+      A fiscally sponsored project of Desert Community Foundation, a 501(c)(3) nonprofit organization.
+    </div>
+
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__top">
+      <div>
+        <div class="footer__mark">AICV · aicoachellavalley.org</div>
+        <div class="footer__name">AICV</div>
+        <p class="footer__desc">Building the Coachella Valley's AI Startup Ecosystem.<br><br>A fiscally sponsored initiative of Desert Community Foundation.</p>
+      </div>
+      <div>
+        <div class="footer__col-label">Navigate</div>
+        <ul class="footer__links">
+          <li><a href="/philanthropy">Philanthropy</a></li>
+          <li><a href="/#programs">Build</a></li>
+          <li><a href="/events">Events</a></li>
+          <li><a href="/#pledge">Responsible AI Pledge</a></li>
+          <li><a href="/#founder">About AICV</a></li>
+          <li><a href="/#founder">Founder</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer__col-label">Contact</div>
+        <ul class="footer__links">
+          <li><a href="mailto:sat@aicv.co">sat@aicv.co</a></li>
+          <li><a href="https://aicoachellavalley.com">Intelligence Network (.com) ↗</a></li>
+          <li><a href="https://sunshinefm.beehiiv.com">SunshineFM Newsletter ↗</a></li>
+          <li><a href="https://x.com/CoachellaAI">@CoachellaAI ↗</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <div class="footer__copy">© 2026 AI Coachella Valley · Fiscally sponsored under Desert Community Foundation</div>
+      <div class="footer__tagline">Building the Coachella Valley's AI Startup Ecosystem.</div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

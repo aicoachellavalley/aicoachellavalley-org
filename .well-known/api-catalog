@@ -12,6 +12,11 @@
           "href": "https://aicoachellavalley.org/llms.txt",
           "type": "text/plain",
           "title": "AICV .org llms.txt — mission and program summary"
+        },
+        {
+          "href": "https://aicoachellavalley.org/pledge",
+          "type": "text/html",
+          "title": "AICV Responsible AI Pledge — seven principles, with JSON-LD ItemList"
         }
       ],
       "service-desc": [

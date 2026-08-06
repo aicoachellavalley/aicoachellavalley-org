@@ -1174,6 +1174,14 @@
 
     /* PDF thumbnail / click-to-open */
     .pledge-thumb {
+      /* Was a div with role=button + an onclick that opened the lightbox.
+         Became a real link to /pledge on 2026-08-05. The site has no global
+         anchor reset — the resets are per-class — so the conversion has to
+         carry its own, or the hint text inside inherits an underline and the
+         default link colour. */
+      display: block;
+      text-decoration: none;
+      color: inherit;
       cursor: pointer;
       border: 1px solid rgba(var(--c-ghost-rgb),0.18);
       background: rgba(255,255,255,0.04);
@@ -1752,12 +1760,7 @@
     <div class="pledge-layout">
 
       <!-- PDF thumbnail -->
-      <div class="pledge-thumb"
-           role="button"
-           tabindex="0"
-           aria-label="Open pledge PDF"
-           onclick="document.getElementById('pledge-lb').classList.add('is-open')"
-           onkeydown="if(event.key==='Enter')document.getElementById('pledge-lb').classList.add('is-open')">
+      <a class="pledge-thumb" href="/pledge" aria-label="Read the Responsible AI Pledge — all seven principles">
         <div class="pledge-preview">
           <!-- Slide 1 replica — terracotta header, cream body -->
           <div style="width:100%; height:100%; display:flex; flex-direction:column;">
@@ -1778,7 +1781,7 @@
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
           Click to view all 7 principles
         </div>
-      </div>
+      </a>
 
       <!-- Right col -->
       <div>
