@@ -1194,6 +1194,42 @@ lands, at both 1280 and 375 — the `<img>` is absolutely positioned inside a
 
 ---
 
+## Tagline consistency pass — 2026-08-05 (fifth pass)
+
+The six surfaces held back from the previous commit, now aligned to
+"Building the Coachella Valley's AI Startup Ecosystem": index `<title>`,
+`og:title`, `twitter:title`, and the footer taglines on events, partner and
+philanthropy. Six string changes across four files, nothing else.
+
+Deliberately left alone, per the brief: the running-prose descriptions
+(`meta description`, `og:description`, JSON-LD, llms.txt — these say "the
+Coachella Valley's emerging AI startup ecosystem" mid-sentence, which reads
+correctly), and 404.html's separate copy ("Preparing the Valley for the age of
+AI"). Post-pass there are zero instances of the old tagline anywhere.
+
+**TITLE LENGTH — flagged.** `<title>` is now **81 characters**, up from 72.
+Search engines truncate display around 60, so the visible portion is roughly
+"AI Coachella Valley (AICV) — Building the Coachella Valley's…" and the phrase
+that carries the positioning — "AI Startup Ecosystem" — falls off the end. It
+was already over at 72; this makes it 9 worse. The tag is correct and consistent
+as instructed; if the truncation matters more than the consistency, the fix is
+to shorten the prefix (e.g. "AICV — Building the Coachella Valley's AI Startup
+Ecosystem", 57 chars) rather than to revert the tagline. Not changed.
+
+**Verified:** zero moved or resized across all five pages at 1280 and 375 (229
+elements on index, 68 events, 88 partner, 133 philanthropy, 65 on 404), document
+heights byte-identical on every page, tagline stays on one line at both widths.
+All JSON-LD parses. Hero untouched, so the nine-breakpoint contrast result from
+the previous pass stands unchanged.
+
+**Deploy note from verifying the previous push:** `llms.txt` read as MIXED across
+8 fetches (two distinct bodies, 4821 and 4837 bytes) — 4821 was the previous
+commit's file still being served by some PoPs. It settled to 15/15 clean at 4837.
+Worth recording because a **single-fetch content check on the same file reported
+"0 nonprofit assertions" while the stale version was still in flight**. The
+multi-fetch distinct-hash check is what caught it; a one-shot grep would have
+called the deploy done.
+
 ## Copy, type scale, and the nonprofit sweep — 2026-08-05 (fourth pass)
 
 Eight files touched: all five pages, `llms.txt`, `robots.txt`, `.well-known/api-catalog`.
