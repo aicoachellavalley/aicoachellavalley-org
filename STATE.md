@@ -1,7 +1,7 @@
 # org/ operational state
 
 > Operational state only. Strategic state lives in `aicv-playbook/STATE.md`.
-> **Fresh session? Read `HANDOFF.md` first** (tight orientation), then this file for full detail. Current HEAD: **pine/volt complete, the site PASSES, and the hero now carries the photo with the stats band as its bottom edge** (2026-08-05). Favicon shipped. The mobile-scrim open question is CLOSED — mobile went 0.0% -> 33.7-46.5% photo visible. Remaining: step 5 — regenerate the pledge deck PDF, still warm. *(This pointer had been stale at `f86f83e`/2026-07-01 for five weeks — bump it every session.)*
+> **Fresh session? Read `HANDOFF.md` first** (tight orientation), then this file for full detail. Current HEAD: **pine/volt complete, the site PASSES, the hero carries the photo, and the stats band is a standalone section again** (2026-08-05). The band-in-hero experiment was reverted; only the scrim work survives. Favicon shipped. Remaining: step 5 — regenerate the pledge deck PDF, still warm. *(This pointer had been stale at `f86f83e`/2026-07-01 for five weeks — bump it every session.)*
 
 ## Current
 
@@ -1193,6 +1193,65 @@ lands, at both 1280 and 375 — the `<img>` is absolutely positioned inside a
   false failure on mobile.
 
 ---
+
+## Band-in-hero REVERTED, scrims kept — 2026-08-05 (third pass, same day)
+
+Founder call: the stats band goes back to being its own standalone section.
+`index.html` was rebuilt as **`1f8f81b` + the two scrim changes and nothing else** —
+that is the whole diff, verified line by line. Reverted with it: `.section--edge`,
+`.hero__stats` and its mobile compaction, the `.hero` flex-column /
+`margin-top:auto` restructure, and the mobile hiding of `.stats__affil`.
+
+**Restoration is provably exact.** 232 elements compared against `1f8f81b` at 1280
+and 375: **zero moved or resized, zero elements present in one tree and not the
+other**, document heights identical (6437 / 10040). The `<div class="stats">` block
+is byte-identical (948 bytes) and top-level document order matches.
+
+**THE SHIPPED MOBILE SCRIM COULD NOT BE KEPT VERBATIM — it failed three
+breakpoints once the band was gone.** This is the thing to remember.
+
+`0.88/0.66@36/0.36@55/0@100` cleared from 55% downward *because the band covered
+everything below 55%*. Remove the band and the hero pins to `min-height: 460px`
+while the type keeps its full height, so the type now runs to **74.9% at 375 and
+78.6% at 320** instead of stopping at 52%. The accent's last line landed on
+**0.17-0.20 alpha** — effectively bare photograph:
+
+| vp | accent | threshold | verdict |
+|---|---|---|---|
+| 430 | 2.83 | 3:1 | FAIL -0.17 |
+| 375 | 2.79 | 3:1 | FAIL -0.21 |
+| 320 | 2.33 | 3:1 | **FAIL -0.67** |
+
+Re-derived to `0.88 / 0.80@40 / 0.70@72 / 0.28@88 / 0@100` — hold 0.70 to 72% so
+the fall-off happens *below* the type, clear in the bottom eighth. All nine
+breakpoints pass, worst margin **+0.68** at 320.
+
+**CORRECTION worth carrying: the "mobile shows 0.0% of the photo" finding was
+caused by the band, not by the scrim.** That number was measured with the band
+occupying the hero's bottom 43-45%, which sat exactly on top of the old chain's
+clear zone. With the band gone the ORIGINAL `1f8f81b` chain already shows **31.8%**
+of the hero. So the mobile scrim change was largely fixing a problem the band had
+introduced. The new chain still earns its place — **43.8% vs 31.8%** — but the
+justification is "meaningfully more photo," not "rescuing zero."
+
+**The desktop change stands on its own** and was unaffected by the revert: it was
+derived from horizontal type extents (h1 reaches 57% of hero width, accent 53.8%,
+old chain didn't clear until 86%), and the band never entered that reasoning.
+`0.70 / 0.72@34 / 0.40@62 / 0@72`, tightest +0.34 at 1280.
+
+**Note on where `.stats` actually lives.** It sits between `#programs` and the
+Partners section — NOT between the hero and `#why-now`. Document order is
+hero, `#why-now`, `#programs`, `.stats`, Partners, `#pledge`, `#faq`,
+`#get-involved`, `#founder`. Restored to that exact slot.
+
+**Nine-breakpoint proof, final state — all PASS:**
+
+| vp | 1440 | 1280 | 1024 | 768 | 700 | 600 | 430 | 375 | 320 |
+|---|---|---|---|---|---|---|---|---|---|
+| tightest | +0.38 | +0.34 | +0.39 | +0.43 | +1.97 | +1.92 | +1.66 | +1.38 | +0.68 |
+
+Controls run first as standing practice: no scrim drove 1280 to **-1.43** and 375
+to **-0.79**, so the harness was shown able to fail before its passes counted.
 
 ## Hero scrim re-derived against the band — 2026-08-05 (same day, follow-on)
 
