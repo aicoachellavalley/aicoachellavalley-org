@@ -1,19 +1,17 @@
 /ai-readiness / 301
 
-# ── Operational docs are NOT public ─────────────────────────────────────────
-# Every file in the repo root deploys on Cloudflare Pages, so anything
-# committed here is served unless a rule says otherwise. Before 2026-08-06
-# /STATE.md (145KB), /HANDOFF.md and /README.md all returned 200, and
-# robots.txt Allow:/ plus Content-Signal: ai-train=yes invited crawlers into
-# them explicitly.
+# ── Why there is no .md rule here ────────────────────────────────────────────
+# TESTED AND DISPROVEN 2026-08-06. Both "/*.md /404.html 404" and exact-filename
+# rules ("/STATE.md /404.html 404") were deployed and NEITHER fired — /STATE.md
+# kept returning 200. In the same deploy, "/ai-readiness / 301" worked, and the
+# identical "/*.md" wildcard in _headers DID apply (X-Robots-Tag is live on all
+# three docs). Same syntax, same deploy: headers matched, redirects did not.
 #
-# PATTERN, not filenames, on purpose: a future operational doc dropped in the
-# root is private by default rather than by someone remembering to add a line.
-# DIAGNOSTIC 2026-08-06: the pattern rule alone did NOT take effect — /STATE.md
-# kept returning 200 while /ai-readiness (which matches no file) redirected fine.
-# That points at static-asset precedence rather than an unsupported wildcard, so
-# these exact-filename rules test it and, if they fire, fix it today.
-/STATE.md /404.html 404
-/HANDOFF.md /404.html 404
-/README.md /404.html 404
-/*.md /404.html 404
+# Conclusion: on Cloudflare Pages, static assets take precedence over _redirects.
+# _redirects is routing for paths that DO NOT EXIST. It is not access control and
+# cannot hide a file that is deployed.
+#
+# The docs are currently noindex/nofollow/noarchive via _headers but still
+# fetchable. Closing that needs one of: a Pages Function, publishing from a build
+# directory, or not committing operational docs into a deploy root at all.
+# See playbook ARCHITECTURE.md, "Deploy roots are public".
