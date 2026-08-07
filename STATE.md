@@ -1194,6 +1194,46 @@ lands, at both 1280 and 375 — the `<img>` is absolutely positioned inside a
 
 ---
 
+## FINDING — STATE.md, HANDOFF.md and README.md are PUBLICLY SERVED — 2026-08-06
+
+Surfaced while verifying the CSS sweep, by checking whether this file is fetchable
+before committing a note into it. It is.
+
+| file | live | size |
+|---|---|---|
+| `/STATE.md` | **HTTP 200** | 145,154 B |
+| `/HANDOFF.md` | **HTTP 200** | 14,360 B |
+| `/README.md` | **HTTP 200** | 1,311 B |
+| `/CLAUDE.md` | 404 | (not in this repo) |
+
+Every file in the repo root deploys, and there is no `_headers` or `_redirects` rule
+excluding `.md`. `robots.txt` then compounds it: `Allow: /` for `*`, plus explicit
+`Allow: /` for GPTBot, OAI-SearchBot, ChatGPT-User, PerplexityBot, Claude-SearchBot,
+Claude-User, anthropic-ai, Googlebot, GoogleOther and BingBot — and
+`Content-Signal: ai-train=yes, search=yes, ai-input=yes`.
+
+**So the full operational history is not merely reachable, it is explicitly invited
+for AI training and search indexing.** That includes every session log, commit hash,
+founder ruling, internal debt note, and 8 lines mentioning prospect / budget /
+revenue / cost figures.
+
+Nothing here is a credential or a secret. But it was never written to be read by
+funders, partners, or a model that will repeat it. **This is a disclosure question,
+not a security one**, and it is the founder's call, so nothing was changed.
+
+Options, none taken:
+1. `_headers` rule returning `X-Robots-Tag: noindex` for `/*.md` — cheapest, but the
+   files stay fetchable.
+2. `_redirects` rule 404ing `/STATE.md`, `/HANDOFF.md` — removes public access while
+   keeping the files in the repo where every session expects them.
+3. Move operational docs out of the deploy root into a non-deployed directory —
+   cleanest, but breaks the "read STATE.md at session start" convention that every
+   session in this repo relies on, and every prior session's path references.
+
+Recommendation: **option 2**. It removes the exposure without moving anything or
+touching the session convention. `robots.txt` needs no change — a 404 is not
+indexable.
+
 ## Dead CSS sweep — full, DOM-derived — 2026-08-06
 
 **202 rules removed across six pages. 25,716 bytes of CSS. Zero visual change.**
@@ -1257,13 +1297,28 @@ t=0. With the harness's freeze applied it reaches `matrix(0.707107, …)` and sp
 opacity 0, i.e. the settled open state. Checked against the file: all hamburger rules
 are byte-identical before and after.
 
-**CONSEQUENCE WORTH A DECISION.** Per-page pruning is correct for a site with no build
-step and no shared stylesheet, but it has made the six `<style>` blocks structurally
-divergent. `pledge.html` was built three sessions ago by extracting `partner.html`'s
-shared base wholesale — that base no longer exists in reusable form, because each page
-now carries only what it uses. A seventh page cannot be created the same way. Options,
-none taken: keep a canonical base block in the playbook, or accept that new pages get
-built by extraction-then-prune. Flagging rather than pre-empting.
+**CONSEQUENCE — RULED, AND QUEUED.** Per-page pruning is correct for a site with no
+build step and no shared stylesheet, but it has made the six `<style>` blocks
+structurally divergent. `pledge.html` was built three sessions ago by extracting
+`partner.html`'s shared base wholesale — **that base no longer exists in reusable
+form**, because each page now carries only what it uses. A seventh page cannot be
+created the same way.
+
+> **QUEUED ITEM — canonical base block in the playbook.** Founder ruling 2026-08-06:
+> keep a canonical `<style>` base block in `core/playbook` as the starting point for
+> any new `.org` page. **Not built this session, deliberately.** Whoever picks it up
+> should note that the base cannot simply be lifted from any current page — all six
+> are now pruned to their own usage. It has to be composed from the union of what the
+> shared components actually need: the `:root` token block (still byte-identical
+> across the sub-page family), the reset, type scale, `.nav` / `.nav__drawer` /
+> `.nav__hamburger`, `.footer` family, `.wrap` / `.section` / `.eyebrow` / `.h1` /
+> `.h2` / `.body` / `.btn`, and the shared media queries. Building it from a diff of
+> the pre-sweep files (`4cf03a2`) is the cheapest route — those still carry the full
+> template.
+
+**Corollary worth stating:** a new page built from the canonical base will itself need
+a sweep before it ships, because the base is deliberately a superset. That is the
+intended cycle — copy the superset, prune to actual usage, verify zero-pixel.
 
 **Not touched, per the brief:** no colour, value or token changed; nav and wordmark
 markup untouched; `id="programs"` untouched; nothing renamed. Brace balance 0 and all
