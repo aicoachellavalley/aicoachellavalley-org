@@ -1,7 +1,7 @@
 # org/ operational state
 
 > Operational state only. Strategic state lives in `aicv-playbook/STATE.md`.
-> **Fresh session? Read `HANDOFF.md` first** (tight orientation), then this file for full detail. Current HEAD: **the site is SIX pages, `/pledge` is live, the rebrand backlog is EMPTY, and the CSS is fully swept** (2026-08-06). Step 5 (regenerate the pledge deck) and the X-Frame-Options item are both CLOSED BY REMOVAL — the deck and the lightbox no longer exist. Fiscal wording is canon-aligned on "project". `/pledge` is in the nav, drawer and footer on all six pages. The fiscal inventory is CUT: 24 placements to 14, and both "initiative" and "under Desert Community Foundation" are now zero sitewide. No known wording divergence remains. *(This pointer had been stale at `f86f83e`/2026-07-01 for five weeks — bump it every session.)*
+> **Fresh session? Read `HANDOFF.md` first** (tight orientation), then this file for full detail. Current HEAD: **the site is SIX pages, `/pledge` is live, the rebrand backlog is EMPTY, the CSS is fully swept, and the token names now match BRAND.md §4** (2026-08-06). Operational docs 404 via a Pages Function. Step 5 (regenerate the pledge deck) and the X-Frame-Options item are both CLOSED BY REMOVAL — the deck and the lightbox no longer exist. Fiscal wording is canon-aligned on "project". `/pledge` is in the nav, drawer and footer on all six pages. The fiscal inventory is CUT: 24 placements to 14, and both "initiative" and "under Desert Community Foundation" are now zero sitewide. No known wording divergence remains. *(This pointer had been stale at `f86f83e`/2026-07-01 for five weeks — bump it every session.)*
 
 ## Current
 
@@ -1233,6 +1233,86 @@ Options, none taken:
 Recommendation: **option 2**. It removes the exposure without moving anything or
 touching the session convention. `robots.txt` needs no change — a 404 is not
 indexable.
+
+## Token rename — the naming debt is paid — 2026-08-06
+
+**23 colour tokens became 20. 374 `var()` references rewritten. Zero visual change.**
+
+The 2026-08-04 swap changed VALUES and deliberately kept the warm names so a
+mechanical rename would not ride along with a visible change. This is that rename.
+The mapping was **not invented** — BRAND.md §4 has specified it verbatim since
+2026-08-04, so this was executing canon, not designing it.
+
+| was | now | value | refs |
+|---|---|---|---|
+| `--c-cream` | `--c-paper` | `#FAFAF7` | 46 |
+| `--c-sand` | `--c-surface` | `#F3F7EB` | 3 |
+| `--c-sand-d` | `--c-surface-d` | `#E0EDD2` | 3 |
+| `--c-ghost` | `--c-border` | `#C8DDB4` | 21 |
+| `--c-ghost-l` | `--c-border-l` | `#DDE7CC` | 6 |
+| `--c-ink` | `--c-text` | `#1B4332` | 49 → **67** |
+| `--c-ink-l` | `--c-text-l` | `#2D6A4F` | 7 |
+| `--c-dusk` | `--c-ground` | `#081C15` | 26 |
+| `--c-dusk-m` | `--c-card` | `#1B4332` | 1 |
+| `--c-cream-rgb` | `--c-paper-rgb` | `250,250,247` | 18 |
+| `--c-ghost-rgb` | `--c-border-rgb` | `200,221,180` | 19 |
+| `--c-ink-rgb` | `--c-text-rgb` | `27,67,50` | 2 |
+
+**Three tokens went rather than moved.**
+- `--c-ink-m` **deleted**, its 18 references retargeted to `--c-text`. Both held
+  `#1B4332`, and the token's own comment already said "COLLAPSED into --c-ink: §4
+  rules three text tiers become two". Renaming it would have resurrected a tier
+  canon retired two days earlier. That is why `--c-text` ends at 67 refs, not 49.
+- `--c-dusk-rgb` and `--c-ink-l-rgb` **deleted** — declared on all six pages,
+  referenced by nothing. `dusk-rgb` lost its last caller when the stats band was
+  reverted. Renaming them would have shipped two new names nothing uses.
+
+**FOUR value collisions were NOT collapsed, and the reasoning matters more than the
+result.** `#1B4332` is held by `--c-card` and `--c-accent-text`; `#E0EDD2` by
+`--c-surface-d` and `--c-on-ground`; `#C8DDB4` by `--c-border` and `--c-on-ground-m`;
+`#2D6A4F` by `--c-text-l` and `--c-accent-text-d`; `#D8FF00` by `--c-accent-fill` and
+`--c-on-ground-hi`; `27,67,50` by `--c-text-rgb` and `--c-accent-on-fill-rgb`.
+**Same value today, different jobs.** BRAND.md is explicit on the volt pair —
+"deliberately a SEPARATE token so the fill-is-never-text invariant holds" — and the
+`-rgb` pair was de-aliased at step 6 on purpose. Collapsing on value alone couples
+roles that are designed to diverge. Only `ink`/`ink-m` shared a role as well as a value.
+
+**Role tokens untouched** — all eight still describe what they do.
+
+**PRE-EXISTING BUG FOUND, NOT FIXED — `pledge.html` uses `var(--s-7)` with no
+fallback, and `--s-7` is declared nowhere.** The spacing scale runs 1,2,3,4,5,6,8,10,14.
+The declaration is invalid at computed-value time, so `.pledge-preamble`'s
+`margin-bottom` silently computes to 0 and the spacing comes from `padding-bottom`
+alone. **I introduced it in the 2026-08-05 volt session.** Left in place because
+fixing it moves pixels and this session is zero-change. It is a real defect and wants
+its own commit — `--s-6` or `--s-8`, decided by eye.
+
+**Verification.**
+- **Bidirectional grep.** Zero old token names anywhere in code — CSS, comments,
+  inline styles, config, Functions. And zero undefined `var()` on all six except the
+  pre-existing `--s-7` above. A missed rename shows up as an undefined variable, so
+  both directions had to be clean; checking one would have proven nothing.
+- **Reference arithmetic reconciles:** 219 renamed + 155 role = **374**, exactly the
+  pre-rename count.
+- **`:root` parity:** the five sub-pages are byte-identical (md5 `92bf46389c`, 5971 B,
+  39 declarations). `index` differs by `--fs-pull` and its annotations — as it has
+  since before this session, not something the rename introduced.
+- **Differential, positive control FIRST:** a single-property change gave exactly 1
+  mismatch and a `::before`-only change exactly 1. Then six pages x 1280/375 with
+  drawer, hamburger, `details[open]` and unhidden form panels all applied:
+  **0 mismatches, identical element counts, identical document heights.**
+- **Print sheet:** `@media print` promoted to screen and diffed prev-vs-live at both
+  widths — **0 mismatches**, 7 principles, 2 signature lines, nav/footer/workshop
+  hidden, attribution shown, and the volt tile correctly reverting to transparent.
+- Brace balance 0 on all six.
+
+**Comments were rewritten, not just renamed.** The `:root` header carried a NAMING
+DEBT warning describing the rename as queued; it now records it as paid. The `-rgb`
+block said "ALL SIX UPDATED IN LOCKSTEP" when there are now three. **A comment that
+survives a rename unchanged is usually a comment that has started lying.**
+
+**STATE.md:** zero forward-looking token references existed — all 25 mentions sit
+inside dated entries, which stay as written per the ruling. Records, not guidance.
 
 ## Dead CSS sweep — full, DOM-derived — 2026-08-06
 

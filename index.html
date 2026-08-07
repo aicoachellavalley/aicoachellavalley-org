@@ -369,41 +369,39 @@
          --c-terracotta / -d / -d-rgb were DELETED here: after the accent
          aliases below became literals, nothing referenced them.
 
-         ⚠ NAMING DEBT, deliberate and recorded: these names describe the OLD
-         hues. --c-cream is now paper-white, --c-dusk is a near-black green,
-         --c-ink is pine. A value swap was chosen over a rename because a
+         
+         --c-text is pine. A value swap was chosen over a rename because a
          rename touches every usage (~300) and would have mixed a mechanical
          change into a visible one. Rename is queued as its own zero-pixel
          step — same defect .com carries on --sand (BRAND.md §3). */
-      --c-cream:        #FAFAF7;   /* was #FBF7EE — role: paper / page bg     */
-      --c-sand:         #F3F7EB;   /* was #F5EFE0 — role: surface step        */
-      --c-sand-d:       #E0EDD2;   /* was #EDE5D0 — role: surface, distinct   */
-      --c-dusk:         #081C15;   /* was #1A2744 — role: ground (sections,
-                                      footer, dark hero)                      */
-      --c-dusk-m:       #1B4332;   /* was #22306B — role: raised card on
+      --c-paper:        #FAFAF7;   /* was cream #FBF7EE — page background    */
+      --c-surface:      #F3F7EB;   /* was sand #F5EFE0 — subtle surface step */
+      --c-surface-d:    #E0EDD2;   /* was sand-d #EDE5D0 — distinct panel    */
+      --c-ground:       #081C15;   /* was dusk #1A2744 — sections, footer,
+                                      nav, dark hero                          */
+      --c-card:         #1B4332;   /* was dusk-m #22306B — raised panel on
                                       ground. 1.60:1 vs ground, up from 1.20  */
-      --c-ghost:        #C8DDB4;   /* was #EAD4C0 — role: border              */
-      --c-ghost-l:      #DDE7CC;   /* was #F2E4D6 — role: light border/tint   */
-      --c-ink:          #1B4332;   /* was #1C1008 — role: headings AND body   */
-      --c-ink-m:        #1B4332;   /* was #3D2518 — COLLAPSED into --c-ink:
-                                      §4 rules three text tiers become two    */
-      --c-ink-l:        #2D6A4F;   /* was #6B4A38 — role: captions/labels     */
+      --c-border:       #C8DDB4;   /* was ghost #EAD4C0 — borders and rules  */
+      --c-border-l:     #DDE7CC;   /* was ghost-l #F2E4D6 — light border/tint*/
+      --c-text:         #1B4332;   /* was ink #1C1008 — headings AND body.
+                                      ink-m collapsed into this at the rename */
+      --c-text-l:       #2D6A4F;   /* was ink-l #6B4A38 — captions/labels    */
 
       /* RGB triplets — ONLY for rgba() alpha use. Each MUST stay in sync with
          its hex above; a palette change updates BOTH lines. Added 2026-08-04
          (rebrand step 2) so no translucency carries a raw literal.
-         ⚠ ALL SIX UPDATED IN LOCKSTEP AT STEP 6 — if a hex ever moves without
-         its triplet, translucency silently drifts away from the solids. */
-      --c-cream-rgb:        250,250,247;   /* --c-cream        #FAFAF7 */
-      --c-ghost-rgb:        200,221,180;   /* --c-ghost        #C8DDB4 */
-      --c-dusk-rgb:         8,28,21;       /* --c-dusk         #081C15 */
-      --c-ink-l-rgb:        45,106,79;     /* --c-ink-l        #2D6A4F */
-      --c-ink-rgb:          27,67,50;      /* --c-ink          #1B4332 */
+         ⚠ IF A HEX MOVES WITHOUT ITS TRIPLET, translucency silently drifts
+         away from the solids. Was five triplets; the dusk-rgb and ink-l-rgb
+         pair were deleted at the 2026-08-06 rename, zero
+         references between them. These three all have live callers. */
+      --c-paper-rgb:    250,250,247;  /* keep in sync with --c-paper  #FAFAF7 */
+      --c-border-rgb:   200,221,180;  /* keep in sync with --c-border #C8DDB4 */
+      --c-text-rgb:     27,67,50;     /* keep in sync with --c-text   #1B4332 */
 
       /* ── TEXT ON THE DARK GROUND (added 2026-08-05) ──────────────────
          BRAND.md §4 assumed accent text always sits on a LIGHT surface.
          It does not: the footer mark, the hero eyebrow, the stats label and
-         the whole nav sit on --c-dusk. Pine on ground is 1.60:1 — invisible.
+         the whole nav sit on --c-ground. Pine on ground is 1.60:1 — invisible.
          This family is the answer, defined once.
          ⚠ ALL THREE ARE DARK-SURFACE ONLY. On paper they measure 1.17, 1.39
          and 1.10 — unusable by design. Never put them on a light ground. */
@@ -482,8 +480,8 @@
       font-family: 'DM Sans', system-ui, sans-serif;
       font-size: var(--fs-15);
       line-height: 1.7;
-      color: var(--c-ink);
-      background: var(--c-cream);
+      color: var(--c-text);
+      background: var(--c-paper);
       overflow-x: hidden;
     }
 
@@ -502,8 +500,8 @@
       padding: var(--s-10) var(--gutter);
     }
     .section--sm   { padding-top: var(--s-6); padding-bottom: var(--s-6); }
-    .section--dark { background: var(--c-dusk); }
-    .section--sand { background: var(--c-sand); }
+    .section--dark { background: var(--c-ground); }
+    .section--sand { background: var(--c-surface); }
 
     /* ════════════════════════════════════════
        TYPOGRAPHY UTILITIES
@@ -517,8 +515,8 @@
       color: var(--c-accent-text);
       margin-bottom: var(--s-2);
     }
-    .eyebrow--dim { color: rgba(var(--c-cream-rgb),0.5); }
-    .eyebrow--lt  { color: var(--c-cream); opacity: 0.9; }
+    .eyebrow--dim { color: rgba(var(--c-paper-rgb),0.5); }
+    .eyebrow--lt  { color: var(--c-paper); opacity: 0.9; }
 
     h1, h2, h3 {
       font-family: 'EB Garamond', Georgia, serif;
@@ -528,26 +526,26 @@
 
     .h1 {
       font-size: var(--fs-h1);
-      color: var(--c-cream);
+      color: var(--c-paper);
     }
-    .h1 .accent { color: var(--c-ghost); font-style: italic; }
+    .h1 .accent { color: var(--c-border); font-style: italic; }
     .hero__headline .accent { display: block; }
 
     .h2 {
       font-size: var(--fs-h2);
-      color: var(--c-ink);
+      color: var(--c-text);
       margin-bottom: var(--s-3);
     }
-    .h2--lt { color: var(--c-cream); }
+    .h2--lt { color: var(--c-paper); }
 
     .body {
       font-size: var(--fs-15);
       font-weight: 300;
-      color: var(--c-ink-m);
+      color: var(--c-text);
       line-height: 1.75;
     }
     .body + .body { margin-top: var(--s-2); }
-    .body--lt     { color: rgba(var(--c-cream-rgb),0.65); }
+    .body--lt     { color: rgba(var(--c-paper-rgb),0.65); }
     .body--lead   { font-size: var(--fs-17); }
     /* #why-now's lead paragraph drops to body size so the section matches the
        Build section's copy scale. Scoped to #why-now rather than changing
@@ -562,7 +560,7 @@
       font-style: italic;
       font-weight: 400;
       line-height: 1.5;
-      color: var(--c-ink);
+      color: var(--c-text);
       border-left: 3px solid var(--c-accent-text);
       padding-left: var(--s-3);
     }
@@ -586,14 +584,14 @@
     }
     .btn:hover { transform: translateY(-1px); }
 
-    .btn--primary { background: var(--c-accent-fill); color: var(--c-ink); }
+    .btn--primary { background: var(--c-accent-fill); color: var(--c-text); }
     .btn--primary:hover { background: var(--c-accent-fill-h); }
 
     /* ════════════════════════════════════════
        NAV
     ════════════════════════════════════════ */
     .nav {
-      background: var(--c-dusk);
+      background: var(--c-ground);
       padding: 0 var(--gutter);
       position: sticky;
       top: 0;
@@ -619,7 +617,7 @@
       display: flex; align-items: center; justify-content: center;
       font-family: 'EB Garamond', Georgia, serif;
       font-size: 14px; font-weight: 700;
-      color: var(--c-ink);
+      color: var(--c-text);
     }
     .nav__name {
       font-size: var(--fs-13);
@@ -647,7 +645,7 @@
       padding: 6px 15px !important;   /* -1px absorbs the border: outer box unchanged */
       font-weight: 500 !important;
     }
-    .nav__cta:hover { background: var(--c-accent-fill) !important; color: var(--c-ink) !important; }
+    .nav__cta:hover { background: var(--c-accent-fill) !important; color: var(--c-text) !important; }
     /* ── HERO — photograph, index only (2026-08-05) ──────────────────
        The other four pages use .hero--cream and are untouched.
        The dark-hero treatment is GONE and deliberately so:
@@ -659,7 +657,7 @@
            interest) and sat exactly where the sun blows out. REMOVED.
        Fallback is LIGHT so a slow image never flashes dark behind dark type. */
     .hero {
-      background: var(--c-sand);
+      background: var(--c-surface);
       padding: 120px var(--gutter) 56px;
       min-height: clamp(380px, 40vw, 560px);
       position: relative;
@@ -695,10 +693,10 @@
          STANDING LESSON: this gradient is derived from where the type ends.
          Any copy edit to the h1 invalidates it — re-measure, do not assume. */
       background: linear-gradient(to right,
-        rgba(var(--c-cream-rgb),0.70) 0%,
-        rgba(var(--c-cream-rgb),0.72) 34%,
-        rgba(var(--c-cream-rgb),0.48) 66%,
-        rgba(var(--c-cream-rgb),0) 82%);
+        rgba(var(--c-paper-rgb),0.70) 0%,
+        rgba(var(--c-paper-rgb),0.72) 34%,
+        rgba(var(--c-paper-rgb),0.48) 66%,
+        rgba(var(--c-paper-rgb),0) 82%);
       pointer-events: none;
     }
     .hero__inner {
@@ -707,7 +705,7 @@
       position: relative; z-index: 2;
     }
     /* Type inverts: this hero is now LIGHT. */
-    .hero .h1 { color: var(--c-ink); }
+    .hero .h1 { color: var(--c-text); }
     .hero .h1 .accent { color: var(--c-accent-text-d); }
 
     /* MOBILE — the desktop scrim runs left-to-right because the type sits left.
@@ -733,11 +731,11 @@
            Photo visible 43.8% of the hero, vs 31.8% for the pre-band chain — the
            reveal survives the revert, it just has less room to work in. */
         background: linear-gradient(to bottom,
-          rgba(var(--c-cream-rgb),0.88) 0%,
-          rgba(var(--c-cream-rgb),0.80) 40%,
-          rgba(var(--c-cream-rgb),0.70) 72%,
-          rgba(var(--c-cream-rgb),0.28) 88%,
-          rgba(var(--c-cream-rgb),0) 100%);
+          rgba(var(--c-paper-rgb),0.88) 0%,
+          rgba(var(--c-paper-rgb),0.80) 40%,
+          rgba(var(--c-paper-rgb),0.70) 72%,
+          rgba(var(--c-paper-rgb),0.28) 88%,
+          rgba(var(--c-paper-rgb),0) 100%);
       }
       .hero__media img { object-position: 50% 72%; }
     }
@@ -783,8 +781,8 @@
       display: none;
       position: fixed;
       top: 60px; left: 0; right: 0;
-      background: var(--c-dusk);
-      border-bottom: 1px solid rgba(var(--c-ghost-rgb),0.14);
+      background: var(--c-ground);
+      border-bottom: 1px solid rgba(var(--c-border-rgb),0.14);
       padding: 24px var(--gutter);
       z-index: 199;
       flex-direction: column;
@@ -797,7 +795,7 @@
       color: var(--c-on-ground);
       text-decoration: none;
       padding: 14px 0;
-      border-bottom: 1px solid rgba(var(--c-ghost-rgb),0.14);
+      border-bottom: 1px solid rgba(var(--c-border-rgb),0.14);
       transition: color 0.15s;
     }
     .nav__drawer a:last-child { border-bottom: none; }
@@ -805,7 +803,7 @@
     .nav__drawer .drawer-cta {
       margin-top: 16px;
       background: var(--c-accent-fill);
-      color: var(--c-ink) !important;
+      color: var(--c-text) !important;
       text-align: center;
       padding: 13px !important;
       border: none !important;
@@ -816,7 +814,7 @@
        STATS
     ════════════════════════════════════════ */
     .stats {
-      background: var(--c-dusk);
+      background: var(--c-ground);
       padding: var(--s-8) var(--gutter) var(--s-6);
     }
     .stats__label {
@@ -832,7 +830,7 @@
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 2px;
-      background: rgba(var(--c-ghost-rgb),0.07);
+      background: rgba(var(--c-border-rgb),0.07);
       max-width: var(--max-w);
       margin: 0 auto;
     }
@@ -844,7 +842,7 @@
     .stats__n {
       font-family: 'EB Garamond', Georgia, serif;
       font-size: 50px; font-weight: 700;
-      color: var(--c-cream); line-height: 1;
+      color: var(--c-paper); line-height: 1;
       margin-bottom: var(--s-1);
     }
     .stats__n em { color: var(--c-accent-text); font-style: normal; }
@@ -869,7 +867,7 @@
        ROCKET DIVIDER
     ════════════════════════════════════════ */
     .rocket-divider {
-      background: var(--c-cream);
+      background: var(--c-paper);
       padding: 24px var(--gutter);
       text-align: center;
     }
@@ -890,11 +888,11 @@
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 2px;
-      background: var(--c-ghost);
-      border: 2px solid var(--c-ghost);
+      background: var(--c-border);
+      border: 2px solid var(--c-border);
     }
     .prog-card {
-      background: var(--c-cream);
+      background: var(--c-paper);
       padding: 28px 24px;
       display: flex;
       flex-direction: column;
@@ -902,14 +900,14 @@
       position: relative;
       overflow: hidden;
     }
-    .prog-card--featured { background: var(--c-sand-d); }
+    .prog-card--featured { background: var(--c-surface-d); }
 
     .prog-num {
       position: absolute;
       bottom: -6px; right: 14px;
       font-family: 'EB Garamond', Georgia, serif;
       font-size: 88px; font-weight: 700;
-      color: var(--c-ghost);
+      color: var(--c-border);
       line-height: 1;
       pointer-events: none;
       user-select: none;
@@ -920,23 +918,23 @@
       font-family: 'EB Garamond', Georgia, serif;
       font-size: var(--fs-22);
       font-weight: 700;
-      color: var(--c-ink);
+      color: var(--c-text);
       line-height: 1.2;
       margin-bottom: 10px;
       position: relative; z-index: 1;
     }
-    .prog-card--featured .prog-title { color: var(--c-ink); }
+    .prog-card--featured .prog-title { color: var(--c-text); }
 
     .prog-tagline {
       font-family: 'EB Garamond', Georgia, serif;
       font-style: italic;
       font-size: 14px;
-      color: var(--c-ink-l);
+      color: var(--c-text-l);
       margin: 0 0 16px 0;
       line-height: 1.4;
       position: relative; z-index: 1;
     }
-    .prog-card--featured .prog-tagline { color: var(--c-ink); }
+    .prog-card--featured .prog-tagline { color: var(--c-text); }
 
     .prog-shot {
       display: block;
@@ -953,12 +951,12 @@
     .prog-body {
       font-size: 13px;
       font-weight: 300;
-      color: var(--c-ink-m);
+      color: var(--c-text);
       line-height: 1.65;
       flex: 1;
       position: relative; z-index: 1;
     }
-    .prog-card--featured .prog-body { color: rgba(var(--c-ink-rgb),0.8); }
+    .prog-card--featured .prog-body { color: rgba(var(--c-text-rgb),0.8); }
 
     .prog-tag {
       display: inline-block;
@@ -968,7 +966,7 @@
       letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--c-accent-text);
-      background: var(--c-ghost-l);
+      background: var(--c-border-l);
       padding: 5px 10px;
       position: relative; z-index: 1;
       align-self: flex-start;
@@ -994,7 +992,7 @@
       position: relative; z-index: 1;
     }
     .prog-pill.pill-live {
-      background: var(--c-cream);
+      background: var(--c-paper);
       color: var(--c-accent-text);
     }
     /* right col */
@@ -1004,7 +1002,7 @@
       max-width: 62ch;
       font-size: var(--fs-15);
       font-weight: 300;
-      color: rgba(var(--c-cream-rgb),0.58);
+      color: rgba(var(--c-paper-rgb),0.58);
       line-height: 1.75;
     }
     .pledge-copy + .pledge-copy { margin-top: var(--s-2); }
@@ -1039,12 +1037,12 @@
       font-weight: 500;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: var(--c-ink);
+      color: var(--c-text);
     }
     .founder-bio {
       font-size: var(--fs-15);
       font-weight: 300;
-      color: var(--c-ink-m);
+      color: var(--c-text);
       line-height: 1.75;
       margin-bottom: var(--s-2);
     }
@@ -1063,12 +1061,12 @@
       font-style: normal;
       font-weight: 600;
       font-size: var(--fs-13);
-      color: var(--c-ink);
+      color: var(--c-text);
       margin-top: 3px;
     }
     .founder-sig span {
       font-weight: 300;
-      color: var(--c-ink-l);
+      color: var(--c-text-l);
     }
 
     /* ════════════════════════════════════════
@@ -1099,14 +1097,14 @@
       font-family: 'EB Garamond', Georgia, serif;
       font-size: var(--fs-h2);
       font-weight: 700;
-      color: var(--c-ink);
+      color: var(--c-text);
       line-height: 1.1;
       margin-bottom: var(--s-2);
     }
     .cta__sub {
       font-size: var(--fs-15);
       font-weight: 300;
-      color: rgba(var(--c-ink-rgb),0.75);
+      color: rgba(var(--c-text-rgb),0.75);
       line-height: 1.7;
       max-width: 70ch;
       margin-bottom: 0;
@@ -1116,7 +1114,7 @@
        FOOTER
     ════════════════════════════════════════ */
     .footer {
-      background: var(--c-dusk);
+      background: var(--c-ground);
       padding: 56px var(--gutter) 36px;
     }
     .footer__inner { max-width: var(--max-w); margin: 0 auto; }
@@ -1125,7 +1123,7 @@
       grid-template-columns: 1.2fr 1fr 1fr;
       gap: var(--s-8);
       padding-bottom: var(--s-6);
-      border-bottom: 1px solid rgba(var(--c-ghost-rgb),0.08);
+      border-bottom: 1px solid rgba(var(--c-border-rgb),0.08);
       margin-bottom: var(--s-3);
     }
     .footer__mark {
@@ -1139,7 +1137,7 @@
     .footer__name {
       font-family: 'EB Garamond', Georgia, serif;
       font-size: 20px; font-weight: 700;
-      color: var(--c-cream);
+      color: var(--c-paper);
       margin-bottom: 10px;
     }
     .footer__desc {
@@ -1165,7 +1163,7 @@
       text-decoration: none;
       transition: color 0.15s;
     }
-    .footer__links a:hover { color: var(--c-cream); }
+    .footer__links a:hover { color: var(--c-paper); }
     .footer__bottom {
       display: flex;
       align-items: center;
@@ -1215,7 +1213,7 @@
     .partner-group__list {
       font-size: var(--fs-15);
       font-weight: 300;
-      color: var(--c-ink-m);
+      color: var(--c-text);
       line-height: 1.75;
     }
     .partners-grid {
@@ -1223,11 +1221,11 @@
       grid-template-columns: 1fr 1fr;
       gap: 2px;
       margin-top: var(--s-5);
-      background: var(--c-ghost);
-      border: 2px solid var(--c-ghost);
+      background: var(--c-border);
+      border: 2px solid var(--c-border);
     }
     .partner-card {
-      background: var(--c-cream);
+      background: var(--c-paper);
       padding: 30px 26px;
     }
     @media (max-width: 640px) {
@@ -1236,14 +1234,14 @@
 
     /* ─── FAQ ACCORDION ─── */
     .faq-item {
-      border-bottom: 1px solid var(--c-ghost);
+      border-bottom: 1px solid var(--c-border);
       padding: var(--s-3) 0;
     }
     .faq-q {
       font-family: 'EB Garamond', Georgia, serif;
       font-size: var(--fs-22);
       font-weight: 600;
-      color: var(--c-ink);
+      color: var(--c-text);
       cursor: pointer;
       list-style: none;
       position: relative;
@@ -1264,7 +1262,7 @@
     .faq-a {
       font-size: var(--fs-15);
       font-weight: 300;
-      color: var(--c-ink-m);
+      color: var(--c-text);
       line-height: 1.75;
       margin-top: var(--s-2);
       max-width: 70ch;
