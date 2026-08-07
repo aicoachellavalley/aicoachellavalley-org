@@ -9,4 +9,11 @@
 #
 # PATTERN, not filenames, on purpose: a future operational doc dropped in the
 # root is private by default rather than by someone remembering to add a line.
+# DIAGNOSTIC 2026-08-06: the pattern rule alone did NOT take effect — /STATE.md
+# kept returning 200 while /ai-readiness (which matches no file) redirected fine.
+# That points at static-asset precedence rather than an unsupported wildcard, so
+# these exact-filename rules test it and, if they fire, fix it today.
+/STATE.md /404.html 404
+/HANDOFF.md /404.html 404
+/README.md /404.html 404
 /*.md /404.html 404
