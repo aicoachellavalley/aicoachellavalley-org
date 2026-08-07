@@ -27,8 +27,34 @@ export async function onRequest(context) {
   if (!/\.md$/i.test(url.pathname)) return next();
 
   // Serve the site's own 404 page, with a real 404 status.
-  const notFound = await next(new Request(new URL('/404.html', url.origin), request));
-  return new Response(notFound.body, {
+  //
+  // next(new Request(...)) returned an EMPTY body on the first deploy — status
+  // was right, page was blank. Read it to text() rather than piping .body, and
+  // keep an inline fallback so a blank page is impossible even if the asset
+  // fetch changes behaviour again.
+  let body = null;
+  try {
+    const page = await next(new Request(new URL('/404.html', url.origin), { method: 'GET' }));
+    if (page && page.status === 200) {
+      const text = await page.text();
+      if (text && text.length > 200) body = text;
+    }
+  } catch (_) { /* fall through to the inline body */ }
+
+  if (!body) {
+    body = '<!doctype html><html lang="en"><head><meta charset="utf-8">'
+         + '<meta name="viewport" content="width=device-width,initial-scale=1">'
+         + '<title>Page Not Found \u2014 AI Coachella Valley</title>'
+         + '<style>body{margin:0;min-height:100vh;display:flex;align-items:center;'
+         + 'justify-content:center;background:#FAFAF7;color:#1B4332;'
+         + 'font:300 15px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}'
+         + 'a{color:#2D6A4F}</style></head><body><main style="text-align:center;padding:40px">'
+         + '<p style="font-size:10px;letter-spacing:.18em;text-transform:uppercase">404</p>'
+         + '<h1 style="font-family:Georgia,serif;font-weight:700">Page Not Found</h1>'
+         + '<p><a href="/">Return to AI Coachella Valley</a></p></main></body></html>';
+  }
+
+  return new Response(body, {
     status: 404,
     statusText: 'Not Found',
     headers: {
