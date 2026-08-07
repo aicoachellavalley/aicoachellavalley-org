@@ -173,8 +173,6 @@
       background: var(--c-cream);
       overflow-x: hidden;
     }
-
-    img { display: block; max-width: 100%; }
     a   { color: inherit; }
 
     /* ════════════════════════════════════════
@@ -188,9 +186,6 @@
     .section {
       padding: var(--s-5) var(--gutter);
     }
-    .section--sm   { padding-top: var(--s-6); padding-bottom: var(--s-6); }
-    .section--sand { background: var(--c-sand); }
-    .section--alt  { background: var(--c-sand-d); }
 
     /* ════════════════════════════════════════
        TYPOGRAPHY UTILITIES
@@ -204,7 +199,6 @@
       color: var(--c-accent-text);
       margin-bottom: var(--s-1);
     }
-    .eyebrow--lt { color: var(--c-cream); opacity: 0.9; }
 
     h1, h2, h3 {
       font-family: 'EB Garamond', Georgia, serif;
@@ -216,31 +210,6 @@
       font-size: var(--fs-h1);
       color: var(--c-cream);
     }
-
-    .h2 {
-      font-size: var(--fs-h2);
-      color: var(--c-ink);
-      margin-bottom: var(--s-2);
-    }
-    .h2--lt { color: var(--c-cream); }
-    .h1--lt { color: var(--c-cream); }
-
-    .h3 {
-      font-size: var(--fs-22);
-      color: var(--c-ink);
-      margin-bottom: var(--s-1);
-    }
-
-    .body {
-      font-size: var(--fs-15);
-      font-weight: 300;
-      color: var(--c-ink-m);
-      line-height: 1.75;
-    }
-    .body + .body { margin-top: var(--s-2); }
-    .body strong  { font-weight: 600; color: var(--c-ink); }
-    .body--lt     { color: rgba(var(--c-cream-rgb),0.65); }
-    .body--lead   { font-size: var(--fs-17); }
 
     /* ════════════════════════════════════════
        BUTTONS
@@ -262,13 +231,6 @@
 
     .btn--cream { background: var(--c-cream); color: var(--c-accent-text); }
     .btn--cream:hover { background: var(--c-ghost-l); }
-
-    .btn--ghost {
-      background: transparent;
-      color: var(--c-ghost-l);
-      border: 1px solid rgba(var(--c-ghost-rgb),0.35);
-    }
-    .btn--ghost:hover { border-color: var(--c-ghost); color: var(--c-cream); }
 
     /* ════════════════════════════════════════
        NAV
@@ -321,7 +283,6 @@
       transition: color 0.15s;
     }
     .nav__links a:hover { color: var(--c-on-ground-hi); }
-    .nav__links a.is-active { color: var(--c-on-ground-hi); font-weight: 500; }
     .nav__cta {
       background: transparent !important;
       color: var(--c-on-ground-hi) !important;
@@ -406,15 +367,6 @@
       );
       pointer-events: none;
     }
-    .hero__ghost {
-      position: absolute;
-      right: -40px; bottom: -60px;
-      font-family: 'EB Garamond', Georgia, serif;
-      font-size: 380px; font-weight: 700;
-      color: rgba(255,255,255,0.025);
-      line-height: 1;
-      pointer-events: none; user-select: none;
-    }
     .hero__inner {
       max-width: var(--max-w);
       margin: 0 auto;
@@ -429,13 +381,6 @@
       margin-top: var(--s-2);
       margin-bottom: var(--s-2);
     }
-    .hero__body {
-      font-size: var(--fs-15);
-      font-weight: 300;
-      color: rgba(var(--c-cream-rgb),0.65);
-      line-height: 1.75;
-      max-width: 560px;
-    }
 
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(18px); }
@@ -444,7 +389,6 @@
     .hero .eyebrow   { animation: fadeUp 0.55s ease both 0.1s; }
     .hero .h1        { animation: fadeUp 0.55s ease both 0.2s; }
     .hero__subhead   { animation: fadeUp 0.55s ease both 0.28s; }
-    .hero__body      { animation: fadeUp 0.55s ease both 0.36s; }
 
     /* ════════════════════════════════════════
        HERO — CREAM VARIANT
@@ -454,10 +398,8 @@
       border-bottom: 1px solid var(--c-ghost);
     }
     .hero--cream::before         { display: none; }
-    .hero--cream .hero__ghost    { display: none; }
     .hero--cream .h1             { color: var(--c-ink); }
     .hero--cream .eyebrow        { color: var(--c-accent-text); opacity: 1; }
-    .hero--cream .hero__body     { color: var(--c-ink-m); }
 
     /* ════════════════════════════════════════
        HERO — CREAM TEXT OVERRIDES

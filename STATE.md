@@ -1,7 +1,7 @@
 # org/ operational state
 
 > Operational state only. Strategic state lives in `aicv-playbook/STATE.md`.
-> **Fresh session? Read `HANDOFF.md` first** (tight orientation), then this file for full detail. Current HEAD: **the site is SIX pages, `/pledge` is live, and the rebrand backlog is EMPTY** (2026-08-05). Step 5 (regenerate the pledge deck) and the X-Frame-Options item are both CLOSED BY REMOVAL — the deck and the lightbox no longer exist. Fiscal wording is canon-aligned on "project". `/pledge` is in the nav, drawer and footer on all six pages. The fiscal inventory is CUT: 24 placements to 14, and both "initiative" and "under Desert Community Foundation" are now zero sitewide. No known wording divergence remains. *(This pointer had been stale at `f86f83e`/2026-07-01 for five weeks — bump it every session.)*
+> **Fresh session? Read `HANDOFF.md` first** (tight orientation), then this file for full detail. Current HEAD: **the site is SIX pages, `/pledge` is live, the rebrand backlog is EMPTY, and the CSS is fully swept** (2026-08-06). Step 5 (regenerate the pledge deck) and the X-Frame-Options item are both CLOSED BY REMOVAL — the deck and the lightbox no longer exist. Fiscal wording is canon-aligned on "project". `/pledge` is in the nav, drawer and footer on all six pages. The fiscal inventory is CUT: 24 placements to 14, and both "initiative" and "under Desert Community Foundation" are now zero sitewide. No known wording divergence remains. *(This pointer had been stale at `f86f83e`/2026-07-01 for five weeks — bump it every session.)*
 
 ## Current
 
@@ -1193,6 +1193,81 @@ lands, at both 1280 and 375 — the `<img>` is absolutely positioned inside a
   false failure on mobile.
 
 ---
+
+## Dead CSS sweep — full, DOM-derived — 2026-08-06
+
+**202 rules removed across six pages. 25,716 bytes of CSS. Zero visual change.**
+
+| page | rules before | after | removed | CSS before | after | saved |
+|---|---|---|---|---|---|---|
+| index | 200 | 149 | **51** | 38,145 | 31,919 | 6,226 |
+| events | 119 | 61 | **58** | 23,312 | 15,314 | 7,998 |
+| philanthropy | 148 | 105 | **43** | 26,740 | 19,997 | 6,743 |
+| partner | 103 | 81 | **22** | 19,875 | 18,021 | 1,854 |
+| 404 | 60 | 59 | **1** | 14,910 | 14,864 | 46 |
+| pledge | 134 | 107 | **27** | 25,128 | 22,279 | 2,849 |
+| **total** | **764** | **562** | **202** | | | **25,716** |
+
+**Method — DOM-derived, and every tool validated before it was trusted.**
+
+1. **A CSS block parser** that round-trips each file byte-identically before any
+   deletion. Proven on all six (441/271/343/229/135/259 items reassembled exactly).
+   This is what made surgical rule removal safe; the 2026-08-04 sweep worked from a
+   recon list and left two dead `.pledge-preview` rules behind.
+2. **A liveness detector** run against each page's own live DOM, with every toggled
+   state applied first: `is-open` on `.nav__hamburger` and `.nav__drawer`, `open` on
+   every `<details>`, and `hidden` stripped from partner's form panels. Pseudo-elements
+   and interaction pseudo-classes are stripped before testing, so `.x:hover` counts as
+   live when `.x` exists.
+3. **The detector was itself controlled first** — injected known-dead selectors
+   (`.zzz-definitely-dead`, a dead `:hover`, a dead descendant under `.is-open`) and
+   known-live ones, and confirmed it separated them. A detector that has not been shown
+   able to say "dead" proves nothing when it says "live".
+
+**events.html was half dead.** 58 of 119 rules. Its body is only nav + drawer + hero +
+calendar-band + footer — it has **no** `.wrap`, `.section`, `.body`, `.h2` or `.btn` at
+all. I flagged this as implausible mid-run and checked the markup before trusting it;
+the detector was right and my instinct was wrong. That resolves the residue the brief
+named: the whole `.btn` family, `.location-block` and the `.aud-*` group are gone rather
+than left as orphans.
+
+**One partially-dead comma group, split rather than left:** `pledge.html` had
+`.hero::before, .hero__ghost` — the first part is live (a pseudo-element on a live
+`.hero`), the second dead. Kept `.hero::before`, dropped the orphan. It was the only
+such group across all six pages.
+
+**Orphan closure verified by re-running the detector on the swept files: 0 dead rules
+remain on every page.**
+
+**Proof — the differential harness, controlled first.** Positive control ran before any
+comparison: a single-property change on one element produced exactly **1** mismatch, and
+a `::before`-only change produced exactly **1**. Only then were the zeros trusted.
+
+The harness freezes animations and transitions, forces images eager and fixed-size,
+skips `--*` custom properties (they inherit to every element and swamp the signal),
+captures `::before`/`::after`/`::marker`, and applies every toggled state. **12
+comparisons — six pages x 1280/375 — all returned 0 mismatches, identical element
+counts, identical document heights.**
+
+**The toggled states were proven non-vacuous, not assumed.** Drawer renders at
+`display:flex`, 375-388px tall on all six. `details[open]` fires its `::after` marker.
+Partner's form panels compute to `display:block`. The hamburger initially read as an
+identity transform, which looked like a missed rule — it is a transition sampled at
+t=0. With the harness's freeze applied it reaches `matrix(0.707107, …)` and span-2
+opacity 0, i.e. the settled open state. Checked against the file: all hamburger rules
+are byte-identical before and after.
+
+**CONSEQUENCE WORTH A DECISION.** Per-page pruning is correct for a site with no build
+step and no shared stylesheet, but it has made the six `<style>` blocks structurally
+divergent. `pledge.html` was built three sessions ago by extracting `partner.html`'s
+shared base wholesale — that base no longer exists in reusable form, because each page
+now carries only what it uses. A seventh page cannot be created the same way. Options,
+none taken: keep a canonical base block in the playbook, or accept that new pages get
+built by extraction-then-prune. Flagging rather than pre-empting.
+
+**Not touched, per the brief:** no colour, value or token changed; nav and wordmark
+markup untouched; `id="programs"` untouched; nothing renamed. Brace balance 0 and all
+JSON-LD parses on all six files.
 
 ## Fiscal inventory cut — 24 to 14 — 2026-08-05 (ninth pass)
 

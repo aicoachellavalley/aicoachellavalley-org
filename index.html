@@ -504,7 +504,6 @@
     .section--sm   { padding-top: var(--s-6); padding-bottom: var(--s-6); }
     .section--dark { background: var(--c-dusk); }
     .section--sand { background: var(--c-sand); }
-    .section--alt  { background: var(--c-sand-d); }
 
     /* ════════════════════════════════════════
        TYPOGRAPHY UTILITIES
@@ -541,12 +540,6 @@
     }
     .h2--lt { color: var(--c-cream); }
 
-    .h3 {
-      font-size: var(--fs-22);
-      color: var(--c-ink);
-      margin-bottom: var(--s-1);
-    }
-
     .body {
       font-size: var(--fs-15);
       font-weight: 300;
@@ -554,9 +547,7 @@
       line-height: 1.75;
     }
     .body + .body { margin-top: var(--s-2); }
-    .body strong  { font-weight: 500; color: var(--c-ink); }
     .body--lt     { color: rgba(var(--c-cream-rgb),0.65); }
-    .body--dim    { color: rgba(var(--c-cream-rgb),0.45); }
     .body--lead   { font-size: var(--fs-17); }
     /* #why-now's lead paragraph drops to body size so the section matches the
        Build section's copy scale. Scoped to #why-now rather than changing
@@ -575,7 +566,6 @@
       border-left: 3px solid var(--c-accent-text);
       padding-left: var(--s-3);
     }
-    .pull-quote--lt { color: rgba(var(--c-cream-rgb),0.88); }
     .pull-quote span { font-style: normal; font-weight: 700; }
 
     /* ════════════════════════════════════════
@@ -598,13 +588,6 @@
 
     .btn--primary { background: var(--c-accent-fill); color: var(--c-ink); }
     .btn--primary:hover { background: var(--c-accent-fill-h); }
-
-    .btn--ghost {
-      background: transparent;
-      color: var(--c-ghost-l);
-      border: 1px solid rgba(var(--c-ghost-rgb),0.35);
-    }
-    .btn--ghost:hover { border-color: var(--c-ghost); color: var(--c-cream); }
 
     /* ════════════════════════════════════════
        NAV
@@ -665,10 +648,6 @@
       font-weight: 500 !important;
     }
     .nav__cta:hover { background: var(--c-accent-fill) !important; color: var(--c-ink) !important; }
-
-    /* ════════════════════════════════════════
-       HERO
-    ════════════════════════════════════════ */
     /* ── HERO — photograph, index only (2026-08-05) ──────────────────
        The other four pages use .hero--cream and are untouched.
        The dark-hero treatment is GONE and deliberately so:
@@ -832,39 +811,6 @@
       border: none !important;
       font-weight: 500;
     }
-    .partners {
-      background: var(--c-cream);
-      border-bottom: 1px solid var(--c-ghost);
-      padding: 22px var(--gutter);
-      text-align: center;
-    }
-    .partners__label {
-      font-size: var(--fs-10);
-      font-weight: 500;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--c-ink-l);
-      margin-bottom: 14px;
-    }
-    .partners__row {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px 22px;
-      flex-wrap: wrap;
-    }
-    .partners__name {
-      font-size: 13px;
-      font-weight: 400;
-      color: var(--c-ink-m);
-      opacity: 0.75;
-      white-space: nowrap;
-    }
-    .partners__sep {
-      width: 1px; height: 13px;
-      background: var(--c-ghost);
-      flex-shrink: 0;
-    }
 
     /* ════════════════════════════════════════
        STATS
@@ -918,91 +864,6 @@
       margin-right: auto;
     }
     .stats__affil strong { color: var(--c-on-ground); font-weight: 500; }
-
-    /* ════════════════════════════════════════
-       DCF BAND
-    ════════════════════════════════════════ */
-    .dcf {
-      background: var(--c-sand);
-      border-top: 1px solid var(--c-ghost);
-      border-bottom: 1px solid var(--c-ghost);
-      padding: 22px var(--gutter);
-    }
-    .dcf__inner {
-      max-width: var(--max-w);
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 18px;
-    }
-    .dcf__label {
-      font-size: var(--fs-10);
-      font-weight: 500;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--c-ink-l);
-      white-space: nowrap;
-    }
-    .dcf__line { width: 1px; height: 22px; background: var(--c-ghost); }
-    .dcf__text {
-      font-size: 13px;
-      font-weight: 300;
-      color: var(--c-ink-m);
-      line-height: 1.5;
-    }
-    .dcf__text strong { font-weight: 500; color: var(--c-ink); }
-
-    /* ════════════════════════════════════════
-       WHY NOW
-    ════════════════════════════════════════ */
-    .why-grid {
-      display: grid;
-      grid-template-columns: 1fr 2fr;
-      gap: var(--s-10);
-      align-items: center;
-    }
-    .why-head {
-      font-family: 'EB Garamond', Georgia, serif;
-      font-size: var(--fs-h2);
-      font-weight: 700;
-      color: var(--c-cream);
-      line-height: 1.15;
-    }
-    .why-body {
-      font-size: var(--fs-15);
-      font-weight: 300;
-      color: rgba(var(--c-cream-rgb),0.68);
-      line-height: 1.75;
-    }
-    .why-body + .why-body { margin-top: var(--s-2); }
-    .why-body--em { font-weight: 500; color: var(--c-ghost-l); }
-
-    /* ════════════════════════════════════════
-       WORKFORCE GAP (full-bleed split)
-    ════════════════════════════════════════ */
-    .gap-split {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-    }
-    .gap-col {
-      padding: var(--s-10) var(--s-10);
-    }
-    .gap-col--l { background: var(--c-sand-d); }
-    .gap-col--r { background: var(--c-sand); }
-    .gap-col__inner {
-      max-width: 480px;
-    }
-    .gap-col--l .gap-col__inner { margin-left: auto; }
-    .gap-col--r .gap-col__inner { margin-right: auto; }
-    .gap-heading {
-      font-family: 'EB Garamond', Georgia, serif;
-      font-size: var(--fs-h2);
-      font-weight: 700;
-      color: var(--c-ink);
-      line-height: 1.15;
-      margin-bottom: var(--s-3);
-    }
 
     /* ════════════════════════════════════════
        ROCKET DIVIDER
@@ -1119,15 +980,6 @@
     a.prog-tag { text-decoration: none; }
     a.prog-tag:hover { opacity: 0.8; }
     .prog-card--featured a.prog-tag:hover { opacity: 0.85; }
-    .prog-tag-group {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-top: var(--s-3);
-      align-self: flex-start;
-      position: relative; z-index: 1;
-    }
-    .prog-tag-group .prog-tag { margin-top: 0; }
 
     /* ─── PROGRAM STATUS PILLS + DIMMED STATE ─── */
     .prog-pill {
@@ -1145,25 +997,6 @@
       background: var(--c-cream);
       color: var(--c-accent-text);
     }
-    .prog-pill.pill-paused {
-      background: rgba(var(--c-dusk-rgb),0.12);
-      color: var(--c-dusk);
-    }
-    .prog-pill.pill-planned {
-      background: rgba(var(--c-ink-l-rgb),0.12);
-      color: var(--c-ink-l);
-    }
-    .prog-card.prog-dimmed {
-      opacity: 0.72;
-    }
-    .prog-card.prog-dimmed .prog-title,
-    .prog-card.prog-dimmed .prog-body {
-      color: var(--c-ink-l);
-    }
-
-    /* ════════════════════════════════════════
-       PLEDGE
-    ════════════════════════════════════════ */
     /* right col */
     .pledge-copy {
       /* Was measured by the two-column .pledge-layout grid, removed 2026-08-05
@@ -1178,50 +1011,6 @@
     .pledge-cta { margin-top: var(--s-4); }
 
     /* full-width closer */
-    .pledge-closer {
-      padding-top: var(--s-8);
-      border-top: 1px solid rgba(var(--c-ghost-rgb),0.1);
-      text-align: center;
-    }
-    .pledge-closer__text {
-      font-family: 'EB Garamond', Georgia, serif;
-      font-size: var(--fs-pull);
-      font-weight: 700;
-      font-style: italic;
-      color: var(--c-cream);
-      line-height: 1.35;
-    }
-
-    /* ════════════════════════════════════════
-       AUDIENCE
-    ════════════════════════════════════════ */
-    .audience-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 2px;
-      margin-top: var(--s-6);
-      background: var(--c-ghost);
-      border: 2px solid var(--c-ghost);
-    }
-    .aud-card {
-      background: var(--c-cream);
-      padding: 30px 22px;
-      transition: background 0.2s;
-    }
-    .aud-card:hover { background: var(--c-sand); }
-    .aud-title {
-      font-family: 'EB Garamond', Georgia, serif;
-      font-size: var(--fs-22);
-      font-weight: 700;
-      color: var(--c-ink);
-      margin-bottom: 8px;
-    }
-    .aud-body {
-      font-size: 13px;
-      font-weight: 300;
-      color: var(--c-ink-m);
-      line-height: 1.7;
-    }
 
     /* ════════════════════════════════════════
        FOUNDER
@@ -1403,32 +1192,18 @@
     }
     @media (max-width: 860px) {
       :root { --gutter: 28px; }
-      .why-grid      { grid-template-columns: 1fr; gap: var(--s-6); }
       .footer__top   { grid-template-columns: 1fr; gap: var(--s-5); }
       .footer__bottom { flex-direction: column; gap: 8px; text-align: center; }
     }
     @media (max-width: 640px) {
       :root { --gutter: 20px; }
       .stats__grid   { grid-template-columns: 1fr 1fr; }
-      .gap-split     { grid-template-columns: 1fr; }
-      .gap-col       { padding: var(--s-6) var(--gutter); }
       .prog-grid     { grid-template-columns: 1fr; }
-      .audience-grid { grid-template-columns: 1fr 1fr; }
       .founder-layout { grid-template-columns: 1fr; }
       .founder-img-wrap { max-width: 220px; }
-      .partners__sep { display: none; }
-    }
-    @media (max-width: 420px) {
-      .audience-grid { grid-template-columns: 1fr; }
     }
 
     /* ─── PARTNER GROUPS (ported from ai-readiness) ─── */
-    .partner-groups {
-      display: flex;
-      flex-direction: column;
-      gap: var(--s-5);
-      margin-top: var(--s-5);
-    }
     .partner-group__label {
       font-size: var(--fs-10);
       font-weight: 500;
