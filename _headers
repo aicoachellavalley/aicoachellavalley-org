@@ -1,3 +1,8 @@
+# Defence in depth for the _redirects rule below it: if a .md ever reaches a
+# client, it must still not be indexable. Added 2026-08-06 with the exposure fix.
+/*.md
+  X-Robots-Tag: noindex, nofollow, noarchive
+
 /*
   X-Frame-Options: DENY
   X-Content-Type-Options: nosniff

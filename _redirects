@@ -1,1 +1,12 @@
 /ai-readiness / 301
+
+# ── Operational docs are NOT public ─────────────────────────────────────────
+# Every file in the repo root deploys on Cloudflare Pages, so anything
+# committed here is served unless a rule says otherwise. Before 2026-08-06
+# /STATE.md (145KB), /HANDOFF.md and /README.md all returned 200, and
+# robots.txt Allow:/ plus Content-Signal: ai-train=yes invited crawlers into
+# them explicitly.
+#
+# PATTERN, not filenames, on purpose: a future operational doc dropped in the
+# root is private by default rather than by someone remembering to add a line.
+/*.md /404.html 404
