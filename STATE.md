@@ -1234,6 +1234,53 @@ Recommendation: **option 2**. It removes the exposure without moving anything or
 touching the session convention. `robots.txt` needs no change — a 404 is not
 indexable.
 
+## Print sheet now fits one page — 2026-08-06
+
+**Letter 1291px → 895px against a 935px printable area. A4 → 911px against 1002.
+Fits both, with 40px and 91px to spare.** The on-screen claim that it "lays out clean
+on one sheet" is now true; it had been false since the page was built.
+
+**Letter is the binding constraint, not A4** — 935 vs 1002 usable height at
+`@page margin: 16mm 14mm`. Every candidate was measured at **710px** (Letter's
+printable width) and 688px (A4's), never against an iframe's own height, which
+measures nothing and is what hid this in the first place.
+
+**The size decision was made against measurements, not taste.** The seven principles
+were 750px of the 1321 — 57% of the sheet — so that is where the reduction had to come
+from. The trade is direct, and every row here was measured:
+
+| body | padding | Letter | verdict |
+|---|---|---|---|
+| 10pt | 10pt | 1291 | baseline, over by 356 |
+| 9pt | 7pt | 938 | over by 3 |
+| 9pt | 6pt | 922 | fits, 13px headroom |
+| 9pt | 5pt | 917 | fits, 18px |
+| 9pt | 4pt | 901 | fits, 34px — but 11px between principles, 3 bodies still 3 lines |
+| **8.5pt** | **8pt** | **895** | **fits, 40px — all 7 bodies 2 lines, 21px between principles** |
+| 8.5pt | 9pt | 937 | over by 2 |
+
+**At 10pt every body ran to 3 lines; at 8.5pt all seven run to 2.** That makes the
+seven items visually even AND leaves room for generous padding. The alternative —
+holding 9pt — forces padding down to 4pt for the same headroom, which gives 11px
+between principles and leaves three bodies ragged at 3 lines. **Half a point of type
+buys the separation, so it was spent there.** This is a signable one-page artifact;
+even, well-separated items matter more on paper than half a point of body size.
+
+**Screen is provably unchanged.** Screen and print are separate media blocks, and
+everything in the file before `@media print` is byte-identical to the previous commit.
+Positive control first (1 mismatch on a single-property change), then pledge at 1280
+and 375: **0 mismatches, 160/160 elements, document heights identical at 3267 and
+4545.**
+
+**Print integrity re-checked after the retune:** 7 principles, 2 signature lines,
+nav/drawer/footer/workshop hidden, attribution shown, volt tile still reverting to
+transparent.
+
+**Headroom is deliberate, not incidental.** 40px on Letter is 4.3%. Print engines
+differ from screen layout by a percent or two on font hinting at print DPI, so a
+13px or 18px margin — which two of the candidates offered — is not safe. Anything
+added to this sheet later must be re-measured against 935 at 710px.
+
 ## --s-7 fixed, and the print sheet does not fit one page — 2026-08-06
 
 **RULING: `--s-6` (48px).** Not a taste call once measured. Every internal hairline
@@ -1269,8 +1316,8 @@ nondeterminism this harness has needed closing — lazy images, then animations,
 fonts. The md5 check is what proved it was the instrument and not the page; without
 comparing the files first this reads as a real 154-element regression.**
 
-**SEPARATE DEFECT, NOT FIXED — the print sheet has never fitted one page, and the
-page says it does.** Measured at true printable width (`@page margin: 16mm 14mm`):
+**SEPARATE DEFECT — FIXED in the follow-on commit. The print sheet had never fitted
+one page, and the page said it did.** Measured at true printable width (`@page margin: 16mm 14mm`):
 
 | | printable area | content | overflow |
 |---|---|---|---|

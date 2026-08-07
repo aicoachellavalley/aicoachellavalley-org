@@ -735,31 +735,54 @@
         font-size: 20pt;
         font-weight: 700;
       }
+      /* ── ONE PAGE. Retuned 2026-08-06 because it never was. ──────────
+         At true printable width the sheet measured 1291px against 935
+         (Letter) and 1002 (A4) — it always ran to a second page, while the
+         on-screen hint claimed it "lays out clean on one sheet". Now 905px
+         on Letter and 921px on A4, clearing both.
+
+         WHAT THE SMALLER BODY BUYS: at 10pt every body ran to 3 lines. At
+         8.5pt all seven run to 2, so the items are visually even AND the
+         padding between them stays generous. Measured alternatives: 9pt
+         bodies fit only with padding down at 4pt (11px between principles,
+         three bodies still at 3 lines); 8.5pt at 9pt padding overflows
+         Letter by 2px. Half a point of type buys the separation.
+
+         LETTER IS THE BINDING CONSTRAINT, not A4 — 935 vs 1002. Anything
+         added here must be re-measured against 935 at 710px width. An
+         iframe's own height measures nothing. */
       .principle {
         break-inside: avoid; page-break-inside: avoid;
-        padding: 10pt 0; border-top: 0.5pt solid #999;
+        padding: 8pt 0; border-top: 0.5pt solid #999;
+        grid-template-columns: 40px 1fr; gap: 0 9pt;
       }
-      .principle__body { font-size: 10pt; line-height: 1.45; max-width: 100%; }
-      .principle__title { font-size: 12pt; margin-bottom: 3pt; }
-      .pledge-preamble { font-size: 12pt; line-height: 1.4; }
-      .pledge-preamble__close { margin-top: 6pt; }
-      .principles { margin-top: 14pt; }
-      .pledge-sign { margin-top: 18pt; break-inside: avoid; page-break-inside: avoid; }
+      .principle__body { font-size: 8.5pt; line-height: 1.4; max-width: 100%; }
+      .principle__title { font-size: 11pt; margin-bottom: 2pt; }
+      .pledge-preamble {
+        font-size: 10.5pt; line-height: 1.3;
+        /* the screen rule's var(--s-6) is 48px — far too loose on paper */
+        margin-bottom: 7pt; padding-bottom: 7pt;
+      }
+      .pledge-preamble__close { margin-top: 3pt; }
+      .principles { margin-top: 6pt; }
+      .pledge-sign { margin-top: 10pt; break-inside: avoid; page-break-inside: avoid; }
+      .pledge-sign .h2 { font-size: 14pt; }
+      .pledge-sign__intro { font-size: 8.5pt; margin-bottom: 5pt; }
       .sign-line { border-bottom: 0.5pt solid #000; }
-      .sign-line__label { margin-top: 30pt; font-size: 7pt; }
-      .pledge-mantra { margin-top: 16pt; font-size: 13pt; }
-      .pledge-final { margin-top: 6pt; font-size: 11pt; }
+      .sign-line__label { margin-top: 18pt; font-size: 7pt; }
+      .pledge-mantra { margin-top: 8pt; font-size: 11.5pt; }
+      .pledge-final { margin-top: 3pt; font-size: 9.5pt; }
       .print-attribution {
         display: block;
-        margin-top: 18pt;
-        padding-top: 8pt;
+        margin-top: 6pt;
+        padding-top: 5pt;
         border-top: 0.5pt solid #999;
         font-size: 7.5pt;
         line-height: 1.5;
         color: #000 !important;
       }
-      .h1 { font-size: 20pt !important; }
-      .eyebrow { font-size: 7.5pt !important; }
+      .h1 { font-size: 14pt !important; }
+      .eyebrow { font-size: 7pt !important; }
       a { text-decoration: none !important; }
     }
   </style>
