@@ -1234,6 +1234,58 @@ Recommendation: **option 2**. It removes the exposure without moving anything or
 touching the session convention. `robots.txt` needs no change — a 404 is not
 indexable.
 
+## --s-7 fixed, and the print sheet does not fit one page — 2026-08-06
+
+**RULING: `--s-6` (48px).** Not a taste call once measured. Every internal hairline
+on `/pledge` already has 48px on both sides — `.principle` carries
+`padding: var(--s-6) 0`, so consecutive principles sit 48 above and 48 below their
+shared rule. The preamble's rule had 48 above and **0** below. `--s-6` restores that
+symmetry rather than inventing a value. `--s-8` would have made this one rule uniquely
+looser than the seven beneath it, and 64px is already doing real work as the
+last-principle-to-Sign-the-Pledge break.
+
+**The whole shorthand was replaced, not just the bottom.** `var(--s-7)` being invalid
+drops the entire `margin` declaration at computed-value time — `margin-top` and the
+left/right zeros go with it. Patching one side would have left the shorthand broken
+and looking fixed.
+
+**`--s-7` did not slip in twice.** Swept all six pages for any `var()` referencing an
+undeclared custom property, scale and colour: **one defect, now zero.** `--fs-pull` on
+pledge is undeclared but supplies a fallback, which is deliberate — index is the only
+page that declares it.
+
+**Verified — the shift is exactly the intended one.** Five untouched pages: 0
+mismatches at 1280 and 375, identical counts and heights. On pledge: **nothing above
+the rule moves**, 84 elements below it shift by exactly **48px**, and **zero x or
+width change** anywhere. Document height +48 at both widths.
+
+**HARNESS DEFECT FOUND MID-RUN — webfont race.** philanthropy@375 reported **154
+mismatches and +295px** on a file that is byte-identical between the two trees
+(md5 `fd0966b7dc` both). Cause: the two frames sampled on either side of EB Garamond /
+DM Sans resolving, which moves every text metric on the page. Fixed by awaiting
+`document.fonts.ready` in each frame before sampling; three consecutive re-runs then
+gave 0 / 0 / 0 with `fonts=loaded/loaded`. **This is the third distinct source of
+nondeterminism this harness has needed closing — lazy images, then animations, now
+fonts. The md5 check is what proved it was the instrument and not the page; without
+comparing the files first this reads as a real 154-element regression.**
+
+**SEPARATE DEFECT, NOT FIXED — the print sheet has never fitted one page, and the
+page says it does.** Measured at true printable width (`@page margin: 16mm 14mm`):
+
+| | printable area | content | overflow |
+|---|---|---|---|
+| A4 | 688 x 1002 | **1291px** before / 1321 after | 289 → 319 |
+| Letter | 710 x 935 | **1291px** before / 1321 after | 356 → 386 |
+
+It spilled to a second page from the day it was built; `--s-6` adds ~30px to an
+existing ~290px overflow and is not the cause. But `.pledge-print-hint` on screen
+reads *"Print this page to sign it — it lays out clean on one sheet."* **That claim is
+false and was false when written.** Either the print block tightens until it fits —
+the levers are `.principle` padding (10pt), `.principle__body` size (10pt) and
+`.principles` margin-top (14pt) — or the copy stops promising one sheet. A document
+people are asked to sign should not misdescribe itself. Left for its own commit
+because it is a design decision, not a mechanical fix.
+
 ## Token rename — the naming debt is paid — 2026-08-06
 
 **23 colour tokens became 20. 374 `var()` references rewritten. Zero visual change.**
@@ -1279,8 +1331,8 @@ roles that are designed to diverge. Only `ink`/`ink-m` shared a role as well as 
 
 **Role tokens untouched** — all eight still describe what they do.
 
-**PRE-EXISTING BUG FOUND, NOT FIXED — `pledge.html` uses `var(--s-7)` with no
-fallback, and `--s-7` is declared nowhere.** The spacing scale runs 1,2,3,4,5,6,8,10,14.
+**PRE-EXISTING BUG FOUND — FIXED 2026-08-06 in the follow-on commit. `pledge.html`
+used `var(--s-7)` with no fallback, and `--s-7` is declared nowhere.** The spacing scale runs 1,2,3,4,5,6,8,10,14.
 The declaration is invalid at computed-value time, so `.pledge-preamble`'s
 `margin-bottom` silently computes to 0 and the spacing comes from `padding-bottom`
 alone. **I introduced it in the 2026-08-05 volt session.** Left in place because

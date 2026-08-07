@@ -565,7 +565,18 @@
       font-weight: 400;
       line-height: 1.45;
       color: var(--c-text);
-      margin: 0 0 var(--s-7);
+      /* --s-7 does not exist — the scale is 1,2,3,4,5,6,8,10,14. The whole
+         shorthand was therefore invalid at computed-value time and dropped,
+         so margin-bottom silently computed to 0 and the gap under the rule
+         came from nothing. --s-6 rather than --s-8 because every internal
+         hairline on this page already has 48px on BOTH sides: .principle
+         carries padding: var(--s-6) 0, so consecutive principles sit 48
+         above and 48 below their shared rule. This rule had 48 above and 0
+         below; --s-6 restores that symmetry instead of inventing a value.
+         --s-8 is already doing real work as the last-principle-to-sign
+         break, and using it here would make this rule uniquely looser than
+         the seven beneath it. Fixed 2026-08-06. */
+      margin: 0 0 var(--s-6);
       padding-bottom: var(--s-6);
       border-bottom: 1px solid var(--c-border);
     }
