@@ -1,0 +1,188 @@
+---
+import '../styles/chrome.css';
+import '../styles/news.css';
+
+// ════════════════════════════════════════════════════════════════════════════
+// Chrome for the /news/ surface ONLY. The six hand-written pages in public/
+// do not use this and are not affected by anything here.
+//
+// The nav/footer markup and chrome.css are lifted from 404.html at 66e8000 —
+// the smallest page carrying complete chrome. Only 38 CSS rules (4,865 B) are
+// common to all six pages after the dead-CSS sweep, so there was no shared
+// base to reuse; this is a SEVENTH copy of the chrome. Phase 1 makes the
+// duplication worse, not better. Extracting one real stylesheet is the fix,
+// and it belongs in a later phase because it would edit all six pages.
+//
+// ⚠ The nav here carries a "News" link. The six static pages do NOT, because
+// adding it would edit them and destroy the byte-identity proof this
+// migration rests on. That inconsistency is deliberate and temporary —
+// Phase 2 propagates the nav.
+// ════════════════════════════════════════════════════════════════════════════
+
+interface Props {
+  title: string;
+  description: string;
+  canonical: string;
+  schema?: Record<string, unknown>;
+  ogType?: string;
+  publishedTime?: string;
+}
+
+const {
+  title,
+  description,
+  canonical,
+  schema,
+  ogType = 'website',
+  publishedTime,
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Favicon — the .nav__mark treatment (volt tile, dark serif "AI"), exported
+         2026-08-05. INTERIM: this is the CURRENT mark, not the AiCV/sun wordmark,
+         which does not exist as artwork yet. See STATE.md. -->
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="theme-color" content="#081C15" />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <meta property="og:type" content={ogType} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content="AI Coachella Valley" />
+    {publishedTime && <meta property="article:published_time" content={publishedTime} />}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+
+    <link rel="alternate" type="application/rss+xml" title="AI Coachella Valley — News" href="/news/rss.xml" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap"
+      rel="stylesheet"
+    />
+
+    {schema && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}
+  </head>
+
+  <body>
+    <!-- ── NAV ── -->
+    <nav class="nav">
+      <div class="nav__inner">
+        <a href="/" class="nav__logo">
+          <div class="nav__mark">AI</div>
+          <span class="nav__name">AI Coachella Valley</span>
+        </a>
+        <ul class="nav__links">
+          <li><a href="/philanthropy" class="nav__cta">Philanthropy</a></li>
+          <li><a href="/#programs">Build</a></li>
+          <li><a href="/events">Events</a></li>
+          <li><a href="/news">News</a></li>
+          <li><a href="/pledge">The Pledge</a></li>
+          <li><a href="/#founder">About</a></li>
+          <li><a href="https://aicoachellavalley.com">Intelligence Network ↗</a></li>
+        </ul>
+        <button
+          class="nav__hamburger"
+          id="nav-toggle"
+          aria-label="Open menu"
+          onclick="this.classList.toggle('is-open');document.getElementById('nav-drawer').classList.toggle('is-open')"
+        >
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+
+    <div class="nav__drawer" id="nav-drawer">
+      <a
+        href="/philanthropy"
+        class="drawer-cta"
+        onclick="document.getElementById('nav-drawer').classList.remove('is-open');document.getElementById('nav-toggle').classList.remove('is-open')"
+        >Philanthropy</a
+      >
+      <a
+        href="/#programs"
+        onclick="document.getElementById('nav-drawer').classList.remove('is-open');document.getElementById('nav-toggle').classList.remove('is-open')"
+        >Build</a
+      >
+      <a
+        href="/events"
+        onclick="document.getElementById('nav-drawer').classList.remove('is-open');document.getElementById('nav-toggle').classList.remove('is-open')"
+        >Events</a
+      >
+      <a
+        href="/news"
+        onclick="document.getElementById('nav-drawer').classList.remove('is-open');document.getElementById('nav-toggle').classList.remove('is-open')"
+        >News</a
+      >
+      <a
+        href="/pledge"
+        onclick="document.getElementById('nav-drawer').classList.remove('is-open');document.getElementById('nav-toggle').classList.remove('is-open')"
+        >The Pledge</a
+      >
+      <a
+        href="/#founder"
+        onclick="document.getElementById('nav-drawer').classList.remove('is-open');document.getElementById('nav-toggle').classList.remove('is-open')"
+        >About</a
+      >
+      <a href="https://aicoachellavalley.com">Intelligence Network ↗</a>
+    </div>
+
+    <slot />
+
+    <!-- ── FOOTER ── -->
+    <footer class="footer">
+      <div class="footer__inner">
+        <div class="footer__top">
+          <div>
+            <div class="footer__mark">AICV · aicoachellavalley.org</div>
+            <div class="footer__name">AICV</div>
+            <p class="footer__desc">
+              Preparing the Coachella Valley for the future of work in the age of AI.<br /><br />A
+              fiscally sponsored project of Desert Community Foundation.
+            </p>
+          </div>
+          <div>
+            <div class="footer__col-label">Navigate</div>
+            <ul class="footer__links">
+              <li><a href="/philanthropy">Philanthropy</a></li>
+              <li><a href="/#programs">Build</a></li>
+              <li><a href="/events">Events</a></li>
+              <li><a href="/news">News</a></li>
+              <li><a href="/pledge">Responsible AI Pledge</a></li>
+              <li><a href="/#founder">About AICV</a></li>
+              <li><a href="/#founder">Founder</a></li>
+            </ul>
+          </div>
+          <div>
+            <div class="footer__col-label">Contact</div>
+            <ul class="footer__links">
+              <li><a href="mailto:sat@aicv.co">sat@aicv.co</a></li>
+              <li><a href="https://aicoachellavalley.com">Intelligence Network (.com) ↗</a></li>
+              <li><a href="https://sunshinefm.beehiiv.com">SunshineFM Newsletter ↗</a></li>
+              <li><a href="https://x.com/CoachellaAI">@CoachellaAI ↗</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer__bottom">
+          <div class="footer__copy">© 2026 AI Coachella Valley</div>
+          <div class="footer__tagline">Preparing the Valley for the age of AI.</div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

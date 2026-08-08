@@ -1,13 +1,13 @@
 # org/ operational state
 
 > Operational state only. Strategic state lives in `aicv-playbook/STATE.md`.
-> **Fresh session? Read `HANDOFF.md` first** (tight orientation), then this file for full detail. Current HEAD: **the site is SIX pages, `/pledge` is live, the rebrand backlog is EMPTY, the CSS is fully swept, and the token names now match BRAND.md §4** (2026-08-06). Operational docs 404 via a Pages Function. Step 5 (regenerate the pledge deck) and the X-Frame-Options item are both CLOSED BY REMOVAL — the deck and the lightbox no longer exist. Fiscal wording is canon-aligned on "project". `/pledge` is in the nav, drawer and footer on all six pages. The fiscal inventory is CUT: 24 placements to 14, and both "initiative" and "under Desert Community Foundation" are now zero sitewide. No known wording divergence remains. *(This pointer had been stale at `f86f83e`/2026-07-01 for five weeks — bump it every session.)*
+> **Fresh session? Read `HANDOFF.md` first** (tight orientation), then this file for full detail. Current HEAD: **.org is now an ASTRO HYBRID (2026-08-08) — the six hand-written pages live in `public/` and still ship byte-for-byte, `dist/` is the deploy directory, and there IS a build step. Run `npm run build` locally before every push.** `/news/` is a generated publishing surface; `sitemap.xml` and `llms.txt` are generated routes, not files. The site is SIX static pages, `/pledge` is live, the rebrand backlog is EMPTY, the CSS is fully swept, and the token names match BRAND.md §4 (2026-08-06). Operational docs 404 via a Pages Function. Step 5 (regenerate the pledge deck) and the X-Frame-Options item are both CLOSED BY REMOVAL — the deck and the lightbox no longer exist. Fiscal wording is canon-aligned on "project". `/pledge` is in the nav, drawer and footer on all six pages. The fiscal inventory is CUT: 24 placements to 14, and both "initiative" and "under Desert Community Foundation" are now zero sitewide. No known wording divergence remains. *(This pointer had been stale at `f86f83e`/2026-07-01 for five weeks — bump it every session.)*
 
 ## Current
 
-- Plain static HTML — no Astro, no build system
-- **FIVE** pages, not four (line counts as of the 2026-08-04 dead-CSS sweep): `index.html` (1792), `events.html` (773), `philanthropy.html` (999), `partner.html` (698), `404.html` (438). **`partner.html` is live at 200 but deliberately unlinked** (parked for v2 — see the 2026-07-01 entry); it carries the nav and footer, so it is in scope for anything site-wide and is easy to forget. (`ai-readiness.html` was RETIRED in `e519554`; `philanthropy.html` added in `456dede` — both prior session, between the 2026-06-09 and 2026-06-20 entries below.)
-- Supporting files: `sitemap.xml`, `robots.txt`, `llms.txt`, PDFs
+- **HYBRID as of 2026-08-08** — the six hand-written pages are still hand-written HTML and still ship byte-for-byte, but they now live in `public/` and are copied into `dist/` by an Astro build that also generates a `/news/` surface. **There IS a build step now.** `npm run build` locally before every push: Pages silently serves the last good build behind a failed one. See the 2026-08-08 entry.
+- **SIX** pages, not five (line counts measured 2026-08-08, all now under `public/`): `index.html` (1589), `events.html` (561), `philanthropy.html` (843), `partner.html` (714), `pledge.html` (951), `404.html` (510). The previous entry here said FIVE and omitted `pledge.html`, and its line counts predated the token rename and print-sheet work — both corrected 2026-08-08. **`partner.html` is live at 200 but deliberately unlinked** (parked for v2 — see the 2026-07-01 entry); it carries the nav and footer, so it is in scope for anything site-wide and is easy to forget. (`ai-readiness.html` was RETIRED in `e519554`; `philanthropy.html` added in `456dede` — both prior session, between the 2026-06-09 and 2026-06-20 entries below.)
+- Supporting files: `robots.txt` (hand-written, in `public/`), PDFs. **`sitemap.xml` and `llms.txt` are GENERATED** — they are Astro routes, not files, and cover the four public static pages plus every article automatically.
 - Agent endpoints: `/.well-known/api-catalog` (RFC 9727 linkset), `/.well-known/mcp/server-card.json`
 - `_headers`: security headers on `/*` + `Link: </.well-known/api-catalog>; rel="api-catalog"` + CORS + Content-Type overrides for agent endpoints
 - Deploy: auto-deploy on push to `main`; manual `wrangler pages deploy` available as fallback.
@@ -1194,6 +1194,129 @@ lands, at both 1280 and 375 — the `<img>` is absolutely positioned inside a
 
 ---
 
+## Astro hybrid + /news/ publishing surface — 2026-08-08 (PHASE 1)
+
+**The biggest structural change .org has had.** Purely additive: nothing that was live changed.
+
+### The shape
+
+Six hand-written pages moved to `public/`; Astro builds to `dist/`; `functions/` stays at the repo
+root, outside the build. `public/` is source, `dist/` is disposable and gitignored.
+
+**Proof it was non-destructive: all 26 shipping files are byte-identical from disk through
+`dist/`** — six pages, both PDFs, nine images, four hero variants, `robots.txt`, `_headers`,
+`_redirects`, and both `.well-known` endpoints. Vite copies `public/` with `fs.copyFileSync`, so
+"the file you edit is the file that ships" survives as "the file you edit is copied verbatim into
+the artifact that ships."
+
+### ⚠ outDir MUST be `dist/`, never the repo root
+
+`astro build` empties `outDir` on every build:
+
+```js
+if (settings.config?.vite?.build?.emptyOutDir !== false)
+  emptyDir(settings.config.outDir, new Set(".git"));
+```
+
+`new Set(".git")` is built from a **string**, so it holds the characters `.`, `g`, `i`, `t` — not
+the string `.git`. `has(".git")` is **false**. Re-verified in the installed 6.1.3 AND in 7.2.0 on
+2026-08-08; not fixed upstream. outDir at the repo root would delete the six pages, `functions/`,
+`_headers`, `_redirects` and **the git repository itself**.
+
+### Versions are PINNED EXACT
+
+`astro 6.1.3`, `@astrojs/mdx 5.0.3`, `@astrojs/rss 4.0.19` — matching `.com` exactly. **`^6.1.3`
+resolves to 6.4.8**, which would have put the two repos on different Astro versions, the opposite
+of the rule the pin exists to serve. Bump both repos together, deliberately.
+
+### What is generated vs hand-maintained
+
+- **Schema-validated** (build fails on violation): article `title` (10–70), `description`
+  (70–160), `date`, `tags` (1–5), `author`, `updated`, `draft`.
+- **Derived**: article URLs, `NewsArticle` JSON-LD, sitemap entries, llms.txt lines, RSS items.
+  Static-page `title`/`description` are parsed from each page's own `<title>` and meta description,
+  so the feeds cannot drift from the pages.
+- **Hand-maintained**: static-page `lastmod`, `changefreq`, `priority`, llms.txt prose preamble
+  (carried verbatim from `66e8000`), and the include/exclude decision itself.
+
+### `/partner` is deliberately absent from the feeds — and now that is enforced
+
+`/partner.html` is live at 200 but appears **zero** times in the shipped `sitemap.xml` and
+`llms.txt`. A glob over `public/*.html` would have silently added it, advertising a parked page.
+`src/data/site-pages.ts` records the decision; `scripts/prepare-feeds.mjs` **fails the build** if
+any `*.html` in `public/` is in neither `pages` nor `excluded`. Positive control run: the gate
+exits 1 on an unaccounted page and 0 once it is removed.
+
+### Three bugs caught in verification, all fixed
+
+1. **`node:fs` inside an Astro route does not work the way it looks.** Astro bundles routes into
+   `dist/.prerender/chunks/`, so `import.meta.url` resolves to the *built* location and
+   `new URL('../../public/', import.meta.url)` became `dist/public/` — ENOENT, build failed.
+   Fixed by moving the read into a prebuild script that writes JSON the routes import — the
+   pattern already proven on `.com` (`generate-stats.mjs` → `stats.json`).
+2. **RSS emitted URLs that do not exist.** `@astrojs/rss` appends a trailing slash by default, so
+   every item linked `/news/placeholder/` while the page is served at `/news/placeholder`. Fixed
+   with `trailingSlash: false`; must stay false while `trailingSlash: 'never'`.
+3. **Near-white text on near-white.** `.h1` and `.hero__subhead` in the chrome CSS are coloured
+   for the **dark** hero (`--c-paper` on `--c-ground`); reused on a paper background they were
+   invisible. Replaced with `.page__title` / `.page__lede`. Measured on `--c-paper` #FAFAF7:
+   `--c-text` **10.59:1**, `--c-text-l` **6.11:1** — both clear 4.5:1.
+
+### Costs, stated
+
+- **`.org` can now fail to deploy.** It could not before. Pages serves the last good build behind
+  a failure and the site looks healthy (playbook CLAUDE.md:402, confirmed 2026-06-03 when four
+  commits stalled behind an MDX error). `npm run build` locally before every push.
+- **A seventh chrome copy.** Only 38 CSS rules (4,865 B) are common to all six pages after the
+  dead-CSS sweep, so there was no shared base to reuse; `src/styles/chrome.css` is lifted from
+  `404.html`. Phase 1 makes the duplication worse. Extracting one real stylesheet is the fix and
+  it belongs in a later phase, because it would edit all six pages.
+- **`/news/` has no inbound human link.** The nav lives inside all six pages; adding "News" would
+  edit them and destroy the byte-identity proof. The news pages carry it in their own nav. Phase 2
+  propagates it.
+
+### CROSS-REPO ITEM — Astro security advisories, deliberately NOT actioned here
+
+`npm audit` on the pinned 6.1.3 reports **2 high, 1 moderate, 1 low**. All are fixed only by
+astro 7.2.0, so **`.com` on 6.1.3 carries identical exposure** — this is a two-repo item, not a
+`.org` item.
+
+Assessed exposure for `.org`, which is why it was not actioned:
+
+- 3 × Astro XSS (GHSA-4g3v-8h47-v7g6, GHSA-f48w-9m4c-m7f5, GHSA-7pw4-f3q4-r2p2) — all require
+  View Transitions, hydrated islands, or spread attributes. `.org` is `output: 'static'` with
+  **zero JS islands** and none of those features. Not reachable.
+- esbuild GHSA-g7r4-m6w7-qqqr — dev server only, Windows only. Not reachable.
+- sharp / libvips — `sharp` ships with astro but is **unused**: the hero images are hand-optimised
+  in `public/` and nothing uses `astro:assets`. Not reachable.
+
+**Ruling 2026-08-08: stay on 6.1.3 through this migration.** Changing Astro versions mid-migration
+would mix two variables. The upgrade is a deliberate JOINT `.org` + `.com` change, on its own,
+with its own verification.
+
+### Phase 2 — the nav-and-homepage pair
+
+These two are one job, because both edit the six pages' chrome and the homepage, and both destroy
+the byte-identity proof that Phase 1 rests on. They were deliberately excluded from Phase 1 for
+exactly that reason.
+
+1. **Propagate the "News" nav link** to all six static pages — nav *and* mobile drawer *and*
+   footer. Until this lands, `/news/` has **no inbound human link**: it is reachable only by direct
+   URL, `sitemap.xml`, `llms.txt` and RSS. The news pages carry the link in their own chrome, so
+   the nav is inconsistent between `/news/` (has it) and the six (do not). Deliberate and
+   temporary.
+2. **Homepage recent-articles section.** Deferred from Phase 1 because `index.html` shipping
+   byte-identical was the strongest available proof the migration changed nothing, and editing it
+   would have destroyed that proof exactly where it mattered most.
+
+### Unexpected improvement
+
+`STATE.md`, `HANDOFF.md` and `README.md` are **no longer in the deployed output at all** — they
+stay at the repo root, which is no longer the deploy directory. The Pages Function guard is now
+belt-and-braces rather than the only defence.
+
+---
+
 ## FINDING — STATE.md, HANDOFF.md and README.md are PUBLICLY SERVED — 2026-08-06
 
 Surfaced while verifying the CSS sweep, by checking whether this file is fetchable
@@ -2137,4 +2260,4 @@ After commit 70915fe deployed, re-ran both scans.
 1. Add hero-area program status summary line (AIO Tool HIGH from April scan — pill badges are card-level; scanner wants hero-area banner)
 2. ~~Fact-check `llms.txt` workshop count: "30+ workshops, 300+ participants in 2025"~~ **RESOLVED 2026-07-21** (`ddeab7f`): reframed **"in 2025" → "since 2025"** (cumulative, true going forward) on all four surfaces — figures 30+/300+ kept conservative. See the 2026-07-21 Programs-cards entry.
 3. `404.html` eyebrow: "404 · Page Not Found" fits neither site eyebrow pattern (category label or brand/domain); cosmetic only
-4. `sitemap.xml` stale `lastmod`s (STILL OPEN as of 2026-06-20): homepage = 2026-04-22 (should be 2026-06-16 — reframed/polished, never bumped); `/philanthropy` = 2026-06-11 (should be 2026-06-19 — rebuilt). `/events` 2026-06-16 is correct. Bump on next touch of each page.
+4. ~~`sitemap.xml` stale `lastmod`s (STILL OPEN as of 2026-06-20)~~ **CLOSED PERMANENTLY 2026-08-08.** `sitemap.xml` is now a generated route, not a file. Article `lastmod`s derive from frontmatter (`updated ?? date`) and cannot go stale. The four static-page `lastmod`s remain hand-set in `src/data/site-pages.ts` — that much is unchanged from before — but they are now the *only* hand-maintained values in the file, and `scripts/prepare-feeds.mjs` fails the build if a page in `public/` is missing from the manifest entirely. The class of bug where a whole page silently drops out of the sitemap is gone.

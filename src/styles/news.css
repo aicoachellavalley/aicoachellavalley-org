@@ -1,0 +1,272 @@
+/* ══════════════════════════════════════════════════════════════════════════
+   /news/ — article typography.
+
+   Additions only. Every value below is drawn from the tokens already declared
+   in chrome.css (extracted verbatim from 404.html), so /news/ inherits the
+   site's type scale, palette and spacing rather than inventing a second system.
+
+   ⚠ CASCADE TRAP: :root is re-declared inside the @media blocks in
+   chrome.css (only to reset --gutter). Any NEW token goes in the TOP :root
+   there, never in a media block. Nothing new is declared here.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* ── shared page shell ─────────────────────────────────────────────────── */
+.page {
+  background: var(--c-paper);
+  padding: var(--s-14) 0 var(--s-10);
+}
+.page__inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+.page__narrow {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+/* ── page heading ──────────────────────────────────────────────────────────
+   NOT .h1 / .hero__subhead from chrome.css. Those are coloured for the DARK
+   hero (--c-paper on --c-ground); reusing them on a paper background rendered
+   near-white on near-white — invisible. Caught in Stage 2 verification.
+   Measured on --c-paper #FAFAF7:
+     --c-text   #1B4332 = 10.59:1   --c-text-l #2D6A4F = 6.11:1
+   Both clear 4.5:1 normal text.
+   ────────────────────────────────────────────────────────────────────────── */
+.page__title {
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: var(--fs-h1);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.015em;
+  color: var(--c-text);
+  margin: 0 0 var(--s-3);
+}
+.page__lede {
+  font-size: var(--fs-17);
+  font-weight: 300;
+  line-height: 1.7;
+  color: var(--c-text-l);
+  max-width: 600px;
+  margin: 0;
+}
+.page__lede a {
+  color: var(--c-accent-text);
+  text-underline-offset: 2px;
+}
+
+/* ── /news index ───────────────────────────────────────────────────────── */
+.news-list {
+  list-style: none;
+  margin: var(--s-8) 0 0;
+  padding: 0;
+}
+.news-item {
+  padding: var(--s-6) 0;
+  border-top: 1px solid var(--c-border-l);
+}
+.news-item:last-child {
+  border-bottom: 1px solid var(--c-border-l);
+}
+.news-item__date {
+  display: block;
+  font-size: var(--fs-12);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--c-text-l);
+  margin-bottom: var(--s-2);
+}
+.news-item__title {
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: var(--fs-22);
+  font-weight: 600;
+  line-height: 1.25;
+  margin: 0 0 var(--s-2);
+}
+.news-item__title a {
+  color: var(--c-text);
+  text-decoration: none;
+}
+.news-item__title a:hover {
+  color: var(--c-accent-text);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.news-item__desc {
+  margin: 0;
+  font-size: var(--fs-15);
+  line-height: 1.7;
+  color: var(--c-text-l);
+}
+
+/* ── tags ──────────────────────────────────────────────────────────────── */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+  margin: var(--s-4) 0 0;
+  padding: 0;
+  list-style: none;
+}
+.tag {
+  font-size: var(--fs-10);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border: 1px solid var(--c-border);
+  border-radius: 2px;
+  color: var(--c-text-l);
+}
+
+/* ── article ───────────────────────────────────────────────────────────── */
+.article__header {
+  padding-bottom: var(--s-6);
+  border-bottom: 1px solid var(--c-border-l);
+  margin-bottom: var(--s-8);
+}
+.article__meta {
+  font-size: var(--fs-12);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--c-text-l);
+  margin: 0 0 var(--s-3);
+}
+.article__title {
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: var(--fs-h1);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.015em;
+  margin: 0 0 var(--s-3);
+  color: var(--c-text);
+}
+.article__standfirst {
+  font-size: var(--fs-17);
+  line-height: 1.65;
+  color: var(--c-text-l);
+  margin: 0;
+}
+
+/* MDX body. Descendant selectors because the markdown emits bare tags. */
+.article__body > :first-child {
+  margin-top: 0;
+}
+.article__body p {
+  font-size: var(--fs-17);
+  line-height: 1.8;
+  margin: 0 0 var(--s-5);
+  color: var(--c-text);
+}
+.article__body h2 {
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: var(--fs-h2);
+  font-weight: 600;
+  line-height: 1.25;
+  margin: var(--s-8) 0 var(--s-3);
+  color: var(--c-text);
+}
+.article__body h3 {
+  font-size: var(--fs-17);
+  font-weight: 500;
+  margin: var(--s-6) 0 var(--s-2);
+  color: var(--c-text);
+}
+.article__body ul,
+.article__body ol {
+  margin: 0 0 var(--s-5);
+  padding-left: var(--s-5);
+}
+.article__body li {
+  font-size: var(--fs-17);
+  line-height: 1.8;
+  margin-bottom: var(--s-2);
+}
+.article__body a {
+  color: var(--c-accent-text);
+  text-underline-offset: 2px;
+}
+.article__body blockquote {
+  margin: var(--s-6) 0;
+  padding-left: var(--s-4);
+  border-left: 3px solid var(--c-accent-fill);
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: var(--fs-22);
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--c-text-l);
+}
+.article__body code {
+  font-size: 0.9em;
+  background: var(--c-surface);
+  border: 1px solid var(--c-border-l);
+  border-radius: 2px;
+  padding: 1px 5px;
+}
+.article__body pre {
+  overflow-x: auto;
+  background: var(--c-surface);
+  border: 1px solid var(--c-border-l);
+  border-radius: 3px;
+  padding: var(--s-4);
+  margin: 0 0 var(--s-5);
+}
+.article__body pre code {
+  background: none;
+  border: 0;
+  padding: 0;
+}
+.article__body img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 3px;
+}
+.article__body hr {
+  border: 0;
+  border-top: 1px solid var(--c-border-l);
+  margin: var(--s-8) 0;
+}
+
+.article__footer {
+  margin-top: var(--s-10);
+  padding-top: var(--s-6);
+  border-top: 1px solid var(--c-border-l);
+}
+
+/* ── placeholder banner ────────────────────────────────────────────────── */
+.placeholder-note {
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-left: 3px solid var(--c-accent-fill);
+  border-radius: 3px;
+  padding: var(--s-4);
+  margin: 0 0 var(--s-8);
+  font-size: var(--fs-13);
+  line-height: 1.7;
+  color: var(--c-text-l);
+}
+
+/* ── back link ─────────────────────────────────────────────────────────── */
+.backlink {
+  display: inline-block;
+  font-size: var(--fs-13);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--c-text-l);
+  text-decoration: none;
+}
+.backlink:hover {
+  color: var(--c-accent-text);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+@media (max-width: 640px) {
+  .page {
+    padding: var(--s-10) 0 var(--s-8);
+  }
+  .article__body p,
+  .article__body li {
+    font-size: var(--fs-15);
+  }
+}

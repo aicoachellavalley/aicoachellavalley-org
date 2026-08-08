@@ -1,0 +1,86 @@
+---
+import { getCollection, render } from 'astro:content';
+import NewsLayout from '../../layouts/NewsLayout.astro';
+
+const SITE = 'https://aicoachellavalley.org';
+
+export async function getStaticPaths() {
+  const articles = await getCollection('news');
+  return articles.map((article) => ({
+    params: { slug: article.id },
+    props: { article },
+  }));
+}
+
+const { article } = Astro.props;
+const { Content } = await render(article);
+
+const url = `${SITE}/news/${article.id}`;
+const published = article.data.date.toISOString();
+const modified = (article.data.updated ?? article.data.date).toISOString();
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    timeZone: 'UTC',
+  });
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'NewsArticle',
+  headline: article.data.title,
+  description: article.data.description,
+  datePublished: published,
+  dateModified: modified,
+  author: { '@type': 'Person', name: article.data.author },
+  publisher: {
+    '@type': 'Organization',
+    name: 'AI Coachella Valley',
+    url: SITE,
+  },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+  url,
+  keywords: article.data.tags.join(', '),
+  isAccessibleForFree: true,
+  areaServed: {
+    '@type': 'Place',
+    name: 'Coachella Valley, California',
+  },
+  ...(article.data.image ? { image: `${SITE}${article.data.image.src}` } : {}),
+};
+---
+
+<NewsLayout
+  title={`${article.data.title} — AI Coachella Valley`}
+  description={article.data.description}
+  canonical={url}
+  schema={schema}
+  ogType="article"
+  publishedTime={published}
+>
+  <article class="page">
+    <div class="page__narrow">
+      <a href="/news" class="backlink">← News</a>
+
+      <header class="article__header" style="margin-top:var(--s-5)">
+        <p class="article__meta">
+          {fmt(article.data.date)} · {article.data.author}
+        </p>
+        <h1 class="article__title">{article.data.title}</h1>
+        <p class="article__standfirst">{article.data.description}</p>
+      </header>
+
+      <div class="article__body">
+        <Content />
+      </div>
+
+      <footer class="article__footer">
+        <ul class="tags">
+          {article.data.tags.map((t) => <li class="tag">{t}</li>)}
+        </ul>
+      </footer>
+    </div>
+  </article>
+</NewsLayout>

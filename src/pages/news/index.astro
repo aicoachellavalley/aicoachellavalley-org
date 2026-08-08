@@ -1,0 +1,65 @@
+---
+import { getCollection } from 'astro:content';
+import NewsLayout from '../../layouts/NewsLayout.astro';
+
+const SITE = 'https://aicoachellavalley.org';
+
+const articles = (await getCollection('news'))
+  .filter((a) => !a.data.draft)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    timeZone: 'UTC',
+  });
+
+const title = 'News — AI Coachella Valley';
+const description =
+  'Editorial coverage of AI in the Coachella Valley: what is happening across the nine cities, and why it matters here.';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'AI Coachella Valley — News',
+  description,
+  url: `${SITE}/news`,
+  isPartOf: { '@type': 'WebSite', name: 'AI Coachella Valley', url: SITE },
+  publisher: { '@type': 'Organization', name: 'AI Coachella Valley', url: SITE },
+};
+---
+
+<NewsLayout title={title} description={description} canonical={`${SITE}/news`} schema={schema}>
+  <section class="page">
+    <div class="page__narrow">
+      <span class="eyebrow">News</span>
+      <h1 class="page__title">What's happening with AI in the valley.</h1>
+      <p class="page__lede">
+        Editorial coverage of AI across the nine cities — what is happening, and why it matters
+        here. Also available as <a href="/news/rss.xml">RSS</a>.
+      </p>
+
+      {
+        articles.length === 0 ? (
+          <p class="news-item__desc" style="margin-top:var(--s-8)">
+            No articles published yet.
+          </p>
+        ) : (
+          <ul class="news-list">
+            {articles.map((a) => (
+              <li class="news-item">
+                <span class="news-item__date">{fmt(a.data.date)}</span>
+                <h2 class="news-item__title">
+                  <a href={`/news/${a.id}`}>{a.data.title}</a>
+                </h2>
+                <p class="news-item__desc">{a.data.description}</p>
+              </li>
+            ))}
+          </ul>
+        )
+      }
+    </div>
+  </section>
+</NewsLayout>
