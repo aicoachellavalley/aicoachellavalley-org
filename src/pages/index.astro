@@ -1,3 +1,44 @@
+---
+// ════════════════════════════════════════════════════════════════════════════
+// The AICV homepage. Converted from public/index.html to an Astro page on
+// 2026-08-09 (Phase 2) for ONE reason: the recent-articles section needs the
+// news collection, and a static file in public/ cannot read it at build time.
+//
+// The OTHER FIVE PAGES REMAIN STATIC HTML IN public/. That asymmetry is
+// deliberate — only this page needs the collection. Do not "fix" it by
+// converting the rest; that is a separate decision with its own verification.
+//
+// The alternatives were rejected: a prebuild script rewriting public/index.html
+// mutates a tracked source file on every build; injecting into dist/ makes the
+// deployed homepage stop being the file you edit; and a client-side fetch is
+// invisible to agents, which is why the D3 graph was removed in 2e3dce8.
+//
+// ⚠ THE STYLE BLOCK BELOW MUST KEEP `is:inline`. Two failure modes, both real,
+// both caught in Stage 2 verification on 2026-08-09:
+//
+//   · plain style      -> Astro SCOPES it. Every rule stops matching this
+//                         hand-written markup and the page renders unstyled.
+//   · style is:global  -> not scoped, but Astro EXTRACTS the CSS to
+//                         /_astro/*.css. Verified: the page shipped with zero
+//                         inline CSS and a render-blocking stylesheet link,
+//                         while the other five pages keep 15-24KB inline. That
+//                         adds a round trip before first paint on the landing
+//                         page, and silently diverges it from the rest of the
+//                         site.
+//
+// `is:inline` opts out of ALL Astro processing: the CSS ships exactly as
+// authored, in place, matching the other five pages.
+// ════════════════════════════════════════════════════════════════════════════
+import { getCollection } from 'astro:content';
+
+const articles = (await getCollection('news'))
+  .filter((a) => !a.data.draft)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 3);
+
+const fmt = (d) =>
+  d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
+---
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,7 +78,7 @@
   <meta name="twitter:description" content="Start here to understand, build, invest in, or join the Coachella Valley's emerging AI startup ecosystem. AICV connects founders, builders, capital, educational programs, and agent-readable regional intelligence.">
   <meta name="twitter:image" content="https://aicoachellavalley.org/sat-tedx.png">
 
-  <script type="application/ld+json">
+  <script type="application/ld+json" is:inline>
   {
     "@context": "https://schema.org",
     "@graph": [
@@ -359,7 +400,7 @@
     ]
   }
   </script>
-  <style>
+  <style is:inline>
     /* ════════════════════════════════════════
        DESIGN TOKENS — single source of truth
     ════════════════════════════════════════ */
@@ -716,6 +757,74 @@
        scrim turns vertical so it covers the type band and clears for the palms.
        Placed immediately after the base rules it overrides — the source-order
        cascade trap this file has hit three times. */
+
+    /* ── NEWS (homepage) — added 2026-08-09, Phase 2 ──────────────────────
+       Mirrors .prog-grid / .prog-card so the section reads as part of the
+       page, with ONE difference: auto-fit instead of repeat(3, 1fr), so the
+       grid is not broken by 1 or 2 articles. With one article the card fills
+       the row; with two, halves; with three, thirds. */
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+      gap: 2px;
+      background: var(--c-border);
+      border: 2px solid var(--c-border);
+    }
+    .news-card {
+      background: var(--c-paper);
+      padding: 26px 24px;
+      display: flex;
+      flex-direction: column;
+      /* No min-height on purpose. Grid items stretch to the tallest card in the
+         row automatically, so multi-card rows still align — while a SINGLE card
+         stays compact instead of sitting above ~80px of dead space. */
+      text-decoration: none;
+    }
+    .news-card:hover .news-card__title { color: var(--c-accent-text); text-decoration: underline; text-underline-offset: 3px; }
+    .news-card__date {
+      font-size: var(--fs-10);
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--c-text-l);
+      margin-bottom: 10px;
+    }
+    .news-card__title {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: var(--fs-22);
+      font-weight: 700;
+      color: var(--c-text);
+      line-height: 1.2;
+      margin: 0 0 10px;
+    }
+    .news-card__body {
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--c-text);
+      line-height: 1.65;
+      flex: 1;
+      margin: 0;
+    }
+    .news-card__more {
+      margin-top: 16px;
+      font-size: var(--fs-12);
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--c-accent-text);
+    }
+    .news-all {
+      display: inline-block;
+      margin-top: 24px;
+      font-size: var(--fs-13);
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--c-accent-text);
+      text-decoration: none;
+    }
+    .news-all:hover { text-decoration: underline; text-underline-offset: 3px; }
+
     @media (max-width: 700px) {
       .hero { min-height: 460px; }
       .hero::before {
@@ -1282,6 +1391,7 @@
       <li><a href="/philanthropy" class="nav__cta">Philanthropy</a></li>
       <li><a href="#programs">Build</a></li>
       <li><a href="/events">Events</a></li>
+      <li><a href="/news">News</a></li>
       <li><a href="/pledge">The Pledge</a></li>
       <li><a href="#founder">About</a></li>
       <li><a href="https://aicoachellavalley.com">Intelligence Network ↗</a></li>
@@ -1296,6 +1406,7 @@
   <a href="/philanthropy" class="drawer-cta" onclick="document.getElementById('nav-drawer').classList.remove('is-open');document.getElementById('nav-toggle').classList.remove('is-open')">Philanthropy</a>
   <a href="#programs" onclick="document.getElementById('nav-drawer').classList.remove('is-open');document.getElementById('nav-toggle').classList.remove('is-open')">Build</a>
   <a href="/events" onclick="document.getElementById('nav-drawer').classList.remove('is-open');document.getElementById('nav-toggle').classList.remove('is-open')">Events</a>
+  <a href="/news" onclick="document.getElementById('nav-drawer').classList.remove('is-open');document.getElementById('nav-toggle').classList.remove('is-open')">News</a>
   <a href="/pledge" onclick="document.getElementById('nav-drawer').classList.remove('is-open');document.getElementById('nav-toggle').classList.remove('is-open')">The Pledge</a>
   <a href="#founder" onclick="document.getElementById('nav-drawer').classList.remove('is-open');document.getElementById('nav-toggle').classList.remove('is-open')">About</a>
   <a href="https://aicoachellavalley.com">Intelligence Network ↗</a>
@@ -1415,7 +1526,28 @@
   </div>
 </div>
 
-<!-- ── PARTNERS ── -->
+<!-- ── NEWS ── -->
+  {articles.length > 0 && (
+  <section class="section" id="news">
+    <div class="wrap">
+      <span class="eyebrow">News</span>
+      <h2 class="h2">What's happening now.</h2>
+      <div class="news-grid">
+        {articles.map((a) => (
+          <a class="news-card" href={`/news/${a.id}`}>
+            <span class="news-card__date">{fmt(a.data.date)}</span>
+            <h3 class="news-card__title">{a.data.title}</h3>
+            <p class="news-card__body">{a.data.description}</p>
+            <span class="news-card__more">Read →</span>
+          </a>
+        ))}
+      </div>
+      <a href="/news" class="news-all">All news →</a>
+    </div>
+  </section>
+  )}
+
+  <!-- ── PARTNERS ── -->
 <section class="section section--sand">
   <div class="wrap">
     <span class="eyebrow">Partners</span>
@@ -1538,7 +1670,7 @@
         <p class="founder-bio">The future of AI should not be shaped only by large technology companies. Communities should help shape it too. That's what AICV is built to do — not as an abstract mission, but as a practical, on-the-ground program that meets people where they are across the nine cities of the Coachella Valley.</p>
         <p class="founder-bio">AICV was founded by Sat Singh — a TEDx Rancho Mirage speaker, community educator, and technology entrepreneur based in the Coachella Valley, who has spent the past decade building at the intersection of technology and community.</p>
         <p class="founder-bio">Since 2025, AICV has hosted over 30 workshops with more than 300 participants across 12+ community and school partners. In 2026, AICV is focused on the intelligence network — now live at aicoachellavalley.com and cited by AI systems querying the valley, while bringing the AI Tinkerers community to the desert: gathering the region's strongest builders to mentor the next generation and train the trainers.</p>
-        <p class="founder-bio">Sat Singh writes the AI beat for the Inland Empire. His own news, views, and muse — and weekend radio for Palm Springs Coachella — can be experienced at <a href="https://sunshine.fm/" target="_blank" rel="noopener">SunshineFM</a>.</p>
+        <p class="founder-bio">Sat Singh covers the AI beat for the Inland Empire at InformedIE. He writes about AI, business, media, and culture in the Coachella Valley at <a href="/news">AICV News</a>, and hosts a daily talk show and weekend radio for Palm Springs Coachella at <a href="https://sunshine.fm/" target="_blank" rel="noopener">SunshineFM</a>.</p>
         <div class="founder-sig">
           — Sat Singh
           <strong>Founder, AICV <span>(AI Coachella Valley)</span></strong>
@@ -1563,6 +1695,7 @@
           <li><a href="/philanthropy">Philanthropy</a></li>
           <li><a href="#programs">Build</a></li>
           <li><a href="/events">Events</a></li>
+          <li><a href="/news">News</a></li>
           <li><a href="/pledge">Responsible AI Pledge</a></li>
           <li><a href="#founder">About AICV</a></li>
           <li><a href="#founder">Founder</a></li>
@@ -1573,7 +1706,7 @@
         <ul class="footer__links">
           <li><a href="mailto:sat@aicv.co">sat@aicv.co</a></li>
           <li><a href="https://aicoachellavalley.com">Intelligence Network (.com) ↗</a></li>
-          <li><a href="https://sunshinefm.beehiiv.com">SunshineFM Newsletter ↗</a></li>
+          <li><a href="/news/rss.xml">News RSS ↗</a></li>
           <li><a href="https://x.com/CoachellaAI">@CoachellaAI ↗</a></li>
         </ul>
       </div>

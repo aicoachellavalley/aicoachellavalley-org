@@ -1,12 +1,12 @@
 # org/ operational state
 
 > Operational state only. Strategic state lives in `aicv-playbook/STATE.md`.
-> **Fresh session? Read `HANDOFF.md` first** (tight orientation), then this file for full detail. Current HEAD: **.org is an ASTRO HYBRID, LIVE IN PRODUCTION since 2026-08-09 (`5d354d4`) — the six hand-written pages live in `public/` and still ship byte-for-byte, `dist/` is the deploy directory, and there IS a build step. Run `npm run build` locally before every push.** `/news/` is a generated publishing surface; `sitemap.xml` and `llms.txt` are generated routes, not files. The site is SIX static pages, `/pledge` is live, the rebrand backlog is EMPTY, the CSS is fully swept, and the token names match BRAND.md §4 (2026-08-06). Operational docs 404 via a Pages Function. Step 5 (regenerate the pledge deck) and the X-Frame-Options item are both CLOSED BY REMOVAL — the deck and the lightbox no longer exist. Fiscal wording is canon-aligned on "project". `/pledge` is in the nav, drawer and footer on all six pages. The fiscal inventory is CUT: 24 placements to 14, and both "initiative" and "under Desert Community Foundation" are now zero sitewide. No known wording divergence remains. *(This pointer had been stale at `f86f83e`/2026-07-01 for five weeks — bump it every session.)*
+> **Fresh session? Read `HANDOFF.md` first** (tight orientation), then this file for full detail. Current HEAD: **.org is an ASTRO HYBRID, LIVE IN PRODUCTION since 2026-08-09 (`5d354d4`) — the six hand-written pages live in `public/` and still ship byte-for-byte, `dist/` is the deploy directory, and there IS a build step. Run `npm run build` locally before every push.** `/news/` is a generated publishing surface; `sitemap.xml` and `llms.txt` are generated routes, not files. **Phase 2 (2026-08-09) ended byte-identity**: the homepage is now `src/pages/index.astro` (the other five stay static HTML in `public/` — deliberate asymmetry), News is in the nav/drawer/footer on all six, and the homepage carries a recent-articles section. ⚠ `index.astro`'s style block MUST keep `is:inline`. The site is SIX static pages, `/pledge` is live, the rebrand backlog is EMPTY, the CSS is fully swept, and the token names match BRAND.md §4 (2026-08-06). Operational docs 404 via a Pages Function. Step 5 (regenerate the pledge deck) and the X-Frame-Options item are both CLOSED BY REMOVAL — the deck and the lightbox no longer exist. Fiscal wording is canon-aligned on "project". `/pledge` is in the nav, drawer and footer on all six pages. The fiscal inventory is CUT: 24 placements to 14, and both "initiative" and "under Desert Community Foundation" are now zero sitewide. No known wording divergence remains. *(This pointer had been stale at `f86f83e`/2026-07-01 for five weeks — bump it every session.)*
 
 ## Current
 
-- **HYBRID as of 2026-08-08** — the six hand-written pages are still hand-written HTML and still ship byte-for-byte, but they now live in `public/` and are copied into `dist/` by an Astro build that also generates a `/news/` surface. **There IS a build step now.** `npm run build` locally before every push: Pages silently serves the last good build behind a failed one. See the 2026-08-08 entry.
-- **SIX** pages, not five (line counts measured 2026-08-08, all now under `public/`): `index.html` (1589), `events.html` (561), `philanthropy.html` (843), `partner.html` (714), `pledge.html` (951), `404.html` (510). The previous entry here said FIVE and omitted `pledge.html`, and its line counts predated the token rename and print-sheet work — both corrected 2026-08-08. **`partner.html` is live at 200 but deliberately unlinked** (parked for v2 — see the 2026-07-01 entry); it carries the nav and footer, so it is in scope for anything site-wide and is easy to forget. (`ai-readiness.html` was RETIRED in `e519554`; `philanthropy.html` added in `456dede` — both prior session, between the 2026-06-09 and 2026-06-20 entries below.)
+- **HYBRID.** Five hand-written pages live in `public/` and ship byte-for-byte via Vite's `copyFileSync`. The **homepage is an Astro page** (`src/pages/index.astro`) because it reads the news collection — that asymmetry is deliberate, see the 2026-08-09 Phase 2 entry. **There IS a build step.** `npm run build` locally before every push: Pages silently serves the last good build behind a failed one.
+- **SIX** pages (line counts measured 2026-08-09): `src/pages/index.astro` (1722) — the ONLY Astro page — plus `public/events.html` (564), `public/philanthropy.html` (846), `public/partner.html` (717), `public/pledge.html` (954), `public/404.html` (513). **`partner.html` is live at 200 but deliberately unlinked** (parked for v2 — see the 2026-07-01 entry) and is absent from both feeds by recorded decision; it carries the nav and footer, so it is in scope for anything site-wide and is easy to forget. (`ai-readiness.html` was RETIRED in `e519554`; `philanthropy.html` added in `456dede`.)
 - Supporting files: `robots.txt` (hand-written, in `public/`), PDFs. **`sitemap.xml` and `llms.txt` are GENERATED** — they are Astro routes, not files, and cover the four public static pages plus every article automatically.
 - Agent endpoints: `/.well-known/api-catalog` (RFC 9727 linkset), `/.well-known/mcp/server-card.json`
 - `_headers`: security headers on `/*` + `Link: </.well-known/api-catalog>; rel="api-catalog"` + CORS + Content-Type overrides for agent endpoints
@@ -1191,6 +1191,96 @@ lands, at both 1280 and 375 — the `<img>` is absolutely positioned inside a
 - **CSS drops `to bottom` from computed gradient values** because it is the default.
   Testing for it inverts the direction; test for `to right` instead. This produced a
   false failure on mobile.
+
+---
+
+## PHASE 2 — News nav propagation + homepage articles — 2026-08-09
+
+**This phase deliberately ENDED the byte-identity of the six static pages.** That was Phase 1's
+proof. From here the proof is the differential.
+
+### What changed
+
+- **18 nav blocks** — News added to nav, mobile drawer and footer Navigate on all six pages.
+  Order: Philanthropy · Build · **Events · News** · The Pledge · About · Intelligence Network ↗.
+  News sits after Events because both are the site's only time-based surfaces.
+- **Homepage articles section** — three most recent, after the `.stats` band and before Partners.
+  Placed there, not after `#programs`, because the stats band ("30+ AI workshops hosted since
+  2025") is *evidence for* the programs; inserting between them split a tight pair.
+- **`public/index.html` → `src/pages/index.astro`.** See the asymmetry note below.
+- **Footer Beehiiv link → `/news/rss.xml`** ("News RSS ↗") on all six pages.
+- **Founder bio** replaced with Sat's final copy (InformedIE / AICV News / SunshineFM).
+
+### ⚠ THE HOMEPAGE IS AN ASTRO PAGE. THE OTHER FIVE ARE NOT. THIS IS DELIBERATE.
+
+Only the homepage needs the news collection, and a static file in `public/` cannot read it at
+build time. **Do not "fix" the asymmetry by converting the other five** — that is a separate
+decision with its own verification, and they have no reason to know about the collection.
+
+Rejected alternatives, with reasons, so this is not relitigated:
+- *prebuild script rewriting `public/index.html`* — mutates a tracked source file on every build;
+  "the file you edit is the file that ships" becomes "the file you edit gets rewritten".
+- *inject into `dist/` post-build* — the deployed homepage stops being the file you edit.
+- *client-side fetch* — invisible to agents. The D3 graph was removed in `2e3dce8` for exactly
+  this reason; repeating it would be a regression of the site's purpose.
+- *hand-write the cards* — guaranteed drift, the class of bug the feed gate exists to stop.
+
+### ⚠⚠ `src/pages/index.astro` — THE STYLE BLOCK MUST KEEP `is:inline`
+
+Two failure modes, **both observed, not theorised**:
+
+| directive | what actually happens |
+|---|---|
+| `<style>` (plain) | Astro **SCOPES** it. Every rule stops matching the hand-written markup; the page renders unstyled. |
+| `<style is:global>` | Not scoped — but Astro **EXTRACTS** the CSS to `/_astro/*.css`. Verified: the page shipped with **0 bytes inline** and a render-blocking `<link>`, while the other five carry 15–24KB inline. An extra round trip before first paint, on the landing page. |
+| `<style is:inline>` | **Correct.** Opts out of all Astro processing. Verified: source and output style blocks are byte-identical (33,960 B, same sha256). |
+
+The JSON-LD `<script>` likewise carries `is:inline` so the 7-node `@graph` is emitted verbatim.
+
+### Differential — the proof that replaced byte-identity
+
+Positive control FIRST: two identical captures diffed to **0/0/0** (deterministic), and one
+injected nav `<li>` produced 2 added / 13 changed, **all localised to NAV** (sensitive). Only then
+was the real differential run.
+
+Six pages × {1280, 375, drawer-open} = 18 comparisons. The pre-change state was reconstructed from
+`8cbc9b5` rather than trusted from memory.
+
+**Result: ZERO non-size changes on every page in every state.** No colour, font, spacing, display
+or border moved anywhere. Every diff is `width`/`height` reflow attributable to: the News nav item
+(+60px nav width), the footer News item (+35.5px footer height), the news section (+587px), or the
+longer founder bio (+26.25px on `#founder`).
+
+### Three harness artifacts — none were site bugs
+
+Recorded because each first appeared as a page-wide regression:
+
+1. **Scrollbar presence.** The iframe was 3000px tall; pages taller than that got a scrollbar and
+   a **1265px** viewport, pages shorter got **1280px**. That 15px moved every centred element and
+   read as "the whole page shifted". Fixed by sizing the iframe to 15000px so nothing ever
+   scrolls. **Check `BODY` width before believing a page-wide diff.**
+2. **Positional-path renumbering.** Inserting a `<section>` renumbers every later sibling
+   (`SECTION[7]`→`SECTION[8]`), so a path-keyed diff reported 128 added / 111 removed for one
+   inserted section. Diff by **content identity** (`tag|id|class|text`), not by path, and exclude
+   the inserted subtree so bucket pairing stays aligned.
+3. **Turnstile widget IDs.** `/partner` carries `<input id="cf-chl-widget-XXXXX_response">` with a
+   **random ID per page load**. This is the FIFTH nondeterminism source in this engagement, after
+   lazy images, animations, webfonts and the Cloudflare email re-keying.
+
+### `sameAs` — reported, unchanged, and one item pending
+
+Before any edit, the JSON-LD carried exactly two `sameAs` arrays:
+- **Organization** `#organization` — `aicoachellavalley.com`, `x.com/CoachellaAI`
+- **Person** `#sat-singh` — `https://sunshine.fm/`
+
+**Neither was changed.** InformedIE has no URL yet, so it is plain text in the bio. **When the URL
+exists it is a two-line change**: the bio link, and the Person `sameAs` array — the machine-readable
+half of the same claim.
+
+### Still true after this phase
+
+`/partner` remains absent from `sitemap.xml` and `llms.txt` (6 sitemap URLs, gate enforced); the
+`.md` guard, `/api/partner`, `robots.txt` and the `@graph[7]` are untouched.
 
 ---
 

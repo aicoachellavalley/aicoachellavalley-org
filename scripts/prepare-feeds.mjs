@@ -44,11 +44,17 @@ const manifest = readFileSync(manifestPath, 'utf8');
 const declared = [...manifest.matchAll(/file:\s*'([^']+)'/g)].map((m) => m[1]);
 if (declared.length === 0) fail('parsed zero `file:` entries from the manifest — the regex broke');
 
-const onDisk = readdirSync(publicDir).filter((f) => f.endsWith('.html'));
-if (onDisk.length === 0) fail('found zero *.html in public/ — the six pages should be there');
+// Paths in the manifest are REPO-RELATIVE. The homepage is src/pages/index.astro
+// (an Astro page, so it can read the news collection); the other five are
+// public/*.html. Only the public ones participate in the coverage sweep — an
+// Astro page cannot silently fail to be noticed, because it is a route.
+const onDisk = readdirSync(publicDir)
+  .filter((f) => f.endsWith('.html'))
+  .map((f) => `public/${f}`);
+if (onDisk.length === 0) fail('found zero *.html in public/ — the five static pages should be there');
 
 const missing = onDisk.filter((f) => !declared.includes(f));
-const phantom = declared.filter((f) => !onDisk.includes(f));
+const phantom = declared.filter((f) => f.startsWith('public/') && !onDisk.includes(f));
 
 if (missing.length)
   fail(
@@ -86,7 +92,9 @@ if (feedFiles.length === 0) fail('parsed zero path/file pairs — the `pages` re
 
 const meta = {};
 for (const file of feedFiles) {
-  const html = readFileSync(resolve(publicDir, file), 'utf8');
+  // Repo-relative. index.astro carries its <title> and meta description as
+  // plain markup in the template, so the same extraction works on both.
+  const html = readFileSync(resolve(root, file), 'utf8');
   const t = html.match(/<title>([\s\S]*?)<\/title>/i);
   const d = html.match(/<meta\s+name=["']description["']\s+content=["']([\s\S]*?)["']\s*\/?>/i);
 

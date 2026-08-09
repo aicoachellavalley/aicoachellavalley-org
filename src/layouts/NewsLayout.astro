@@ -13,10 +13,13 @@ import '../styles/news.css';
 // duplication worse, not better. Extracting one real stylesheet is the fix,
 // and it belongs in a later phase because it would edit all six pages.
 //
-// ⚠ The nav here carries a "News" link. The six static pages do NOT, because
-// adding it would edit them and destroy the byte-identity proof this
-// migration rests on. That inconsistency is deliberate and temporary —
-// Phase 2 propagates the nav.
+// The "News" link was propagated to all six static pages in Phase 2
+// (2026-08-09), ending the temporary inconsistency Phase 1 accepted.
+//
+// `is-active` on News lives HERE and nowhere else: none of the six static
+// pages IS /news, and the site's convention marks only the current page.
+// The convention is narrow — `.nav__links a.is-active` is the ONLY rule;
+// the drawer and footer have no active state anywhere on the site.
 // ════════════════════════════════════════════════════════════════════════════
 
 interface Props {
@@ -91,7 +94,7 @@ const {
           <li><a href="/philanthropy" class="nav__cta">Philanthropy</a></li>
           <li><a href="/#programs">Build</a></li>
           <li><a href="/events">Events</a></li>
-          <li><a href="/news">News</a></li>
+          <li><a href="/news" class="is-active">News</a></li>
           <li><a href="/pledge">The Pledge</a></li>
           <li><a href="/#founder">About</a></li>
           <li><a href="https://aicoachellavalley.com">Intelligence Network ↗</a></li>

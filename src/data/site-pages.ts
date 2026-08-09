@@ -22,7 +22,11 @@
 export interface SitePage {
   /** Served path, extensionless — how Cloudflare Pages serves it today. */
   path: string;
-  /** File in public/, used to parse title/description and to check coverage. */
+  /**
+   * REPO-RELATIVE path. The homepage is src/pages/index.astro (an Astro page,
+   * so it can read the news collection); the other five are public/*.html.
+   * That asymmetry is deliberate — only the homepage needs the collection.
+   */
   file: string;
   /**
    * HARDCODED, bumped by hand when the page is edited. This is exactly the
@@ -41,7 +45,7 @@ export interface SitePage {
 export const pages: SitePage[] = [
   {
     path: '/',
-    file: 'index.html',
+    file: 'src/pages/index.astro',
     lastmod: '2026-07-25',
     changefreq: 'weekly',
     priority: 1.0,
@@ -54,7 +58,7 @@ export const pages: SitePage[] = [
   },
   {
     path: '/events',
-    file: 'events.html',
+    file: 'public/events.html',
     lastmod: '2026-07-22',
     changefreq: 'weekly',
     priority: 0.8,
@@ -63,7 +67,7 @@ export const pages: SitePage[] = [
   },
   {
     path: '/philanthropy',
-    file: 'philanthropy.html',
+    file: 'public/philanthropy.html',
     lastmod: '2026-07-22',
     changefreq: 'monthly',
     priority: 0.8,
@@ -72,7 +76,7 @@ export const pages: SitePage[] = [
   },
   {
     path: '/pledge',
-    file: 'pledge.html',
+    file: 'public/pledge.html',
     lastmod: '2026-08-05',
     changefreq: 'yearly',
     priority: 0.8,
@@ -84,12 +88,12 @@ export const pages: SitePage[] = [
 /** Live pages deliberately kept OUT of every feed. Reasons are load-bearing. */
 export const excluded = [
   {
-    file: 'partner.html',
+    file: 'public/partner.html',
     reason:
       'Live at 200 but deliberately unlinked — parked for v2 (STATE.md 2026-07-01). Absent from sitemap.xml and llms.txt today; keeping it absent.',
   },
   {
-    file: '404.html',
+    file: 'public/404.html',
     reason: 'Error page. Never indexed; carries meta robots noindex.',
   },
 ];
