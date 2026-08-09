@@ -1,7 +1,7 @@
 # org/ operational state
 
 > Operational state only. Strategic state lives in `aicv-playbook/STATE.md`.
-> **Fresh session? Read `HANDOFF.md` first** (tight orientation), then this file for full detail. Current HEAD: **.org is now an ASTRO HYBRID (2026-08-08) — the six hand-written pages live in `public/` and still ship byte-for-byte, `dist/` is the deploy directory, and there IS a build step. Run `npm run build` locally before every push.** `/news/` is a generated publishing surface; `sitemap.xml` and `llms.txt` are generated routes, not files. The site is SIX static pages, `/pledge` is live, the rebrand backlog is EMPTY, the CSS is fully swept, and the token names match BRAND.md §4 (2026-08-06). Operational docs 404 via a Pages Function. Step 5 (regenerate the pledge deck) and the X-Frame-Options item are both CLOSED BY REMOVAL — the deck and the lightbox no longer exist. Fiscal wording is canon-aligned on "project". `/pledge` is in the nav, drawer and footer on all six pages. The fiscal inventory is CUT: 24 placements to 14, and both "initiative" and "under Desert Community Foundation" are now zero sitewide. No known wording divergence remains. *(This pointer had been stale at `f86f83e`/2026-07-01 for five weeks — bump it every session.)*
+> **Fresh session? Read `HANDOFF.md` first** (tight orientation), then this file for full detail. Current HEAD: **.org is an ASTRO HYBRID, LIVE IN PRODUCTION since 2026-08-09 (`5d354d4`) — the six hand-written pages live in `public/` and still ship byte-for-byte, `dist/` is the deploy directory, and there IS a build step. Run `npm run build` locally before every push.** `/news/` is a generated publishing surface; `sitemap.xml` and `llms.txt` are generated routes, not files. The site is SIX static pages, `/pledge` is live, the rebrand backlog is EMPTY, the CSS is fully swept, and the token names match BRAND.md §4 (2026-08-06). Operational docs 404 via a Pages Function. Step 5 (regenerate the pledge deck) and the X-Frame-Options item are both CLOSED BY REMOVAL — the deck and the lightbox no longer exist. Fiscal wording is canon-aligned on "project". `/pledge` is in the nav, drawer and footer on all six pages. The fiscal inventory is CUT: 24 placements to 14, and both "initiative" and "under Desert Community Foundation" are now zero sitewide. No known wording divergence remains. *(This pointer had been stale at `f86f83e`/2026-07-01 for five weeks — bump it every session.)*
 
 ## Current
 
@@ -1191,6 +1191,87 @@ lands, at both 1280 and 375 — the `<img>` is absolutely positioned inside a
 - **CSS drops `to bottom` from computed gradient values** because it is the default.
   Testing for it inverts the direction; test for `to right` instead. This produced a
   false failure on mobile.
+
+---
+
+## Astro hybrid MERGED TO PRODUCTION — 2026-08-09
+
+`astro-hybrid` → `main`, fast-forward `66e8000..5d354d4`, all 26 file moves recorded as renames at
+100% similarity. Production build green on the first attempt. **Two consecutive wholly-clean
+verification sweeps.**
+
+### Cloudflare dashboard — the settings this now depends on
+
+| setting | value |
+|---|---|
+| Build command | `npm run build` |
+| Build output directory | `dist` |
+| Root directory | *(empty)* |
+| `NODE_VERSION` | `22` — set on **both** Production and Preview |
+| Build system | v3 |
+
+**A future session changing any of these breaks the deploy.** Output directory `dist` in
+particular: reverting it to `/` would serve the repo root, where the six pages no longer live.
+
+### Verification actually run
+
+- **Preview first, production untouched throughout.** The branch built a preview at
+  `5176a103.aicoachellavalley-org.pages.dev` and was verified there before anything merged.
+- **The preview zone does NOT apply Cloudflare email obfuscation; production does.** That is why
+  preview verification could use EXACT byte comparison against `public/` with nothing masked —
+  `/` served 81718B, exactly the disk size of `index.html`. A strictly stronger test than the
+  normalised one. Remember this asymmetry: **preview bytes ≠ production bytes for any page
+  containing the contact email**, and that is expected, not a regression.
+- **Production matrix, 41 baseline URLs × 8 fetches, normalisation restored: 0 failures.** Every
+  pre-existing page's normalised hash matches the pre-migration baseline exactly.
+- **Deep multi-fetch: 12 URLs × 15-fetch content-asserted streak, run twice, 0 stale.** Content
+  assertions, not consistency alone — a self-consistent stale PoP would pass a hash check and
+  fail the assertion.
+- **`/api/partner`: 8 non-mutating probes captured PRE-merge and re-run POST-merge — byte
+  identical.** See the limit below.
+
+### ⚠ THE ONE THING NOT PROVEN: the D1 binding
+
+`/api/partner` POST cannot be proven end-to-end without writing a row. The `env.DB` check sits at
+`partner.js:87`, **after** Turnstile verification at line 82; the next thing past it is the
+`INSERT` at line 108. So there is no request that reaches D1 and stops.
+
+What WAS proven, pre- and post-merge identically: `onRequestPost` executes (400 `missing` and
+400 `email` come from lines 73–78), the honeypot short-circuit returns 200 storing nothing
+(line 67), the key-gated GET fails closed with 401 on absent/empty/wrong key, and the nested
+`functions/api/partner.js` still takes precedence over the catch-all `[[path]].js` **with a build
+in play**. Routing and handler execution are confirmed; only the D1 round-trip is not.
+
+**The clean way to close it, read-only:** a GET with the real `INQUIRY_KEY` runs `ensureTable` +
+`SELECT` (lines 132–135) and proves the binding without writing anything. Sat holds the key.
+A test row was deliberately NOT inserted into a live table of real partner inquiries.
+
+### Three harness bugs, none of them site bugs
+
+Recorded because each would have read as a site failure:
+
+1. **The normaliser was incomplete.** Cloudflare re-keys the email obfuscation in **two** places —
+   `data-cfemail="…"` *and* `href="/cdn-cgi/l/email-protection#…"`. Stripping only the first left
+   8/8 paths with unstable hashes. Both rules are required; with both, 8/8 stable.
+2. **`_headers` / `_redirects` 404 by design.** Pages consumes them as build-time configuration
+   and never serves them as files. Production 404s them identically — unchanged behaviour. Assert
+   their *effects* (X-Frame-Options, Referrer-Policy, nosniff, api-catalog `Link`, CORS,
+   content-type overrides, the `/ai-readiness` 301), never their bytes.
+3. **A wrong assertion fails 100%, a stale PoP fails intermittently.** An assertion on `/news`
+   using `&#39;` failed 75/75 — Astro emits a plain ASCII apostrophe (0x27), verified by hexdump.
+   The page was correct the whole time. **Consistency of failure is the tell.**
+
+### Build-safety facts worth keeping
+
+- A **fresh clone + `npm ci` + `npm run build`** was run before pushing, because
+  `src/data/static-meta.json` is gitignored and Cloudflare's tree does not contain it. Exit 0, and
+  the resulting `dist/` was 26/26 byte-identical to pre-migration disk. Do this before any push
+  that touches the build.
+- **git-derived `lastmod` is DEAD — tested, twice-failed, do not revisit.** (a) Cloudflare clones
+  shallow: a `--depth 1` clone has exactly **1 commit**, so every file reports the same date.
+  (b) Even with full history it is wrong after any structural commit — all four pages reported
+  `2026-08-08` because the migration renamed them, and `--follow` does not help. Static-page
+  `lastmod` stays hand-set in `src/data/site-pages.ts`.
 
 ---
 
