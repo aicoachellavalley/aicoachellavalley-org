@@ -55,6 +55,11 @@ const schema = {
     image: p.image,
     sameAs: p.sameAs,
     worksFor: { '@id': `${SITE}/#organization` },
+    // This page carries the CANONICAL Person, so it must emit every claim in
+    // people.json — not a subset. index.astro's founder node had these and this
+    // did not, which would have made the two disagree on the same @id.
+    ...(p.hasOccupation ? { hasOccupation: p.hasOccupation } : {}),
+    ...(p.subjectOf ? { subjectOf: p.subjectOf } : {}),
   },
 };
 ---
@@ -96,9 +101,11 @@ const schema = {
           <a href="https://sunshine.fm/" target="_blank" rel="noopener">SunshineFM</a>.
         </p>
         <p>
-          AICV was founded by Sat Singh — a TEDx Rancho Mirage speaker, community educator, and
-          technology entrepreneur based in the Coachella Valley, who has spent the past decade
-          building at the intersection of technology and community.
+          AICV was founded by Sat Singh — a
+          <a href="https://www.youtube.com/watch?v=oYG2kFC2_D4" target="_blank" rel="noopener"
+            >TEDx Rancho Mirage speaker</a
+          >, community educator, and technology entrepreneur based in the Coachella Valley. He
+          previously co-founded a gaming studio acqui-hired by King.com.
         </p>
       </div>
 

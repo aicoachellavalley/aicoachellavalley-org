@@ -9,8 +9,27 @@
     "sameAs": [
       "https://sunshine.fm/",
       "https://x.com/CoachellaAI",
+      "https://www.linkedin.com/in/satssp",
       "https://www.youtube.com/watch?v=oYG2kFC2_D4"
     ],
-    "image": "https://aicoachellavalley.org/sat-tedx.png"
+    "image": "https://aicoachellavalley.org/sat-tedx.png",
+    "hasOccupation": {
+      "@type": "Role",
+      "roleName": "AI educator and community organizer, Coachella Valley",
+      "startDate": "2025-04",
+      "hasOccupation": {
+        "@type": "Occupation",
+        "name": "AI educator and community organizer"
+      }
+    },
+    "subjectOf": {
+      "@type": "VideoObject",
+      "name": "AI, Skynet, and why humans are losing the battle | Sat Singh | TEDxRancho Mirage",
+      "description": "Artificial Intelligence isn't just disrupting jobs and draining energy — it's quietly rewiring how we think.",
+      "url": "https://www.youtube.com/watch?v=oYG2kFC2_D4",
+      "thumbnailUrl": "https://i.ytimg.com/vi/oYG2kFC2_D4/maxresdefault.jpg",
+      "uploadDate": "2025-09-04",
+      "duration": "PT14M35S"
+    }
   }
 }

@@ -213,9 +213,35 @@ for (const file of feedFiles) {
         `    index.astro: ${JSON.stringify(gotSameAs)}`,
     );
   }
+  // Nested claim objects. Added 2026-08-11 with hasOccupation + subjectOf:
+  // without this they would be the only parts of the Person node NOT guarded,
+  // which is exactly the silent-drift shape this assertion exists to stop.
+  // Key order is normalised so a reordering is not reported as drift — only a
+  // real difference in content is.
+  const canon = (v) =>
+    Array.isArray(v)
+      ? v.map(canon)
+      : v && typeof v === 'object'
+        ? Object.fromEntries(Object.keys(v).sort().map((k) => [k, canon(v[k])]))
+        : v;
+
+  const nested = ['hasOccupation', 'subjectOf'];
+  for (const key of nested) {
+    const w = JSON.stringify(canon(sat[key] ?? null));
+    const g = JSON.stringify(canon(node[key] ?? null));
+    if (w !== g) {
+      fail(
+        `index.astro founder.${key} has drifted from src/data/people.json:\n` +
+          `    people.json: ${w}\n` +
+          `    index.astro: ${g}\n\n` +
+          `  These describe the same person and must agree.`,
+      );
+    }
+  }
+
   console.log(
     `✓ identity: index.astro founder node matches people.json ` +
-      `(${Object.keys(want).length} fields + ${gotSameAs.length} sameAs)`,
+      `(${Object.keys(want).length} fields + ${gotSameAs.length} sameAs + ${nested.length} nested)`,
   );
 }
 

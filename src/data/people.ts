@@ -43,6 +43,17 @@ export interface Person {
   /** Identity links. ONLY URLs that genuinely represent THIS PERSON. */
   sameAs: string[];
   image?: string;
+  /**
+   * Activity date via the schema.org Role pattern. NOTE: schema.org's range for
+   * hasOccupation is Occupation, so the Role REPEATS the property inside itself
+   * pointing at the real Occupation — a bare Role never names what it is a role
+   * of. startDate here is an ACTIVITY date (the ERC series from 2025-04-01,
+   * externally corroborated). It is NOT a publication date and must never be
+   * presented as one.
+   */
+  hasOccupation?: Record<string, unknown>;
+  /** The TEDx talk. Google requires name + thumbnailUrl + uploadDate. */
+  subjectOf?: Record<string, unknown>;
 }
 
 export const PEOPLE: Record<string, Person> = data;
