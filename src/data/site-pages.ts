@@ -83,9 +83,39 @@ export const pages: SitePage[] = [
     llms:
       'the seven principles in full: a community commitment to using AI in ways that are human-centered, transparent, and grounded in Coachella Valley values. Readable in place; prints as a signable sheet',
   },
+  {
+    // Moved into the manifest 2026-08-10. It used to be special-cased inside
+    // sitemap.xml.ts and llms.txt.ts, conditional on articles existing, which
+    // meant the manifest was NOT the registry of routes and the coverage gate
+    // could not check it. One behaviour change: /news now always appears in the
+    // sitemap rather than only when articles exist. Accepted.
+    path: '/news',
+    file: 'src/pages/news/index.astro',
+    lastmod: '2026-08-08',
+    changefreq: 'weekly',
+    priority: 0.8,
+    llms:
+      'editorial coverage of AI in the Coachella Valley — what is happening across the nine cities, and why it matters here. Individual articles are listed below; RSS at /news/rss.xml',
+  },
+  {
+    path: '/author/sat-singh',
+    file: 'src/pages/author/sat-singh.astro',
+    lastmod: '2026-08-10',
+    changefreq: 'monthly',
+    priority: 0.5,
+    llms:
+      'founder of AI Coachella Valley, and the author every article byline resolves to. Carries the canonical Person entity for the site',
+  },
 ];
 
-/** Live pages deliberately kept OUT of every feed. Reasons are load-bearing. */
+/**
+ * Routes deliberately kept OUT of every feed. Reasons are load-bearing.
+ *
+ * Since 2026-08-10 this covers Astro routes too, not just public/*.html —
+ * scripts/prepare-feeds.mjs sweeps BOTH and fails the build on anything
+ * unaccounted for. Before that a new Astro route could silently miss the feeds,
+ * and /author/sat-singh would have been the first casualty.
+ */
 export const excluded = [
   {
     file: 'public/partner.html',
@@ -95,6 +125,23 @@ export const excluded = [
   {
     file: 'public/404.html',
     reason: 'Error page. Never indexed; carries meta robots noindex.',
+  },
+  {
+    file: 'src/pages/llms.txt.ts',
+    reason: 'IS a feed. Listing feeds inside feeds is circular.',
+  },
+  {
+    file: 'src/pages/sitemap.xml.ts',
+    reason: 'IS a feed. Listing feeds inside feeds is circular.',
+  },
+  {
+    file: 'src/pages/news/rss.xml.ts',
+    reason: 'IS a feed. Listing feeds inside feeds is circular.',
+  },
+  {
+    file: 'src/pages/news/[slug].astro',
+    reason:
+      'Dynamic route. Individual articles enter the feeds from the news collection, not from this manifest.',
   },
 ];
 

@@ -246,6 +246,99 @@
   color: var(--c-text-l);
 }
 
+/* ── /author/<slug> ────────────────────────────────────────────────────────
+   Additions only, built on the same tokens. Everything else on the author
+   page reuses .page, .page__narrow, .page__title, .page__lede, .article__body,
+   .news-list and .news-item from above.
+   ────────────────────────────────────────────────────────────────────────── */
+.author-portrait {
+  margin: var(--s-8) 0 var(--s-6);
+}
+.author-portrait img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 3px;
+}
+.author-portrait figcaption {
+  margin-top: var(--s-2);
+  font-size: var(--fs-12);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--c-text-l);
+}
+.author-portrait figcaption a {
+  color: var(--c-text-l);
+  text-decoration: none;
+}
+.author-portrait figcaption a:hover {
+  color: var(--c-accent-text);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.author-elsewhere {
+  margin-top: var(--s-8);
+  padding-top: var(--s-5);
+  border-top: 1px solid var(--c-border-l);
+}
+.author-elsewhere__label {
+  font-size: var(--fs-10);
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--c-text-l);
+  margin-bottom: var(--s-3);
+}
+.author-elsewhere__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2) var(--s-5);
+}
+.author-elsewhere__list a {
+  font-size: var(--fs-15);
+  color: var(--c-accent-text);
+  text-decoration: none;
+}
+.author-elsewhere__list a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.author-writing {
+  margin-top: var(--s-10);
+  padding-top: var(--s-6);
+  border-top: 1px solid var(--c-border-l);
+}
+
+/* .h2 is defined in each static page's INLINE css, but chrome.css was extracted
+   from 404.html — which has no <h2> — so the news-layout pages had no .h2 rule
+   at all. Without this the author page's "Writing" heading falls back to the
+   h1,h2,h3 base (serif/700/1.12) with browser-default sizing and no colour.
+   Values copied from the canonical .h2 in index.astro so the two agree. */
+.h2 {
+  font-size: var(--fs-h2);
+  color: var(--c-text);
+  margin-bottom: var(--s-3);
+}
+.author-writing .h2 {
+  margin-bottom: var(--s-2);
+}
+
+/* ── byline link (article pages) ───────────────────────────────────────── */
+.article__meta a {
+  color: var(--c-text-l);
+  text-decoration: none;
+  border-bottom: 1px solid var(--c-border);
+}
+.article__meta a:hover {
+  color: var(--c-accent-text);
+  border-bottom-color: currentColor;
+}
+
 /* ── back link ─────────────────────────────────────────────────────────── */
 .backlink {
   display: inline-block;

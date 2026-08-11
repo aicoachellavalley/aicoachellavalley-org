@@ -31,6 +31,8 @@ export const GET: APIRoute = async () => {
     '/events': 'Events',
     '/philanthropy': 'Philanthropy',
     '/pledge': 'Responsible AI Pledge',
+    '/news': 'News',
+    '/author/sat-singh': 'Sat Singh (author)',
   };
 
   const core = pages

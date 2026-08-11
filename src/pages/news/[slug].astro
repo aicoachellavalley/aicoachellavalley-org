@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
 import NewsLayout from '../../layouts/NewsLayout.astro';
+import { person } from '../../data/people';
 
 const SITE = 'https://aicoachellavalley.org';
 
@@ -14,6 +15,9 @@ export async function getStaticPaths() {
 
 const { article } = Astro.props;
 const { Content } = await render(article);
+
+// article.data.author is a KEY into src/data/people.ts, not a display name.
+const author = person(article.data.author);
 
 const url = `${SITE}/news/${article.id}`;
 const published = article.data.date.toISOString();
@@ -34,7 +38,12 @@ const schema = {
   description: article.data.description,
   datePublished: published,
   dateModified: modified,
-  author: { '@type': 'Person', name: article.data.author },
+  // A REFERENCE, not a copy. Until 2026-08-10 this emitted an anonymous
+  // { '@type': 'Person', name: '…' } with no @id, so to a machine the article's
+  // author and the site's founder were two unrelated people who shared a name.
+  // The Person is DEFINED once, on /author/sat-singh; everything else points
+  // at that @id.
+  author: { '@id': author.id },
   publisher: {
     '@type': 'Organization',
     name: 'AI Coachella Valley',
@@ -66,7 +75,10 @@ const schema = {
 
       <header class="article__header" style="margin-top:var(--s-5)">
         <p class="article__meta">
-          {fmt(article.data.date)} · {article.data.author}
+          {/* Relative path, not author.url — that is the ABSOLUTE form JSON-LD
+              needs. Every internal link on this site is relative, and an
+              absolute one sends local-preview clicks to production. */}
+          {fmt(article.data.date)} · <a href={`/author/${author.slug}`} rel="author">{author.name}</a>
         </p>
         <h1 class="article__title">{article.data.title}</h1>
         <p class="article__standfirst">{article.data.description}</p>

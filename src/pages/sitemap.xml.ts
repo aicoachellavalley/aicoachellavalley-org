@@ -42,22 +42,17 @@ export const GET: APIRoute = async () => {
     })),
   ];
 
-  // The /news index only enters the sitemap once there is something on it.
-  if (articles.length > 0) {
+  // /news and /author/sat-singh now come from the manifest above, like every
+  // other non-article route — they used to be special-cased here, which meant
+  // the manifest was not the registry of routes and the coverage gate could not
+  // check it. Only individual ARTICLES are derived from the collection.
+  for (const a of articles) {
     entries.push({
-      loc: `${SITE}/news`,
-      lastmod: iso(articles[0].data.updated ?? articles[0].data.date),
-      changefreq: 'weekly',
-      priority: '0.8',
+      loc: `${SITE}/news/${a.id}`,
+      lastmod: iso(a.data.updated ?? a.data.date),
+      changefreq: 'monthly',
+      priority: '0.6',
     });
-    for (const a of articles) {
-      entries.push({
-        loc: `${SITE}/news/${a.id}`,
-        lastmod: iso(a.data.updated ?? a.data.date),
-        changefreq: 'monthly',
-        priority: '0.6',
-      });
-    }
   }
 
   const body =

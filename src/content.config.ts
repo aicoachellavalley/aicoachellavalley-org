@@ -1,5 +1,6 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
+import { PEOPLE_KEYS } from './data/people';
 
 // ════════════════════════════════════════════════════════════════════════════
 // news — editorial pieces for HUMANS, 600–1500 words.
@@ -26,7 +27,12 @@ const news = defineCollection({
     description: z.string().min(70).max(160),
     date: z.coerce.date(),
     tags: z.array(z.string()).min(1).max(5),
-    author: z.string().default('Sat Singh'),
+    // A KEY into src/data/people.ts, not a display name. A typo fails the
+    // build instead of silently minting a second author with no page and no
+    // @id — which is what a free string did until 2026-08-10. The key resolves
+    // to the person's name, canonical @id and author-page URL, so a byline
+    // always has somewhere to land.
+    author: z.enum(PEOPLE_KEYS).default('sat-singh'),
     // Drives sitemap <lastmod> when present; otherwise `date` is used.
     updated: z.coerce.date().optional(),
     // Drafts are excluded from EVERY feed (sitemap, llms.txt, RSS) and from

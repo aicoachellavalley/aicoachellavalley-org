@@ -1,0 +1,16 @@
+{
+  "sat-singh": {
+    "slug": "sat-singh",
+    "name": "Sat Singh",
+    "id": "https://aicoachellavalley.org/#sat-singh",
+    "url": "https://aicoachellavalley.org/author/sat-singh",
+    "jobTitle": "Founder",
+    "description": "Founder of AI Coachella Valley. Covers the AI beat for the Inland Empire at InformedIE. TEDx Rancho Mirage speaker, community educator, and technology entrepreneur based in the Coachella Valley.",
+    "sameAs": [
+      "https://sunshine.fm/",
+      "https://x.com/CoachellaAI",
+      "https://www.youtube.com/watch?v=oYG2kFC2_D4"
+    ],
+    "image": "https://aicoachellavalley.org/sat-tedx.png"
+  }
+}

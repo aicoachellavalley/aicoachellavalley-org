@@ -1,0 +1,139 @@
+---
+import NewsLayout from '../../layouts/NewsLayout.astro';
+import { getCollection } from 'astro:content';
+import { person } from '../../data/people';
+
+// ════════════════════════════════════════════════════════════════════════════
+// /author/sat-singh — the destination article bylines resolve to.
+//
+// Built 2026-08-10 BEFORE the SunshineFM port so 32 ported pieces get a byline
+// that lands somewhere, rather than being reprocessed later.
+//
+// This page carries the CANONICAL Person definition. index.astro's founder node
+// and every article's `author` reference the same @id; nothing else defines it.
+//
+// The prose is lifted VERBATIM from the homepage founder section — the two
+// paragraphs that are actually about Sat. The other two there are about AICV
+// (mission, org track record) and stay on the homepage. No new claims are made
+// on this page.
+//
+// navActive={null}: this is not /news. Without it the layout would highlight
+// "News" in the nav as though this were the news index.
+// ════════════════════════════════════════════════════════════════════════════
+
+const SITE = 'https://aicoachellavalley.org';
+const p = person('sat-singh');
+
+const articles = (await getCollection('news'))
+  .filter((a) => !a.data.draft && a.data.author === p.slug)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
+
+const title = `${p.name} — AI Coachella Valley`;
+const description =
+  'Sat Singh is the founder of AI Coachella Valley. He covers the AI beat for the Inland Empire and writes about AI, business, media, and culture in the Coachella Valley.';
+
+// ProfilePage, not AboutPage: AboutPage describes the ORGANISATION behind a
+// site; ProfilePage is the type for a person profile, and it is the one search
+// engines document for author pages, with mainEntity being the Person.
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfilePage',
+  '@id': `${p.url}#profilepage`,
+  url: p.url,
+  name: p.name,
+  isPartOf: { '@type': 'WebSite', '@id': `${SITE}/#website` },
+  mainEntity: {
+    '@type': 'Person',
+    '@id': p.id,
+    name: p.name,
+    url: p.url,
+    jobTitle: p.jobTitle,
+    description: p.description,
+    image: p.image,
+    sameAs: p.sameAs,
+    worksFor: { '@id': `${SITE}/#organization` },
+  },
+};
+---
+
+<NewsLayout
+  title={title}
+  description={description}
+  canonical={p.url}
+  schema={schema}
+  ogType="profile"
+  navActive={null}
+>
+  <section class="page">
+    <div class="page__narrow">
+      <span class="eyebrow">Author</span>
+      <h1 class="page__title">{p.name}</h1>
+      <p class="page__lede">{p.jobTitle}, AI Coachella Valley</p>
+
+      <figure class="author-portrait">
+        <img
+          src={p.image}
+          alt="Sat Singh speaking at TEDx Rancho Mirage"
+          width="960"
+          height="540"
+          loading="eager"
+        />
+        <figcaption>
+          <a href="https://www.youtube.com/watch?v=oYG2kFC2_D4" target="_blank" rel="noopener"
+            >TEDx Rancho Mirage · August 2025 ↗</a
+          >
+        </figcaption>
+      </figure>
+
+      <div class="article__body">
+        <p>
+          Sat Singh covers the AI beat for the Inland Empire at InformedIE. He writes about AI,
+          business, media, and culture in the Coachella Valley at <a href="/news">AICV News</a>, and
+          hosts a daily talk show and weekend radio for Palm Springs Coachella at
+          <a href="https://sunshine.fm/" target="_blank" rel="noopener">SunshineFM</a>.
+        </p>
+        <p>
+          AICV was founded by Sat Singh — a TEDx Rancho Mirage speaker, community educator, and
+          technology entrepreneur based in the Coachella Valley, who has spent the past decade
+          building at the intersection of technology and community.
+        </p>
+      </div>
+
+      <div class="author-elsewhere">
+        <div class="author-elsewhere__label">Elsewhere</div>
+        <ul class="author-elsewhere__list">
+          <li><a href="https://sunshine.fm/" target="_blank" rel="noopener">SunshineFM ↗</a></li>
+          <li><a href="https://x.com/CoachellaAI" target="_blank" rel="noopener">@CoachellaAI ↗</a></li>
+          <li>
+            <a href="https://www.youtube.com/watch?v=oYG2kFC2_D4" target="_blank" rel="noopener"
+              >TEDx Rancho Mirage ↗</a
+            >
+          </li>
+        </ul>
+      </div>
+
+      {
+        articles.length > 0 && (
+          <div class="author-writing">
+            <h2 class="h2">Writing</h2>
+            <ul class="news-list">
+              {articles.map((a) => (
+                <li class="news-item">
+                  <span class="news-item__date">{fmt(a.data.date)}</span>
+                  <h3 class="news-item__title">
+                    <a href={`/news/${a.id}`}>{a.data.title}</a>
+                  </h3>
+                  <p class="news-item__desc">{a.data.description}</p>
+                </li>
+              ))}
+            </ul>
+            <a href="/news" class="news-all">All news →</a>
+          </div>
+        )
+      }
+    </div>
+  </section>
+</NewsLayout>

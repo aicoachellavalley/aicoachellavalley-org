@@ -29,6 +29,14 @@ interface Props {
   schema?: Record<string, unknown>;
   ogType?: string;
   publishedTime?: string;
+  /**
+   * Which nav item is the current page. The site marks ONLY the current page,
+   * so a page that is not /news must pass null — otherwise /author/sat-singh
+   * would render with "News" highlighted as if it were the news index.
+   * Defaults to 'news' because every existing consumer of this layout IS a
+   * news page.
+   */
+  navActive?: 'news' | null;
 }
 
 const {
@@ -38,6 +46,7 @@ const {
   schema,
   ogType = 'website',
   publishedTime,
+  navActive = 'news',
 } = Astro.props;
 ---
 
@@ -94,7 +103,7 @@ const {
           <li><a href="/philanthropy" class="nav__cta">Philanthropy</a></li>
           <li><a href="/#programs">Build</a></li>
           <li><a href="/events">Events</a></li>
-          <li><a href="/news" class="is-active">News</a></li>
+          <li><a href="/news" class={navActive === 'news' ? 'is-active' : undefined}>News</a></li>
           <li><a href="/pledge">The Pledge</a></li>
           <li><a href="/#founder">About</a></li>
           <li><a href="https://aicoachellavalley.com">Intelligence Network ↗</a></li>

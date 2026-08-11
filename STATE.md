@@ -1,7 +1,7 @@
 # org/ operational state
 
 > Operational state only. Strategic state lives in `aicv-playbook/STATE.md`.
-> **Fresh session? Read `HANDOFF.md` first** (tight orientation), then this file for full detail. Current HEAD: **.org is an ASTRO HYBRID, LIVE IN PRODUCTION since 2026-08-09 (`5d354d4`) — the six hand-written pages live in `public/` and still ship byte-for-byte, `dist/` is the deploy directory, and there IS a build step. Run `npm run build` locally before every push.** `/news/` is a generated publishing surface; `sitemap.xml` and `llms.txt` are generated routes, not files. **Phase 2 (2026-08-09) ended byte-identity**: the homepage is now `src/pages/index.astro` (the other five stay static HTML in `public/` — deliberate asymmetry), News is in the nav/drawer/footer on all six, and the homepage carries a recent-articles section. ⚠ `index.astro`'s style block MUST keep `is:inline`. The site is SIX static pages, `/pledge` is live, the rebrand backlog is EMPTY, the CSS is fully swept, and the token names match BRAND.md §4 (2026-08-06). Operational docs 404 via a Pages Function. Step 5 (regenerate the pledge deck) and the X-Frame-Options item are both CLOSED BY REMOVAL — the deck and the lightbox no longer exist. Fiscal wording is canon-aligned on "project". `/pledge` is in the nav, drawer and footer on all six pages. The fiscal inventory is CUT: 24 placements to 14, and both "initiative" and "under Desert Community Foundation" are now zero sitewide. No known wording divergence remains. *(This pointer had been stale at `f86f83e`/2026-07-01 for five weeks — bump it every session.)*
+> **Fresh session? Read `HANDOFF.md` first** (tight orientation), then this file for full detail. Current HEAD: **.org is an ASTRO HYBRID, LIVE IN PRODUCTION since 2026-08-09 (`5d354d4`) — the six hand-written pages live in `public/` and still ship byte-for-byte, `dist/` is the deploy directory, and there IS a build step. Run `npm run build` locally before every push.** `/news/` is a generated publishing surface; `sitemap.xml` and `llms.txt` are generated routes, not files. **Author page live (2026-08-10)**: `/author/sat-singh` is a ProfilePage carrying the canonical Person `@id`; article bylines link to it and reference that `@id` rather than emitting an anonymous Person. `src/data/people.json` is the single definition and a build gate keeps index.astro's hand-written JSON-LD in step. The coverage gate now sweeps `src/pages/**`, not just `public/`. **Phase 2 (2026-08-09) ended byte-identity**: the homepage is now `src/pages/index.astro` (the other five stay static HTML in `public/` — deliberate asymmetry), News is in the nav/drawer/footer on all six, and the homepage carries a recent-articles section. ⚠ `index.astro`'s style block MUST keep `is:inline`. The site is SIX static pages, `/pledge` is live, the rebrand backlog is EMPTY, the CSS is fully swept, and the token names match BRAND.md §4 (2026-08-06). Operational docs 404 via a Pages Function. Step 5 (regenerate the pledge deck) and the X-Frame-Options item are both CLOSED BY REMOVAL — the deck and the lightbox no longer exist. Fiscal wording is canon-aligned on "project". `/pledge` is in the nav, drawer and footer on all six pages. The fiscal inventory is CUT: 24 placements to 14, and both "initiative" and "under Desert Community Foundation" are now zero sitewide. No known wording divergence remains. *(This pointer had been stale at `f86f83e`/2026-07-01 for five weeks — bump it every session.)*
 
 ## Current
 
@@ -1191,6 +1191,117 @@ lands, at both 1280 and 375 — the `<img>` is absolutely positioned inside a
 - **CSS drops `to bottom` from computed gradient values** because it is the default.
   Testing for it inverts the direction; test for `to right` instead. This produced a
   false failure on mobile.
+
+---
+
+## Author page + byline resolution — 2026-08-10
+
+Built BEFORE the SunshineFM port so 32 incoming pieces get a byline that lands somewhere, rather
+than being reprocessed later.
+
+### The defect this fixed
+
+Five Person nodes for one human across `.org` and `.com`. The only `@id` that existed
+(`#sat-singh`) was **referenced by nothing** — it appeared exactly once, its own definition.
+Article bylines emitted an anonymous `{"@type":"Person","name":"Sat Singh"}` with no `@id`, so to a
+machine **the article's author and the site's founder were two unrelated people who shared a name**.
+The byline was plain text and linked nowhere.
+
+### The architecture
+
+`src/data/people.json` is the single definition. Everything else REFERENCES it:
+
+| where | emits |
+|---|---|
+| `/author/sat-singh` | **full** Person, as `ProfilePage.mainEntity` — the canonical definition |
+| `news/[slug].astro` | bare `{ "@id": "…#sat-singh" }` — a reference, not a copy |
+| `index.astro` founder | kept nested in `@graph[0]`, **gained `url`** |
+
+**ProfilePage, not AboutPage:** AboutPage describes the organisation behind a site (that is what a
+future `/about` would be); ProfilePage is the type for a person profile and the one search engines
+document for author pages. Verified live: all three `@id`s are identical, `@graph` still 7 nodes.
+
+**⚠ The data is in people.JSON, not people.ts, on purpose.** `prepare-feeds.mjs` must read these
+values and runs before vite, so it cannot import TypeScript. The first version regex-parsed
+`people.ts` and **broke immediately on template literals** — the fragile literal-parsing trap this
+engagement has hit before. JSON is parsed by both sides with no regex.
+
+### sameAs — a category error, corrected
+
+`x.com/CoachellaAI` was asserted as the **Organization's** `sameAs`. It is Sat's persona account —
+his avatar, first-person voice; it doubles as AICV coverage but the organization does not post. So
+it moved to the **Person**. Ruling and reasoning are Sat's (2026-08-10).
+
+Within `.org` there were 8 occurrences: **7 ordinary footer links** (`@CoachellaAI ↗`, untouched)
+and **exactly 1 structured-data claim**. Organization keeps `sameAs: ["https://aicoachellavalley.com"]`
+— not empty, and a true claim. The connection is not lost: `Organization.founder` points at the
+Person's `@id`, so an agent following that chain still reaches the account. **The relationship is
+expressed rather than collapsed.**
+
+`description` was also aligned to the 2026-08-09 rendered bio — the machine-readable half had been
+a version behind, the same defect class as the llms.txt "valley intelligence graph" line.
+
+### ⚠⚠ THE COVERAGE GATE NOW SWEEPS src/pages/** — and this was the point
+
+The old gate swept `public/*.html` only, on the reasoning that "an Astro page cannot silently fail
+to be noticed, because it is a route." **That was wrong in the way that matters.** A route is
+noticed by visitors, but it can silently miss `sitemap.xml` and `llms.txt`, because both build from
+the manifest. `/author/sat-singh` would have been the first casualty of exactly that bug.
+
+Every routable file — `public/*.html`, `src/pages/**/*.astro`, `src/pages/**/*.ts` — must now be
+declared in `pages` or `excluded`. The three feed endpoints are `excluded` with the reason "IS a
+feed; listing feeds inside feeds is circular", and `news/[slug].astro` as "dynamic; articles enter
+from the collection".
+
+**`/news` moved into the manifest**, ending its special-case inside `sitemap.xml.ts` and
+`llms.txt.ts`. One accepted behaviour change: it now always appears in the sitemap rather than only
+when articles exist.
+
+**Both gates were proven capable of failing, four controls:**
+
+| control | result |
+|---|---|
+| undeclared `.astro` at top level | exit **1**, names the file; exit **0** once removed |
+| undeclared `.astro` nested in subdirectories | exit **1**, names the full path |
+| drift `people.json` `jobTitle` | exit **1**, prints both values |
+| drift `people.json` `sameAs` | exit **1**, prints both arrays |
+
+### `author` is now a KEY, not a free string
+
+`z.enum(PEOPLE_KEYS)` instead of `z.string()`. Frontmatter is `author: 'sat-singh'`, which resolves
+to name, `@id` and page URL. A typo now fails the build instead of silently minting a second author
+with no page and no `@id`. **Migrated at 1 article; after the port it would have been 32.**
+
+### Two bugs caught in verification
+
+1. **`.h2` had no rule in the news-layout CSS.** `chrome.css` was extracted from `404.html`, which
+   has no `<h2>`, so the author page's "Writing" heading would have fallen back to browser default
+   sizing with no colour. Added, copied from the canonical `.h2` in index.astro. Blast radius
+   checked: `/news` and articles use zero `class="h2"`, so nothing else moved.
+2. **The byline href was absolute.** `person().url` is the absolute form JSON-LD needs; using it in
+   the markup would have sent local-preview clicks to production. Byline uses `/author/${slug}`.
+
+Also fixed as briefed: `NewsLayout` hardcoded `is-active` on News, which would have shipped the
+author page with News highlighted as the current page. It is now a `navActive` prop.
+
+### Differential
+
+Five static pages in `public/`: **byte-identical, 5/5**, and `public == dist` for each — this build
+touched only Astro routes. `/pledge`'s print sheet is therefore untouched by construction.
+`index.html` **with the JSON-LD block stripped is byte-identical** (same sha256), so the homepage's
+rendering cannot have changed; the only diff is the 4 intended structured-data edits. The article
+page changed in exactly 2 places: the byline link and the CSS bundle hash.
+
+### Follow-on, recorded
+
+**`.com` carries 3 Person nodes with no `@id` at all** (`index.astro:114`, `:239`,
+`get-agent-ready.astro:284`) and asserts `x.com/CoachellaAI` as the ORGANIZATION's `sameAs` in the
+same places — the identical category error. Unifying on `#sat-singh` is a cross-repo change with
+its own deploy and verification.
+
+**Endgame:** converting index.astro's `@graph` to a templated object would remove the need for the
+drift assertion entirely. It is a large diff on the site's most important page and belongs in its
+own session.
 
 ---
 
