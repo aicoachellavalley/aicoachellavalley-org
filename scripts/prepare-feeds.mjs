@@ -184,64 +184,55 @@ for (const file of feedFiles) {
     fail(`index.astro "founder" node is not valid JSON: ${e.message}`);
   }
 
-  const want = {
-    '@id': sat.id,
-    name: sat.name,
-    url: sat.url,
-    jobTitle: sat.jobTitle,
-    description: sat.description,
-  };
-  for (const [k, v] of Object.entries(want)) {
-    if (!v) fail(`people.json is missing a value for \`${k}\``);
-    if (node[k] !== v) {
-      fail(
-        `index.astro founder.${k} has drifted from src/data/people.json:\n` +
-          `    people.json: ${v}\n` +
-          `    index.astro: ${node[k]}\n\n` +
-          `  These describe the same person and must agree. Update index.astro's\n` +
-          `  hand-written JSON-LD, or people.json, so both say the same thing.`,
-      );
-    }
-  }
-
-  const wantSameAs = sat.sameAs || [];
-  const gotSameAs = node.sameAs || [];
-  if (JSON.stringify(wantSameAs) !== JSON.stringify(gotSameAs)) {
-    fail(
-      `index.astro founder.sameAs has drifted from src/data/people.json:\n` +
-        `    people.json: ${JSON.stringify(wantSameAs)}\n` +
-        `    index.astro: ${JSON.stringify(gotSameAs)}`,
-    );
-  }
-  // Nested claim objects. Added 2026-08-11 with hasOccupation + subjectOf:
-  // without this they would be the only parts of the Person node NOT guarded,
-  // which is exactly the silent-drift shape this assertion exists to stop.
-  // Key order is normalised so a reordering is not reported as drift — only a
-  // real difference in content is.
+  // DERIVED from people.json, not hardcoded.
+  //
+  // The previous version listed five field names by hand, and `image` was in
+  // people.json and on the ProfilePage but missing from index.astro — unguarded,
+  // because nobody had added it to the list. That is the mirror of the subset
+  // bug fixed the day before, and hardcoding guarantees it recurs.
+  //
+  // Now every key in people.json is checked. Add a field there and it is
+  // guarded on the next build with nothing to remember. `slug` is internal
+  // routing, not a JSON-LD property; `id` is emitted as `@id`.
+  const NOT_EMITTED = new Set(['slug']);
+  const JSONLD_KEY = { id: '@id' };
+  const want = Object.fromEntries(
+    Object.keys(sat)
+      .filter((k) => !NOT_EMITTED.has(k))
+      .map((k) => [JSONLD_KEY[k] ?? k, sat[k]]),
+  );
+  // ONE deep comparison covering every derived field — scalars, arrays and
+  // nested objects alike. Key order is normalised so a reordering is not
+  // reported as drift; only a real difference in content is.
+  //
+  // This replaced three separate checks (five hardcoded scalars, then sameAs,
+  // then a hand-listed set of nested objects). Each of those lists had to be
+  // remembered, and `image` proved they would not be: it sat in people.json and
+  // on the ProfilePage while missing from index.astro, guarded by nothing.
   const canon = (v) =>
     Array.isArray(v)
       ? v.map(canon)
       : v && typeof v === 'object'
         ? Object.fromEntries(Object.keys(v).sort().map((k) => [k, canon(v[k])]))
         : v;
+  const show = (v) => (typeof v === 'string' ? v : JSON.stringify(canon(v)));
 
-  const nested = ['hasOccupation', 'subjectOf'];
-  for (const key of nested) {
-    const w = JSON.stringify(canon(sat[key] ?? null));
-    const g = JSON.stringify(canon(node[key] ?? null));
-    if (w !== g) {
+  for (const [k, v] of Object.entries(want)) {
+    if (v === undefined || v === null) fail(`people.json is missing a value for \`${k}\``);
+    if (JSON.stringify(canon(v)) !== JSON.stringify(canon(node[k]))) {
       fail(
-        `index.astro founder.${key} has drifted from src/data/people.json:\n` +
-          `    people.json: ${w}\n` +
-          `    index.astro: ${g}\n\n` +
-          `  These describe the same person and must agree.`,
+        `index.astro founder.${k} has drifted from src/data/people.json:\n` +
+          `    people.json: ${show(v)}\n` +
+          `    index.astro: ${show(node[k])}\n\n` +
+          `  These describe the same person and must agree. Update index.astro's\n` +
+          `  hand-written JSON-LD, or people.json, so both say the same thing.`,
       );
     }
   }
 
   console.log(
     `✓ identity: index.astro founder node matches people.json ` +
-      `(${Object.keys(want).length} fields + ${gotSameAs.length} sameAs + ${nested.length} nested)`,
+      `(${Object.keys(want).length} fields, derived from people.json)`,
   );
 }
 
