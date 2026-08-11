@@ -1194,6 +1194,83 @@ lands, at both 1280 and 375 — the `<img>` is absolutely positioned inside a
 
 ---
 
+## Person node — identity claims, and the guard rewrite — 2026-08-11
+
+Two commits: `73f4db6` (claims + guard extension) and `7f3e761` (description +
+derived guard). Both live, both verified with the full matrix and two
+content-asserted sweeps.
+
+### What the identity arc actually settled
+
+**Four unsupportable claims came down.** September 2023 (nothing published then —
+no domain, no URL, no dated artifact); King.com *employment* (the source says the
+studio was acqui-hired, not that he worked there, so `alumniOf` stayed out);
+"office hours" (no surface anywhere); "spent the past decade" (unsourced, and in
+FOUR places not the three predicted).
+
+**Three went up, each with a third-party source.** April 2025 as an ACTIVITY date
+(ERC series, Luma, contemporaneous); the TEDx talk (official TEDx channel,
+uploaded 2025-09-04); co-organizer (the AI Tinkerers chapter's own public root,
+"Organizers: Craig & Sat" — first-name-only, a weak citation in isolation and not
+in isolation).
+
+**One published affiliation overstatement corrected.** See the ERC item below.
+
+### ⚠ THE GUARD IS DERIVED, NOT HARDCODED — the real output of this session
+
+Recorded in full as House Rules §7.6. The short form: the assertion keeping
+`index.astro`'s hand-written JSON-LD in step with `people.json` used to enumerate
+five field names by hand. **Two subset bugs surfaced on consecutive days in
+opposite directions** — the ProfilePage emitting a subset, then `image` missing
+from `index.astro` — and neither was caught by the guard whose job it was.
+
+The assertion now derives its field list from `people.json` itself. Add a field
+there and it is guarded on the next build. **Control D is the proof: a brand-new
+field fails the build until `index.astro` matches.** Controls were re-run after
+the rewrite, because controls validate an implementation, not an intention.
+
+### ⚠ LIVE DEFECT — the ERC name, 10 instances on the homepage right now
+
+`.org` calls the venue the "CSUSB Entrepreneurship Resource Center". Per the
+operator's own site it is the **"Entrepreneurial Resource Center / ERC Palm
+Desert"** — Entrepreneur*ial* — at 37023 Cook Street Suite 102, "powered by The
+City of Palm Desert and the County of Riverside" and "led by CSUSB's Randall W.
+Lewis Center for Entrepreneurship". It is **across the street from the campus,
+not part of it.**
+
+Commit 2 corrected the Person description only. **10 instances remain live on the
+homepage** in body copy and FAQ answers, several of them *funding* claims
+("Funded by the CSUSB Entrepreneurship Resource Center"). This is an affiliation
+overstatement on a fiscally sponsored project's public surface — a correctness
+defect, not a naming inconsistency. `.com` uses the correct form; `.org` drifted.
+"Randall W. Lewis Center for Entrepreneurship" is a real but DIFFERENT entity and
+is never a synonym.
+
+### Dating evidence, for the record
+
+- Earliest self-published artifact: **2026-04-05** asserted (committed 04-09);
+  earliest `.com` content commit 2026-04-06. **127 of 174 briefs are
+  retrospective** — frontmatter dates are EVENT dates, not publication dates.
+- Earliest documented work: **2025-04-01**, the ERC series, externally corroborated.
+- Earliest third-party publication: **2025-09-04**, the TEDx upload.
+- **Wayback: ZERO snapshots of sunshine.fm in 2024.** Earliest modern 200 is
+  **2025-02-21**, an operating site. The **2001–2009 snapshots are a PRIOR OWNER
+  of the domain and must never be cited** as evidence of this work.
+
+### Queue
+
+- **ERC correction pass** across `.com` and `.org` — 8 variants, 10 live
+  instances on the `.org` homepage. Correction priority, not cosmetic.
+- **Guard the mirrored FAQ pair** — JSON-LD `"text"` ↔ rendered `<p class="faq-a">`
+  are kept in step by hand today.
+- **PSAI Expo organizing role** — sourced by the TEDx description, on disk nowhere.
+- `OPERATING_INSTRUCTIONS.md:103` on the SunshineFM side still asserts September
+  2023. April 2025 is the defensible replacement.
+- **Never pipe `npm run build` to head/tail** — SIGPIPE kills it *after* Astro
+  has emptied `dist`.
+
+---
+
 ## Author page + byline resolution — 2026-08-10
 
 Built BEFORE the SunshineFM port so 32 incoming pieces get a byline that lands somewhere, rather
