@@ -1292,6 +1292,29 @@ touched only Astro routes. `/pledge`'s print sheet is therefore untouched by con
 rendering cannot have changed; the only diff is the 4 intended structured-data edits. The article
 page changed in exactly 2 places: the byline link and the CSS bundle hash.
 
+### ⚠ STANDING LESSON — differentials verify CHANGE, not CORRECTNESS
+
+**A new page has no before-state, so the differential has nothing to compare it against. New
+surfaces need a visual check.**
+
+The `.h2` bug is the case in point. The differential across the five static pages and the homepage
+was flawless — byte-identical, zero unexplained diffs — and it was *structurally incapable* of
+noticing that the brand-new author page rendered its "Writing" heading at browser-default size.
+Only opening the page in a browser caught it.
+
+Applies to every future surface: the differential proves nothing moved that shouldn't have; it
+proves nothing at all about whether the new thing is right.
+
+### KNOWN GAP — /author 404s, there is no index route
+
+`/author/sat-singh` exists; **`/author` itself returns 404** because no `src/pages/author/index.astro`
+was created. That is fine while there is exactly one author.
+
+**It becomes a real gap the moment there is a second** — which the InformedIE grant work could
+produce. At that point `/author` should list contributors, `people.json` gains entries (the
+`z.enum` already scales — new keys are picked up automatically), and each new person needs a page
+declared in the manifest or the coverage gate will fail the build, by design.
+
 ### Follow-on, recorded
 
 **`.com` carries 3 Person nodes with no `@id` at all** (`index.astro:114`, `:239`,
