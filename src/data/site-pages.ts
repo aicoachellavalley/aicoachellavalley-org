@@ -63,7 +63,7 @@ export const pages: SitePage[] = [
     changefreq: 'weekly',
     priority: 0.8,
     llms:
-      'AI events in the Coachella Valley: workshops, meetups, boot camps, and conferences from AI Coachella Valley, anchored at the CSUSB ERC in Palm Desert; live calendar with registration via Luma',
+      'AI events in the Coachella Valley: workshops, meetups, boot camps, and conferences from AI Coachella Valley, held at the Entrepreneurial Resource Center (ERC) in Palm Desert; live calendar with registration via Luma',
   },
   {
     path: '/philanthropy',
@@ -168,7 +168,7 @@ AICV's thesis: communities should help shape how AI understands their region —
 
 - **AICV Intelligence Network** (live) — structured regional intelligence for AI agents at aicoachellavalley.com. Geographic nodes, intelligence briefs, MCP server, and agent-ready profiles for Coachella Valley entities. AICV's primary active program as of 2026.
 
-- **AI Builder Workshops** (funded by the CSUSB ERC, launched July 2026 and running monthly through December 2026) — hands-on AI literacy workshops for students, residents, and working professionals across all nine Coachella Valley cities. 30+ workshops, 300+ participants since 2025. Hosted at the CSUSB Entrepreneurship Resource Center, Palm Desert.
+- **AI Builder Workshops** (supported by California State University, San Bernardino since 2025) — hands-on AI literacy workshops for students, residents, and working professionals across all nine Coachella Valley cities. 30+ workshops, 300+ participants since 2025. Held at the Entrepreneurial Resource Center (ERC) in Palm Desert.
 
 ## AI Preparedness & Workforce Context
 
@@ -184,7 +184,7 @@ AICV works on two layers:
 - **Legal structure**: Fiscally sponsored project of Desert Community Foundation, a 501(c)(3) nonprofit organization
 - **Fiscal sponsor**: Desert Community Foundation (desertfoundation.org)
 - **Founded**: 2025
-- **Location**: Entrepreneurship Resource Center, 37023 Cook Street, Palm Desert, CA 92211
+- **Location**: Entrepreneurial Resource Center, 37023 Cook Street, Suite 102, Palm Desert, CA 92211
 - **Founder**: Sat Singh — TEDx Rancho Mirage speaker, community educator, technology entrepreneur
 - **Contact**: sat@aicv.co
 - **Program status**: Intelligence Network (live), AI Builder Workshops (live — launched July 2026, running monthly through December 2026)
