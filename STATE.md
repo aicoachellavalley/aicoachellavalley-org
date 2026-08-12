@@ -1,12 +1,14 @@
 # org/ operational state
 
 > Operational state only. Strategic state lives in `aicv-playbook/STATE.md`.
-> **Fresh session? Read `HANDOFF.md` first** (tight orientation), then this file for full detail. Current HEAD: **.org is an ASTRO HYBRID, LIVE IN PRODUCTION since 2026-08-09 (`5d354d4`) — the six hand-written pages live in `public/` and still ship byte-for-byte, `dist/` is the deploy directory, and there IS a build step. Run `npm run build` locally before every push.** `/news/` is a generated publishing surface; `sitemap.xml` and `llms.txt` are generated routes, not files. **Author page live (2026-08-10)**: `/author/sat-singh` is a ProfilePage carrying the canonical Person `@id`; article bylines link to it and reference that `@id` rather than emitting an anonymous Person. `src/data/people.json` is the single definition and a build gate keeps index.astro's hand-written JSON-LD in step. The coverage gate now sweeps `src/pages/**`, not just `public/`. **Phase 2 (2026-08-09) ended byte-identity**: the homepage is now `src/pages/index.astro` (the other five stay static HTML in `public/` — deliberate asymmetry), News is in the nav/drawer/footer on all six, and the homepage carries a recent-articles section. ⚠ `index.astro`'s style block MUST keep `is:inline`. The site is SIX static pages, `/pledge` is live, the rebrand backlog is EMPTY, the CSS is fully swept, and the token names match BRAND.md §4 (2026-08-06). Operational docs 404 via a Pages Function. Step 5 (regenerate the pledge deck) and the X-Frame-Options item are both CLOSED BY REMOVAL — the deck and the lightbox no longer exist. Fiscal wording is canon-aligned on "project". `/pledge` is in the nav, drawer and footer on all six pages. The fiscal inventory is CUT: 24 placements to 14, and both "initiative" and "under Desert Community Foundation" are now zero sitewide. No known wording divergence remains. *(This pointer had been stale at `f86f83e`/2026-07-01 for five weeks — bump it every session.)*
+> **Fresh session? Read `HANDOFF.md` first** (tight orientation), then this file for full detail. Current HEAD: **.org is an ASTRO HYBRID, LIVE IN PRODUCTION since 2026-08-09 (`5d354d4`) — FOUR hand-written pages live in `public/` and still ship byte-for-byte, TWO are Astro pages (`index.astro`, `events.astro`), `dist/` is the deploy directory, and there IS a build step. Run `npm run build` locally before every push.** **`/events` carries a DATED RECORD as of 2026-08-11 (`4d75ebc`, `94c5f13`)**: 42 sessions across six series rendered from `src/data/events.json`, with 49 JSON-LD nodes. Before this the page contained ZERO events — a hero and a Luma iframe, invisible to every agent. ⚠ **That file is the sole copy of 28 of those events; Luma has no export and no API, and its public calendar lists only 14. Never regenerate it from Luma.** `/news/` is a generated publishing surface; `sitemap.xml` and `llms.txt` are generated routes, not files. **Author page live (2026-08-10)**: `/author/sat-singh` is a ProfilePage carrying the canonical Person `@id`; article bylines link to it and reference that `@id` rather than emitting an anonymous Person. `src/data/people.json` is the single definition and a build gate keeps index.astro's hand-written JSON-LD in step. The coverage gate now sweeps `src/pages/**`, not just `public/`. **Phase 2 (2026-08-09) ended byte-identity**: the homepage is now `src/pages/index.astro` (the other five stay static HTML in `public/` — deliberate asymmetry), News is in the nav/drawer/footer on all six, and the homepage carries a recent-articles section. ⚠ `index.astro`'s style block MUST keep `is:inline`. The site is SIX static pages, `/pledge` is live, the rebrand backlog is EMPTY, the CSS is fully swept, and the token names match BRAND.md §4 (2026-08-06). Operational docs 404 via a Pages Function. Step 5 (regenerate the pledge deck) and the X-Frame-Options item are both CLOSED BY REMOVAL — the deck and the lightbox no longer exist. Fiscal wording is canon-aligned on "project". `/pledge` is in the nav, drawer and footer on all six pages. The fiscal inventory is CUT: 24 placements to 14, and both "initiative" and "under Desert Community Foundation" are now zero sitewide. No known wording divergence remains. *(This pointer had been stale at `f86f83e`/2026-07-01 for five weeks — bump it every session.)*
 
 ## Current
 
-- **HYBRID.** Five hand-written pages live in `public/` and ship byte-for-byte via Vite's `copyFileSync`. The **homepage is an Astro page** (`src/pages/index.astro`) because it reads the news collection — that asymmetry is deliberate, see the 2026-08-09 Phase 2 entry. **There IS a build step.** `npm run build` locally before every push: Pages silently serves the last good build behind a failed one.
-- **SIX** pages (line counts measured 2026-08-09): `src/pages/index.astro` (1722) — the ONLY Astro page — plus `public/events.html` (564), `public/philanthropy.html` (846), `public/partner.html` (717), `public/pledge.html` (954), `public/404.html` (513). **`partner.html` is live at 200 but deliberately unlinked** (parked for v2 — see the 2026-07-01 entry) and is absent from both feeds by recorded decision; it carries the nav and footer, so it is in scope for anything site-wide and is easy to forget. (`ai-readiness.html` was RETIRED in `e519554`; `philanthropy.html` added in `456dede`.)
+- **HYBRID.** **Four** hand-written pages live in `public/` and ship byte-for-byte via Vite's `copyFileSync`. **TWO are now Astro pages** — the homepage (`src/pages/index.astro`, because it reads the news collection) and `/events` (`src/pages/events.astro`, because it derives the record from `src/data/events.json`). That asymmetry is deliberate; see the 2026-08-09 Phase 2 and 2026-08-11 events entries. **There IS a build step.** `npm run build` locally before every push: Pages silently serves the last good build behind a failed one.
+- **SIX** pages (line counts **re-measured 2026-08-11**): `src/pages/index.astro` (1742) and `src/pages/events.astro` (698) are Astro; `public/philanthropy.html` (844), `public/partner.html` (715), `public/pledge.html` (952), `public/404.html` (511) are static. **`partner.html` is live at 200 but deliberately unlinked** (parked for v2 — see the 2026-07-01 entry) and is absent from both feeds by recorded decision; it carries the nav and footer, so it is in scope for anything site-wide and is easy to forget. (`ai-readiness.html` was RETIRED in `e519554`; `philanthropy.html` added in `456dede`; `events.html` became an Astro page 2026-08-11 and git tracked it as a rename.)
+  - *The four static counts had each been 2 lines high since the nav pass (`bfd95d6`) took "The Pledge" out of `nav__links` and `nav__drawer`. Measured line counts go stale silently — re-measure, do not carry them forward.*
+- **`src/data/events.json` (271 lines) is the SOLE record of 28 events** that appear on no public surface. Luma has no export and no API on this calendar. **Never regenerate it from Luma** — see the 2026-08-11 events entry.
 - Supporting files: `robots.txt` (hand-written, in `public/`), PDFs. **`sitemap.xml` and `llms.txt` are GENERATED** — they are Astro routes, not files, and cover the four public static pages plus every article automatically.
 - Agent endpoints: `/.well-known/api-catalog` (RFC 9727 linkset), `/.well-known/mcp/server-card.json`
 - `_headers`: security headers on `/*` + `Link: </.well-known/api-catalog>; rel="api-catalog"` + CORS + Content-Type overrides for agent endpoints
@@ -1191,6 +1193,175 @@ lands, at both 1280 and 375 — the `<img>` is absolutely positioned inside a
 - **CSS drops `to bottom` from computed gradient values** because it is the default.
   Testing for it inverts the direction; test for `to right` instead. This produced a
   false failure on mobile.
+
+---
+
+## /events — the record: 42 sessions, six series, Event JSON-LD — 2026-08-11
+
+Two commits: `4d75ebc` (the record) and `94c5f13` (third title normalisation).
+Both live, verified with a 10×4 URL matrix and two content-asserted sweeps.
+
+**`/events` contained ZERO events.** Its body was a hero and a single Luma
+iframe, and iframe content is not in the HTML — so no crawler, no LLM and no
+citation had ever seen an AICV event. Two years of work were invisible to agents
+on a site whose whole thesis is agent-readability. This was **not a migration**;
+it created a record that had never existed.
+
+Proof, both directions, from the same tool: before the pass, `WebFetch` on the
+Luma embed returned literally the word "Luma" and nothing else. After it, the
+same fetch on `/events` reads back all six series with correct counts, dated
+events, venue and range.
+
+### ⚠ `src/data/events.json` IS THE ONLY COPY OF 28 EVENTS
+
+**Luma exposes no export and no API on `cal-123s6rDFxeKQjJd`.** The API exists
+(`GET /v1/calendars/events/list`, `x-luma-api-key`; `before`/`after` take
+unrestricted ISO datetimes, so past events *are* retrievable) but requires **Luma
+Plus**, which this calendar does not have. Verified against
+`public-api.luma.com/openapi.json`, not against docs prose.
+
+**Luma's own public past view lists 14 of the 42.** Verified in a real browser at
+a real viewport, scrolled to a stable bottom across five rounds — an earlier read
+returned 14 with a 0-height viewport, so the number was re-taken once the viewport
+was real. The other **28 — all AI Super Users, all AI Weekly, six early Launchpad,
+and the 2026-04-25 AI Agent Meetup — appear on no public surface anywhere.**
+
+**A future session that "syncs from Luma" or regenerates this file from the
+calendar destroys 28 events that cannot be recovered from any source.** Treat the
+file as canon, never as a cache. Append only.
+
+The file was assembled BY HAND. No re-export was possible, so `id` and `start_at`
+are **OPTIONAL and absent from all 42** — backfilling them means revisiting 42
+Luma pages by hand. A new row carrying them needs no migration. Consequences
+recorded rather than solved: no stable per-event ID, no start times (`startDate`
+is date-only), no registration URLs on past events.
+
+### What the record disproved
+
+The JSON-LD claimed **"a monthly hands-on AI workshop series."** Six of the
+sixteen months in span have no events at all — none Sep 2025, none Jan–Mar 2026,
+none May–Jun 2026. "Monthly" is true of exactly one series (Idea Labs, launched
+2026-07-18) and now appears **exactly once on the page**, inside that series'
+synopsis where it is sourced. The six `EventSeries` nodes carry **no description
+at all** rather than restate a cadence the record contradicts.
+
+Also removed: **"a sold-out hands-on session"** — the only attendance claim in 42
+rows, not sourceable retrospectively, and precisely the sentence any future
+automation would be gated to refuse.
+
+Two claims elsewhere collided with the record and were corrected in the same pass:
+`llms.txt` said the workshops **"launched July 2026, running monthly through
+December 2026"** (contradicting a record that starts April 2025, and a
+forward-dated claim that expires), while the same file claimed **"30+ workshops,
+300+ participants since 2025."** The participant figure is gone entirely —
+unsourced, same class as "sold out". The count is now **sessions**, not workshops,
+because **no field distinguishes a workshop from a meetup** and inventing a
+taxonomy to justify an unsourced number is the trap. (By plain meaning only ~20 of
+the 42 are workshops; "30+" either undercounted sessions or overcounted workshops.)
+This supersedes item 2 of *Next .org Cleanup Cycle*, which had been "resolved" in
+`ddeab7f` by reframing the same unsourced figures rather than sourcing them.
+
+### Structured data — 49 nodes on /events, homepage untouched
+
+One `Place` referenced by `@id` from all 42 events (never repeated), six
+`EventSeries`, 42 `Event` with `superEvent` references, `eventStatus:
+EventScheduled`, date-only `startDate`, no `endDate` invented. **The homepage
+`@graph` is still exactly 7 and is now asserted on every build.**
+
+Series order is **first-event-date descending**, ruled after recon found AI Weekly
+(Wednesdays) and Launchpad (Saturdays) ran **concurrently** through summer 2025 —
+which makes "most recent first" ambiguous between them and scrambles the
+maturation arc. First-date ordering reverses cleanly into it.
+
+### Conversion — and why NOT NewsLayout
+
+`public/events.html` became `src/pages/events.astro`; **git tracked it as a rename
+(74% similarity)**. Head, nav, drawer, footer and the whole 15KB `<style>` block
+carry over verbatim — everything outside the three intended changes is
+byte-identical once the inter-tag whitespace Astro collapses is normalised.
+
+⚠ **JSON-LD uses `set:html`, not `is:inline`.** `index.astro` proved Astro will not
+interpolate inside `is:inline`, which is why the identity guard exists at all.
+`<style>` stays `is:inline` for the opposite reason — `is:global` externalises it
+to `/_astro/*.css`.
+
+⚠ **NewsLayout was deliberately NOT adopted.** Its footer says "Preparing the
+Coachella Valley for the future of work…" and links the SunshineFM newsletter,
+where this page says "Building the Coachella Valley's AI Startup Ecosystem." and
+links News RSS. Adopting it would have silently rewritten three pieces of footer
+copy. **Consequence for every future chrome check: nav and drawer assert
+cross-file canonical equality; the FOOTER asserts per-file against its own
+before-state.** A cross-file footer assertion fails on a correct edit.
+
+### ⚠ LATENT DEFECT FIXED — `path:`/`file:` must stay on adjacent lines
+
+`scripts/prepare-feeds.mjs` pairs `path:` and `file:` with a regex requiring
+adjacent lines. A comment written between them made one manifest entry **invisible
+to the pairing regex: the page stayed live while dropping out of `sitemap.xml` and
+`llms.txt` entirely.** The build got as far as rendering `llms.txt` before failing,
+and the only clue was `metadata verified for 5` where 6 was right.
+
+The pair count is now **anchored to the `path:` count**, so a partial regex failure
+fails by name instead of silently publishing less than the manifest declares.
+`feedFiles.length === 0` only ever caught *total* failure. This trap predates the
+pass and is the same class as House Rules §7.7 — scope the count to the thing you
+are checking.
+
+### Gates added
+
+**Round-trip idempotence** (`JSON.stringify(parse(x), null, 2) + '\n' === x`) is
+what makes the file safely appendable: the next added event diffs as one row
+instead of reformatting all 42. **YAML was rejected for exactly this reason** — its
+folded scalars cannot survive a round-trip, and a writer would have rewritten every
+synopsis on the first append.
+
+Also gated: required/optional fields, ISO dates, `(date,title)` uniqueness, `@id`
+collision on same-day events (date-uniqueness is a property of this sample, **not**
+a guarantee), series slug collisions, blocked fullness claims, at most one series
+claiming "monthly", and **no digits in any synopsis** — all 42 verified digit-free,
+so it costs nothing today and constrains anything that writes here later.
+
+⚠ **INTERIM:** `index.astro`'s "42 sessions" is a **written constant guarded by a
+build assertion**, not a derived value, because its JSON-LD is `is:inline`. The
+`@graph`-templating session retires this guard alongside the identity guard beside
+it. `llms.txt` derives its count properly — `site-pages.ts` is a real module.
+
+### Titles — three normalisations, each ruled rather than inherited
+
+Luma's real titles carry emoji (🌟, 🚀); these do not. Five ALL-CAPS rows were
+title-cased. The `(AICV)` suffix was dropped from AI Super Users — on AICV's own
+site it added nothing, and dropping it makes `title == series` so the **derived**
+suppression rule handles them with no new conditional. **A title renders only where
+it differs from its series name: 24 of 42 shown.** Launchpad, Idea Labs and AI
+Super Users suppress entirely.
+
+### Verification
+
+Matrix 10 URLs × 4 fetches, zero unstable. Two content-asserted sweeps 45s apart,
+24 assertions each, both clean: `/events` **200 direct** and `/events/` 308 (the
+inverted-slash convention holds), 42 rows, 6 groups, 49 nodes with every `location`
+and `superEvent` reference resolving, CSS still inline, `is-active` intact, footer
+unchanged, homepage `@graph` 7.
+
+⚠ **Two of the session's own assertions over-reached** — the venue check counted
+the pre-existing hero line as a violation, and the byte-identity check flagged
+whitespace Astro legitimately collapses. Both were checker faults, not code faults.
+§7.7 in the wild, twice in one session.
+
+### Recon findings not acted on
+
+- **AI Tinkerers stays out of the record** — different platform, first demo night
+  2026-10-28. The 2026-04-25 AI Agent Meetup is on neither the Luma calendar nor
+  the Tinkerers surface, and stays in as an AICV event.
+- **The 2026-08-22 event did not exist on the calendar.** Resolved out of band:
+  moved to 2026-09-26 ("Saturday Morning AI: En Español", $25), which is the
+  calendar's only upcoming entry.
+- **The watcher is deprioritised.** With no Luma API, automation would mean
+  scraping a JS-rendered calendar that shows 14 of 42. Revisit after this ships;
+  the honest version may be a reminder rather than an agent. If the API ever opens:
+  `description` is **not** in `list-events` — it needs a second call to `GET
+  /v1/events/get?event_id=evt-…`, which also returns `guest_counts`, the attendance
+  data that must never reach the page.
 
 ---
 
@@ -2640,6 +2811,6 @@ After commit 70915fe deployed, re-ran both scans.
 ## Next .org Cleanup Cycle (scoped, not today)
 
 1. Add hero-area program status summary line (AIO Tool HIGH from April scan — pill badges are card-level; scanner wants hero-area banner)
-2. ~~Fact-check `llms.txt` workshop count: "30+ workshops, 300+ participants in 2025"~~ **RESOLVED 2026-07-21** (`ddeab7f`): reframed **"in 2025" → "since 2025"** (cumulative, true going forward) on all four surfaces — figures 30+/300+ kept conservative. See the 2026-07-21 Programs-cards entry.
+2. ~~Fact-check `llms.txt` workshop count: "30+ workshops, 300+ participants in 2025"~~ ~~**RESOLVED 2026-07-21** (`ddeab7f`): reframed **"in 2025" → "since 2025"**~~ **SUPERSEDED 2026-08-11** (`4d75ebc`). The 07-21 fix reframed the tense but left both figures unsourced, which is why it came back. Now: the participant figure is **deleted** (unsourced, same class as "sold out"), and the count is **derived** from `src/data/events.json` and counts **sessions**, not workshops — no field distinguishes a workshop from a meetup, and inventing a taxonomy to justify an unsourced number is the trap. On `index.astro` it is a written constant guarded by a build assertion (its JSON-LD is `is:inline`); in `llms.txt` it is genuinely derived. See the 2026-08-11 events entry.
 3. `404.html` eyebrow: "404 · Page Not Found" fits neither site eyebrow pattern (category label or brand/domain); cosmetic only
 4. ~~`sitemap.xml` stale `lastmod`s (STILL OPEN as of 2026-06-20)~~ **CLOSED PERMANENTLY 2026-08-08.** `sitemap.xml` is now a generated route, not a file. Article `lastmod`s derive from frontmatter (`updated ?? date`) and cannot go stale. The four static-page `lastmod`s remain hand-set in `src/data/site-pages.ts` — that much is unchanged from before — but they are now the *only* hand-maintained values in the file, and `scripts/prepare-feeds.mjs` fails the build if a page in `public/` is missing from the manifest entirely. The class of bug where a whole page silently drops out of the sitemap is gone.
