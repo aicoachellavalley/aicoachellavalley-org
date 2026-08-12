@@ -119,6 +119,22 @@ const feedFiles = [...manifest.matchAll(/path:\s*'([^']+)',\s*\n\s*file:\s*'([^'
 );
 if (feedFiles.length === 0) fail('parsed zero path/file pairs — the `pages` regex broke');
 
+// SCOPE THE COUNT. `feedFiles.length === 0` only catches TOTAL regex failure.
+// It does not catch a PARTIAL one — and on 2026-08-11 a comment written between
+// `path:` and `file:` made exactly one entry invisible to the pairing regex.
+// The build got as far as rendering llms.txt before failing, and the only clue
+// was "metadata verified for 5" where 6 was correct. Anchor the pair count to
+// the `path:` count so a page that silently drops out fails HERE, by name.
+const pathCount = [...manifest.matchAll(/^\s*path:\s*'/gm)].length;
+if (feedFiles.length !== pathCount)
+  fail(
+    `the manifest declares ${pathCount} \`path:\` entries but only ${feedFiles.length} ` +
+      `path/file PAIRS could be parsed.\n` +
+      `  The two are matched by a regex that requires them on ADJACENT lines — a\n` +
+      `  comment or blank line between \`path:\` and \`file:\` hides that entry from\n` +
+      `  every feed while leaving the page live.`,
+  );
+
 const meta = {};
 for (const file of feedFiles) {
   const src = readFileSync(resolve(root, file), 'utf8');
@@ -233,6 +249,156 @@ for (const file of feedFiles) {
   console.log(
     `✓ identity: index.astro founder node matches people.json ` +
       `(${Object.keys(want).length} fields, derived from people.json)`,
+  );
+}
+
+// ── 4. the events record: src/data/events.json ──────────────────────────────
+//
+// This file is the SOLE record of 28 events that appear on no public surface.
+// Luma exposes no export and no API on this calendar, and its own past view
+// lists 14 of the 42. There is no upstream to re-derive it from and nothing
+// detects drift from Luma, by design — past events do not change, and the live
+// calendar owns upcoming events via the iframe. That makes these gates the only
+// thing standing between the file and silent corruption.
+{
+  const raw = readFileSync(resolve(root, 'src/data/events.json'), 'utf8');
+
+  let ev;
+  try {
+    ev = JSON.parse(raw);
+  } catch (e) {
+    fail(`src/data/events.json is not valid JSON: ${e.message}`);
+  }
+
+  // ROUND-TRIP IDEMPOTENCE. This is what makes the file safely APPENDABLE: if
+  // re-serialising it reproduces it byte-for-byte, then adding one event
+  // produces a diff of exactly that event. Without this, a writer with slightly
+  // different formatting reformats all 42 rows and buries the real change.
+  // YAML was rejected for this file precisely because it cannot hold this
+  // property — the synopses were folded scalars, and any round-trip would have
+  // rewritten every one of them on the first append.
+  const canonical = JSON.stringify(ev, null, 2) + '\n';
+  if (canonical !== raw)
+    fail(
+      `src/data/events.json is not in canonical form.\n` +
+        `  Re-serialising it does not reproduce it byte-for-byte, so the next append\n` +
+        `  would reformat the whole file instead of adding one row.\n` +
+        `  Fix: write it back as JSON.stringify(data, null, 2) + '\\n'.`,
+    );
+
+  const events = ev.events;
+  if (!Array.isArray(events) || events.length === 0) fail('events.json has no events array');
+
+  const REQUIRED = ['date', 'title', 'series', 'synopsis'];
+  // OPTIONAL by ruling 2026-08-11: the 42 hand-assembled rows carry no Luma
+  // IDs and no start times, and backfilling them means revisiting 42 pages by
+  // hand. New rows may carry them; these validate only when present, so a
+  // future watcher-added row needs no migration and no reformat.
+  const OPTIONAL = ['id', 'start_at'];
+
+  const seenKey = new Set();
+  const seenId = new Set();
+  for (const [i, e] of events.entries()) {
+    const where = `events[${i}] (${e.date ?? '?'})`;
+    for (const k of REQUIRED)
+      if (typeof e[k] !== 'string' || !e[k].trim()) fail(`${where}: missing or empty \`${k}\``);
+    for (const k of Object.keys(e))
+      if (!REQUIRED.includes(k) && !OPTIONAL.includes(k)) fail(`${where}: unexpected field \`${k}\``);
+
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(e.date)) fail(`${where}: date is not ISO yyyy-mm-dd`);
+    if ('id' in e && !/^evt-/.test(e.id)) fail(`${where}: id does not start with \`evt-\``);
+    if ('start_at' in e && Number.isNaN(Date.parse(e.start_at)))
+      fail(`${where}: start_at is not a parseable ISO datetime`);
+
+    const key = `${e.date} ${e.title}`;
+    if (seenKey.has(key)) fail(`${where}: duplicate (date, title) — the record's only key`);
+    seenKey.add(key);
+
+    // Event @id is /events#event-<date>. Dates happen to be unique across the
+    // 42, but that is a property of this sample and NOT a guarantee — two
+    // events on one day is entirely ordinary. Fail loudly rather than let two
+    // events silently collapse onto one @id.
+    if (seenId.has(e.date))
+      fail(
+        `${where}: a second event shares this date, so both would generate the\n` +
+          `  same JSON-LD @id (/events#event-${e.date}). Give the @id a discriminator\n` +
+          `  before adding same-day events.`,
+      );
+    seenId.add(e.date);
+  }
+
+  const slug = (s) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  const seriesNames = [...new Set(events.map((e) => e.series))];
+  const slugs = new Map();
+  for (const n of seriesNames) {
+    const s = slug(n);
+    if (slugs.has(s)) fail(`series "${n}" and "${slugs.get(s)}" both slug to "${s}" — @id collision`);
+    slugs.set(s, n);
+  }
+
+  // ── claim guards ──────────────────────────────────────────────────────────
+  // NO DIGITS in any synopsis. All 42 verified digit-free when this gate was
+  // added, so it costs nothing today and makes the file watcher-ready: the
+  // drafting constraint for any future automation is "no numbers of any kind",
+  // and this is that constraint, enforced at the file rather than trusted to a
+  // prompt.
+  for (const e of events)
+    if (/\d/.test(e.synopsis))
+      fail(
+        `events[${e.date}]: synopsis contains a digit.\n` +
+          `  Synopses carry no numbers — no counts, no attendance, no capacity.`,
+      );
+
+  const BLOCKED = ['sold out', 'sold-out', 'packed', 'at capacity', 'record turnout', 'largest', 'biggest'];
+  for (const e of events)
+    for (const term of BLOCKED)
+      if (e.synopsis.toLowerCase().includes(term))
+        fail(`events[${e.date}]: synopsis contains the blocked fullness claim "${term}"`);
+
+  // "Monthly" is the cadence claim the record does NOT support in aggregate:
+  // six of the sixteen months in span are empty. It is true of exactly one
+  // series. Rather than hardcode which, assert that at most one series makes
+  // the claim — a second one appearing is the drift worth catching, and naming
+  // the series here would just be another string to keep in step.
+  const monthly = [...new Set(events.filter((e) => /monthly/i.test(e.synopsis)).map((e) => e.series))];
+  if (monthly.length > 1)
+    fail(
+      `"monthly" is claimed by ${monthly.length} series: ${monthly.join(', ')}.\n` +
+        `  The record does not support a monthly cadence in aggregate — 6 of the 16\n` +
+        `  months in span have no events. Scope the claim to the one series that runs\n` +
+        `  monthly, or remove it.`,
+    );
+
+  // ── index.astro's session count ───────────────────────────────────────────
+  // INTERIM. index.astro's JSON-LD is `is:inline`, which Astro does not
+  // interpolate, so this count cannot be derived the way llms.txt derives its
+  // own — it is written, and guarded here instead. The @graph-templating
+  // session retires this check along with the identity guard above.
+  const idxSrc = readFileSync(resolve(root, 'src/pages/index.astro'), 'utf8');
+  const m = idxSrc.match(/Has hosted (\d+) sessions since/);
+  if (!m) fail('index.astro: could not find the "Has hosted N sessions since" claim — the regex broke');
+  if (Number(m[1]) !== events.length)
+    fail(
+      `index.astro claims ${m[1]} sessions; src/data/events.json holds ${events.length}.\n` +
+        `  These are the same number and must agree.`,
+    );
+
+  // The homepage @graph is deliberately 7 nodes. The 49 nodes this pass adds
+  // live on /events and must never leak into it.
+  const graphBlock = idxSrc.match(/<script type="application\/ld\+json" is:inline>([\s\S]*?)<\/script>/);
+  if (!graphBlock) fail('index.astro: could not locate the JSON-LD block');
+  let graph;
+  try {
+    graph = JSON.parse(graphBlock[1]);
+  } catch (e) {
+    fail(`index.astro JSON-LD does not parse: ${e.message}`);
+  }
+  if (graph['@graph']?.length !== 7)
+    fail(`index.astro @graph has ${graph['@graph']?.length} nodes; the invariant is 7`);
+
+  console.log(
+    `✓ events: ${events.length} sessions across ${seriesNames.length} series, canonical form, ` +
+      `digit-free synopses; index.astro count agrees; homepage @graph 7`,
   );
 }
 

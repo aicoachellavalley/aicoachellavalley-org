@@ -1,0 +1,271 @@
+{
+  "assembled_at": "2026-08-11",
+  "source": "hand-assembled",
+  "calendar_id": "cal-123s6rDFxeKQjJd",
+  "note": "This file was assembled BY HAND. Luma exposes no export and no API on this calendar, so there is no upstream to re-derive it from. 28 of the 42 events below appear on NO public surface — the Luma calendar's own past view lists 14. If this file is lost, those 28 events are gone. Nothing detects drift from Luma, by design: past events do not change, and the live calendar owns upcoming events via the iframe on /events. Titles are normalised on entry: Luma's own titles carry emoji (🌟, 🚀); these do not.",
+  "venue": {
+    "name": "Entrepreneurial Resource Center (ERC)",
+    "display": "Entrepreneurial Resource Center (ERC) in Palm Desert",
+    "address": {
+      "streetAddress": "37023 Cook Street, Suite 102",
+      "addressLocality": "Palm Desert",
+      "addressRegion": "CA",
+      "postalCode": "92211",
+      "addressCountry": "US"
+    }
+  },
+  "events": [
+    {
+      "date": "2025-04-01",
+      "title": "AI Super Users (AICV)",
+      "series": "AI Super Users",
+      "synopsis": "An informal Tuesday morning AI and coffee gathering for entrepreneurs, professionals, creatives, and the AI-curious. Participants exchanged ideas about emerging AI tools, entrepreneurship, and practical ways the technology could be put to work, with conversation and community taking precedence over formal presentations."
+    },
+    {
+      "date": "2025-04-10",
+      "title": "AI Super Users (AICV)",
+      "series": "AI Super Users",
+      "synopsis": "A Thursday afternoon AI and tea session exploring how modern AI tools could help turn an idea into something testable. The conversation centered on rapid prototyping, validating concepts, minimum viable products, and what nontechnical founders could now build with AI."
+    },
+    {
+      "date": "2025-04-15",
+      "title": "AI Super Users (AICV)",
+      "series": "AI Super Users",
+      "synopsis": "A relaxed morning meetup built around AI, innovation, and entrepreneurship. Attendees brought questions, shared tools and discoveries, and learned from one another in an intentionally informal setting without a fixed presentation or agenda."
+    },
+    {
+      "date": "2025-04-24",
+      "title": "AI Super Users (AICV)",
+      "series": "AI Super Users",
+      "synopsis": "An afternoon working conversation for founders, innovators, and curious AI users exploring the rapidly shrinking distance between an idea and a working prototype. The session combined current AI developments, idea validation, experimentation, and community networking."
+    },
+    {
+      "date": "2025-04-29",
+      "title": "AI Super Users (AICV)",
+      "series": "AI Super Users",
+      "synopsis": "An informal morning AI community gathering where participants compared notes on new tools, business applications, and ideas they were exploring. The format emphasized useful conversation, peer learning, and connections among the valley's emerging AI community."
+    },
+    {
+      "date": "2025-05-14",
+      "title": "AI Weekly Meetup — Coachella Valley",
+      "series": "AI Weekly",
+      "synopsis": "A midweek gathering created as a regular meeting place for people interested in shaping AI activity in the Coachella Valley. The meetup connected local participants around emerging AI developments, regional initiatives, practical experimentation, and new relationships."
+    },
+    {
+      "date": "2025-05-21",
+      "title": "AI Weekly Meetup — Coachella Valley",
+      "series": "AI Weekly",
+      "synopsis": "A weekly community checkpoint for discussing what was changing in AI and what those developments could mean locally. Participants shared discoveries, questions, projects, and connections while helping build momentum around the region's emerging AI community."
+    },
+    {
+      "date": "2025-05-28",
+      "title": "AI Weekly Meetup — Coachella Valley",
+      "series": "AI Weekly",
+      "synopsis": "An open Wednesday meetup bringing together AI users, entrepreneurs, and curious community members. The afternoon provided a place to compare tools, surface local projects, exchange ideas, and keep pace with a technology changing week by week."
+    },
+    {
+      "date": "2025-06-04",
+      "title": "AI Weekly — The AI Meetup in Coachella Valley",
+      "series": "AI Weekly",
+      "synopsis": "A weekly AI gathering at the ERC focused on conversation, connection, and the latest developments in artificial intelligence. Participants compared what they were testing, discussed practical uses, and helped strengthen the region's growing network of AI learners and builders."
+    },
+    {
+      "date": "2025-06-07",
+      "title": "Saturday Morning AI Launchpad",
+      "series": "Saturday Morning AI Launchpad",
+      "synopsis": "An early session of AICV's hands-on Saturday format: bring an idea and a laptop and explore what AI could help you make. Participants moved beyond AI conversation toward assistants, prototypes, CustomGPTs, and other practical experiments."
+    },
+    {
+      "date": "2025-06-11",
+      "title": "AI Weekly — The AI Meetup in Coachella Valley",
+      "series": "AI Weekly",
+      "synopsis": "A Wednesday afternoon forum for staying current on AI while connecting those experimenting with it across the Coachella Valley. The meetup combined current developments, participant questions, regional activity, and informal peer-to-peer learning."
+    },
+    {
+      "date": "2025-06-14",
+      "title": "Saturday Morning AI Launchpad",
+      "series": "Saturday Morning AI Launchpad",
+      "synopsis": "A hands-on build session where founders, students, small-business owners, and entrepreneurs explored how an idea could become an AI assistant, agent, or working prototype. Tools in the evolving toolkit included ChatGPT, Gemini, Cursor, Lovable, Bolt, Replit, and Copilot."
+    },
+    {
+      "date": "2025-06-18",
+      "title": "AI Weekly — The AI Meetup in Coachella Valley",
+      "series": "AI Weekly",
+      "synopsis": "A recurring community conversation connecting people interested in AI from across the region. Attendees discussed new developments, practical applications, and local opportunities while building relationships among entrepreneurs, professionals, and curious adopters."
+    },
+    {
+      "date": "2025-06-21",
+      "title": "Saturday Morning AI Launchpad",
+      "series": "Saturday Morning AI Launchpad",
+      "synopsis": "A collaborative Saturday lab combining AI updates with questions, participant ideas, peer feedback, and live experimentation. The emphasis was on learning by watching real ideas move from an initial concept toward something that could actually be tested or used."
+    },
+    {
+      "date": "2025-06-25",
+      "title": "AI Weekly — The AI Meetup in Coachella Valley",
+      "series": "AI Weekly",
+      "synopsis": "A weekly open room for comparing what people were seeing and building with AI. Discussions ranged across emerging tools and real-world use cases while creating a consistent place for local connections and collaboration to develop."
+    },
+    {
+      "date": "2025-06-28",
+      "title": "Saturday Morning AI Launchpad",
+      "series": "Saturday Morning AI Launchpad",
+      "synopsis": "A Saturday workshop for turning AI curiosity into practical experimentation. Participants brought projects and startup ideas into a collaborative environment built around live demonstrations, questions, iteration, and rapid idea-to-prototype workflows."
+    },
+    {
+      "date": "2025-07-02",
+      "title": "AI Weekly — The AI Meetup in Coachella Valley",
+      "series": "AI Weekly",
+      "synopsis": "A midweek pulse on a fast-moving AI landscape, giving the community a place to discuss important developments and their practical implications. The meetup also provided an ongoing connection point for local builders, entrepreneurs, and AI-curious residents."
+    },
+    {
+      "date": "2025-07-09",
+      "title": "AI Weekly — The AI Meetup in Coachella Valley",
+      "series": "AI Weekly",
+      "synopsis": "An informal Wednesday session focused on new AI tools, experiments, questions, and discoveries. Rather than a lecture, the meetup was designed around the knowledge already present in the room and the connections that form when people compare what they are learning."
+    },
+    {
+      "date": "2025-07-12",
+      "title": "Saturday Morning AI Launchpad",
+      "series": "Saturday Morning AI Launchpad",
+      "synopsis": "A startup-minded Saturday build session combining current AI news, participant questions, networking, and hands-on experimentation. Attendees explored how AI could shorten the path from an idea to an assistant, digital product, prototype, or new business concept."
+    },
+    {
+      "date": "2025-07-16",
+      "title": "AI Weekly — The AI Meetup in Coachella Valley",
+      "series": "AI Weekly",
+      "synopsis": "A recurring community exchange for keeping up with AI while learning from others using it in different ways. Participants shared questions, practical discoveries, and local perspectives in a conversational environment at the ERC."
+    },
+    {
+      "date": "2025-07-19",
+      "title": "Saturday Morning AI Launchpad",
+      "series": "Saturday Morning AI Launchpad",
+      "synopsis": "A hands-on workshop focused on turning startup and passion-project ideas into custom AI assistants. The day combined AI news, participant challenges, lunch and networking, followed by collaborative live builds using tools such as ChatGPT, Gemini, Cursor, Lovable, Bolt, and Replit."
+    },
+    {
+      "date": "2025-07-23",
+      "title": "AI Weekly — The AI Meetup in Coachella Valley",
+      "series": "AI Weekly",
+      "synopsis": "A Wednesday gathering for tracking the rapidly changing AI landscape and discussing what mattered for the Coachella Valley. The recurring meetup created space for new connections, shared discoveries, practical questions, and emerging local opportunities."
+    },
+    {
+      "date": "2025-07-26",
+      "title": "Saturday Morning AI Launchpad",
+      "series": "Saturday Morning AI Launchpad",
+      "synopsis": "A community-driven AI build day where attendees could bring unfinished ideas, questions, and experiments into the room. Live demonstrations and peer feedback helped participants understand how AI tools could be combined to create useful projects without a traditional technical team."
+    },
+    {
+      "date": "2025-07-30",
+      "title": "AI Weekly — The AI Meetup in Coachella Valley",
+      "series": "AI Weekly",
+      "synopsis": "A collaborative midweek forum for discussing AI news, tools, applications, and local projects. The meetup served as a low-friction way for people at different levels of AI experience to learn from each other and stay connected to regional activity."
+    },
+    {
+      "date": "2025-08-02",
+      "title": "Saturday Morning AI Launchpad",
+      "series": "Saturday Morning AI Launchpad",
+      "synopsis": "A practical Saturday lab built around ideas rather than lectures. Participants explored current AI tools through real questions, live demonstrations, project refinement, and collaborative problem-solving, with lunch and networking built into the day."
+    },
+    {
+      "date": "2025-08-06",
+      "title": "AI Weekly — The AI Meetup in Coachella Valley",
+      "series": "AI Weekly",
+      "synopsis": "A weekly community checkpoint bringing people together to make sense of new AI developments and share what they were learning. Conversations connected technology news with practical applications, entrepreneurship, and activity taking place across the Coachella Valley."
+    },
+    {
+      "date": "2025-08-09",
+      "title": "Saturday Morning AI Launchpad",
+      "series": "Saturday Morning AI Launchpad",
+      "synopsis": "A hands-on session centered on building CustomGPTs and useful AI assistants. The workshop moved from AI news and participant questions into lunch, networking, and a collaborative build period showing how ideas could be developed step by step with current AI tools."
+    },
+    {
+      "date": "2025-08-13",
+      "title": "AI Weekly — The AI Meetup in Coachella Valley",
+      "series": "AI Weekly",
+      "synopsis": "An open midweek gathering for discussing what was new, useful, confusing, or promising in AI. Participants brought their own experiences and questions, creating an informal regional learning network rather than a traditional speaker-led event."
+    },
+    {
+      "date": "2025-08-16",
+      "title": "Saturday Morning AI Launchpad",
+      "series": "Saturday Morning AI Launchpad",
+      "synopsis": "An interactive workshop combining AI news, open group discussion, lunch and networking, and live walkthroughs of tools including ChatGPT, Gemini Gems, and Copilot. The community-driven format welcomed everyone from first-time users to experienced builders."
+    },
+    {
+      "date": "2025-08-20",
+      "title": "AI Weekly — The AI Meetup in Coachella Valley",
+      "series": "AI Weekly",
+      "synopsis": "A Wednesday meetup connecting people learning, experimenting, and building with AI in the Coachella Valley. The session provided a recurring place to exchange discoveries, discuss challenges, and strengthen relationships across the local AI community."
+    },
+    {
+      "date": "2025-08-23",
+      "title": "Saturday Morning AI Launchpad",
+      "series": "Saturday Morning AI Launchpad",
+      "synopsis": "The closing Saturday session of AICV's summer Launchpad run, bringing together the season's emphasis on AI literacy, hands-on experimentation, community learning, and responsible use. Participants reflected on how AI should be used thoughtfully as the technology becomes part of more everyday work, business, and community life."
+    },
+    {
+      "date": "2025-08-27",
+      "title": "AI Weekly — The AI Meetup in Coachella Valley",
+      "series": "AI Weekly",
+      "synopsis": "A late-summer installment of AICV's weekly AI gathering, continuing the open format of news, questions, shared experimentation, and community connection. The series provided a consistent place for the region to learn together as AI capabilities accelerated."
+    },
+    {
+      "date": "2025-10-18",
+      "title": "Saturday Morning AI — Level-Up Your AI Skills",
+      "series": "Saturday Morning AI",
+      "synopsis": "The opening session of AICV's fall hands-on skills series, built around the themes Get Found, Get Seen, Get Ahead. Students, entrepreneurs, nonprofits, and small businesses began exploring how modern AI search works and how organizations can become more visible to systems such as ChatGPT, Gemini, Perplexity, and Google AI."
+    },
+    {
+      "date": "2025-10-25",
+      "title": "Saturday Morning AI",
+      "series": "Saturday Morning AI",
+      "synopsis": "A practical continuation of the fall series focused on AI visibility and applied digital skills. Participants explored how businesses and projects can be structured for discovery in AI search and worked toward creating useful, AI-optimized web assets rather than simply learning AI concepts in theory."
+    },
+    {
+      "date": "2025-11-01",
+      "title": "Saturday Morning AI — Workshop 3",
+      "series": "Saturday Morning AI",
+      "synopsis": "The series moved from getting found toward getting seen. Participants built on earlier AI-search and microsite work while exploring generative AI for content creation, repurposing ideas across formats, and developing practical workflows that could be used by businesses and organizations."
+    },
+    {
+      "date": "2025-11-08",
+      "title": "Saturday Morning AI — Workshop #4",
+      "series": "Saturday Morning AI",
+      "synopsis": "A fast-paced applied workshop connecting AI search visibility with content creation and workflow automation. Students and business owners continued building real projects while learning how AI could become a repeatable working system rather than a one-off prompting exercise."
+    },
+    {
+      "date": "2025-11-15",
+      "title": "Saturday Morning AI — Workshop 5",
+      "series": "Saturday Morning AI",
+      "synopsis": "A hands-on skills session revisiting the building blocks of AI visibility and practical digital creation. Participants continued developing projects that could demonstrate real-world AI capability while preparing to turn those skills outward toward work benefiting local organizations."
+    },
+    {
+      "date": "2025-11-22",
+      "title": "Saturday Morning AI — Workshop #6",
+      "series": "Saturday Morning AI",
+      "synopsis": "AICV shifted the workshop from building for ourselves to building for others. Participants applied tools including Cursor, GitHub, Vercel, NotebookLM, and other AI platforms to begin creating real portfolio pages and digital assets in support of local nonprofit organizations."
+    },
+    {
+      "date": "2025-12-06",
+      "title": "Saturday Morning AI — Workshop #7",
+      "series": "Saturday Morning AI",
+      "synopsis": "A late-series applied AI workshop combining search visibility, content, and practical digital workflows. Participants continued translating newly learned skills into working projects while exploring how AI could support both personal portfolios and real organizational needs."
+    },
+    {
+      "date": "2025-12-13",
+      "title": "Saturday Morning AI — Level-Up Your AI Skills",
+      "series": "Saturday Morning AI",
+      "synopsis": "The culminating session of AICV's fall Saturday Morning AI series. Participants brought together skills developed across AI search, AI-optimized microsites, generative content, and workflow automation, with an emphasis on leaving with practical capabilities that could be used beyond the classroom."
+    },
+    {
+      "date": "2026-04-25",
+      "title": "AI Agent Meetup — CoWork, Claude Code & OpenClaw",
+      "series": "AI Agent Meetup",
+      "synopsis": "An intentionally small builder meetup for people actively experimenting with AI agents. Rather than a workshop or lecture, participants compared what was working and what was breaking across Claude CoWork, Claude Code, and OpenClaw, while discussing what the Coachella Valley's AI community should build and teach next."
+    },
+    {
+      "date": "2026-07-18",
+      "title": "Saturday Morning AI: Idea Labs",
+      "series": "Saturday Morning AI: Idea Labs",
+      "synopsis": "The launch of AICV's monthly Idea Labs format: bring a real idea into the room and explore what it can become with AI. The July lab focused on AI avatars with HeyGen for business communication, storytelling, training, marketing, education, and local visibility, with participant ideas worked through collaboratively from strategy toward a first build."
+    }
+  ]
+}

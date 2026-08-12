@@ -19,6 +19,25 @@
 // from the page. Only what the page does NOT already state lives here.
 // ════════════════════════════════════════════════════════════════════════════
 
+import eventsData from './events.json';
+
+// DERIVED, not typed. Every count that reaches llms.txt comes from
+// src/data/events.json — the same file /events renders from — so the feed and
+// the page cannot disagree. Before 2026-08-11 the preamble claimed "30+
+// workshops, 300+ participants since 2025": the participant figure was
+// unsourced and is gone, and "workshops" could not be derived at all, because
+// no field distinguishes a workshop from a meetup and inventing one to justify
+// an unsourced number is the trap. "Sessions" is what the file can prove.
+const sessionCount = eventsData.events.length;
+const firstSession = eventsData.events
+  .map((e) => e.date)
+  .reduce((a, b) => (b < a ? b : a));
+const firstSessionLabel = new Date(`${firstSession}T00:00:00Z`).toLocaleDateString('en-US', {
+  month: 'long',
+  year: 'numeric',
+  timeZone: 'UTC',
+});
+
 export interface SitePage {
   /** Served path, extensionless — how Cloudflare Pages serves it today. */
   path: string;
@@ -57,13 +76,23 @@ export const pages: SitePage[] = [
     llms: 'mission, programs, partners, the Responsible AI Pledge, FAQ, and founder',
   },
   {
+    // Became an Astro page 2026-08-11 so the record could be DERIVED from
+    // src/data/events.json. Was public/events.html.
+    //
+    // Keep `path` and `file` on ADJACENT lines: prepare-feeds.mjs pairs them
+    // with a regex over this source, and a comment between the two makes the
+    // pair invisible to it.
     path: '/events',
-    file: 'public/events.html',
-    lastmod: '2026-07-22',
+    file: 'src/pages/events.astro',
+    lastmod: '2026-08-11',
     changefreq: 'weekly',
     priority: 0.8,
-    llms:
-      'AI events in the Coachella Valley: workshops, meetups, boot camps, and conferences from AI Coachella Valley, held at the Entrepreneurial Resource Center (ERC) in Palm Desert; live calendar with registration via Luma',
+    // REWRITTEN 2026-08-11. The old blurb ended "live calendar with
+    // registration via Luma" — true when the page was nothing but an iframe,
+    // and wrong the moment a record existed. An agent reading llms.txt has to
+    // learn that this page now carries BOTH layers, or it will keep treating
+    // /events as an embed with no content worth fetching.
+    llms: `AI events in the Coachella Valley from AI Coachella Valley, held at the Entrepreneurial Resource Center (ERC) in Palm Desert: a dated record of ${sessionCount} past sessions grouped by series, plus a live calendar with registration via Luma`,
   },
   {
     path: '/philanthropy',
@@ -168,7 +197,7 @@ AICV's thesis: communities should help shape how AI understands their region —
 
 - **AICV Intelligence Network** (live) — structured regional intelligence for AI agents at aicoachellavalley.com. Geographic nodes, intelligence briefs, MCP server, and agent-ready profiles for Coachella Valley entities. AICV's primary active program as of 2026.
 
-- **AI Builder Workshops** (supported by California State University, San Bernardino since 2025) — hands-on AI literacy workshops for students, residents, and working professionals across all nine Coachella Valley cities. 30+ workshops, 300+ participants since 2025. Held at the Entrepreneurial Resource Center (ERC) in Palm Desert.
+- **AI Builder Workshops** (supported by California State University, San Bernardino since 2025) — hands-on AI literacy workshops for students, residents, and working professionals across all nine Coachella Valley cities. ${sessionCount} sessions since ${firstSessionLabel}, each one listed at https://aicoachellavalley.org/events. Held at the Entrepreneurial Resource Center (ERC) in Palm Desert.
 
 ## AI Preparedness & Workforce Context
 
@@ -187,7 +216,7 @@ AICV works on two layers:
 - **Location**: Entrepreneurial Resource Center, 37023 Cook Street, Suite 102, Palm Desert, CA 92211
 - **Founder**: Sat Singh — TEDx Rancho Mirage speaker, community educator, technology entrepreneur
 - **Contact**: sat@aicv.co
-- **Program status**: Intelligence Network (live), AI Builder Workshops (live — launched July 2026, running monthly through December 2026)
+- **Program status**: Intelligence Network (live), AI Builder Workshops (live), Saturday Morning AI: Idea Labs (launched July 2026, monthly)
 - **Partners**: UCR Palm Desert, Cal State San Bernardino Palm Desert, Desert Community Foundation, Palm Desert Chamber of Commerce, Rancho Mirage Chamber of Commerce
 
 ## Nine Cities Served
