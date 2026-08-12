@@ -2,7 +2,7 @@
   "assembled_at": "2026-08-11",
   "source": "hand-assembled",
   "calendar_id": "cal-123s6rDFxeKQjJd",
-  "note": "This file was assembled BY HAND. Luma exposes no export and no API on this calendar, so there is no upstream to re-derive it from. 28 of the 42 events below appear on NO public surface — the Luma calendar's own past view lists 14. If this file is lost, those 28 events are gone. Nothing detects drift from Luma, by design: past events do not change, and the live calendar owns upcoming events via the iframe on /events. Titles are normalised on entry: Luma's own titles carry emoji (🌟, 🚀); these do not.",
+  "note": "This file was assembled BY HAND. Luma exposes no export and no API on this calendar, so there is no upstream to re-derive it from. 28 of the 42 events below appear on NO public surface — the Luma calendar's own past view lists 14. If this file is lost, those 28 events are gone. Nothing detects drift from Luma, by design: past events do not change, and the live calendar owns upcoming events via the iframe on /events. Titles are normalised on entry, three ways, each one ruled rather than inherited: Luma's own titles carry emoji (🌟, 🚀) and these do not; five ALL-CAPS rows were title-cased; and the \"(AICV)\" suffix was dropped from the AI Super Users rows, which is AICV's own site and did not need saying.",
   "venue": {
     "name": "Entrepreneurial Resource Center (ERC)",
     "display": "Entrepreneurial Resource Center (ERC) in Palm Desert",
@@ -17,31 +17,31 @@
   "events": [
     {
       "date": "2025-04-01",
-      "title": "AI Super Users (AICV)",
+      "title": "AI Super Users",
       "series": "AI Super Users",
       "synopsis": "An informal Tuesday morning AI and coffee gathering for entrepreneurs, professionals, creatives, and the AI-curious. Participants exchanged ideas about emerging AI tools, entrepreneurship, and practical ways the technology could be put to work, with conversation and community taking precedence over formal presentations."
     },
     {
       "date": "2025-04-10",
-      "title": "AI Super Users (AICV)",
+      "title": "AI Super Users",
       "series": "AI Super Users",
       "synopsis": "A Thursday afternoon AI and tea session exploring how modern AI tools could help turn an idea into something testable. The conversation centered on rapid prototyping, validating concepts, minimum viable products, and what nontechnical founders could now build with AI."
     },
     {
       "date": "2025-04-15",
-      "title": "AI Super Users (AICV)",
+      "title": "AI Super Users",
       "series": "AI Super Users",
       "synopsis": "A relaxed morning meetup built around AI, innovation, and entrepreneurship. Attendees brought questions, shared tools and discoveries, and learned from one another in an intentionally informal setting without a fixed presentation or agenda."
     },
     {
       "date": "2025-04-24",
-      "title": "AI Super Users (AICV)",
+      "title": "AI Super Users",
       "series": "AI Super Users",
       "synopsis": "An afternoon working conversation for founders, innovators, and curious AI users exploring the rapidly shrinking distance between an idea and a working prototype. The session combined current AI developments, idea validation, experimentation, and community networking."
     },
     {
       "date": "2025-04-29",
-      "title": "AI Super Users (AICV)",
+      "title": "AI Super Users",
       "series": "AI Super Users",
       "synopsis": "An informal morning AI community gathering where participants compared notes on new tools, business applications, and ideas they were exploring. The format emphasized useful conversation, peer learning, and connections among the valley's emerging AI community."
     },
