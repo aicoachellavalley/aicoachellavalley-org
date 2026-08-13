@@ -30,6 +30,17 @@
 // authored, in place, matching the other five pages.
 // ════════════════════════════════════════════════════════════════════════════
 import { getCollection } from 'astro:content';
+import eventsData from '../data/events.json';
+
+// DERIVED, not typed. The homepage and /events must state the SAME number, and
+// the only way to guarantee that is to read the same file.
+//
+// This markup is ordinary Astro and interpolates, so the visible prose derives
+// properly. The JSON-LD below CANNOT — it is `is:inline` — so the count there
+// stays a written constant with a build assertion in scripts/prepare-feeds.mjs
+// holding it to this same file. That asymmetry is the whole reason the assertion
+// exists; see the 2026-08-11 events entry in STATE.md.
+const sessionCount = eventsData.events.length;
 
 const articles = (await getCollection('news'))
   .filter((a) => !a.data.draft)
@@ -944,48 +955,15 @@ const fmt = (d) =>
     /* ════════════════════════════════════════
        STATS
     ════════════════════════════════════════ */
+    /* Slimmed 2026-08-12. This padding framed a four-cell grid; the band is
+       now a single affiliation line and the old spacing left it floating in
+       an empty dark block. */
     .stats {
       background: var(--c-ground);
-      padding: var(--s-8) var(--gutter) var(--s-6);
-    }
-    .stats__label {
-      font-size: var(--fs-10);
-      font-weight: 500;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--c-on-ground-m);
-      text-align: center;
-      margin-bottom: var(--s-4);
-    }
-    .stats__grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 2px;
-      background: rgba(var(--c-border-rgb),0.07);
-      max-width: var(--max-w);
-      margin: 0 auto;
-    }
-    .stats__cell {
-      background: rgba(255,255,255,0.03);
-      padding: 30px 20px;
-      text-align: center;
-    }
-    .stats__n {
-      font-family: 'EB Garamond', Georgia, serif;
-      font-size: 50px; font-weight: 700;
-      color: var(--c-paper); line-height: 1;
-      margin-bottom: var(--s-1);
-    }
-    .stats__n em { color: var(--c-accent-text); font-style: normal; }
-    .stats__l {
-      font-size: var(--fs-12);
-      font-weight: 400;
-      color: var(--c-on-ground);
-      line-height: 1.4;
+      padding: var(--s-5) var(--gutter);
     }
     .stats__affil {
       text-align: center;
-      margin-top: var(--s-4);
       font-size: var(--fs-12);
       color: var(--c-on-ground-m);
       max-width: var(--max-w);
@@ -1326,7 +1304,6 @@ const fmt = (d) =>
     }
     @media (max-width: 640px) {
       :root { --gutter: 20px; }
-      .stats__grid   { grid-template-columns: 1fr 1fr; }
       .prog-grid     { grid-template-columns: 1fr; }
       .founder-layout { grid-template-columns: 1fr; }
       .founder-img-wrap { max-width: 220px; }
@@ -1520,27 +1497,31 @@ const fmt = (d) =>
   </div>
 </section>
 
-<!-- ── STATS ── -->
-<div class="stats">
-  <div class="stats__label">On the ground in the Coachella Valley · Since 2025</div>
-  <div class="stats__grid wrap">
-    <div class="stats__cell">
-      <div class="stats__n">30<em>+</em></div>
-      <div class="stats__l">AI workshops<br>hosted since 2025</div>
-    </div>
-    <div class="stats__cell">
-      <div class="stats__n">300<em>+</em></div>
-      <div class="stats__l">Students in<br>attendance</div>
-    </div>
-    <div class="stats__cell">
-      <div class="stats__n">9</div>
-      <div class="stats__l">Cities across<br>the Valley</div>
-    </div>
-    <div class="stats__cell">
-      <div class="stats__n">12<em>+</em></div>
-      <div class="stats__l">Community &amp;<br>school partners</div>
-    </div>
-  </div>
+<!-- ── HOME BASE ──
+     THE STATS BAND WAS REMOVED 2026-08-12. It carried four cells and three of
+     them could not be supported:
+       · "30+ AI workshops hosted since 2025" — the events record holds exactly
+         42 sessions, so the page told a human 30+ and a machine 42 in the same
+         document. The count now derives, once, in the founder prose.
+       · "300+ Students in attendance" — unsourced, same class as "sold out".
+         Deleted, not replaced with a smaller number.
+       · "12+ Community & school partners" — no source anywhere on disk. This
+         page's own Partners section names SIX, llmsPreamble names five,
+         STATE.md's canonical list names six. Nothing names twelve.
+       · "9 Cities across the Valley" — true as MISSION SCOPE, false as
+         delivery, and under an "On the ground… Since 2025" header between
+         workshops-hosted and students-in-attendance it read as delivery. All
+         42 sessions were at ONE venue in Palm Desert. The seven mission-scope
+         statements of "nine cities" elsewhere on the site are correctly framed
+         and stay.
+     One number in a four-cell frame is a design saying nothing, so the band
+     went with them. The page now points at the record instead of asserting a
+     number at it.
+
+     ⚠ The affiliation line stayed: it is a FACT, not a claim, and it is the
+     only VISIBLE copy of the street address on this page (the other two are
+     inside JSON-LD). -->
+<div class="stats stats--affil-only">
   <div class="stats__affil wrap">
     <strong>Home base:</strong> Entrepreneurial Resource Center · 37023 Cook Street, Suite 102, Palm Desert
   </div>
@@ -1689,7 +1670,7 @@ const fmt = (d) =>
       <div>
         <p class="founder-bio">The future of AI should not be shaped only by large technology companies. Communities should help shape it too. That's what AICV is built to do — not as an abstract mission, but as a practical, on-the-ground program that meets people where they are across the nine cities of the Coachella Valley.</p>
         <p class="founder-bio">AICV was founded by Sat Singh — a TEDx Rancho Mirage speaker, community educator, and technology entrepreneur based in the Coachella Valley.</p>
-        <p class="founder-bio">Since 2025, AICV has hosted over 30 workshops with more than 300 participants across 12+ community and school partners. In 2026, AICV is focused on the intelligence network — now live at aicoachellavalley.com and cited by AI systems querying the valley, while bringing the AI Tinkerers community to the desert: gathering the region's strongest builders to mentor the next generation and train the trainers.</p>
+        <p class="founder-bio">Since April 2025, AICV has hosted {sessionCount} public sessions at the Entrepreneurial Resource Center in Palm Desert — workshops, meetups, and hands-on build days, documented in a <a href="/events">dated public record</a>. In 2026, AICV is focused on the intelligence network — now live at aicoachellavalley.com and cited by AI systems querying the valley, while bringing the AI Tinkerers community to the desert: gathering the region's strongest builders to mentor the next generation and train the trainers.</p>
         <p class="founder-bio">Sat Singh covers the AI beat for the Inland Empire at InformedIE. He writes about AI, business, media, and culture in the Coachella Valley at <a href="/news">AICV News</a>, and hosts a daily talk show and weekend radio for Palm Springs Coachella at <a href="https://sunshine.fm/" target="_blank" rel="noopener">SunshineFM</a>.</p>
         <div class="founder-sig">
           — Sat Singh
