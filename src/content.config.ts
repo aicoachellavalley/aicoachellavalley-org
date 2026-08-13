@@ -44,6 +44,47 @@ const news = defineCollection({
         alt: z.string(),
       })
       .optional(),
+    // ────────────────────────────────────────────────────────────────────────
+    // FAQ — ONE SOURCE for the FAQPage JSON-LD and (later) the visible section.
+    //
+    // Added 2026-08-12, ahead of the 32-file port from sunshine.fm, so those
+    // pieces arrive single-sourced instead of as new mirror pairs. The pattern
+    // to avoid is already on this site: the homepage FAQ is 14 questions
+    // hand-maintained in TWO places — visible markup and `is:inline` JSON-LD —
+    // guarded by nothing. Porting 81 answers that way would have quadrupled it.
+    //
+    // [slug].astro generates the FAQPage node from this array. When the visible
+    // section lands it renders from THE SAME array, so there is no second copy
+    // and nothing to keep in step — no guard is needed because no mirror exists.
+    //
+    // ⚠ TWO DECISIONS HERE ARE EXPENSIVE TO REVERSE, and they are what make the
+    // visible render a template edit rather than a 22-file migration:
+    //   1. `question`/`answer`, not `q`/`a`. This frontmatter is hand-edited by
+    //      a non-developer; self-documenting keys read better than terse ones in
+    //      a file that is written once and read many times. Renaming later
+    //      touches 22 files and 81 entries.
+    //   2. Answers are PLAIN STRINGS, not markdown. Measured across all 81
+    //      ported answers: zero HTML tags, zero entities, zero newlines. So the
+    //      render is `{f.answer}` — no markdown pipeline, no set:html, no
+    //      sanitisation. Markdown would be additive later if ever needed.
+    //
+    // Optional at the field level, deliberately: the port is blog 20/20 but
+    // signal 2/12. Ten pieces have no FAQ and must not be forced to invent one.
+    //
+    // Bounds sit just outside the measured range (questions 13–129 chars,
+    // answers 249–855, three to five per file) on the same principle as `title`
+    // and `description` above — enforced, not advisory.
+    // ────────────────────────────────────────────────────────────────────────
+    faq: z
+      .array(
+        z.object({
+          question: z.string().min(10).max(160),
+          answer: z.string().min(180).max(1000),
+        }),
+      )
+      .min(2)
+      .max(6)
+      .optional(),
   }),
 });
 

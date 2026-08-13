@@ -31,9 +31,24 @@ const fmt = (d: Date) =>
     timeZone: 'UTC',
   });
 
-const schema = {
-  '@context': 'https://schema.org',
+// ════════════════════════════════════════════════════════════════════════════
+// @graph, not a bare NewsArticle. Changed 2026-08-12, DELIBERATELY WHILE
+// /news IS EMPTY — one placeholder, zero real articles. An article page can
+// carry more than one entity (a NewsArticle and, where the frontmatter has
+// one, a FAQPage), and a bare object has room for exactly one. Making the
+// shape conditional on whether `faq` exists would have meant two different
+// JSON-LD shapes across the surface; moving to @graph now costs nothing and
+// costs progressively more after the 32-file port lands.
+//
+// The FAQPage is generated from `article.data.faq` — the SAME array the
+// visible section will render from when it lands. One source, so there is no
+// mirror to drift and no guard to write. See src/content.config.ts.
+// ════════════════════════════════════════════════════════════════════════════
+const articleId = `${url}#article`;
+
+const articleNode = {
   '@type': 'NewsArticle',
+  '@id': articleId,
   headline: article.data.title,
   description: article.data.description,
   datePublished: published,
@@ -58,6 +73,30 @@ const schema = {
     name: 'Coachella Valley, California',
   },
   ...(article.data.image ? { image: `${SITE}${article.data.image.src}` } : {}),
+};
+
+// Emitted ONLY when the frontmatter carries questions. The port is blog 20/20
+// but signal 2/12 — ten pieces have no FAQ, and an empty FAQPage node asserting
+// nothing is worse than no node.
+const faqNode = article.data.faq?.length
+  ? [
+      {
+        '@type': 'FAQPage',
+        '@id': `${url}#faq`,
+        mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+        about: { '@id': articleId },
+        mainEntity: article.data.faq.map((f) => ({
+          '@type': 'Question',
+          name: f.question,
+          acceptedAnswer: { '@type': 'Answer', text: f.answer },
+        })),
+      },
+    ]
+  : [];
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [articleNode, ...faqNode],
 };
 ---
 
