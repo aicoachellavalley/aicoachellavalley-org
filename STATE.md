@@ -1,7 +1,7 @@
 # org/ operational state
 
 > Operational state only. Strategic state lives in `aicv-playbook/STATE.md`.
-> **Fresh session? Read `HANDOFF.md` first** (tight orientation), then this file for full detail. Current HEAD: **.org is an ASTRO HYBRID, LIVE IN PRODUCTION since 2026-08-09 (`5d354d4`) — FOUR hand-written pages live in `public/` and still ship byte-for-byte, TWO are Astro pages (`index.astro`, `events.astro`), `dist/` is the deploy directory, and there IS a build step. Run `npm run build` locally before every push.** **`/events` carries a DATED RECORD as of 2026-08-11 (`4d75ebc`, `94c5f13`)**: 42 sessions across six series rendered from `src/data/events.json`, with 49 JSON-LD nodes. Before this the page contained ZERO events — a hero and a Luma iframe, invisible to every agent. ⚠ **That file is the sole copy of 28 of those events; Luma has no export and no API, and its public calendar lists only 14. Never regenerate it from Luma.** `/news/` is a generated publishing surface; `sitemap.xml` and `llms.txt` are generated routes, not files. **Author page live (2026-08-10)**: `/author/sat-singh` is a ProfilePage carrying the canonical Person `@id`; article bylines link to it and reference that `@id` rather than emitting an anonymous Person. `src/data/people.json` is the single definition and a build gate keeps index.astro's hand-written JSON-LD in step. The coverage gate now sweeps `src/pages/**`, not just `public/`. **Phase 2 (2026-08-09) ended byte-identity**: the homepage is now `src/pages/index.astro` (the other five stay static HTML in `public/` — deliberate asymmetry), News is in the nav/drawer/footer on all six, and the homepage carries a recent-articles section. ⚠ `index.astro`'s style block MUST keep `is:inline`. The site is SIX static pages, `/pledge` is live, the rebrand backlog is EMPTY, the CSS is fully swept, and the token names match BRAND.md §4 (2026-08-06). Operational docs 404 via a Pages Function. Step 5 (regenerate the pledge deck) and the X-Frame-Options item are both CLOSED BY REMOVAL — the deck and the lightbox no longer exist. Fiscal wording is canon-aligned on "project". `/pledge` is in the nav, drawer and footer on all six pages. The fiscal inventory is CUT: 24 placements to 14, and both "initiative" and "under Desert Community Foundation" are now zero sitewide. No known wording divergence remains. *(This pointer had been stale at `f86f83e`/2026-07-01 for five weeks — bump it every session.)*
+> **Fresh session? Read `HANDOFF.md` first** (tight orientation), then this file for full detail. Current HEAD: **.org is an ASTRO HYBRID, LIVE IN PRODUCTION since 2026-08-09 (`5d354d4`) — FOUR hand-written pages live in `public/` and still ship byte-for-byte, TWO are Astro pages (`index.astro`, `events.astro`), `dist/` is the deploy directory, and there IS a build step. Run `npm run build` locally before every push.** **`/events` carries a DATED RECORD as of 2026-08-11 (`4d75ebc`, `94c5f13`)**: 42 sessions across six series rendered from `src/data/events.json`, with 49 JSON-LD nodes. Before this the page contained ZERO events — a hero and a Luma iframe, invisible to every agent. ⚠ **That file is the sole copy of 28 of those events; Luma has no export and no API, and its public calendar lists only 14. Never regenerate it from Luma.** **The homepage STATS BAND was removed 2026-08-13 (`9eb3f9b`)** — three of its four cells were unsupportable ("300+ students", "12+ partners", "9 cities" framed as delivery) and the fourth contradicted `/events`. The session count now derives from `events.json` in the founder prose; only the `is:inline` JSON-LD keeps a guarded constant. ⚠ **Verify claims against RENDERED output with tags joined, not against source** — `30<em>+</em>` does not grep as "30+", and that is why the claim survived two prior fixes. `/news/` is a generated publishing surface; `sitemap.xml` and `llms.txt` are generated routes, not files. **Author page live (2026-08-10)**: `/author/sat-singh` is a ProfilePage carrying the canonical Person `@id`; article bylines link to it and reference that `@id` rather than emitting an anonymous Person. `src/data/people.json` is the single definition and a build gate keeps index.astro's hand-written JSON-LD in step. The coverage gate now sweeps `src/pages/**`, not just `public/`. **Phase 2 (2026-08-09) ended byte-identity**: the homepage is now `src/pages/index.astro` (the other five stay static HTML in `public/` — deliberate asymmetry), News is in the nav/drawer/footer on all six, and the homepage carries a recent-articles section. ⚠ `index.astro`'s style block MUST keep `is:inline`. The site is SIX static pages, `/pledge` is live, the rebrand backlog is EMPTY, the CSS is fully swept, and the token names match BRAND.md §4 (2026-08-06). Operational docs 404 via a Pages Function. Step 5 (regenerate the pledge deck) and the X-Frame-Options item are both CLOSED BY REMOVAL — the deck and the lightbox no longer exist. Fiscal wording is canon-aligned on "project". `/pledge` is in the nav, drawer and footer on all six pages. The fiscal inventory is CUT: 24 placements to 14, and both "initiative" and "under Desert Community Foundation" are now zero sitewide. No known wording divergence remains. *(This pointer had been stale at `f86f83e`/2026-07-01 for five weeks — bump it every session.)*
 
 ## Current
 
@@ -1193,6 +1193,126 @@ lands, at both 1280 and 375 — the `<img>` is absolutely positioned inside a
 - **CSS drops `to bottom` from computed gradient values** because it is the default.
   Testing for it inverts the direction; test for `to right` instead. This produced a
   false failure on mobile.
+
+---
+
+## Homepage claim sweep — a correction to a correction — 2026-08-13
+
+`9eb3f9b`. The stats band is gone; the workshop count derives; the participant
+and partner claims are deleted.
+
+### ⚠ THE CHAIN — read this rather than the outcome
+
+Three passes at one claim. **Dates verified against `git log`, not carried
+forward** — two of the three in circulation were wrong, including one this file
+was already publishing:
+
+| When | Commit | What it did — and what it left |
+|---|---|---|
+| **2026-07-23** | `ddeab7f` | Reworded `"in 2025"` → `"since 2025"`. Tense fixed. **Both figures still unsourced.** |
+| **2026-08-11** | `4d75ebc` | Corrected the **JSON-LD copy only** — one line, `#service-workshops`. |
+| **2026-08-13** | `9eb3f9b` | Found the **visible** copies. Band deleted, count derived. |
+
+⚠ **The date error has the SAME SHAPE as the claim error, and it is the third
+instance.** The 2026-07-23 date-correction entry above already caught that this
+pass was mislabeled "2026-07-21" — and re-dated the **heading** only. The
+cleanup-cycle item kept 07-21, so the wrong date survived there, and the session
+writing the 2026-08-11 entry below copied it forward. A correction scoped to one
+occurrence of a value that lives in several is the defect this whole chain is
+about, and it happened to a **date** while we were busy fixing it happening to a
+**number**. Both corrected 2026-08-13; both re-derived from `git log`.
+
+**Why pass two was incomplete: the ruling named a NODE when the defect was a
+CLAIM living in four places.** `#service-workshops` was fixed and
+`llmsPreamble` was fixed, which felt like completion. The stats band and the
+founder prose — both visible, both on the same page — were never in scope,
+because the scope had been written as a node rather than as a claim. For a
+day and a half the homepage told a human **"30+ workshops"** and a machine
+**"42 sessions"** in the same document, while `/events` said 42.
+
+### ⚠ §7.7 COROLLARY — a number split by markup does not grep as a number
+
+This is a REPRESENTATION failure, not a scope failure, and it is the reason the
+visible copies survived a sweep that was actively looking for them. The band
+rendered:
+
+```html
+<div class="stats__n">30<em>+</em></div>
+<div class="stats__l">AI workshops<br>hosted since 2025</div>
+```
+
+Three natural search shapes, three misses — all measured, not supposed:
+
+| Search | Result |
+|---|---|
+| literal `"30+"` | **1 hit in the entire repo** — a code comment. Not the claim. |
+| line-scoped regex (number near label) | number and label are **4 lines apart** |
+| strip tags to **spaces** | renders `"30 +"` — slips a third time |
+
+**The only reliable test JOINS tags in the rendered output**
+(`re.sub(r'<[^>]+>', '', html)`), turning `30<em>+</em>` into `30+`. Verify
+claims against what the page RENDERS, not against what the source says. Applies
+to any number a designer has styled — a superscript `+`, a `<sup>`, a unit in
+its own span.
+
+### What came out, and on what evidence
+
+- **"300+ Students in attendance"** — unsourced, same class as "sold out".
+  Deleted, **not replaced with a smaller number.**
+- **"12+ Community & school partners"** — no source anywhere on disk. This
+  page's own Partners section names **six** (CSUSB, UCR Palm Desert, DCF, City
+  of Palm Desert, Palm Desert Chamber, Rancho Mirage Chamber); `llmsPreamble`
+  names five; the canonical Partnership list in this file names six. **Nothing
+  names twelve**, and no file distinguishes a "school partner" from a workshop
+  venue.
+- **"9 Cities across the Valley"** — true as MISSION SCOPE, false as delivery.
+  Under an "On the ground… Since 2025" header, between workshops-hosted and
+  students-in-attendance, it read as delivery. **All 42 sessions were at ONE
+  venue in Palm Desert.** The seven mission-scope uses of "nine cities"
+  elsewhere on the site are correctly framed and STAY.
+- **The band itself.** One number in a four-cell frame is a design saying
+  nothing. The count moved to the founder prose, derived from `events.json`,
+  linking to `/events`. **No `+` suffix** — the file holds exactly 42, so "42+"
+  would be false.
+
+**KEPT: the `Home base:` affiliation line.** A fact, not a claim, and the only
+VISIBLE copy of the street address on the page — the other two are inside
+JSON-LD. Its container was slimmed; that padding framed a four-cell grid. Seven
+now-dead CSS rules removed with the markup.
+
+### Where the count lives now
+
+| Surface | Mechanism |
+|---|---|
+| founder prose (homepage) | **derived** — ordinary Astro markup interpolates |
+| `llms.txt` | **derived** — `site-pages.ts` is a real module |
+| `#service-workshops` JSON-LD | **guarded constant** — `is:inline` cannot interpolate |
+| `/events` | **derived** |
+
+### Verification, and one thing NOT claimed
+
+Verified against **rendered output with tags joined**: `30+`, `300+` and `12+`
+all absent from `dist/index.html`; homepage, `/events` and the JSON-LD all state
+42; the seven mission-scope "nine cities" survive; the address survives.
+
+⚠ **No screenshot.** The browser pane began returning blank frames after a
+scroll timeout and did not recover across a reload. The band was verified
+structurally and geometrically instead — `.stats` renders 100px tall,
+background `rgb(8,28,21)`, 40px padding, `innerText` exactly the address line.
+That is good evidence it is not broken; **it is not visual confirmation and was
+not recorded as such.**
+
+### ⚠ NEW HAZARD — local config drift between parallel sessions
+
+`~/AICV/.claude/launch.json` is NOT in any git repo, so nothing detects a
+concurrent session changing it. On 2026-08-12 at 13:01 another session reduced
+it from six configurations to one, removing `org-dist` — the only way to serve
+`core/org/dist` for visual verification. Today's restore was **additive**: the
+other session's entry was left untouched.
+
+Check `launch.json` before assuming a preview target exists, and add rather than
+replace. This belongs in House Rules too; it was not written there because the
+playbook has had other sessions in it.
 
 ---
 
@@ -2811,6 +2931,6 @@ After commit 70915fe deployed, re-ran both scans.
 ## Next .org Cleanup Cycle (scoped, not today)
 
 1. Add hero-area program status summary line (AIO Tool HIGH from April scan — pill badges are card-level; scanner wants hero-area banner)
-2. ~~Fact-check `llms.txt` workshop count: "30+ workshops, 300+ participants in 2025"~~ ~~**RESOLVED 2026-07-21** (`ddeab7f`): reframed **"in 2025" → "since 2025"**~~ **SUPERSEDED 2026-08-11** (`4d75ebc`). The 07-21 fix reframed the tense but left both figures unsourced, which is why it came back. Now: the participant figure is **deleted** (unsourced, same class as "sold out"), and the count is **derived** from `src/data/events.json` and counts **sessions**, not workshops — no field distinguishes a workshop from a meetup, and inventing a taxonomy to justify an unsourced number is the trap. On `index.astro` it is a written constant guarded by a build assertion (its JSON-LD is `is:inline`); in `llms.txt` it is genuinely derived. See the 2026-08-11 events entry.
+2. ~~Fact-check `llms.txt` workshop count: "30+ workshops, 300+ participants in 2025"~~ ~~**RESOLVED 2026-07-21** (`ddeab7f`): reframed **"in 2025" → "since 2025"**~~ **SUPERSEDED — see the 2026-08-13 claim-sweep entry for the full chain.** (Date corrected 2026-08-13: this item said "2026-07-21"; `ddeab7f` is dated **2026-07-23**. The 07-23 date-correction entry above already re-dated that pass's HEADING and missed this line, so the wrong date survived here and was copied forward into the 2026-08-11 entry.) The reword fixed the tense and left both figures unsourced, which is why it came back. Now: the participant figure is **deleted** (unsourced, same class as "sold out"), and the count is **derived** from `src/data/events.json` and counts **sessions**, not workshops — no field distinguishes a workshop from a meetup, and inventing a taxonomy to justify an unsourced number is the trap. On `index.astro` it is a written constant guarded by a build assertion (its JSON-LD is `is:inline`); in `llms.txt` it is genuinely derived. See the 2026-08-11 events entry.
 3. `404.html` eyebrow: "404 · Page Not Found" fits neither site eyebrow pattern (category label or brand/domain); cosmetic only
 4. ~~`sitemap.xml` stale `lastmod`s (STILL OPEN as of 2026-06-20)~~ **CLOSED PERMANENTLY 2026-08-08.** `sitemap.xml` is now a generated route, not a file. Article `lastmod`s derive from frontmatter (`updated ?? date`) and cannot go stale. The four static-page `lastmod`s remain hand-set in `src/data/site-pages.ts` — that much is unchanged from before — but they are now the *only* hand-maintained values in the file, and `scripts/prepare-feeds.mjs` fails the build if a page in `public/` is missing from the manifest entirely. The class of bug where a whole page silently drops out of the sitemap is gone.
