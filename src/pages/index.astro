@@ -501,8 +501,7 @@ const fmt = (d) =>
                                        pine on volt = 9.61:1                   */
       --c-accent-fill-h: #C2E600;   /* deeper volt, hover. 7 uses.
                                        pine on it = 7.71:1                     */
-      --c-accent-text:   #1B4332;   /* pine. 55 uses — accent text, borders,
-                                       and the 7 rocket-divider SVG strokes.
+      --c-accent-text:   #1B4332;   /* pine. Accent text and borders.
                                        On paper = 10.59:1                      */
       --c-accent-text-d: #2D6A4F;   /* pine-light. 2 uses — darker accent TEXT
                                        used STATICALLY for contrast, not a
@@ -622,7 +621,8 @@ const fmt = (d) =>
     .body--lt     { color: rgba(var(--c-paper-rgb),0.65); }
     .body--lead   { font-size: var(--fs-17); }
     /* #why-now's lead paragraph drops to body size so the section matches the
-       Build section's copy scale. Scoped to #why-now rather than changing
+       Programs section's copy scale (its eyebrow read "Build" until
+       2026-08-13). Scoped to #why-now rather than changing
        .body--lead globally: the token is shared with philanthropy.html, and
        leaving it intact keeps a lead size available if another section wants
        one. This is the only .body--lead in index.html's markup. */
@@ -971,20 +971,6 @@ const fmt = (d) =>
       margin-right: auto;
     }
     .stats__affil strong { color: var(--c-on-ground); font-weight: 500; }
-
-    /* ════════════════════════════════════════
-       ROCKET DIVIDER
-    ════════════════════════════════════════ */
-    .rocket-divider {
-      background: var(--c-paper);
-      padding: 24px var(--gutter);
-      text-align: center;
-    }
-    .rocket-divider svg {
-      display: block;
-      max-width: 900px;
-      margin: 0 auto;
-    }
 
     /* ════════════════════════════════════════
        PROGRAMS
@@ -1437,25 +1423,10 @@ const fmt = (d) =>
   </div>
 </section>
 
-<!-- ── ROCKET DIVIDER ── -->
-<div class="rocket-divider">
-  <svg viewBox="0 0 900 70" width="100%" height="70" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-    <path d="M20 50 Q160 28 310 42 Q390 52 432 38" stroke="var(--c-accent-text)" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-dasharray="5 8" opacity="0.38"/>
-    <g transform="translate(434,12)">
-      <path d="M17 36 C15 27 12 14 17 4 C22 14 19 27 17 36Z" stroke="var(--c-accent-text)" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-      <circle cx="17" cy="16" r="3.5" stroke="var(--c-accent-text)" stroke-width="1.4" fill="none"/>
-      <path d="M12 31 L7 40 L15 36" stroke="var(--c-accent-text)" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M22 31 L27 40 L19 36" stroke="var(--c-accent-text)" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M13 37 Q15 46 17 50 Q19 46 21 37" stroke="var(--c-accent-text)" stroke-width="1.3" fill="none" stroke-linecap="round" opacity="0.5"/>
-    </g>
-    <path d="M468 38 Q510 26 640 40 Q750 52 880 36" stroke="var(--c-accent-text)" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-dasharray="5 8" opacity="0.38"/>
-  </svg>
-</div>
-
 <!-- ── PROGRAMS ── -->
 <section class="section section--sand" id="programs">
   <div class="wrap">
-    <span class="eyebrow">Build</span>
+    <span class="eyebrow">Programs</span>
     <h2 class="h2">What we're building.</h2>
     <div class="programs-intro">
       <p class="body">AICV's programs are designed to turn AI literacy into applied skills and real opportunity across the Coachella Valley.</p>
