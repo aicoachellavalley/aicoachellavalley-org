@@ -26,6 +26,15 @@ const news = defineCollection({
     title: z.string().min(10).max(70),
     description: z.string().min(70).max(160),
     date: z.coerce.date(),
+    // The DECK — the line under the headline. Distinct from `description`,
+    // which is the meta/social claim; 13 of the 20 ported pieces that carry a
+    // standfirst say something their description does not, so [slug].astro
+    // does NOT fall back to description when this is absent.
+    //
+    // OPTIONAL because 20 of 32 ported pieces have one and 12 do not. Bounds
+    // keep it to a single line: shorter reads as a fragment, longer becomes a
+    // second description.
+    standfirst: z.string().min(40).max(220).optional(),
     tags: z.array(z.string()).min(1).max(5),
     // REQUIRED, and deliberately NOT defaulted. A default would let a
     // mis-sorted piece land silently in the wrong bucket; required means the

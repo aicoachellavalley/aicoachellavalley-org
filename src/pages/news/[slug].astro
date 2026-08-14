@@ -120,7 +120,18 @@ const schema = {
           {fmt(article.data.date)} · <a href={`/author/${author.slug}`} rel="author">{author.name}</a>
         </p>
         <h1 class="article__title">{article.data.title}</h1>
-        <p class="article__standfirst">{article.data.description}</p>
+        {/* ⚠ THIS ELEMENT USED TO RENDER `description`, unconditionally. It now
+            renders `standfirst` and is OMITTED ENTIRELY when there is none —
+            no empty <p>, and deliberately NO FALLBACK to description.
+            A deck and a meta description are different claims: 13 of the 20
+            ported pieces that carry a standfirst say something their
+            description does not, so falling back would put the wrong sentence
+            under the headline rather than no sentence.
+            Consequence, accepted: a piece with no standfirst now shows the
+            headline followed directly by the body. */}
+        {article.data.standfirst && (
+          <p class="article__standfirst">{article.data.standfirst}</p>
+        )}
       </header>
 
       <div class="article__body">
