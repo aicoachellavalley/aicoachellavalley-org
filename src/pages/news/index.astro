@@ -32,8 +32,14 @@ const schema = {
 ---
 
 <NewsLayout title={title} description={description} canonical={`${SITE}/news`} schema={schema}>
+  {/* .page__inner (1080px), NOT .page__narrow (720px). 720 is a READING
+      measure and belongs on the article; a card list with a 168px rail left
+      only 470px for the headline, where a FOUR-word title wrapped to three
+      lines at 56px. Measured, not guessed. This also gives .page__inner its
+      first consumer — it had been dead in news.css since the file was
+      written. */}
   <section class="page">
-    <div class="page__narrow">
+    <div class="page__inner">
       {/* The page-level eyebrow was REMOVED 2026-08-13. Every entry now
           carries a category label in the left margin using the same
           treatment, and running both put the identical styling on screen

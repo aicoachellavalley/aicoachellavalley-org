@@ -83,25 +83,29 @@ const {
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    {/* DM Sans widened from the discrete 300;400;500 to the RANGE 300..800,
-        2026-08-13. Measured, not assumed: both URLs serve the IDENTICAL two
-        woff2 files (…CZ2IHTWEBlwu8Q, …CZOIHTWEBlw). Only the descriptor
-        changes — three @font-face blocks at fixed weights become one at
-        `font-weight: 300 800`. Zero extra bytes, and 300/400/500 resolve to
-        the same axis positions, so the nav and footer cannot shift.
-        What it buys: with discrete descriptors a browser asked for 700
-        SYNTHESISES faux-bold from 500. With the range it interpolates the
-        real axis, which is what makes the index headlines genuine.
+    {/* THREE FAMILIES on the /news surface, and exactly ONE more than the
+        other six pages request. That is the whole divergence.
 
-        ⚠ DELIBERATE DIVERGENCE: the other six surfaces keep the narrow
-        descriptor, and nothing detects it — the chrome guard compares
-        (href, label) pairs, not CSS or font URLs. Inert today: same file,
-        and no other surface requests a weight above 500. It becomes visible
-        only if a future pass asks for heavy type on a narrow-descriptor
-        page, where it would quietly synthesise rather than fail. Recorded in
-        STATE.md; deliberately not gated. */}
+        BEBAS NEUE — added 2026-08-14 for the design-system pilot. Weight 400
+        is the ONLY weight it has (300/500/700 all 400 from Google), and it
+        carries no lowercase glyphs: lowercase input renders as caps. Titles
+        only.
+
+        DM SANS — REVERTED here from the 300..800 range back to the original
+        discrete 300;400;500. ab39225 widened it so the DM Sans titles could
+        reach a real 700/800 instead of synthesising; with every title now on
+        Bebas, the heaviest DM Sans weight left on this surface is 500
+        (.news-item__cat, .article__body h3, .author-elsewhere__label; the
+        lede is 300). Nothing needs the range, so the divergence ab39225
+        opened CLOSES rather than getting recorded — this line is now
+        byte-identical to the other six surfaces.
+
+        EB GARAMOND — deliberately UNCHANGED, including the 0,700 face whose
+        only user (.article__title) just moved to Bebas. Trimming it would
+        buy a second divergence for no measurable gain; keeping it means
+        Bebas is the only difference between this request and the other six. */}
     <link
-      href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300..800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap"
       rel="stylesheet"
     />
 

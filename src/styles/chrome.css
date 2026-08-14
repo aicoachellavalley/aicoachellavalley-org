@@ -123,13 +123,43 @@
          surface is deliberately frozen (sans for scanning, serif for
          reading). Partly tokenised is the honest state, not an oversight. */
       --fw-medium:    500;
-      --fw-bold:      700;
-      --fw-heavy:     800;
-      --lh-tight:     1.05;
-      --lh-headline:  1.1;
-      --fs-headline:  clamp(24px, 3vw, 34px);
+
+      /* ── DESIGN-SYSTEM PILOT, 2026-08-14 — /news only ──
+         --fw-bold (700), --fw-heavy (800) and --ls-headline (-0.01em) were
+         added a day earlier for DM Sans titles and are GONE: every title is
+         Bebas Neue now, which has one weight and wants POSITIVE tracking,
+         so all three were dead the moment the face changed. Removed rather
+         than left to rot.
+
+         Bebas is caps-only with tall capitals, so it sets far tighter than
+         a lowercase face — hence a line-height near 0.95 rather than 1.1,
+         and a touch of positive tracking, which caps always need. */
+      --lh-caps:      0.95;
+      --ls-caps:      0.01em;
+
+      /* TYPE CONTRAST is the mechanism, not the face. The index ran a
+         1.6–2.3x title-to-description ratio; the reference runs 4.3x
+         (56px against 13px). Bebas is condensed, so 56px caps take about
+         the width of 38px in a normal face — the size buys contrast without
+         costing the column. */
+      --fs-display:   clamp(46px, 7vw, 84px);
+      --fs-headline:  clamp(34px, 4.4vw, 56px);
       --ls-label:     0.2em;
-      --ls-headline:  -0.01em;
+
+      /* RADIUS. There were NO radius tokens before this: seven ad-hoc values
+         were spread across six surfaces (2, 3, 4, 6, 8, 12, 999px) with
+         nothing naming them. Cards on a ground need a scale, so here is one. */
+         --r-nested (8px) was proposed and is NOT declared: nothing on the
+         pilot nests a card inside a card, and a token with no consumer is
+         the same defect as a count nobody re-derives. It goes in when
+         something needs it. */
+      --r-card:       14px;
+      --r-chip:        3px;
+
+      /* Layout, not spacing — deliberately NOT forced onto the --s-* scale,
+         which tops out at 112px and measures gaps rather than columns.
+         168px is 21x8, so it still sits on the underlying 8px grid. */
+      --rail:        168px;
     }
 
     /* ════════════════════════════════════════

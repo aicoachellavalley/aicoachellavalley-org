@@ -35,20 +35,22 @@
    Both clear 4.5:1 normal text.
    ────────────────────────────────────────────────────────────────────────── */
 /* SHARED by /news and /author/sat-singh — the index headline and the founder's
-   name. Both take DM Sans 800; that is the system working rather than two
-   surfaces drifting.
-   NOT UPPERCASED. The first draft of this system asked for caps here, on the
-   reasoning that a page title is "short and fixed" — but the index title is a
-   39-character sentence, and uppercasing it at up to 68px contradicts the rule
-   that put the entry headlines in sentence case one rule below. Shortening a
-   title to justify caps would be backwards: the sentence tells a first-time
-   visitor what the surface is, and the nav already says "News". */
+   name. Both take Bebas; that is the system working rather than two surfaces
+   drifting.
+
+   ⚠ THE CAPS ARGUMENT IS NOW MOOT, and the history matters. A day earlier this
+   was DM Sans 800 with uppercase DELIBERATELY REFUSED, on the reasoning that
+   the index title is a 39-character sentence and caps at that length hurt
+   scanning. Bebas has no lowercase glyphs, so the sentence renders as caps
+   regardless — the outcome that was argued against, arrived at by choosing the
+   face rather than by setting text-transform. That is a real consequence of
+   the pilot and the first thing to judge when looking at it. */
 .page__title {
-  font-family: 'DM Sans', system-ui, sans-serif;
-  font-size: var(--fs-h1);
-  font-weight: var(--fw-heavy);
-  line-height: var(--lh-tight);
-  letter-spacing: -0.015em;
+  font-family: 'Bebas Neue', Impact, sans-serif;
+  font-size: var(--fs-display);
+  font-weight: 400;
+  line-height: var(--lh-caps);
+  letter-spacing: var(--ls-caps);
   color: var(--c-text);
   margin: 0 0 var(--s-3);
 }
@@ -71,21 +73,27 @@
   margin: var(--s-8) 0 0;
   padding: 0;
 }
-/* TWO COLUMNS — category in the left margin, everything else in the right.
-   Placed by grid on the EXISTING FLAT MARKUP: no wrapper element, because a
-   wrapper would be a second thing to keep in step with the CSS. The category
-   span is FIRST in source order, which is what makes the mobile rule a
-   one-line change (single column, and it stacks above the date on its own)
-   rather than an `order:` override. */
+/* CARDS ON A GROUND. The page stays --c-paper; each entry is a card in
+   --c-surface with a hairline and a radius. The hairline rules that used to
+   separate entries are gone — the cards do that job, and running both would
+   have drawn two separators for one break.
+
+   THE RAIL is a real border-right, not an indent: 168px, carrying only the
+   category kicker. Placed by grid on the EXISTING FLAT MARKUP — no wrapper
+   element, because a wrapper is a second thing to keep in step with the CSS.
+   The category span is FIRST in source order, which is what makes the mobile
+   rule a change of track sizes rather than an `order:` override. */
 .news-item {
   display: grid;
-  grid-template-columns: 132px 1fr;
-  column-gap: var(--s-4);
-  padding: var(--s-8) 0;
-  border-top: 1px solid var(--c-border-l);
+  grid-template-columns: var(--rail) 1fr;
+  background: var(--c-surface);
+  border: 1px solid var(--c-border-l);
+  border-radius: var(--r-card);
+  overflow: hidden;
+  margin-bottom: var(--s-3);
 }
 .news-item:last-child {
-  border-bottom: 1px solid var(--c-border-l);
+  margin-bottom: 0;
 }
 /* The .eyebrow treatment RELOCATED — same values, no margin-bottom, because
    here it sits in its own column rather than above a heading. The page-level
@@ -95,12 +103,17 @@
 .news-item__cat {
   grid-column: 1;
   grid-row: 1 / -1;
+  padding: var(--s-3);
+  border-right: 1px solid var(--c-border-l);
   font-size: var(--fs-10);
   font-weight: var(--fw-medium);
   letter-spacing: var(--ls-label);
   text-transform: uppercase;
   color: var(--c-accent-text);
 }
+/* Padding sits on each content cell rather than on a wrapper: three grid
+   items, three rules, no extra element to keep in step. Sides are constant
+   at --s-4; only the first and last cell carry the vertical edges. */
 .news-item__date,
 .news-item__title,
 .news-item__desc {
@@ -108,25 +121,30 @@
 }
 .news-item__date {
   display: block;
+  padding: var(--s-4) var(--s-4) 0;
   font-size: var(--fs-12);
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--c-text-l);
   margin-bottom: var(--s-2);
 }
-/* SANS FOR SCANNING. Was EB Garamond 600 at --fs-22. The index is a surface
-   people scan, so the headline moved to DM Sans at a real 700 — real because
-   the layout's font request was widened to the 300..800 range in the same
-   pass, which makes the browser interpolate the variable axis instead of
-   synthesising faux-bold from 500.
-   SENTENCE CASE, deliberately: caps at headline length hurt scanning, which
-   is the same reason the page title above is not uppercased either. */
+/* BEBAS NEUE — same face as the page title and the article title. A headline
+   that changes typeface when you click it reads as a bug, so the same content
+   keeps the same face across every surface it appears on. This supersedes the
+   DM Sans 700 of a day earlier, and the EB Garamond 600 before that.
+
+   Bebas has no lowercase glyphs at all: lowercase input renders as caps
+   regardless, so text-transform would be decoration. The size jump from
+   34px to 56px is the point — the ratio against the description moves from
+   ~2.3x to ~4.3x, and because Bebas is condensed it costs almost no column
+   width to get there. */
 .news-item__title {
-  font-family: 'DM Sans', system-ui, sans-serif;
+  font-family: 'Bebas Neue', Impact, sans-serif;
   font-size: var(--fs-headline);
-  font-weight: var(--fw-bold);
-  line-height: var(--lh-headline);
-  letter-spacing: var(--ls-headline);
+  font-weight: 400;
+  line-height: var(--lh-caps);
+  letter-spacing: var(--ls-caps);
+  padding: 0 var(--s-4);
   margin: 0 0 var(--s-2);
 }
 .news-item__title a {
@@ -138,9 +156,13 @@
   text-decoration: underline;
   text-underline-offset: 3px;
 }
+/* 13px, down from 15px — the second half of the contrast ratio. Built at 13
+   to be LOOKED AT: if it reads badly at 375px it goes to 14 and the ratio
+   loses, because a ratio does not get to win an argument against legibility. */
 .news-item__desc {
   margin: 0;
-  font-size: var(--fs-15);
+  padding: 0 var(--s-4) var(--s-4);
+  font-size: var(--fs-13);
   line-height: 1.7;
   color: var(--c-text-l);
 }
@@ -160,7 +182,7 @@
   text-transform: uppercase;
   padding: 4px 10px;
   border: 1px solid var(--c-border);
-  border-radius: 2px;
+  border-radius: var(--r-chip);
   color: var(--c-text-l);
 }
 
@@ -177,12 +199,18 @@
   color: var(--c-text-l);
   margin: 0 0 var(--s-3);
 }
+/* Bebas, matching the index entry it was clicked from. This REVERSES the
+   ruling of two passes ago ("article title stays EB Garamond", under sans for
+   scanning / serif for reading). The revised principle: same content, same
+   face — serif is for the reading BODY, which keeps h2, h3 and blockquote
+   below. Named rather than changed quietly, because a ruling that reverses
+   silently is how a claim survives three passes. */
 .article__title {
-  font-family: 'EB Garamond', Georgia, serif;
-  font-size: var(--fs-h1);
-  font-weight: 700;
-  line-height: 1.12;
-  letter-spacing: -0.015em;
+  font-family: 'Bebas Neue', Impact, sans-serif;
+  font-size: var(--fs-display);
+  font-weight: 400;
+  line-height: var(--lh-caps);
+  letter-spacing: var(--ls-caps);
   margin: 0 0 var(--s-3);
   color: var(--c-text);
 }
@@ -245,7 +273,7 @@
   font-size: 0.9em;
   background: var(--c-surface);
   border: 1px solid var(--c-border-l);
-  border-radius: 2px;
+  border-radius: var(--r-chip);
   padding: 1px 5px;
 }
 .article__body pre {
@@ -403,12 +431,22 @@
   .page {
     padding: var(--s-10) 0 var(--s-8);
   }
-  /* Single column. The category span is first in source order, so it stacks
-     above the date on its own.
-     ⚠ The children MUST be released from `grid-column: 2` as well. Setting
-     the track to 1fr alone is not enough: a child still asking for column 2
-     creates an IMPLICIT second track, and the entry silently stays
-     two-column. Caught by looking at it, not by any DOM assertion. */
+  /* STACKED, not a rotated rail. The vertical-rl version was BUILT AND
+     MEASURED at 375px before being rejected, on three counts:
+       · the rail did not span the card — 84px of a 312px card, so the
+         border-right rendered as a stub rather than a rail (a flex container
+         in vertical writing mode sizes to its content, and grid stretch does
+         not survive the axis change)
+       · it spent 15.5% of the viewport on one four-letter word
+       · it left the headline 275px, where a FOUR-word title wrapped to three
+         lines at 56px
+     Fixing the stretch would have addressed only the first. The other two are
+     what the rotation costs, so the label goes back above the date.
+
+     ⚠ The children MUST be released from `grid-column: 2`. Setting the track
+     to 1fr alone is not enough: a child still asking for column 2 creates an
+     IMPLICIT second track and the card silently stays two-column. Invisible
+     to every DOM assertion; caught only by looking. */
   .news-item {
     grid-template-columns: 1fr;
   }
@@ -420,7 +458,17 @@
   }
   .news-item__cat {
     grid-row: auto;
-    margin-bottom: var(--s-1);
+    padding: var(--s-3) var(--s-3) 0;
+    border-right: none;
+  }
+  .news-item__date {
+    padding: var(--s-2) var(--s-3) 0;
+  }
+  .news-item__title {
+    padding: 0 var(--s-3);
+  }
+  .news-item__desc {
+    padding: 0 var(--s-3) var(--s-3);
   }
   .article__body p,
   .article__body li {
