@@ -84,6 +84,7 @@
    The category span is FIRST in source order, which is what makes the mobile
    rule a change of track sizes rather than an `order:` override. */
 .news-item {
+  position: relative;
   display: grid;
   grid-template-columns: var(--rail) 1fr;
   background: var(--c-surface);
@@ -95,6 +96,22 @@
 .news-item:last-child {
   margin-bottom: 0;
 }
+/* ⚠ THE RAIL LINE IS A PSEUDO-ELEMENT, NOT border-right ON THE LABEL, and the
+   reason is a real CSS trap: `grid-row: 1 / -1` counts EXPLICIT tracks only.
+   These cards declare columns but no `grid-template-rows`, so every row is
+   implicit, `-1` resolves back to line 1, and the label spanned ONE row —
+   68px of a 291px card. The border rendered as a stub and nothing failed:
+   the rule was valid, the selector matched, the build was green.
+   Absolutely positioned between top and bottom, the line cannot care how many
+   rows the grid ended up with, so it survives an entry gaining a field. */
+.news-item::before {
+  content: '';
+  position: absolute;
+  left: var(--rail);
+  top: 0;
+  bottom: 0;
+  border-left: 1px solid var(--c-border-l);
+}
 /* The .eyebrow treatment RELOCATED — same values, no margin-bottom, because
    here it sits in its own column rather than above a heading. The page-level
    eyebrow was removed in the same pass: carrying both put the identical
@@ -102,9 +119,7 @@
    10px at 800 loses more legibility than the emphasis is worth. */
 .news-item__cat {
   grid-column: 1;
-  grid-row: 1 / -1;
-  padding: var(--s-3);
-  border-right: 1px solid var(--c-border-l);
+  padding: var(--s-4) var(--s-3);
   font-size: var(--fs-10);
   font-weight: var(--fw-medium);
   letter-spacing: var(--ls-label);
@@ -331,31 +346,6 @@
    page reuses .page, .page__narrow, .page__title, .page__lede, .article__body,
    .news-list and .news-item from above.
    ────────────────────────────────────────────────────────────────────────── */
-.author-portrait {
-  margin: var(--s-8) 0 var(--s-6);
-}
-.author-portrait img {
-  display: block;
-  width: 100%;
-  height: auto;
-  border-radius: 3px;
-}
-.author-portrait figcaption {
-  margin-top: var(--s-2);
-  font-size: var(--fs-12);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--c-text-l);
-}
-.author-portrait figcaption a {
-  color: var(--c-text-l);
-  text-decoration: none;
-}
-.author-portrait figcaption a:hover {
-  color: var(--c-accent-text);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
 
 .author-elsewhere {
   margin-top: var(--s-8);
@@ -457,6 +447,10 @@
   .news-item {
     grid-template-columns: 1fr;
   }
+  /* The rail line goes with the rail. */
+  .news-item::before {
+    display: none;
+  }
   .news-item__cat,
   .news-item__date,
   .news-item__title,
@@ -464,9 +458,7 @@
     grid-column: 1;
   }
   .news-item__cat {
-    grid-row: auto;
     padding: var(--s-3) var(--s-3) 0;
-    border-right: none;
   }
   .news-item__date {
     padding: var(--s-2) var(--s-3) 0;

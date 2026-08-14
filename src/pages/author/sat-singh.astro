@@ -78,20 +78,27 @@ const schema = {
       <h1 class="page__title">{p.name}</h1>
       <p class="page__lede">{p.jobTitle}, AI Coachella Valley</p>
 
-      <figure class="author-portrait">
-        <img
-          src={p.image}
-          alt="Sat Singh speaking at TEDx Rancho Mirage"
-          width="960"
-          height="540"
-          loading="eager"
-        />
-        <figcaption>
-          <a href="https://www.youtube.com/watch?v=oYG2kFC2_D4" target="_blank" rel="noopener"
-            >TEDx Rancho Mirage · August 2025 ↗</a
-          >
-        </figcaption>
-      </figure>
+      {/* ⚠ NO PORTRAIT HERE, AND `image` IN people.json IS CORRECT — the two
+          are SUPPOSED to disagree, so do not "fix" this by re-adding an img.
+
+          The removed asset was /sat-tedx.png: a 1024x1024 JPEG (mis-named
+          .png) of a TEDx stage, rendering 640px square on a 720px measure —
+          a stage shot doing duty as a portrait. No portrait crop of Sat
+          exists in public/. This page's job is to answer "who wrote this",
+          and a name, a role, a bio and a list of pieces answers it.
+
+          people.json KEEPS `image`, and the Person JSON-LD keeps emitting it:
+          schema.org Person.image is a legitimate property, and that node is
+          about to anchor 132 nodes from the SunshineFM side. A machine-
+          readable value with no visible twin is normally the defect this repo
+          hunts; here it is the correct outcome, because the consumers differ.
+
+          The removal also closes a CLS defect: the img declared 960x540
+          against a 1024x1024 asset, so the browser reserved 640x360 and then
+          reflowed to 640x640 — a ~280px shift on every load.
+
+          The TEDx link is NOT lost. It survives twice on this page: in the
+          bio prose and in "Elsewhere", which is its natural home. */}
 
       <div class="article__body">
         <p>
@@ -129,6 +136,12 @@ const schema = {
             <ul class="news-list">
               {articles.map((a) => (
                 <li class="news-item">
+                  {/* The SAME component as /news, so it needs the same first
+                      child. Without it the card's 168px rail rendered EMPTY
+                      and squeezed the headline to 470px — the identical
+                      defect fixed on the index, surviving here because this
+                      list was never looked at after the rail landed. */}
+                  <span class="news-item__cat">{a.data.category}</span>
                   <span class="news-item__date">{fmt(a.data.date)}</span>
                   <h3 class="news-item__title">
                     <a href={`/news/${a.id}`}>{a.data.title}</a>
