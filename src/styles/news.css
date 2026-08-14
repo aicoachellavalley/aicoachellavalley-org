@@ -182,6 +182,86 @@
   color: var(--c-text-l);
 }
 
+/* ── callouts, ported from SunshineFM 2026-08-14 ────────────────────────────
+   TWO rules, not one, because they are two different things and blockquote
+   collapses the distinction:
+     .callout           a PULL-QUOTE — 24 of them across the ported set
+     .callout--briefs   a structured CROSS-REFERENCE into .com — 18, carrying
+                        84 links, all verified absolute to aicoachellavalley.com
+   The class VALUES come from SunshineFM; none of the values below do. Pine,
+   volt and this site's radii, so the blocks read as .org rather than as
+   transplanted furniture.
+
+   ⚠ The count in PORT_DAY ("42 pull-quotes and 18 briefs") counted CLASSES and
+   reported BLOCKS: a briefs block carries both `callout` and `callout--briefs`,
+   so a DOM count of `.callout` returns all 42. There are 24 pull-quotes, not
+   42 — which is why this is two small rules rather than the larger job budgeted.
+   ────────────────────────────────────────────────────────────────────────── */
+.article__body .callout {
+  margin: var(--s-6) 0;
+  padding: var(--s-4) var(--s-5);
+  background: var(--c-surface);
+  border-left: 3px solid var(--c-accent-fill);
+  border-radius: 0 var(--r-nested) var(--r-nested) 0;
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: var(--fs-22);
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--c-text);
+}
+.article__body .callout p {
+  margin: 0;
+  font-size: inherit;
+  font-family: inherit;
+  font-style: inherit;
+  line-height: inherit;
+  color: inherit;
+}
+
+/* The briefs block is a REFERENCE, not a quote: sans, not italic, and it reads
+   as a panel rather than an aside. It points off-site into .com, so it gets the
+   bordered-card treatment the pull-quote deliberately does not. */
+.article__body .callout--briefs {
+  padding: var(--s-4);
+  background: var(--c-paper);
+  border: 1px solid var(--c-border);
+  border-left: 1px solid var(--c-border);
+  border-radius: var(--r-nested);
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: var(--fs-15);
+  font-style: normal;
+  line-height: 1.7;
+  color: var(--c-text-l);
+}
+.article__body .callout--briefs strong {
+  display: block;
+  margin-bottom: var(--s-2);
+  font-size: var(--fs-10);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  color: var(--c-accent-text);
+}
+.article__body .callout--briefs ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.article__body .callout--briefs li {
+  font-size: var(--fs-15);
+  line-height: 1.5;
+  margin: 0 0 var(--s-2);
+  padding-left: var(--s-2);
+  border-left: 2px solid var(--c-border-l);
+}
+.article__body .callout--briefs li:last-child {
+  margin-bottom: 0;
+}
+.article__body .callout--briefs a {
+  color: var(--c-accent-text);
+  text-underline-offset: 2px;
+}
+
 /* ── tags ──────────────────────────────────────────────────────────────── */
 .tags {
   display: flex;

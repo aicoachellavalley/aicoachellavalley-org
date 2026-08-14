@@ -149,11 +149,14 @@
       /* RADIUS. There were NO radius tokens before this: seven ad-hoc values
          were spread across six surfaces (2, 3, 4, 6, 8, 12, 999px) with
          nothing naming them. Cards on a ground need a scale, so here is one. */
-         --r-nested (8px) was proposed and is NOT declared: nothing on the
-         pilot nests a card inside a card, and a token with no consumer is
-         the same defect as a count nobody re-derives. It goes in when
-         something needs it. */
+         --r-nested was proposed and withheld on 2026-08-13 because nothing
+         nested a card inside a card, and a token with no consumer is the same
+         defect as a count nobody re-derives. DECLARED 2026-08-14: the ported
+         callouts nest inside the article card and are its first real
+         consumers. That is the intended sequence — withheld while unused,
+         added when something needed it. */
       --r-card:       14px;
+      --r-nested:      8px;
       --r-chip:        3px;
 
       /* Layout, not spacing — deliberately NOT forced onto the --s-* scale,

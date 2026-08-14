@@ -23,7 +23,30 @@ import { PEOPLE_KEYS } from './data/people';
 const news = defineCollection({
   loader: glob({ pattern: '**/*.mdx', base: './src/content/news' }),
   schema: z.object({
-    title: z.string().min(10).max(70),
+    // ⚠ max RE-DERIVED 2026-08-14 BY MEASUREMENT, from 70 to 100.
+    //
+    // DERIVED AGAINST: Bebas Neue 56px, line-height 0.95, in the 830px title
+    // column of a .news-item card inside .page__inner (1080px) at a 1280px
+    // viewport. Record that, because the number goes stale the moment any of
+    // those change — which is exactly what happened to the old one.
+    //
+    // The 70 it replaces was set for EB Garamond 22px in a 720px container.
+    // That layout has been replaced TWICE since (DM Sans 700, then Bebas), so
+    // the bound described a design that no longer existed — a stale count
+    // living in a schema field. Rewriting published headlines to satisfy it
+    // would have changed the anchor text 64 redirects point at.
+    //
+    // MEASURED, 57 samples (the 32 real ported titles plus a synthetic ladder):
+    //   desktop, 830px column   1 line ≤41   2 ≤75   3 ≤98   4 begins at 109
+    // 100 sits just past the three-line ceiling and admits every real title
+    // (longest is 97).
+    //
+    // ⚠ MOBILE IS THE HARSHER CASE and the bound does NOT protect it: at 375px
+    // the clamp floor puts 34px Bebas in a ~285px column, where 3 lines ends at
+    // 67 chars and that same 97-char title runs to FIVE. That is a type
+    // decision (the clamp floor), not a schema one, and it is left open
+    // deliberately rather than fixed by shortening headlines.
+    title: z.string().min(10).max(100),
     description: z.string().min(70).max(160),
     date: z.coerce.date(),
     // The DECK — the line under the headline. Distinct from `description`,
@@ -35,7 +58,15 @@ const news = defineCollection({
     // keep it to a single line: shorter reads as a fragment, longer becomes a
     // second description.
     standfirst: z.string().min(40).max(220).optional(),
-    tags: z.array(z.string()).min(1).max(5),
+    // OPTIONAL as of 2026-08-14. It was required, and the 32-piece port has
+    // none: the source keywords run 6–12 terms per piece (median 9), so they
+    // cannot be lifted at a cap of 5, and choosing which five is a taxonomy
+    // decided blind against a corpus nobody has read yet. Those pieces show no
+    // tags in the article footer and carry none in RSS, which is a true
+    // statement about them. If a vocabulary is worth having it gets designed
+    // against the real corpus later — inventing 160 terms to satisfy a required
+    // field would be the invented-taxonomy trap.
+    tags: z.array(z.string()).min(1).max(5).optional(),
     // REQUIRED, and deliberately NOT defaulted. A default would let a
     // mis-sorted piece land silently in the wrong bucket; required means the
     // build fails, which is the gate doing its job. The signals→news /
