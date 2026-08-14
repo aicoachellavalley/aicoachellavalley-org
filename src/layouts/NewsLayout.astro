@@ -37,6 +37,28 @@ interface Props {
    * news page.
    */
   navActive?: 'news' | null;
+  /**
+   * DERIVED from `article.data.draft` — [slug].astro passes the frontmatter
+   * value straight through. It is NOT a second flag to keep in step with the
+   * first; a hand-maintained "noindex" boolean beside a "draft" boolean is a
+   * mirror pair by another name, and flipping one without the other is exactly
+   * the drift this repo keeps finding.
+   *
+   * WHY DRAFTS NEED IT: getStaticPaths does not filter on draft, so a draft
+   * BUILDS to its own URL — it is unlisted, not unbuilt. That is deliberate:
+   * the draft state exists so ported pieces can be reviewed on the new layout
+   * before they are public. But 64 redirects are about to point at these URLs,
+   * and the moment they do the pages stop being unlinked. Without this, "draft"
+   * would mean absence from our own feeds and nothing else, and we would be
+   * reviewing pages that were already being indexed.
+   *
+   * Because it derives, flipping `draft: false` in frontmatter removes the
+   * noindex automatically. There is nothing to remember.
+   *
+   * Only /news/<slug> can ever be a draft; /news and /author are always
+   * indexable, hence the default.
+   */
+  draft?: boolean;
 }
 
 const {
@@ -47,6 +69,7 @@ const {
   ogType = 'website',
   publishedTime,
   navActive = 'news',
+  draft = false,
 } = Astro.props;
 ---
 
@@ -68,6 +91,11 @@ const {
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    {/* Emitted only while `draft` is true; nothing at all when it is false.
+        The canonical above still emits on drafts, deliberately — canonical and
+        noindex together say "this page, not indexed", which is exactly the
+        claim a draft should make. */}
+    {draft && <meta name="robots" content="noindex, nofollow" />}
 
     <meta property="og:type" content={ogType} />
     <meta property="og:title" content={title} />

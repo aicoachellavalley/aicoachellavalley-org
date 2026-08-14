@@ -107,6 +107,9 @@ const schema = {
   schema={schema}
   ogType="article"
   publishedTime={published}
+  {/* Straight through from frontmatter — the ONE source. Flip `draft: false`
+      and the noindex disappears on the next build with nothing to remember. */}
+  draft={article.data.draft}
 >
   <article class="page">
     <div class="page__narrow">
