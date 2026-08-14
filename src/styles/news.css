@@ -204,10 +204,17 @@
    scanning / serif for reading). The revised principle: same content, same
    face — serif is for the reading BODY, which keeps h2, h3 and blockquote
    below. Named rather than changed quietly, because a ruling that reverses
-   silently is how a claim survives three passes. */
+   silently is how a claim survives three passes.
+
+   ⚠ --fs-headline (56px), NOT --fs-display (84px). DISPLAY SIZES ARE FOR
+   SHORT FIXED STRINGS. A page title is fixed and short, so 84px is right
+   there; a headline is variable and often long, and needs a size that
+   survives twelve words. At 84px a 12-word title ran to FOUR lines of caps
+   across the 720px measure — a wall. At 56px the index-to-article size
+   relationship still reads correctly. */
 .article__title {
   font-family: 'Bebas Neue', Impact, sans-serif;
-  font-size: var(--fs-display);
+  font-size: var(--fs-headline);
   font-weight: 400;
   line-height: var(--lh-caps);
   letter-spacing: var(--ls-caps);
