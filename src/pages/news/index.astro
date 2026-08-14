@@ -34,7 +34,10 @@ const schema = {
 <NewsLayout title={title} description={description} canonical={`${SITE}/news`} schema={schema}>
   <section class="page">
     <div class="page__narrow">
-      <span class="eyebrow">News</span>
+      {/* The page-level eyebrow was REMOVED 2026-08-13. Every entry now
+          carries a category label in the left margin using the same
+          treatment, and running both put the identical styling on screen
+          twice. The nav already marks this page as News. */}
       <h1 class="page__title">What's happening with AI in the valley.</h1>
       <p class="page__lede">
         Editorial coverage of AI across the nine cities — what is happening, and why it matters
@@ -50,6 +53,10 @@ const schema = {
           <ul class="news-list">
             {articles.map((a) => (
               <li class="news-item">
+                {/* FIRST in source order. Grid puts it in the left margin on
+                    desktop; on mobile the single-column rule lets it stack
+                    above the date with no `order:` override needed. */}
+                <span class="news-item__cat">{a.data.category}</span>
                 <span class="news-item__date">{fmt(a.data.date)}</span>
                 <h2 class="news-item__title">
                   <a href={`/news/${a.id}`}>{a.data.title}</a>

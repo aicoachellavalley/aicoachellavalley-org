@@ -83,8 +83,25 @@ const {
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    {/* DM Sans widened from the discrete 300;400;500 to the RANGE 300..800,
+        2026-08-13. Measured, not assumed: both URLs serve the IDENTICAL two
+        woff2 files (…CZ2IHTWEBlwu8Q, …CZOIHTWEBlw). Only the descriptor
+        changes — three @font-face blocks at fixed weights become one at
+        `font-weight: 300 800`. Zero extra bytes, and 300/400/500 resolve to
+        the same axis positions, so the nav and footer cannot shift.
+        What it buys: with discrete descriptors a browser asked for 700
+        SYNTHESISES faux-bold from 500. With the range it interpolates the
+        real axis, which is what makes the index headlines genuine.
+
+        ⚠ DELIBERATE DIVERGENCE: the other six surfaces keep the narrow
+        descriptor, and nothing detects it — the chrome guard compares
+        (href, label) pairs, not CSS or font URLs. Inert today: same file,
+        and no other surface requests a weight above 500. It becomes visible
+        only if a future pass asks for heavy type on a narrow-descriptor
+        page, where it would quietly synthesise rather than fail. Recorded in
+        STATE.md; deliberately not gated. */}
     <link
-      href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300..800&display=swap"
       rel="stylesheet"
     />
 

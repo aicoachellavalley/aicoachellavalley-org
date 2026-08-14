@@ -106,6 +106,30 @@
       /* Layout */
       --max-w: 1080px;
       --gutter: 40px;
+
+      /* ── TYPE SYSTEM, added 2026-08-13 for the /news scanning surface ──
+         Weight and line-height had NO tokens before this: both were
+         hardcoded per rule, which is how a system drifts without saying so.
+
+         These live in the TOP-LEVEL :root deliberately. :root is
+         re-declared inside the @media blocks below (only to reset
+         --gutter), and a token added there would silently vanish above
+         the breakpoint — see the cascade warning at the top of news.css.
+
+         PURELY ADDITIVE. No existing token changes value, so the six
+         surfaces carrying their own copy of this palette are unaffected.
+         Only rules touched by the /news type pass consume these; the
+         article-reading CSS keeps its hardcoded values because that
+         surface is deliberately frozen (sans for scanning, serif for
+         reading). Partly tokenised is the honest state, not an oversight. */
+      --fw-medium:    500;
+      --fw-bold:      700;
+      --fw-heavy:     800;
+      --lh-tight:     1.05;
+      --lh-headline:  1.1;
+      --fs-headline:  clamp(24px, 3vw, 34px);
+      --ls-label:     0.2em;
+      --ls-headline:  -0.01em;
     }
 
     /* ════════════════════════════════════════

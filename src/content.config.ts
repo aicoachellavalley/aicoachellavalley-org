@@ -27,6 +27,14 @@ const news = defineCollection({
     description: z.string().min(70).max(160),
     date: z.coerce.date(),
     tags: z.array(z.string()).min(1).max(5),
+    // REQUIRED, and deliberately NOT defaulted. A default would let a
+    // mis-sorted piece land silently in the wrong bucket; required means the
+    // build fails, which is the gate doing its job. The signals→news /
+    // blog→views map is a real editorial call made per piece on register, so
+    // it must not be defaultable — and it is a hard blocker on all 32 ported
+    // files, which is the intent. A failing build beats 32 pieces silently
+    // landing in one bucket.
+    category: z.enum(['news', 'views']),
     // A KEY into src/data/people.ts, not a display name. A typo fails the
     // build instead of silently minting a second author with no page and no
     // @id — which is what a free string did until 2026-08-10. The key resolves

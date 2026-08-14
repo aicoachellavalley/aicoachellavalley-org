@@ -34,11 +34,20 @@
      --c-text   #1B4332 = 10.59:1   --c-text-l #2D6A4F = 6.11:1
    Both clear 4.5:1 normal text.
    ────────────────────────────────────────────────────────────────────────── */
+/* SHARED by /news and /author/sat-singh — the index headline and the founder's
+   name. Both take DM Sans 800; that is the system working rather than two
+   surfaces drifting.
+   NOT UPPERCASED. The first draft of this system asked for caps here, on the
+   reasoning that a page title is "short and fixed" — but the index title is a
+   39-character sentence, and uppercasing it at up to 68px contradicts the rule
+   that put the entry headlines in sentence case one rule below. Shortening a
+   title to justify caps would be backwards: the sentence tells a first-time
+   visitor what the surface is, and the nav already says "News". */
 .page__title {
-  font-family: 'EB Garamond', Georgia, serif;
+  font-family: 'DM Sans', system-ui, sans-serif;
   font-size: var(--fs-h1);
-  font-weight: 700;
-  line-height: 1.12;
+  font-weight: var(--fw-heavy);
+  line-height: var(--lh-tight);
   letter-spacing: -0.015em;
   color: var(--c-text);
   margin: 0 0 var(--s-3);
@@ -62,12 +71,40 @@
   margin: var(--s-8) 0 0;
   padding: 0;
 }
+/* TWO COLUMNS — category in the left margin, everything else in the right.
+   Placed by grid on the EXISTING FLAT MARKUP: no wrapper element, because a
+   wrapper would be a second thing to keep in step with the CSS. The category
+   span is FIRST in source order, which is what makes the mobile rule a
+   one-line change (single column, and it stacks above the date on its own)
+   rather than an `order:` override. */
 .news-item {
-  padding: var(--s-6) 0;
+  display: grid;
+  grid-template-columns: 132px 1fr;
+  column-gap: var(--s-4);
+  padding: var(--s-8) 0;
   border-top: 1px solid var(--c-border-l);
 }
 .news-item:last-child {
   border-bottom: 1px solid var(--c-border-l);
+}
+/* The .eyebrow treatment RELOCATED — same values, no margin-bottom, because
+   here it sits in its own column rather than above a heading. The page-level
+   eyebrow was removed in the same pass: carrying both put the identical
+   treatment on screen twice. Deliberately NOT heavy and NOT condensed —
+   10px at 800 loses more legibility than the emphasis is worth. */
+.news-item__cat {
+  grid-column: 1;
+  grid-row: 1 / -1;
+  font-size: var(--fs-10);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  color: var(--c-accent-text);
+}
+.news-item__date,
+.news-item__title,
+.news-item__desc {
+  grid-column: 2;
 }
 .news-item__date {
   display: block;
@@ -77,11 +114,19 @@
   color: var(--c-text-l);
   margin-bottom: var(--s-2);
 }
+/* SANS FOR SCANNING. Was EB Garamond 600 at --fs-22. The index is a surface
+   people scan, so the headline moved to DM Sans at a real 700 — real because
+   the layout's font request was widened to the 300..800 range in the same
+   pass, which makes the browser interpolate the variable axis instead of
+   synthesising faux-bold from 500.
+   SENTENCE CASE, deliberately: caps at headline length hurt scanning, which
+   is the same reason the page title above is not uppercased either. */
 .news-item__title {
-  font-family: 'EB Garamond', Georgia, serif;
-  font-size: var(--fs-22);
-  font-weight: 600;
-  line-height: 1.25;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: var(--fs-headline);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-headline);
+  letter-spacing: var(--ls-headline);
   margin: 0 0 var(--s-2);
 }
 .news-item__title a {
@@ -357,6 +402,25 @@
 @media (max-width: 640px) {
   .page {
     padding: var(--s-10) 0 var(--s-8);
+  }
+  /* Single column. The category span is first in source order, so it stacks
+     above the date on its own.
+     ⚠ The children MUST be released from `grid-column: 2` as well. Setting
+     the track to 1fr alone is not enough: a child still asking for column 2
+     creates an IMPLICIT second track, and the entry silently stays
+     two-column. Caught by looking at it, not by any DOM assertion. */
+  .news-item {
+    grid-template-columns: 1fr;
+  }
+  .news-item__cat,
+  .news-item__date,
+  .news-item__title,
+  .news-item__desc {
+    grid-column: 1;
+  }
+  .news-item__cat {
+    grid-row: auto;
+    margin-bottom: var(--s-1);
   }
   .article__body p,
   .article__body li {
