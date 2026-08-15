@@ -148,7 +148,8 @@
 
       /* RADIUS. There were NO radius tokens before this: seven ad-hoc values
          were spread across six surfaces (2, 3, 4, 6, 8, 12, 999px) with
-         nothing naming them. Cards on a ground need a scale, so here is one. */
+         nothing naming them. Cards on a ground need a scale, so here is one.
+
          --r-nested was proposed and withheld on 2026-08-13 because nothing
          nested a card inside a card, and a token with no consumer is the same
          defect as a count nobody re-derives. DECLARED 2026-08-14: the ported

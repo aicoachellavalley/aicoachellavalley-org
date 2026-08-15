@@ -1,0 +1,76 @@
+---
+title: "your ai workarounds have an expiration date"
+author: 'sat-singh'
+category: views
+draft: true
+date: 2026-07-28
+description: "anthropic deleted more than 80% of claude code's system prompt for opus 5 and measured no loss. the workarounds you wrote may now be costing you."
+faq:
+  - question: "What happened when Claude Opus 5 was released?"
+    answer: >-
+      Anthropic released Claude Opus 5 on July 24, 2026. It posted strong benchmark results,
+      but several experienced users reported that it was frustrating to work with — arguing
+      with instructions and stopping before tasks were finished. The team at Every found that
+      deleting the custom skills and workflows they had built for earlier models made its
+      performance improve substantially.
+  - question: "Why would removing instructions make an AI model perform better?"
+    answer: >-
+      Instructions written for earlier AI models were often guardrails against mistakes those
+      models made. Newer models don't make the same mistakes, so the old constraints become
+      friction — the model spends effort reconciling rules it no longer needs, and those rules
+      can be wrong in cases the original author didn't anticipate. Anthropic reported removing
+      more than 80% of Claude Code's system prompt for its newest models with no measurable
+      loss on coding evaluations.
+  - question: "What should a Coachella Valley business do about AI instructions it set up years ago?"
+    answer: >-
+      Audit them, roughly once or twice a year. Any business that built custom prompts,
+      templates, or checklists to work around an AI tool's early limitations is likely still
+      using instructions written for a version of that tool that no longer exists. The
+      practical test takes minutes: run the task without the accumulated instructions and
+      compare the result. If it's as good or better, the workaround can be retired. This
+      matters most for the valley's small operators — restaurants, clinics, property managers,
+      service businesses — who set something up once and haven't revisited it since, and who
+      are the least likely to hear that the ground moved.
+---
+
+Anthropic released Claude Opus 5 last Friday, and the early reviews from people who use these tools professionally were rough. The team at Every spent a week with it and called it a hard model to love — it argued with instructions, stopped before the work was finished, and didn't play well with the elaborate workflows they'd built up over months.
+
+Then they deleted all of it and started over. Without the scaffolding, the model got dramatically better.
+
+That detail is the real story, and it's bigger than [one model launch](https://aicoachellavalley.org/news/fable-5-tasks-to-loops).
+
+## the workarounds became the problem
+
+For two years, everyone building with AI wrote rules to compensate for what the models got wrong. Don't do this. Always do that. Check your work three times. Follow this template exactly. Those rules were reasonable — early models genuinely needed the guardrails, and without them they'd do things you didn't want.
+
+The models got better. The rules stayed.
+
+Anthropic published something the same day as the launch that makes this concrete: they removed more than 80% of Claude Code's own system prompt for the new models and measured no loss on their coding evaluations. All those carefully written constraints had turned into friction. The model was burning effort reconciling instructions it no longer needed.
+
+So the frustration people hit wasn't really the model being worse. It was the model being smarter than the cage built for it.
+
+## this isn't a developer problem
+
+The technical crowd will notice and adjust, because noticing is their job.
+
+I found this out the hard way this week. I was in the middle of writing a new set of instructions for my own tools when I came across Anthropic's note about deleting theirs. I'd spent the morning building the exact thing they'd just decided was in the way.
+
+I keep thinking about [who this actually hits out here](https://aicoachellavalley.org/news/state-of-ai-q2-2026). The restaurant owner who set up ChatGPT in 2024 with a page of instructions about how to write their emails. The property manager with a rigid template because the AI kept mangling the format. [The clinic that built a checklist](https://aicoachellavalley.org/news/chatgpt-clinicians-coachella-valley) because early on the summaries couldn't be trusted.
+
+Every one of those was a sensible response to a real problem. And every one is now a set of instructions written for a tool that no longer exists. Nobody sends you a notice when your workaround expires. The thing quietly gets better than your rules, and your rules quietly start costing you.
+
+## what to actually do about it
+
+Not much, and that's the point.
+
+Once or twice a year, take the instructions you've accumulated — the prompt you paste every time, the template, the checklist — and try the task without them. Just ask for the thing. If the result is as good or better, the scaffolding is dead weight and you can delete it. If it's worse, you've confirmed you still need it. Ten minutes either way, and you learn something.
+
+The harder version of that question is the one worth sitting with. What else in your business is a workaround for a problem that stopped existing? The extra approval step. The double entry. The report nobody reads. AI didn't create that pattern — it just made it visible, because it moves fast enough that you can watch it happen in eighteen months instead of eighteen years.
+
+The full write-up is on [the claude blog](https://claude.com/blog/the-new-rules-of-context-engineering-for-claude-5-generation-models).
+
+The tools are outrunning our instructions for them. So the question isn't whether you're keeping up with AI. It's whether you're still telling it to do things the way you had to two years ago.
+
+---
+
+source: anthropic; every; claude.com blog.

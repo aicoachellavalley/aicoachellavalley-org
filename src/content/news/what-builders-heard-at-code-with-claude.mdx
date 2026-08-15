@@ -1,0 +1,128 @@
+---
+title: "what builders actually heard at code with claude"
+standfirst: "Claire Vo filtered Anthropic's developer conference down to five things. Here's why each one matters for founders and operators building in the valley."
+author: 'sat-singh'
+category: views
+draft: true
+date: 2026-05-07
+description: "Claire Vo filtered Anthropic's developer conference to five things builders can act on. What each means for Coachella Valley founders and operators."
+faq:
+  - question: "What are Claude Code Routines and how can businesses use them?"
+    answer: >-
+      Claude Code Routines let you automate recurring AI workflows on a schedule or triggered
+      by a webhook — cron-based, HTTP, or GitHub — running locally or in the cloud with Slack
+      and GitHub connectors built in. A routine can read a changelog file every Monday, draft
+      a newsletter from it, and post the output to Slack automatically. The shift isn't just
+      convenience: a workflow that runs automatically is one that actually runs. For any
+      business owner who keeps meaning to build a regular AI workflow but never remembers to
+      run it, Routines removes you as the bottleneck in your own process.
+  - question: "What is the Outcomes feature Anthropic announced at Code with Claude?"
+    answer: >-
+      Outcomes is Anthropic's framework for defining what done looks like before an agent
+      starts working — a rubric written as a markdown file that the agent uses to grade its
+      own output and iterate autonomously until it meets the standard, up to 20 iterations.
+      The unlock isn't the iteration count — it's the discipline of writing the rubric in the
+      first place. Every knowledge worker already knows what good looks like in their domain.
+      Outcomes makes that knowledge executable without requiring a developer to encode it.
+  - question: "What does the Code with Claude toolset mean for businesses in the Coachella Valley?"
+    answer: >-
+      Most Coachella Valley businesses aren't shipping software — they're in hospitality,
+      healthcare, real estate, events, and retail services. But the capabilities Anthropic
+      announced map directly onto the knowledge work those businesses already do by hand:
+      automated routines for recurring reports and outreach, rubric-driven iteration for
+      revenue decks and vendor RFPs, multi-agent coordination for multi-step projects, and
+      persistent memory so an agent actually knows the business. The bottleneck locally isn't
+      motivation or even the tools — it's translation. Valley operators mostly lack someone to
+      sit with them and turn these capabilities into their specific workflows. That
+      translation layer, more than any single feature, is what determines whether the desert's
+      businesses adopt agentic AI or watch it pass by.
+---
+
+Claire Vo wasn't summarizing a press release. She was translating.
+
+That's the distinction that matters. When a product leader with real shipping experience goes through a developer conference and comes back with five things — not fifteen, not a thread — you pay attention to the five. Because the five are the ones that change how work gets done, not the ones that make good headlines.
+
+Claire's episode on *How I AI* dropped May 7, the morning after Anthropic's Code with Claude conference in San Francisco. Five announcements. Each one represents a different layer of the agentic stack clicking into place. Here's what they mean for founders and operators building in the Coachella Valley.
+
+## routines: the calendar layer
+
+Most AI workflows are reactive. You open a tab, type a prompt, get an answer, close the tab. Claude Code Routines break that pattern. You can now automate recurring AI workflows on a schedule or triggered by a webhook — cron-based, HTTP, or GitHub. The routine runs locally or in the cloud, with access to Slack, GitHub, and other connectors built in.
+
+Claire's demo: a routine that reads a changelog markdown file every Monday at 6am, drafts a weekly newsletter from it, and posts the output to Slack. Another: checking every PRD modified during the week against a rubric and posting summaries automatically.
+
+<div class="callout">
+      <strong>The shift isn't just convenience.</strong> A workflow that runs automatically is a workflow that actually runs. Human consistency has always been the weak link in AI adoption — Routines removes you as the bottleneck in your own process.
+    </div>
+
+For a valley business owner who keeps meaning to build a regular AI workflow but never remembers to run it: this is the infrastructure that makes the intention real.
+
+## outcomes: the rubric layer
+
+Outcomes is Anthropic's framework for defining what "done" looks like before an agent starts working. Not in a vague directional sense — a rubric. A markdown file specifying success criteria, uploaded through the files API or passed inline, that the agent uses to grade its own output and iterate until it meets the standard.
+
+<div class="callout">
+      "There is a grader and it can do up to 20 iterations on the task to get to the outcome that you're going for." <strong>— Claire Vo</strong>
+    </div>
+
+Twenty iterations. Autonomous. Against a rubric you wrote. That's not autocomplete. That's a junior team member with a checklist and enough autonomy to keep revising until the work is actually done. The unlock here isn't the iteration count — it's the discipline of writing the rubric in the first place. Every knowledge worker already knows what "good" looks like in their domain. Outcomes makes that knowledge executable.
+
+## multi-agent: the team layer
+
+Through the API, you can now define a team of agents — up to 25 — working against the same container and file system. Orchestrator plus delegates, each with their own tools and roles, each aware of what the others are doing.
+
+<div class="callout">
+      "You can have an orchestrator and then delegates. And so there's explicit hierarchy and each agent can have its own tool set." <strong>— Claire Vo</strong>
+    </div>
+
+Claire's example architecture: a PRD orchestrator coordinating a strategy agent reflecting the CPO voice, a critic agent finding the holes, and an engineering-review agent with GitHub access to pressure-test technical feasibility. The reason this matters isn't PRDs. It's that you can decompose any complex knowledge work into roles — and assign those roles to agents that coordinate without you in the loop for every handoff. Think about the last time you managed a multi-person deliverable. Now think about what it would mean if the coordination layer ran itself.
+
+## dreams: the memory layer
+
+Dreams is Anthropic's new long-term memory system — a primitive that reviews multiple agent sessions and writes the important stuff as markdown files to the agent's file system. Where most AI context resets at session end, Dreams is designed to persist behavioral context across days and weeks of work.
+
+<div class="callout">
+      <strong>Currently in research preview with limited access</strong> — but the pattern it establishes is where every agent platform is heading. Claire flagged that the counterpart, knowing when to forget and purge, will matter just as much as knowing what to keep.
+    </div>
+
+For builders, this is the missing piece underneath everything else. Routines, Outcomes, and multi-agent coordination are all more powerful when the agents running them actually know your business — your preferences, your past decisions, your standards for what good looks like. Dreams is the infrastructure that makes that possible over time.
+
+## why the usage limit increase is underrated
+
+Claude Code's five-hour usage limits doubled across Pro, Max, Team, and Enterprise. Peak-hour restrictions removed for Pro and Max. Opus model rate limits in the API increased.
+
+<div class="callout">
+      <strong>For a business owner who has been testing AI tools and hitting walls:</strong> the usage limit is often the explanation for why things stopped working mid-task. It's structural — not the tool's fault, not the prompt's fault. Doubling the ceiling unlocks qualitatively different work: longer documents, deeper research passes, multi-stage workflows that don't break in the middle.
+    </div>
+
+## what this means for builders in the valley
+
+Coachella Valley businesses aren't primarily shipping software. They're in hospitality, healthcare, real estate, events, retail services. But the work Anthropic just enabled — automated routines, rubric-driven iteration, multi-agent coordination, persistent memory, extended context — maps directly onto the knowledge work that every one of those businesses does manually right now.
+
+Revenue management decks. Marketing briefs. Vendor RFPs. Event production timelines. SOPs that never get written because no one has time.
+
+Every one of those outputs has a "what good looks like." Someone in the organization knows it. The question is whether they've ever written it down as a rubric — and whether they know they could hand that rubric to an agent running on a schedule, inside a coordinated team, with memory of everything that came before.
+
+*"The agent can just take your PRD or your idea and iterate over and over and over again until it's fixed."* — Claire Vo
+
+That's the translation gap. Local founders and operators aren't failing to adopt AI because they lack motivation. They're failing because no one is sitting with them to say: here's how you define done, here's how you give that to the system, here's what the output looks like when it actually works.
+
+The tools are no longer the bottleneck. The translation is. And the valley needs more translators.
+
+<div class="callout callout--briefs">
+  <strong>AICV Intelligence Briefs on this topic:</strong>
+  <ul>
+    <li><a href="https://aicoachellavalley.com/briefs/2026-04-10-claude-cowork-ga/" class="internal-link">Claude Cowork Hits General Availability — Out of Preview, Into Production</a></li>
+    <li><a href="https://aicoachellavalley.com/briefs/2026-03-24-anthropic-computer-use-auto-mode/" class="internal-link">Anthropic Releases Mac Computer Use and Claude Code Auto Mode</a></li>
+    <li><a href="https://aicoachellavalley.com/briefs/2026-02-25-claude-code-remote-control/" class="internal-link">Anthropic Adds Remote Control to Claude Code</a></li>
+    <li><a href="https://aicoachellavalley.com/briefs/2026-03-03-claude-code-voice-mode/" class="internal-link">Anthropic Launches Voice Mode for Claude Code</a></li>
+    <li><a href="https://aicoachellavalley.com/briefs/2026-03-10-mcp-layer-live/" class="internal-link">AICV MCP Layer Goes Live — Coachella Valley Now Agent-Queryable</a></li>
+  </ul>
+</div>
+
+---
+
+Source: Claire Vo. *Code with Claude: The 5 biggest updates explained.* How I AI, Lenny's Newsletter, May 7, 2026. [lennysnewsletter.com](https://www.lennysnewsletter.com/p/code-with-claude-the-5-biggest-updates)
+
+ Analysis by Sat Singh, May 7, 2026.
+
+ Related: [AI Coachella Valley](https://aicoachellavalley.com)
