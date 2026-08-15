@@ -153,9 +153,27 @@
    34px to 56px is the point — the ratio against the description moves from
    ~2.3x to ~4.3x, and because Bebas is condensed it costs almost no column
    width to get there. */
+/* ⚠ THE RAMP IS A LOCAL COPY OF --fs-headline WITH A LOWER FLOOR, and the
+   duplication is deliberate. The token (chrome.css) is clamp(34px, 4.4vw,
+   56px) and has TWO consumers — this rule and .article__title. Only the floor
+   moves, so only viewports under ~772px change at all; above that 4.4vw is
+   already larger than either floor and the two are identical.
+
+   MEASURED on the real index at 375px, 33 entries, a 285px title text box
+   (333px card content less 2x --s-3):
+     34px  7 of 33 at four or more lines, four of them at FIVE, worst card 385px
+     28px  1 of 33 at four lines, worst card 341px
+   A fifth of the corpus wrapping to four-plus lines is a type decision, not a
+   bound — no title length that admits the real headlines fixes it.
+
+   NOT A TOKEN EDIT, and that is the point: .article__title sets on a 720px
+   reading measure, not a 285px card, and its floor was never measured. Moving
+   --fs-headline would have resized the article silently on the strength of an
+   index measurement. If the token's ramp ever changes, THIS LINE DOES NOT
+   FOLLOW — the paired note sits on --fs-headline in chrome.css. */
 .news-item__title {
   font-family: 'Bebas Neue', Impact, sans-serif;
-  font-size: var(--fs-headline);
+  font-size: clamp(28px, 4.4vw, 56px);
   font-weight: 400;
   line-height: var(--lh-caps);
   letter-spacing: var(--ls-caps);
@@ -182,20 +200,33 @@
   color: var(--c-text-l);
 }
 
-/* ── callouts, ported from SunshineFM 2026-08-14 ────────────────────────────
-   TWO rules, not one, because they are two different things and blockquote
-   collapses the distinction:
-     .callout           a PULL-QUOTE — 24 of them across the ported set
-     .callout--briefs   a structured CROSS-REFERENCE into .com — 18, carrying
-                        84 links, all verified absolute to aicoachellavalley.com
-   The class VALUES come from SunshineFM; none of the values below do. Pine,
-   volt and this site's radii, so the blocks read as .org rather than as
-   transplanted furniture.
+/* ── callouts, ported from SunshineFM 2026-08-14, split 2026-08-15 ──────────
+   THREE rules, not one, because they are three different things and
+   blockquote collapses the distinction:
+     .callout           a PULL-QUOTE — 20 across the ported set
+     .callout--related  a pointer at ONE thing — 4
+     .callout--briefs   a pointer at a SET on .com — 18, carrying 84 links,
+                        all verified absolute to aicoachellavalley.com
+   Both modifiers are pointers, which is why --related is a sibling of --briefs
+   and not of the quote: same family, smaller voice. The class VALUES come from
+   SunshineFM; none of the values below do. Pine, volt and this site's radii,
+   so the blocks read as .org rather than as transplanted furniture.
 
-   ⚠ The count in PORT_DAY ("42 pull-quotes and 18 briefs") counted CLASSES and
-   reported BLOCKS: a briefs block carries both `callout` and `callout--briefs`,
-   so a DOM count of `.callout` returns all 42. There are 24 pull-quotes, not
-   42 — which is why this is two small rules rather than the larger job budgeted.
+   ⚠ RE-DERIVE THIS, DO NOT CARRY IT. 42 = 20 + 4 + 18, and every earlier
+   number in this comment's history was wrong:
+     · PORT_DAY said "42 pull-quotes and 18 briefs" — it counted CLASSES and
+       reported BLOCKS. A briefs block carries both `callout` and
+       `callout--briefs`, so a DOM count of `.callout` returns all 42.
+     · The 2026-08-14 correction said 24 pull-quotes. True of the CLASS, false
+       of the THING: 4 of those 24 were "Related:" pointers set in EB Garamond
+       italic — a link rendered as a quotation. 20 is the count of quotes.
+   The measurement is `<div class="callout">` blocks per file, not a grep for
+   the string `callout`.
+
+   ⚠ 12 of the 20 pull-quotes ALSO open with a `<strong>…:</strong>` lead-in
+   ("The uncomfortable truth:", "Note:", "The two failure modes:"). The split
+   therefore cannot key on <strong>, and no bare `.callout strong` rule may be
+   written here — it would restyle those twelve.
    ────────────────────────────────────────────────────────────────────────── */
 .article__body .callout {
   margin: var(--s-6) 0;
@@ -260,6 +291,51 @@
 .article__body .callout--briefs a {
   color: var(--c-accent-text);
   text-underline-offset: 2px;
+}
+
+/* The related block is the briefs panel at a smaller voice: same card, same
+   kicker treatment, less of it. --s-3 on the vertical against briefs' --s-4,
+   because it carries one sentence where briefs carries a list. font-style
+   NORMAL is the load-bearing declaration — it cancels the pull-quote's italic,
+   which was setting a link as if it were a quotation. */
+.article__body .callout--related {
+  padding: var(--s-3) var(--s-4);
+  background: var(--c-paper);
+  border: 1px solid var(--c-border);
+  /* Cancels the pull-quote's 3px volt rule. Restated rather than left to the
+     shorthand above so the intent survives a reorder. */
+  border-left: 1px solid var(--c-border);
+  border-radius: var(--r-nested);
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: var(--fs-15);
+  font-style: normal;
+  line-height: 1.7;
+  color: var(--c-text-l);
+}
+/* ⚠ DIVERGES FROM BRIEFS ON MECHANISM, NOT ON VALUES. Briefs styles a real
+   <strong> that is in the markup. This kicker is GENERATED, because the same
+   ruling that created this class stripped the words "Related:" out of the
+   prose in all four blocks — with a label above and the words still in the
+   sentence, the reader gets it twice. Nothing is left in the markup to hang a
+   rule on, so the label comes from CSS.
+
+   Consequence to know: the four blocks are now identified ONLY by their class.
+   Remove `callout--related` from one and it silently reverts to a pull-quote
+   with its opening words missing. Every value below is copied from
+   `.callout--briefs strong` — keep them in step.
+
+   No colon, where briefs has one: briefs' label is a fragment leading into a
+   list and the colon does work. A standalone word at 0.2em tracking pushes the
+   colon a fifth of an em off the D, where it reads as debris. */
+.article__body .callout--related::before {
+  content: 'Related';
+  display: block;
+  margin-bottom: var(--s-2);
+  font-size: var(--fs-10);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  color: var(--c-accent-text);
 }
 
 /* ── tags ──────────────────────────────────────────────────────────────── */

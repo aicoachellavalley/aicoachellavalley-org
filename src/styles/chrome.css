@@ -143,6 +143,14 @@
          the width of 38px in a normal face — the size buys contrast without
          costing the column. */
       --fs-display:   clamp(46px, 7vw, 84px);
+      /* ⚠ TWO CONSUMERS, AND ONE OF THEM NO LONGER READS THIS FLOOR.
+         .article__title takes --fs-headline whole. .news-item__title RESTATES
+         the ramp in news.css with a 28px floor (2026-08-15), because 34px put
+         7 of 33 real titles onto four-plus lines in a 285px card at 375px —
+         measured on the index, which is not the article's 720px reading
+         measure. Changing the ramp here does NOT reach the index entry; the
+         paired note is on .news-item__title. Reunite them only by measuring
+         the article, not by assuming the index result transfers. */
       --fs-headline:  clamp(34px, 4.4vw, 56px);
       --ls-label:     0.2em;
 

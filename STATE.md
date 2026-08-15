@@ -1,7 +1,7 @@
 # org/ operational state
 
 > Operational state only. Strategic state lives in `aicv-playbook/STATE.md`.
-> **Fresh session? Read `HANDOFF.md` first** (tight orientation), then this file for full detail. Current HEAD: **.org is an ASTRO HYBRID, LIVE IN PRODUCTION since 2026-08-09 (`5d354d4`) — FOUR hand-written pages live in `public/` and still ship byte-for-byte, TWO are Astro pages (`index.astro`, `events.astro`), `dist/` is the deploy directory, and there IS a build step. Run `npm run build` locally before every push.** **`/events` carries a DATED RECORD as of 2026-08-11 (`4d75ebc`, `94c5f13`)**: 42 sessions across six series rendered from `src/data/events.json`, with 49 JSON-LD nodes. Before this the page contained ZERO events — a hero and a Luma iframe, invisible to every agent. ⚠ **That file is the sole copy of 28 of those events; Luma has no export and no API, and its public calendar lists only 14. Never regenerate it from Luma.** **The homepage STATS BAND was removed 2026-08-13 (`9eb3f9b`)** — three of its four cells were unsupportable ("300+ students", "12+ partners", "9 cities" framed as delivery) and the fourth contradicted `/events`. The session count now derives from `events.json` in the founder prose; only the `is:inline` JSON-LD keeps a guarded constant. ⚠ **Verify claims against RENDERED output with tags joined, not against source** — `30<em>+</em>` does not grep as "30+", and that is why the claim survived two prior fixes. **THE 32-PIECE PORT LANDED 2026-08-14 (`bbaffd9`) as noindexed drafts** — `/news/<slug>` resolves for all 32, none appears in any feed, and nothing is public until `draft` flips. ⚠ **Re-derive every count on use**: four this week were carried rather than re-measured and all four were wrong — see the 2026-08-14 entry. `/news/` is a generated publishing surface; `sitemap.xml` and `llms.txt` are generated routes, not files. **Author page live (2026-08-10)**: `/author/sat-singh` is a ProfilePage carrying the canonical Person `@id`; article bylines link to it and reference that `@id` rather than emitting an anonymous Person. `src/data/people.json` is the single definition and a build gate keeps index.astro's hand-written JSON-LD in step. The coverage gate now sweeps `src/pages/**`, not just `public/`. **Phase 2 (2026-08-09) ended byte-identity**: the homepage is now `src/pages/index.astro` (the other five stay static HTML in `public/` — deliberate asymmetry), News is in the nav/drawer/footer on all six, and the homepage carries a recent-articles section. ⚠ `index.astro`'s style block MUST keep `is:inline`. The site is SIX static pages, `/pledge` is live, the rebrand backlog is EMPTY, the CSS is fully swept, and the token names match BRAND.md §4 (2026-08-06). Operational docs 404 via a Pages Function. Step 5 (regenerate the pledge deck) and the X-Frame-Options item are both CLOSED BY REMOVAL — the deck and the lightbox no longer exist. Fiscal wording is canon-aligned on "project". `/pledge` is in the nav, drawer and footer on all six pages. The fiscal inventory is CUT: 24 placements to 14, and both "initiative" and "under Desert Community Foundation" are now zero sitewide. No known wording divergence remains. *(This pointer had been stale at `f86f83e`/2026-07-01 for five weeks — bump it every session.)*
+> **Fresh session? Read `HANDOFF.md` first** (tight orientation), then this file for full detail. Current HEAD: **.org is an ASTRO HYBRID, LIVE IN PRODUCTION since 2026-08-09 (`5d354d4`) — FOUR hand-written pages live in `public/` and still ship byte-for-byte, TWO are Astro pages (`index.astro`, `events.astro`), `dist/` is the deploy directory, and there IS a build step. Run `npm run build` locally before every push.** **`/events` carries a DATED RECORD as of 2026-08-11 (`4d75ebc`, `94c5f13`)**: 42 sessions across six series rendered from `src/data/events.json`, with 49 JSON-LD nodes. Before this the page contained ZERO events — a hero and a Luma iframe, invisible to every agent. ⚠ **That file is the sole copy of 28 of those events; Luma has no export and no API, and its public calendar lists only 14. Never regenerate it from Luma.** **The homepage STATS BAND was removed 2026-08-13 (`9eb3f9b`)** — three of its four cells were unsupportable ("300+ students", "12+ partners", "9 cities" framed as delivery) and the fourth contradicted `/events`. The session count now derives from `events.json` in the founder prose; only the `is:inline` JSON-LD keeps a guarded constant. ⚠ **Verify claims against RENDERED output with tags joined, not against source** — `30<em>+</em>` does not grep as "30+", and that is why the claim survived two prior fixes. **THE 32-PIECE PORT LANDED 2026-08-14 (`bbaffd9`) as noindexed drafts** — `/news/<slug>` resolves for all 32, none appears in any feed, and nothing is public until `draft` flips. ⚠ **Re-derive every count on use**: four this week were carried rather than re-measured and all four were wrong — see the 2026-08-14 entry. **THE CALLOUT SPLIT AND THE MOBILE CLAMP FLOOR CLOSED 2026-08-15** — `.callout--related` is a third rule (42 = **20** pull-quotes + 4 related + 18 briefs; "24 pull-quotes" was itself a miscount), and the index entry title now restates its ramp at a **28px** floor in news.css while `--fs-headline` stays 34px in chrome.css for `.article__title`. ⚠ **The standalone type harness UNDER-COUNTS** — it measures a 333px box where the real title sets in 285px, and it was wrong at every floor; measure on the real index with the draft filter off, then revert. `/news/` is a generated publishing surface; `sitemap.xml` and `llms.txt` are generated routes, not files. **Author page live (2026-08-10)**: `/author/sat-singh` is a ProfilePage carrying the canonical Person `@id`; article bylines link to it and reference that `@id` rather than emitting an anonymous Person. `src/data/people.json` is the single definition and a build gate keeps index.astro's hand-written JSON-LD in step. The coverage gate now sweeps `src/pages/**`, not just `public/`. **Phase 2 (2026-08-09) ended byte-identity**: the homepage is now `src/pages/index.astro` (the other five stay static HTML in `public/` — deliberate asymmetry), News is in the nav/drawer/footer on all six, and the homepage carries a recent-articles section. ⚠ `index.astro`'s style block MUST keep `is:inline`. The site is SIX static pages, `/pledge` is live, the rebrand backlog is EMPTY, the CSS is fully swept, and the token names match BRAND.md §4 (2026-08-06). Operational docs 404 via a Pages Function. Step 5 (regenerate the pledge deck) and the X-Frame-Options item are both CLOSED BY REMOVAL — the deck and the lightbox no longer exist. Fiscal wording is canon-aligned on "project". `/pledge` is in the nav, drawer and footer on all six pages. The fiscal inventory is CUT: 24 placements to 14, and both "initiative" and "under Desert Community Foundation" are now zero sitewide. No known wording divergence remains. *(This pointer had been stale at `f86f83e`/2026-07-01 for five weeks — bump it every session.)*
 
 ## Current
 
@@ -1268,9 +1268,122 @@ delete, and forgetting it is how a draft-visible index reaches production.
 
 ### Still open, deliberately
 
-The mobile clamp floor (rendered at 34/30/28/26 for a judgment call), the
-callout split treatment, and whether the ported titles stay lowercase if the
-face ever changes from Bebas.
+~~The mobile clamp floor (rendered at 34/30/28/26 for a judgment call), the
+callout split treatment~~ — **BOTH CLOSED 2026-08-15, see the entry below.**
+Still open: whether the ported titles stay lowercase if the face ever changes
+from Bebas.
+
+---
+
+## Callout split + clamp floor — and a harness that lied — 2026-08-15
+
+The two items the review left open. Both shipped; the drafts did NOT flip.
+
+### ⚠ THE FINDING IS THE MEASUREMENT, NOT THE FLOOR
+
+A standalone harness had been built to render titles at candidate floors. It
+was wrong at every floor, always in the same direction — **it under-counts.**
+Re-measured on the real index (local build, draft filter off, then reverted),
+33 titles, 375px, a **285px** title text box:
+
+| floor | 4+ lines | at 5 lines | worst card | median card |
+|---|---|---|---|---|
+| 34px (was) | **7** | 4 | 385px | 321px |
+| 32px | 7 | 2 | 376px | 315px |
+| 30px | 6 | **0** | 338px | 309px |
+| **28px (shipped)** | **4** | 0 | **330px** | 277px |
+| 26px | 3 | 0 | 323px | 273px |
+| 24px | 1 | 0 | 315px | 269px |
+
+The harness predicted 34px → 5 titles and a 278px worst card; the real index
+gives 7 and 385px. It predicted 28px → 1 title and 255px; the real index gives
+4 and 330px. It predicted 26px → zero; the real index gives 3. **No floor in
+the judged range reaches zero.**
+
+The cause is a box, not a bug in anyone's counting. The harness measured into
+a **333px** box — the card's content width. The title is not that wide: at
+≤640px `.news-item__title` carries `padding: 0 var(--s-3)`, so the text sets in
+**285px**. 48px narrower, every title, every floor. A harness that models the
+container but not the padding will always read short, and it will look right
+while doing it.
+
+Confidence check before believing any of this: the same method re-measured the
+OLD floor and returned 7 of 33, four at five lines, worst card 385px — matching
+the 2026-08-14 live measurement exactly, digit for digit. The method agrees
+with the reference where the reference exists.
+
+**28px kept, on a different argument than the harness gave.** Not "1 title at
+4+ lines" — that was never true. It is where the FIVE-line tier is already gone
+(30px does that) and where the median card falls hardest (309 → 277, the
+biggest single step in the ladder). Below 28px the curve flattens: 26px buys
+one title and 4px of median for a visible loss of display weight. 28px is the
+knee. ⚠ **Four titles still set four lines.** That is a known, accepted state,
+not an oversight — the corpus runs to 97 characters and no floor that keeps
+Bebas legible removes them.
+
+### The clamp is NOT a token edit — read this before "fixing" it
+
+`--fs-headline` in chrome.css stays `clamp(34px, 4.4vw, 56px)`.
+`.news-item__title` restates the ramp in news.css with a 28px floor.
+
+`--fs-headline` has TWO consumers and only the index was measured.
+`.article__title` sets on a 720px reading measure, not a 285px card. Moving the
+token would have resized the article on the strength of an index measurement —
+the exact move this file keeps catching. Paired comments sit at both ends. Only
+the floor differs, so only viewports under ~772px change at all; above that
+4.4vw already exceeds both floors and the two ramps are identical.
+
+### The split — 42 = 20 + 4 + 18
+
+`.callout--related` added as a sibling of `--briefs`, not of the quote: both
+are pointers, briefs at a set, related at one thing. Same family, smaller voice
+(`--s-3` vertical against briefs' `--s-4`).
+
+⚠ **The count moved again, and this is the third time.** PORT_DAY said 42
+pull-quotes. 2026-08-14 corrected it to 24. Both were counts of a CLASS, not of
+a thing: 4 of those 24 were "Related:" pointers set in EB Garamond italic — a
+link rendered as a quotation. **20 pull-quotes.** Re-derived from disk this
+pass, not carried.
+
+**The kicker is generated, and that is a deliberate divergence from briefs.**
+Briefs styles a real `<strong>` in the markup. Related cannot: the ruling
+stripped "Related:" out of the prose in all four blocks, because a label above
+plus the words in the sentence reads twice. Nothing is left to hang a rule on,
+so `::before { content: 'Related' }` carries it. **Consequence: those four
+blocks are identified ONLY by their class.** Drop `callout--related` from one
+and it silently reverts to a pull-quote with its opening words missing. No
+colon, where briefs has one — briefs' label leads into a list and earns it; a
+standalone word at 0.2em tracking pushes the colon off the D.
+
+⚠ **12 of the 20 pull-quotes also open with `<strong>…:</strong>`** ("The
+uncomfortable truth:", "Note:", "The two failure modes:"). The split therefore
+cannot key on `<strong>`, and no bare `.callout strong` rule may be written in
+news.css — it would restyle those twelve.
+
+### Flagged, NOT touched — the other "Related:"
+
+**20 files carry a second, unrelated `Related:`** — a plain-markdown link row
+in the article footer, after the `---`, alongside Source and Analysis. It is
+not a callout and was outside the ruling. All four related-callout articles now
+show the word twice per PAGE (kicker + footer row), which was equally true
+before this change. The two read as different objects — a bordered card versus
+an inline prose row — so it does not land as a repetition. Recorded because it
+is a 20-file editorial decision, not a four-file one, and it should be made
+deliberately if it is made.
+
+### Verified
+
+Build clean, `@graph` 7, 32/32 still `draft: true`, zero draft slugs in
+sitemap / llms.txt / rss.xml / news.html. Three treatments confirmed BY EYE on
+`player-coach-coachella-valley` in one frame. chrome.css carries a comment-only
+edit and the bundler strips comments — the served CSS is byte-unchanged by it.
+`src/pages/news/index.astro` is absent from the diff; the draft filter was
+reverted before commit.
+
+⚠ **Local build with the filter off is the only way to measure this surface**,
+and it must be reverted in the same session. Production `/news` renders exactly
+ONE entry (`placeholder.mdx`) — a post-deploy check there can confirm the floor
+computes at 28px and nothing more.
 
 ---
 
