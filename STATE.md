@@ -1,7 +1,7 @@
 # org/ operational state
 
 > Operational state only. Strategic state lives in `aicv-playbook/STATE.md`.
-> **Fresh session? Read `HANDOFF.md` first** (tight orientation), then this file for full detail. Current HEAD: **.org is an ASTRO HYBRID, LIVE IN PRODUCTION since 2026-08-09 (`5d354d4`) — FOUR hand-written pages live in `public/` and still ship byte-for-byte, TWO are Astro pages (`index.astro`, `events.astro`), `dist/` is the deploy directory, and there IS a build step. Run `npm run build` locally before every push.** **`/events` carries a DATED RECORD as of 2026-08-11 (`4d75ebc`, `94c5f13`)**: 42 sessions across six series rendered from `src/data/events.json`, with 49 JSON-LD nodes. Before this the page contained ZERO events — a hero and a Luma iframe, invisible to every agent. ⚠ **That file is the sole copy of 28 of those events; Luma has no export and no API, and its public calendar lists only 14. Never regenerate it from Luma.** **The homepage STATS BAND was removed 2026-08-13 (`9eb3f9b`)** — three of its four cells were unsupportable ("300+ students", "12+ partners", "9 cities" framed as delivery) and the fourth contradicted `/events`. The session count now derives from `events.json` in the founder prose; only the `is:inline` JSON-LD keeps a guarded constant. ⚠ **Verify claims against RENDERED output with tags joined, not against source** — `30<em>+</em>` does not grep as "30+", and that is why the claim survived two prior fixes. `/news/` is a generated publishing surface; `sitemap.xml` and `llms.txt` are generated routes, not files. **Author page live (2026-08-10)**: `/author/sat-singh` is a ProfilePage carrying the canonical Person `@id`; article bylines link to it and reference that `@id` rather than emitting an anonymous Person. `src/data/people.json` is the single definition and a build gate keeps index.astro's hand-written JSON-LD in step. The coverage gate now sweeps `src/pages/**`, not just `public/`. **Phase 2 (2026-08-09) ended byte-identity**: the homepage is now `src/pages/index.astro` (the other five stay static HTML in `public/` — deliberate asymmetry), News is in the nav/drawer/footer on all six, and the homepage carries a recent-articles section. ⚠ `index.astro`'s style block MUST keep `is:inline`. The site is SIX static pages, `/pledge` is live, the rebrand backlog is EMPTY, the CSS is fully swept, and the token names match BRAND.md §4 (2026-08-06). Operational docs 404 via a Pages Function. Step 5 (regenerate the pledge deck) and the X-Frame-Options item are both CLOSED BY REMOVAL — the deck and the lightbox no longer exist. Fiscal wording is canon-aligned on "project". `/pledge` is in the nav, drawer and footer on all six pages. The fiscal inventory is CUT: 24 placements to 14, and both "initiative" and "under Desert Community Foundation" are now zero sitewide. No known wording divergence remains. *(This pointer had been stale at `f86f83e`/2026-07-01 for five weeks — bump it every session.)*
+> **Fresh session? Read `HANDOFF.md` first** (tight orientation), then this file for full detail. Current HEAD: **.org is an ASTRO HYBRID, LIVE IN PRODUCTION since 2026-08-09 (`5d354d4`) — FOUR hand-written pages live in `public/` and still ship byte-for-byte, TWO are Astro pages (`index.astro`, `events.astro`), `dist/` is the deploy directory, and there IS a build step. Run `npm run build` locally before every push.** **`/events` carries a DATED RECORD as of 2026-08-11 (`4d75ebc`, `94c5f13`)**: 42 sessions across six series rendered from `src/data/events.json`, with 49 JSON-LD nodes. Before this the page contained ZERO events — a hero and a Luma iframe, invisible to every agent. ⚠ **That file is the sole copy of 28 of those events; Luma has no export and no API, and its public calendar lists only 14. Never regenerate it from Luma.** **The homepage STATS BAND was removed 2026-08-13 (`9eb3f9b`)** — three of its four cells were unsupportable ("300+ students", "12+ partners", "9 cities" framed as delivery) and the fourth contradicted `/events`. The session count now derives from `events.json` in the founder prose; only the `is:inline` JSON-LD keeps a guarded constant. ⚠ **Verify claims against RENDERED output with tags joined, not against source** — `30<em>+</em>` does not grep as "30+", and that is why the claim survived two prior fixes. **THE 32-PIECE PORT LANDED 2026-08-14 (`bbaffd9`) as noindexed drafts** — `/news/<slug>` resolves for all 32, none appears in any feed, and nothing is public until `draft` flips. ⚠ **Re-derive every count on use**: four this week were carried rather than re-measured and all four were wrong — see the 2026-08-14 entry. `/news/` is a generated publishing surface; `sitemap.xml` and `llms.txt` are generated routes, not files. **Author page live (2026-08-10)**: `/author/sat-singh` is a ProfilePage carrying the canonical Person `@id`; article bylines link to it and reference that `@id` rather than emitting an anonymous Person. `src/data/people.json` is the single definition and a build gate keeps index.astro's hand-written JSON-LD in step. The coverage gate now sweeps `src/pages/**`, not just `public/`. **Phase 2 (2026-08-09) ended byte-identity**: the homepage is now `src/pages/index.astro` (the other five stay static HTML in `public/` — deliberate asymmetry), News is in the nav/drawer/footer on all six, and the homepage carries a recent-articles section. ⚠ `index.astro`'s style block MUST keep `is:inline`. The site is SIX static pages, `/pledge` is live, the rebrand backlog is EMPTY, the CSS is fully swept, and the token names match BRAND.md §4 (2026-08-06). Operational docs 404 via a Pages Function. Step 5 (regenerate the pledge deck) and the X-Frame-Options item are both CLOSED BY REMOVAL — the deck and the lightbox no longer exist. Fiscal wording is canon-aligned on "project". `/pledge` is in the nav, drawer and footer on all six pages. The fiscal inventory is CUT: 24 placements to 14, and both "initiative" and "under Desert Community Foundation" are now zero sitewide. No known wording divergence remains. *(This pointer had been stale at `f86f83e`/2026-07-01 for five weeks — bump it every session.)*
 
 ## Current
 
@@ -1193,6 +1193,84 @@ lands, at both 1280 and 375 — the `<img>` is absolutely positioned inside a
 - **CSS drops `to bottom` from computed gradient values** because it is the default.
   Testing for it inverts the direction; test for `to right` instead. This produced a
   false failure on mobile.
+
+---
+
+## The port — 32 pieces from sunshine.fm, and what the review found — 2026-08-14
+
+`9ee8cd2` (infrastructure), `bbaffd9` (32 pieces + 10 PNGs), `7263267`
+(cross-links), plus the description normalisation below. All live; every
+ported piece is `draft: true`, so nothing is public.
+
+**32 pieces landed as noindexed drafts**: 10 news / 22 views, 22 FAQPage nodes
+carrying 81 questions, 42 callout blocks, 10 banner PNGs at `/images/`. Absent
+from sitemap, llms.txt, RSS and the index; each addressable at
+`/news/<slug>` for review.
+
+### ⚠ FOUR MISCOUNTS THIS WEEK, ALL THE SAME SHAPE
+
+A number measured once, reported as fact, and carried forward without being
+re-derived. Recorded together because the pattern is the finding, not any one
+instance:
+
+| claimed | actual | whose |
+|---|---|---|
+| palette "55 uses" of `--c-accent-text` | 20 — and **17 of 17** palette counts wrong across 6 files | inherited |
+| PORT_DAY "42 pull-quotes + 18 briefs" | **42 total**, 18 carrying both classes → 24 pull-quotes | other side |
+| PORT_DAY "71 in-body cross-links" | **40** — 37 to `/news/<slug>`, 3 to root | other side |
+| "8 news lowercase, 17 views not" | **32 of 32 titles lowercase**; 7 of 33 descriptions | MINE |
+
+The last one is the instructive one: it was wrong on every axis, and it was
+mine, made while cataloguing the other three. **A count is only true at the
+moment it is measured.** Re-derive on use.
+
+### The 40-not-71
+
+The conversion had ALREADY rewritten the cross-links — but to ABSOLUTE
+`https://aicoachellavalley.org/...` URLs. So the redirect-chain problem
+PORT_DAY flagged was already solved, and what remained was this site's own
+convention (recorded in `[slug].astro`): every internal link is relative,
+because an absolute one sends local-preview clicks to production. Forty
+absolute self-links would have done exactly that. All 40 were in BODIES and
+none in frontmatter — checked before touching anything, because a FAQ answer's
+URL feeds JSON-LD and must stay absolute.
+
+Left absolute deliberately: the single `sunshine.fm/journal/` link (sealed
+archive, PORT_DAY rules it stays) and 125 `.com` references (cross-property).
+Nothing pointed at a sunshine.fm path outside the 32.
+
+### Review-window findings — measured against 33 real entries
+
+The surface had only ever been judged against one placeholder and three
+fixtures. **The type system was tuned on titles of 4, 9 and 12 words; the
+corpus runs to 97 characters.** Fixtures said Bebas worked; the corpus showed
+where it doesn't. That gap is the case for landing drafts and looking.
+
+Run as a LOCAL build with the draft filter off, then reverted — not a
+temporary preview surface, which is a thing to build, verify, and remember to
+delete, and forgetting it is how a draft-visible index reaches production.
+
+- **Desktop holds.** 4×1-line, 24×2, 5×3; cards 228–335px.
+- **⚠ MOBILE IS THE PROBLEM, and it is not one outlier.** At the 34px clamp
+  floor, **7 of 33 titles run four or more lines**, four of them five, worst
+  card 385px. A fifth of the corpus. The bound cannot fix this — no title
+  length that admits the real headlines would — so it is a TYPE decision.
+- **⚠ `.callout` is doing two jobs.** Of 24 plain callouts, **20 are genuine
+  pull-quotes and 4 are "Related:" pointers**, rendering identically in EB
+  Garamond italic. A link set as a quotation. Split ruled; treatment proposed
+  separately.
+- **Lowercase is a description problem, not a title problem.** Bebas renders
+  every title in caps, so title casing is invisible on both surfaces. The only
+  place it showed was the description: 7 of 33 lowercase in a column where 26
+  were not, not tracking category. Normalised to sentence case — properly, not
+  by capitalising the first letter, which would have left "anthropic" and
+  "claude" lowercase mid-sentence and been worse.
+
+### Still open, deliberately
+
+The mobile clamp floor (rendered at 34/30/28/26 for a judgment call), the
+callout split treatment, and whether the ported titles stay lowercase if the
+face ever changes from Bebas.
 
 ---
 
