@@ -234,8 +234,12 @@
          sweep across the six surfaces COULD NOT SEE IT — the name was never
          declared here, so index.astro's copy could drift and nothing would
          report a difference. Declared, the same sweep catches it.
-         This and index.astro are the only two surfaces with a pull-quote:
-         40 tokens here and there, 39 on the other four, on purpose. */
+         ⚠ UPDATED 2026-08-17: this is now the ONLY surface that declares it.
+         The copy pass deleted index.astro's founder pull-quote — the token's
+         only consumer there — so its declaration went with it. Counts are 40
+         here and 39 on the other five. The original finding is unaffected: the
+         reason to declare rather than fall back was VISIBILITY TO A SWEEP, not
+         parity of counts, and that reason survives having only one declarer. */
       --fs-pull: clamp(20px, 2.6vw, 30px);
 
       /* Spacing — 8px base grid */
@@ -926,7 +930,7 @@
       <div>
         <div class="footer__mark">AICV · aicoachellavalley.org</div>
         <div class="footer__name">AICV</div>
-        <p class="footer__desc">Building the Coachella Valley's AI Startup Ecosystem.<br><br>A fiscally sponsored project of Desert Community Foundation.</p>
+        <p class="footer__desc">Preparing the Coachella Valley for the AI economy.<br><br>A fiscally sponsored project of Desert Community Foundation.</p>
       </div>
       <div>
         <div class="footer__col-label">Navigate</div>
@@ -952,7 +956,7 @@
     </div>
     <div class="footer__bottom">
       <div class="footer__copy">© 2026 AI Coachella Valley</div>
-      <div class="footer__tagline">Building the Coachella Valley's AI Startup Ecosystem.</div>
+      <div class="footer__tagline">AI training and in-person events across the valley since 2025.</div>
     </div>
   </div>
 </footer>

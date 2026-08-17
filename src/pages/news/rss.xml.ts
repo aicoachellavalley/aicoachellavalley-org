@@ -30,8 +30,9 @@ export const GET: APIRoute = async (context) => {
       author: a.data.author,
     })),
     // @astrojs/rss appends a trailing slash to every <link> by default, which
-    // would emit /news/placeholder/ while the page is served at
-    // /news/placeholder (build.format: 'file', trailingSlash: 'never').
+    // would emit /news/<slug>/ while the page is served at /news/<slug>
+    // (build.format: 'file', trailingSlash: 'never'). Example slug updated
+    // 2026-08-17: the placeholder this once named has been deleted.
     // Caught in Stage 2 verification — every RSS link was a URL that does not
     // exist. Must stay false for as long as trailingSlash is 'never'.
     trailingSlash: false,

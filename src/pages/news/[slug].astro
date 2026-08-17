@@ -32,8 +32,11 @@ const fmt = (d: Date) =>
   });
 
 // ════════════════════════════════════════════════════════════════════════════
-// @graph, not a bare NewsArticle. Changed 2026-08-12, DELIBERATELY WHILE
-// /news IS EMPTY — one placeholder, zero real articles. An article page can
+// @graph, not a bare NewsArticle. Changed 2026-08-12, deliberately while
+// /news held ONE placeholder and zero real articles — the cheapest moment to
+// change a JSON-LD shape. ⚠ THAT WINDOW IS CLOSED: 32 real pieces went public
+// 2026-08-15 and the placeholder was deleted 2026-08-17. A shape change now
+// rewrites structured data on 32 live, indexed pages. An article page can
 // carry more than one entity (a NewsArticle and, where the frontmatter has
 // one, a FAQPage), and a bare object has room for exactly one. Making the
 // shape conditional on whether `faq` exists would have meant two different

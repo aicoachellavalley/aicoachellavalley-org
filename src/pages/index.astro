@@ -64,8 +64,8 @@ const fmt = (d) =>
   <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <meta name="theme-color" content="#081C15">
-  <title>AICV — Building the Coachella Valley's AI Startup Ecosystem</title>
-  <meta name="description" content="Start here to understand, build, invest in, or join the Coachella Valley's emerging AI startup ecosystem. AICV connects founders, builders, capital, educational programs, and agent-readable regional intelligence.">
+  <title>AICV — Preparing the Coachella Valley for the AI economy</title>
+  <meta name="description" content="AI training and in-person events across the valley since 2025. AICV prepares Coachella Valley residents, students, and operators for the AI economy — with workshops, meetups, a public record of every session, and agent-readable regional intelligence.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://aicoachellavalley.org/">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -77,16 +77,16 @@ const fmt = (d) =>
   <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="AI Coachella Valley">
-  <meta property="og:title" content="AICV — Building the Coachella Valley's AI Startup Ecosystem">
-  <meta property="og:description" content="Start here to understand, build, invest in, or join the Coachella Valley's emerging AI startup ecosystem. AICV connects founders, builders, capital, educational programs, and agent-readable regional intelligence.">
+  <meta property="og:title" content="AICV — Preparing the Coachella Valley for the AI economy">
+  <meta property="og:description" content="AI training and in-person events across the valley since 2025. AICV prepares Coachella Valley residents, students, and operators for the AI economy — with workshops, meetups, a public record of every session, and agent-readable regional intelligence.">
   <meta property="og:url" content="https://aicoachellavalley.org/">
   <meta property="og:image" content="https://aicoachellavalley.org/sat-tedx.png">
   <meta property="og:locale" content="en_US">
 
   <!-- Twitter / X -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="AICV — Building the Coachella Valley's AI Startup Ecosystem">
-  <meta name="twitter:description" content="Start here to understand, build, invest in, or join the Coachella Valley's emerging AI startup ecosystem. AICV connects founders, builders, capital, educational programs, and agent-readable regional intelligence.">
+  <meta name="twitter:title" content="AICV — Preparing the Coachella Valley for the AI economy">
+  <meta name="twitter:description" content="AI training and in-person events across the valley since 2025. AICV prepares Coachella Valley residents, students, and operators for the AI economy — with workshops, meetups, a public record of every session, and agent-readable regional intelligence.">
   <meta name="twitter:image" content="https://aicoachellavalley.org/sat-tedx.png">
 
   <script type="application/ld+json" is:inline>
@@ -99,7 +99,7 @@ const fmt = (d) =>
         "name": "AI Coachella Valley",
         "alternateName": "AICV",
         "url": "https://aicoachellavalley.org",
-        "description": "AI Coachella Valley (AICV) is a fiscally sponsored project of Desert Community Foundation, building, connecting, and documenting the Coachella Valley's emerging AI startup ecosystem — and serving as its front door for people and AI systems. AICV connects founders, builders, educators, institutions, and investors; runs the AI Builder Workshops (a monthly hands-on series supported by California State University, San Bernardino since 2025); hosts AI Tinkerers Coachella Valley — the valley's chapter of the global hands-on AI builders' community; runs AIQnA, a public conversation about how the region thinks about AI; and publishes a structured agentic intelligence network at aicoachellavalley.com so AI systems understand the region accurately.",
+        "description": "AI Coachella Valley (AICV) is a fiscally sponsored project of Desert Community Foundation, preparing the Coachella Valley for the AI economy — and serving as the region's front door for people and AI systems. AICV has delivered AI training and in-person events across the valley since 2025. It connects founders, builders, educators, institutions, and investors; runs the AI Builder Workshops (a monthly hands-on series supported by California State University, San Bernardino since 2025); hosts AI Tinkerers Coachella Valley — the valley's chapter of the global hands-on AI builders' community; runs AIQnA, a public conversation about how the region thinks about AI; and publishes a structured agentic intelligence network at aicoachellavalley.com so AI systems understand the region accurately.",
         "foundingDate": "2025",
         "areaServed": {
           "@type": "Place",
@@ -189,7 +189,7 @@ const fmt = (d) =>
         "@id": "https://aicoachellavalley.org/#website",
         "url": "https://aicoachellavalley.org",
         "name": "AI Coachella Valley",
-        "description": "AI Coachella Valley (AICV) builds, connects, and documents the Coachella Valley's emerging AI startup ecosystem, and is the front door to it for people and AI systems. AICV runs the AI Builder Workshops, hosts AI Tinkerers Coachella Valley, runs AIQnA, and publishes a structured agentic intelligence network for AI agents at aicoachellavalley.com.",
+        "description": "AI Coachella Valley (AICV) prepares the Coachella Valley for the AI economy, delivering AI training and in-person events across the valley since 2025, and is the region's front door for people and AI systems. AICV runs the AI Builder Workshops, hosts AI Tinkerers Coachella Valley, runs AIQnA, and publishes a structured agentic intelligence network for AI agents at aicoachellavalley.com.",
         "publisher": {
           "@id": "https://aicoachellavalley.org/#organization"
         },
@@ -525,12 +525,15 @@ const fmt = (d) =>
       --fs-22: 22px;   /* card titles, small headings   */
       --fs-h2: clamp(26px, 3.6vw, 42px); /* section heads */
       --fs-h1: clamp(38px, 5.5vw, 68px); /* hero          */
-      /* ⚠ DECLARED ON TWO SURFACES, NOT ONE — here and pledge.html, the only
-         two with a pull-quote. The other four carry 39 tokens, these two carry
-         40, and that 40/40/39x4 split is DELIBERATE, not drift. Keep the value
-         identical to pledge.html's copy; a value sweep across the six is what
-         catches divergence, and it can only see names that are DECLARED. */
-      --fs-pull: clamp(20px, 2.6vw, 30px); /* pull quotes */
+      /* ⚠ --fs-pull WAS DECLARED HERE AND IS NOW GONE — 2026-08-17, one day
+         after it was added. The copy pass deleted this page's only pull-quote
+         (the founder banner), which was its only consumer, so the token and
+         the .pull-quote rule went dead together. pledge.html is now the SOLE
+         surface with a pull-quote and the sole declarer: counts are 40 there
+         and 39 on the other five. The paired note is on pledge.html.
+         The 2026-08-16 finding still stands and is why pledge DECLARES it
+         rather than carrying a var() fallback: a fallback on an undeclared
+         name is invisible to a value sweep. That was never about the count. */
 
       /* Spacing — 8px base grid */
       --s-1: 8px;
@@ -632,18 +635,6 @@ const fmt = (d) =>
        leaving it intact keeps a lead size available if another section wants
        one. This is the only .body--lead in index.html's markup. */
     #why-now .body--lead { font-size: var(--fs-15); }
-
-    .pull-quote {
-      font-family: 'EB Garamond', Georgia, serif;
-      font-size: var(--fs-pull);
-      font-style: italic;
-      font-weight: 400;
-      line-height: 1.5;
-      color: var(--c-text);
-      border-left: 3px solid var(--c-accent-text);
-      padding-left: var(--s-3);
-    }
-    .pull-quote span { font-style: normal; font-weight: 700; }
 
     /* ════════════════════════════════════════
        BUTTONS
@@ -1113,15 +1104,22 @@ const fmt = (d) =>
     /* ════════════════════════════════════════
        FOUNDER
     ════════════════════════════════════════ */
-    .founder-banner {
-      margin-bottom: var(--s-8);
-    }
     .founder-layout {
       display: grid;
       grid-template-columns: 290px 1fr;
       gap: var(--s-10);
       align-items: start;
     }
+    /* 168px, not the 290px original: the photo is now a credential beside three
+       lines rather than a portrait beside four paragraphs. Same aspect ratio and
+       same volt caption; only the column narrows. Copy pass 2026-08-17.
+       ⚠ MUST STAY AFTER .founder-layout. Same specificity (0,1,0), so SOURCE
+       ORDER decides — placed above the base rule it lost silently and the
+       column stayed 290px. The build was green and the DOM assertion caught
+       it, not the compiler. This is the source-order trap HANDOFF.md warns
+       about, hit a fourth time. */
+    .founder-layout--compact { grid-template-columns: 168px 1fr; }
+
     .founder-img-wrap { position: relative; }
     .founder-img {
       width: 100%;
@@ -1172,43 +1170,6 @@ const fmt = (d) =>
     /* ════════════════════════════════════════
        CTA
     ════════════════════════════════════════ */
-    .cta {
-      background: var(--c-accent-fill);
-      padding: var(--s-10) var(--gutter);
-      text-align: left;
-      position: relative;
-      overflow: hidden;
-    }
-    .cta__ghost {
-      position: absolute;
-      left: var(--gutter); top: 50%;
-      transform: translateY(-50%);
-      font-family: 'EB Garamond', Georgia, serif;
-      font-size: 280px; font-weight: 700;
-      color: rgba(var(--c-accent-on-fill-rgb),0.2);
-      line-height: 1;
-      pointer-events: none; user-select: none; white-space: nowrap;
-    }
-    .cta__inner {
-      position: relative; z-index: 2;
-      max-width: var(--max-w); margin: 0 auto;
-    }
-    .cta__headline {
-      font-family: 'EB Garamond', Georgia, serif;
-      font-size: var(--fs-h2);
-      font-weight: 700;
-      color: var(--c-text);
-      line-height: 1.1;
-      margin-bottom: var(--s-2);
-    }
-    .cta__sub {
-      font-size: var(--fs-15);
-      font-weight: 300;
-      color: rgba(var(--c-text-rgb),0.75);
-      line-height: 1.7;
-      max-width: 70ch;
-      margin-bottom: 0;
-    }
 
     /* ════════════════════════════════════════
        FOOTER
@@ -1413,7 +1374,7 @@ const fmt = (d) =>
   <div class="hero__inner">
     <span class="eyebrow">Coachella Valley · Est. 2025</span>
     <h1 class="h1 hero__headline">
-      Building the Coachella Valley's <span class="accent">AI Startup Ecosystem</span>
+      Preparing the Coachella Valley for the <span class="accent">AI economy.</span>
     </h1>
   </div>
 </section>
@@ -1557,6 +1518,13 @@ const fmt = (d) =>
 </section>
 
 <!-- ── FAQ ── -->
+<!-- ⚠ `get-involved` is a SURVIVING ANCHOR, not a second identity for this
+     section. Its own section was deleted in the 2026-08-17 copy pass; the
+     bare span keeps the published URL fragment resolving instead of silently
+     scrolling to the top. An element cannot carry two ids, and #faq was here
+     first, so the anchor is its own node. Delete only with evidence that
+     nothing off-repo cites it. -->
+<span id="get-involved"></span>
 <section class="section section--sand" id="faq">
   <div class="wrap">
     <span class="eyebrow">FAQ</span>
@@ -1620,38 +1588,51 @@ const fmt = (d) =>
   </div>
 </section>
 
-<!-- ── CTA ── -->
-<section class="cta" id="get-involved">
-  <div class="cta__ghost">AICV</div>
-  <div class="cta__inner">
-    <h2 class="cta__headline">Start Here. Build From Here.</h2>
-    <p class="cta__sub">The Coachella Valley's AI startup ecosystem will be built by founders, builders, investors, educators, institutions, and community members who see what is becoming possible here. Some already call the desert home. Others are only beginning to discover it. AICV is one part of a growing regional network connecting ideas, talent, capital, and opportunity—and making it easier to find your place in what comes next.</p>
-  </div>
-</section>
+<!-- ── CTA section DELETED 2026-08-17 (copy pass) ──────────────────────────
+     "Start Here. Build From Here." was build/ecosystem framing on a site that
+     had just retired that claim, set on a full-bleed volt ground.
 
-<!-- ── FOUNDER / ABOUT ── -->
+     ⚠ THE ANCHOR SURVIVES ON PURPOSE, as a bare span immediately before the
+     FAQ section — NOT as a second id on that section, because an element
+     cannot carry two and #faq was there first. It is a PUBLISHED anchor and
+     may exist in off-repo citations; the
+     same argument kept `id="programs"` when its label became "Build". Keeping
+     it costs nothing. Do not delete it because nothing in this repo links to
+     it — nothing in this repo is the whole audience.
+
+     Dead CSS removed with it: .cta, .cta__ghost, .cta__inner, .cta__headline,
+     .cta__sub — five rules, this page only, no other consumer. -->
+<!-- ── FOUNDER ── -->
+<!-- REDUCED 2026-08-17 (copy pass): four bio paragraphs, an eyebrow and a
+     pull-quote became three lines and a credential.
+
+     CUT: the eyebrow "Why This Work Matters" (it framed four paragraphs, not
+     three lines) and the pull-quote (the page's "why" is now the positioning
+     line in the hero, and running both said it twice).
+
+     KEPT: the TEDx photograph, at 168px instead of the 290px column — it is
+     the credential, and the only proof a human reader gets in two seconds.
+
+     ⚠ THE COUNT STAYS DERIVED. `sessionCount` comes from events.json and is
+     the reason this sentence is a template and not prose. The venue was
+     dropped, not the number: "at the Entrepreneurial Resource Center in Palm
+     Desert" contradicted the "across the valley" scope claim the rest of the
+     page now makes. Do NOT re-add a venue here, and do NOT type the number.
+
+     ⚠ THE PERSON JSON-LD IS UNTOUCHED BY THIS. Discoverability is carried by
+     the founder node in @graph — @id, sameAs, hasOccupation, subjectOf — not
+     by the length of this prose. Shortening visible copy costs nothing there. -->
 <section class="section" id="founder">
   <div class="wrap">
-    <span class="eyebrow">Why This Work Matters</span>
-
-    <blockquote class="pull-quote founder-banner">
-      "Artificial intelligence is arriving faster than most communities are prepared for. Our goal is simple: help the next generation learn how to work with these tools — <span>thoughtfully, responsibly, and creatively.</span>"
-    </blockquote>
-
-    <div class="founder-layout">
+    <div class="founder-layout founder-layout--compact">
       <div class="founder-img-wrap">
         <img src="/sat-tedx.png" class="founder-img" alt="Sat Singh speaking at TEDx Rancho Mirage, August 2025">
         <div class="founder-credential"><a href="https://www.youtube.com/watch?v=oYG2kFC2_D4" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;text-decoration-color:rgba(0,0,0,0.3);">TEDx Rancho Mirage · August 2025 ↗</a></div>
       </div>
       <div>
-        <p class="founder-bio">The future of AI should not be shaped only by large technology companies. Communities should help shape it too. That's what AICV is built to do — not as an abstract mission, but as a practical, on-the-ground program that meets people where they are across the nine cities of the Coachella Valley.</p>
-        <p class="founder-bio">AICV was founded by Sat Singh — a TEDx Rancho Mirage speaker, community educator, and technology entrepreneur based in the Coachella Valley.</p>
-        <p class="founder-bio">Since April 2025, AICV has hosted {sessionCount} public sessions at the Entrepreneurial Resource Center in Palm Desert — workshops, meetups, and hands-on build days, documented in a <a href="/events">dated public record</a>. In 2026, AICV is focused on the intelligence network — now live at aicoachellavalley.com and cited by AI systems querying the valley, while bringing the AI Tinkerers community to the desert: gathering the region's strongest builders to mentor the next generation and train the trainers.</p>
-        <p class="founder-bio">Sat Singh covers the AI beat for the Inland Empire at InformedIE. He writes about AI, business, media, and culture in the Coachella Valley at <a href="/news">AICV News</a>, and hosts a daily talk show and weekend radio for Palm Springs Coachella at <a href="https://sunshine.fm/" target="_blank" rel="noopener">SunshineFM</a>.</p>
-        <div class="founder-sig">
-          — Sat Singh
-          <strong>Founder, AICV <span>(AI Coachella Valley)</span></strong>
-        </div>
+        <p class="founder-bio"><strong>Sat Singh</strong> — Founder, AI Coachella Valley. TEDx Rancho Mirage speaker.</p>
+        <p class="founder-bio">Since April 2025, AICV has run {sessionCount} public sessions across the valley — workshops, meetups, and hands-on build days, kept as a <a href="/events">dated public record</a>.</p>
+        <p class="founder-bio"><a href="/author/sat-singh">Full bio &rarr;</a></p>
       </div>
     </div>
   </div>
@@ -1664,7 +1645,7 @@ const fmt = (d) =>
       <div>
         <div class="footer__mark">AICV · aicoachellavalley.org</div>
         <div class="footer__name">AICV</div>
-        <p class="footer__desc">Building the Coachella Valley's AI Startup Ecosystem.<br><br>A fiscally sponsored project of Desert Community Foundation.</p>
+        <p class="footer__desc">Preparing the Coachella Valley for the AI economy.<br><br>A fiscally sponsored project of Desert Community Foundation.</p>
       </div>
       <div>
         <div class="footer__col-label">Navigate</div>
@@ -1690,7 +1671,7 @@ const fmt = (d) =>
     </div>
     <div class="footer__bottom">
       <div class="footer__copy">© 2026 AI Coachella Valley</div>
-      <div class="footer__tagline">Building the Coachella Valley's AI Startup Ecosystem.</div>
+      <div class="footer__tagline">AI training and in-person events across the valley since 2025.</div>
     </div>
   </div>
 </footer>
