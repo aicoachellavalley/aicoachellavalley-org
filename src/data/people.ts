@@ -77,9 +77,16 @@ export const person = (slug: string): Person => {
 //   · The Organization does not lose the connection — its `founder` property
 //     points at this Person's @id, so an agent following that chain still
 //     reaches the account. The relationship is expressed, not collapsed.
-//   · InformedIE has NO public URL yet (expected Sept/Oct 2026). When it
-//     exists it belongs in sameAs above AND as a link in the author-page prose.
-//     Until then it stays plain text — a dead link is worse than a plain noun.
+//   · InformedIE is OFF `.org` ENTIRELY — founder ruling 2026-08-16: it gets its
+//     own domain and does not live here, in prose or in schema. The sentence
+//     "Reports the AI beat for the Inland Empire at InformedIE." was removed from
+//     `description` on 2026-08-17; it predated the ruling, so it was inconsistent
+//     with canon rather than a violation of it. ⚠ SUPERSEDES the earlier note here
+//     that it "belongs in sameAs when it exists" — it does not, and it never will
+//     on this property. Do not re-add it when the domain launches; link to the
+//     domain from SunshineFM instead. One mention SURVIVES deliberately, in the
+//     author-page prose (`src/pages/author/sat-singh.astro`), which was outside
+//     the ruled scope — flagged, not silently swept.
 //   · .com carries 3 more Person nodes with no @id at all (index.astro:114,
 //     :239, get-agent-ready.astro:284, all also asserting x.com as the
 //     ORGANIZATION's sameAs). Cross-repo follow-on: unify on this @id with its
