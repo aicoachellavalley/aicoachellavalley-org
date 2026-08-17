@@ -5,7 +5,7 @@
 
 ## Current
 
-- **HYBRID.** **Four** hand-written pages live in `public/` and ship byte-for-byte via Vite's `copyFileSync`. **TWO are now Astro pages** — the homepage (`src/pages/index.astro`, because it reads the news collection) and `/events` (`src/pages/events.astro`, because it derives the record from `src/data/events.json`). That asymmetry is deliberate; see the 2026-08-09 Phase 2 and 2026-08-11 events entries. **There IS a build step.** `npm run build` locally before every push: Pages silently serves the last good build behind a failed one.
+- **HYBRID.** **Four** hand-written pages live in `public/` and ship byte-for-byte via Vite's `copyFileSync`. **TWO are now Astro pages** — the homepage (`src/pages/index.astro`, because it reads the news collection) and `/events` (`src/pages/events.astro`, because it derives the record from `src/data/events.json`). That asymmetry is deliberate; see the 2026-08-09 Phase 2 and 2026-08-11 events entries. **There IS a build step.** `npm run build` locally before every push: Pages silently serves the last good build behind a failed one. ⚠ **TWO DIFFERENT CAUSES PRODUCE THAT IDENTICAL SYMPTOM — see "Production isn't current" below before diagnosing.**
 - **SIX** pages. **Astro:** `src/pages/index.astro`, `src/pages/events.astro`. **Static:** `public/philanthropy.html`, `public/partner.html`, `public/pledge.html`, `public/404.html`. **`partner.html` is live at 200 but deliberately unlinked** (parked for v2 — see the 2026-07-01 entry) and is absent from both feeds by recorded decision; it carries the nav and footer, so it is in scope for anything site-wide and is easy to forget. (`ai-readiness.html` was RETIRED in `e519554`; `philanthropy.html` added in `456dede`; `events.html` became an Astro page 2026-08-11 and git tracked it as a rename.)
   - ⚠ **Per-page line counts were DELETED here 2026-08-11. Do not re-add them.** They had drifted twice and, the second time, silently: all four static pages sat 2 lines high from the nav pass (`bfd95d6`) onward, because taking "The Pledge" out of `nav__links` and `nav__drawer` costs each file exactly 2 lines, and nothing announced it. The rule that replaced them: **guard counts that make public claims, drop counts that only describe the repo.** "42 sessions" is an assertion to a grants officer and an LLM, so it earns a build gate. A line count changes no decision and is one `wc -l` away — it was never the only source, just the only stale one. What stays here is what sessions actually act on and what does not decay per edit: which pages exist, Astro vs static, and that `partner.html` is live-but-unlinked.
 - **`src/data/events.json` (271 lines) is the SOLE record of 28 events** that appear on no public surface. Luma has no export and no API on this calendar. **Never regenerate it from Luma** — see the 2026-08-11 events entry.
@@ -1275,6 +1275,63 @@ from Bebas.
 
 ---
 
+## ⚠ "PRODUCTION ISN'T CURRENT" — TWO CAUSES, ONE SYMPTOM — 2026-08-15
+
+**Both look exactly the same from outside: you pushed, the build was green
+locally, and production still serves the old version.** The pairing is the
+point — the older warning in this file covers only the first, and reaching for
+its fix when the cause is the second wastes the session.
+
+| | failed build | **missed webhook** |
+|---|---|---|
+| deployment for the commit | **EXISTS, and failed** | **NONE — never queued** |
+| what Pages serves | the last good build | the last good build |
+| local `npm run build` | reproduces the failure | green, and stays green |
+| clean-clone build | fails | **succeeds** |
+
+### DIAGNOSTIC ORDER — check that a deployment EXISTS before assuming it failed
+
+```
+npx wrangler pages deployment list --project-name=aicoachellavalley-org
+```
+
+Read-only, allowed, and it settles the question in one call: find the commit in
+the `Source` column. **Absent means nothing was ever queued** and the build is
+not the problem. Present-and-failed means it is, and the local build will show
+you why.
+
+### THE FIX for a missed webhook
+
+```
+git commit --allow-empty -m "chore: re-trigger deploy (missed webhook on <sha>)"
+git push
+```
+
+**Fired in ~15 seconds and picked up BOTH pending commits** — the retry
+deployment and the original `effb915` each appear in the list afterwards, so
+nothing needed replaying by hand.
+
+### ⚠ DO NOT reach for `wrangler pages deploy`
+
+The canon gate denies it for build-step projects and is **correct** to: a root
+upload publishes `src/`, `package.json` and the operational `.md` files instead
+of the build output. **The deploy path stays git.** An empty commit is the
+supported retry.
+
+**The instance, 2026-08-15 (`effb915` → `abd9fe0`).** Two bounded CSS passes
+pushed; production kept serving the previous bundle for ~20 minutes where every
+earlier push that day had deployed in 45–75 seconds. Before concluding
+anything, a clean clone of `origin/main` was built from scratch — `npm ci` plus
+`npm run build`, exit 0, producing a bundle **byte-identical** to the local one.
+That eliminated the build as a cause and left only the deploy, which the
+deployment list then confirmed: no entry for `effb915` at all.
+
+**The control is what made this diagnosable** (§7.8): a green local build proves
+nothing about the cloud, but a green build of a *fresh clone of what was
+actually pushed* does. Run that before blaming either side.
+
+---
+
 ## THE FLIP — 32 pieces public, the gate discharged — 2026-08-15
 
 `37d7817`. `draft: true` → `draft: false` on all 32. The diff is exclusively
@@ -1324,6 +1381,39 @@ expected, and the window the redirects close.
 **It does not unblock the positioning sweep**, which still owes two rulings
 (see the entry below). The pieces going public does not settle whether the site
 still calls itself an ecosystem.
+
+---
+
+## ⚠ CORRECTION — a false number I wrote into news.css — 2026-08-15
+
+Fixed in `effb915`. The clamp comment in `news.css` read:
+
+> `28px  1 of 33 at four lines, worst card 341px`
+
+**Measured: 4 of 33 at four lines, NONE at five, worst card 330px.** Neither
+figure was right, and 341px was never any measurement's output — the harness
+had predicted 255px, so the number was not even the wrong source's number.
+
+**How it got there.** The comment was written from the harness PREDICTION while
+the 28px case was still unmeasured, as a placeholder, and never revisited once
+the real ladder came in an hour later. It shipped **inside the very commit whose
+subject was that the harness under-counts.** The measured ladder went into
+STATE.md correctly and the commit message stated "4 titles, 330px" correctly.
+**Only the comment carried the bad figure** — which is why nothing caught it:
+every other artifact agreed with reality, and no check compares prose in a CSS
+comment against a table in a different file.
+
+**The lesson is narrower than "re-derive counts", which was already a rule here
+and did not prevent it.** The rule that would have: **a number written before
+its measurement exists is a TODO, not a value, and must be marked as one.** Had
+it read `28px  TBD` it would have been obviously unfinished. Written as a
+plausible figure, it became indistinguishable from a result. Do not pre-fill a
+measured field with an estimate in canon — leave it visibly empty until the
+measurement lands.
+
+Found while editing the same rule block for the subhead-spacing pass; it was
+not sought. Nothing else in the file was checked against its source this pass —
+⚠ **an audit of the other numeric claims in `news.css` has NOT been run.**
 
 ---
 
@@ -2230,6 +2320,11 @@ exits 1 on an unaccounted page and 0 once it is removed.
 - **`.org` can now fail to deploy.** It could not before. Pages serves the last good build behind
   a failure and the site looks healthy (playbook CLAUDE.md:402, confirmed 2026-06-03 when four
   commits stalled behind an MDX error). `npm run build` locally before every push.
+  ⚠ **A MISSED WEBHOOK presents identically and is NOT this** — no deployment is
+  created at all, and the local build stays green because nothing is wrong with
+  it. Check `wrangler pages deployment list` for the commit before assuming a
+  build failure; fix with an empty commit, never `wrangler pages deploy`. Full
+  diagnostic in the 2026-08-15 entry "PRODUCTION ISN'T CURRENT".
 - **A seventh chrome copy.** Only 38 CSS rules (4,865 B) are common to all six pages after the
   dead-CSS sweep, so there was no shared base to reuse; `src/styles/chrome.css` is lifted from
   `404.html`. Phase 1 makes the duplication worse. Extracting one real stylesheet is the fix and
