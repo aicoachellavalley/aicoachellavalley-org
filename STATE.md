@@ -1275,6 +1275,46 @@ from Bebas.
 
 ---
 
+## QUEUED — the positioning copy sweep (founder ruling 2026-08-15)
+
+Strategic ruling lives in `core/playbook/STATE.md` → "FOUNDER RULING — `.org`
+positioning". **Not started. Nothing on any surface has changed.** The
+operational half, measured here at `26d4b71` so the next session does not
+re-derive it:
+
+The new line is **"Preparing the Coachella Valley for the AI economy."** with
+the sub *"AI training and in-person events across the valley since 2025."*
+
+⚠ **`.org` is currently running TWO taglines, and the sweep converges them.**
+
+- **A — "Building the Coachella Valley's AI Startup Ecosystem"**: 5 source
+  files, 5 built surfaces. `src/pages/index.astro` (×6),
+  `src/pages/events.astro` (×3), `public/partner.html` (×2),
+  `public/philanthropy.html` (×2), `public/pledge.html` (×2). **Replaced.**
+- **B — "Preparing the Coachella Valley for the future of work in the age of
+  AI."**: only 2 source files — `public/404.html` (×1) and
+  `src/layouts/NewsLayout.astro` (×1) — but **36 of the 41 built pages**, since
+  every `/news/*` and `/author/*` page inherits it from that one layout.
+  **Tightened, not replaced** — it is already most of the way there.
+
+No surface carries both. **Seven source files.** Scoping this as "change the
+hero tagline" touches five and leaves thirty-six pages saying something else.
+
+⚠ `src/data/static-meta.json` also contains A. It is **GENERATED** by
+`scripts/prepare-feeds.mjs` from the static pages' own `<meta>` — it corrects
+itself on the next build. Do not hand-edit it.
+
+⚠ **Two of A's occurrences are split across tags** and do not grep as one
+string. Count on rendered output with tags joined — the trap already recorded
+in the 2026-08-13 homepage entry. Also in scope and NOT yet enumerated: meta
+descriptions, OG/Twitter tags and the Organization/WebSite JSON-LD, which
+carry the positioning independently of the visible footer.
+
+Also open, and it rides with this pass rather than ahead of it: the 20-file
+markdown `Related:` footer row on `/news` (see the 2026-08-15 entry below).
+
+---
+
 ## Callout split + clamp floor — and a harness that lied — 2026-08-15
 
 The two items the review left open. Both shipped; the drafts did NOT flip.
