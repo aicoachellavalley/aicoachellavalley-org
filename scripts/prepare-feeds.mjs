@@ -310,7 +310,13 @@ for (const file of feedFiles) {
     if ('start_at' in e && Number.isNaN(Date.parse(e.start_at)))
       fail(`${where}: start_at is not a parseable ISO datetime`);
 
-    const key = `${e.date} ${e.title}`;
+    // \x00 AS AN ESCAPE, NEVER A RAW BYTE. This delimiter used to be a literal
+    // NUL in the source. It made the whole FILE read as binary, so plain `grep`
+    // silently matched NOTHING here -- on the file carrying the coverage gate AND
+    // the identity gate. A session concluded the identity gate had been deleted
+    // because of it, and only `grep -a` disproved that. The escape compiles to the
+    // exact same U+0000 (verified), and the file stays greppable text.
+    const key = `${e.date}\x00${e.title}`;
     if (seenKey.has(key)) fail(`${where}: duplicate (date, title) — the record's only key`);
     seenKey.add(key);
 
