@@ -1,7 +1,7 @@
 # org/ operational state
 
 > Operational state only. Strategic state lives in `aicv-playbook/STATE.md`.
-> **Fresh session? Read `HANDOFF.md` first** (tight orientation), then this file for full detail. Current HEAD: **.org is an ASTRO HYBRID, LIVE IN PRODUCTION since 2026-08-09 (`5d354d4`) — FOUR hand-written pages live in `public/` and still ship byte-for-byte, TWO are Astro pages (`index.astro`, `events.astro`), `dist/` is the deploy directory, and there IS a build step. Run `npm run build` locally before every push.** **`/events` carries a DATED RECORD as of 2026-08-11 (`4d75ebc`, `94c5f13`)**: 42 sessions across six series rendered from `src/data/events.json`, with 49 JSON-LD nodes. Before this the page contained ZERO events — a hero and a Luma iframe, invisible to every agent. ⚠ **That file is the sole copy of 28 of those events; Luma has no export and no API, and its public calendar lists only 14. Never regenerate it from Luma.** **The homepage STATS BAND was removed 2026-08-13 (`9eb3f9b`)** — three of its four cells were unsupportable ("300+ students", "12+ partners", "9 cities" framed as delivery) and the fourth contradicted `/events`. The session count now derives from `events.json` in the founder prose; only the `is:inline` JSON-LD keeps a guarded constant. ⚠ **Verify claims against RENDERED output with tags joined, not against source** — `30<em>+</em>` does not grep as "30+", and that is why the claim survived two prior fixes. **THE 32-PIECE PORT LANDED 2026-08-14 (`bbaffd9`) as noindexed drafts** — `/news/<slug>` resolves for all 32, none appears in any feed, and nothing is public until `draft` flips. ⚠ **Re-derive every count on use**: four this week were carried rather than re-measured and all four were wrong — see the 2026-08-14 entry. **THE CALLOUT SPLIT AND THE MOBILE CLAMP FLOOR CLOSED 2026-08-15** — `.callout--related` is a third rule (42 = **20** pull-quotes + 4 related + 18 briefs; "24 pull-quotes" was itself a miscount), and the index entry title now restates its ramp at a **28px** floor in news.css while `--fs-headline` stays 34px in chrome.css for `.article__title`. ⚠ **The standalone type harness UNDER-COUNTS** — it measures a 333px box where the real title sets in 285px, and it was wrong at every floor; measure on the real index with the draft filter off, then revert. `/news/` is a generated publishing surface; `sitemap.xml` and `llms.txt` are generated routes, not files. **Author page live (2026-08-10)**: `/author/sat-singh` is a ProfilePage carrying the canonical Person `@id`; article bylines link to it and reference that `@id` rather than emitting an anonymous Person. `src/data/people.json` is the single definition and a build gate keeps index.astro's hand-written JSON-LD in step. The coverage gate now sweeps `src/pages/**`, not just `public/`. **Phase 2 (2026-08-09) ended byte-identity**: the homepage is now `src/pages/index.astro` (the other five stay static HTML in `public/` — deliberate asymmetry), News is in the nav/drawer/footer on all six, and the homepage carries a recent-articles section. ⚠ `index.astro`'s style block MUST keep `is:inline`. The site is SIX static pages, `/pledge` is live, the rebrand backlog is EMPTY, the CSS is fully swept, and the token names match BRAND.md §4 (2026-08-06). Operational docs 404 via a Pages Function. Step 5 (regenerate the pledge deck) and the X-Frame-Options item are both CLOSED BY REMOVAL — the deck and the lightbox no longer exist. Fiscal wording is canon-aligned on "project". `/pledge` is in the nav, drawer and footer on all six pages. The fiscal inventory is CUT: 24 placements to 14, and both "initiative" and "under Desert Community Foundation" are now zero sitewide. No known wording divergence remains. *(This pointer had been stale at `f86f83e`/2026-07-01 for five weeks — bump it every session.)*
+> **Fresh session? Read `HANDOFF.md` first** (tight orientation), then this file for full detail. Current HEAD: **.org is an ASTRO HYBRID, LIVE IN PRODUCTION since 2026-08-09 (`5d354d4`) — FOUR hand-written pages live in `public/` and still ship byte-for-byte, TWO are Astro pages (`index.astro`, `events.astro`), `dist/` is the deploy directory, and there IS a build step. Run `npm run build` locally before every push.** **`/events` carries a DATED RECORD as of 2026-08-11 (`4d75ebc`, `94c5f13`)**: 42 sessions across six series rendered from `src/data/events.json`, with 49 JSON-LD nodes. Before this the page contained ZERO events — a hero and a Luma iframe, invisible to every agent. ⚠ **That file is the sole copy of 28 of those events; Luma has no export and no API, and its public calendar lists only 14. Never regenerate it from Luma.** **The homepage STATS BAND was removed 2026-08-13 (`9eb3f9b`)** — three of its four cells were unsupportable ("300+ students", "12+ partners", "9 cities" framed as delivery) and the fourth contradicted `/events`. The session count now derives from `events.json` in the founder prose; only the `is:inline` JSON-LD keeps a guarded constant. ⚠ **Verify claims against RENDERED output with tags joined, not against source** — `30<em>+</em>` does not grep as "30+", and that is why the claim survived two prior fixes. **THE 32-PIECE PORT IS PUBLIC as of 2026-08-15 (`37d7817`)** — the flip happened; all 32 are `draft: false`, `/news` lists 33, all 32 are in sitemap/llms.txt/rss, and zero pages carry `noindex`. Production-verified by two independent content-asserted sweeps. (Landed 2026-08-14 as noindexed drafts in `bbaffd9`.) ⚠ **Re-derive every count on use**: four this week were carried rather than re-measured and all four were wrong — see the 2026-08-14 entry. **THE CALLOUT SPLIT AND THE MOBILE CLAMP FLOOR CLOSED 2026-08-15** — `.callout--related` is a third rule (42 = **20** pull-quotes + 4 related + 18 briefs; "24 pull-quotes" was itself a miscount), and the index entry title now restates its ramp at a **28px** floor in news.css while `--fs-headline` stays 34px in chrome.css for `.article__title`. ⚠ **The standalone type harness UNDER-COUNTS** — it measures a 333px box where the real title sets in 285px, and it was wrong at every floor; measure on the real index with the draft filter off, then revert. `/news/` is a generated publishing surface; `sitemap.xml` and `llms.txt` are generated routes, not files. **Author page live (2026-08-10)**: `/author/sat-singh` is a ProfilePage carrying the canonical Person `@id`; article bylines link to it and reference that `@id` rather than emitting an anonymous Person. `src/data/people.json` is the single definition and a build gate keeps index.astro's hand-written JSON-LD in step. The coverage gate now sweeps `src/pages/**`, not just `public/`. **Phase 2 (2026-08-09) ended byte-identity**: the homepage is now `src/pages/index.astro` (the other five stay static HTML in `public/` — deliberate asymmetry), News is in the nav/drawer/footer on all six, and the homepage carries a recent-articles section. ⚠ `index.astro`'s style block MUST keep `is:inline`. The site is SIX static pages, `/pledge` is live, the rebrand backlog is EMPTY, the CSS is fully swept, and the token names match BRAND.md §4 (2026-08-06). Operational docs 404 via a Pages Function. Step 5 (regenerate the pledge deck) and the X-Frame-Options item are both CLOSED BY REMOVAL — the deck and the lightbox no longer exist. Fiscal wording is canon-aligned on "project". `/pledge` is in the nav, drawer and footer on all six pages. The fiscal inventory is CUT: 24 placements to 14, and both "initiative" and "under Desert Community Foundation" are now zero sitewide. No known wording divergence remains. *(This pointer had been stale at `f86f83e`/2026-07-01 for five weeks — bump it every session.)*
 
 ## Current
 
@@ -1272,6 +1272,58 @@ delete, and forgetting it is how a draft-visible index reaches production.
 callout split treatment~~ — **BOTH CLOSED 2026-08-15, see the entry below.**
 Still open: whether the ported titles stay lowercase if the face ever changes
 from Bebas.
+
+---
+
+## THE FLIP — 32 pieces public, the gate discharged — 2026-08-15
+
+`37d7817`. `draft: true` → `draft: false` on all 32. The diff is exclusively
+that line: 32 files, +32/−32, zero other changes.
+
+**Nothing was hand-edited to make it public.** Six surfaces filter on the one
+flag (`/news` index, `sitemap.xml`, `llms.txt`, `rss.xml`, the homepage recent
+list, `/author/sat-singh`) and `[slug].astro` passes `article.data.draft`
+through to `NewsLayout`, which emits `noindex, nofollow` only while it is true.
+That design paid off exactly as written: one flag, six surfaces, no checklist.
+
+**Verified on PRODUCTION, twice, with content assertions — not status lines.**
+
+- Sweep 1: HTTP 200 + `article__title` + a canonical matching the slug + zero
+  `noindex` + >4KB body → **32/32**.
+- Sweep 2, independent and cache-busted (`Cache-Control: no-cache`): HTTP 200 +
+  `<title>` + JSON-LD + `article__body` + zero `noindex` → **32/32**.
+- **Both sweeps returned the identical slug set.** Nothing passed one and failed
+  the other, which is the check a single sweep cannot make.
+- Feeds: 32/32 present in sitemap, llms.txt, rss and the index. `/news` lists
+  33. Sitemap totals 39 = 33 articles + `/`, `/events`, `/philanthropy`,
+  `/pledge`, `/news`, `/author/sat-singh`. `partner` still deliberately absent.
+- Remaining `noindex` on the origin: `404.html` (`noindex, follow`, deliberate)
+  and the `/*.md` `X-Robots-Tag` in `_headers`, which does not match
+  `/news/<slug>`. Checked rather than assumed — a header-level rule would have
+  silently outranked the meta.
+
+### ⚠ THE INSTRUMENT LIED AGAIN — `grep -c` counts LINES
+
+Mid-verification the built feeds read as **1 entry** where they had **33**.
+Nothing was wrong with the site: `grep -c` reports matching LINES, and the
+built `news.html`, `rss.xml` and author page put all 33 on one line. Counted by
+occurrence (`grep -o | wc -l`) and it resolved to 33 everywhere.
+
+This is the same shape as the type harness two entries below — **the number was
+wrong because the instrument was, and the wrong number was self-consistent
+across four surfaces**, which is exactly what makes it convincing. Had it been
+believed, the conclusion would have been "the flip failed" and the next move
+would have been to go re-edit 32 files that were already correct.
+
+### What this unblocks, and what it does not
+
+The verified 32-slug list is the **SunshineFM side's green light** for 64
+redirects and deleting the originals. Until those land, both copies exist —
+expected, and the window the redirects close.
+
+**It does not unblock the positioning sweep**, which still owes two rulings
+(see the entry below). The pieces going public does not settle whether the site
+still calls itself an ecosystem.
 
 ---
 
