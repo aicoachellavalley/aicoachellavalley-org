@@ -1310,6 +1310,13 @@ in the 2026-08-13 homepage entry. Also in scope and NOT yet enumerated: meta
 descriptions, OG/Twitter tags and the Organization/WebSite JSON-LD, which
 carry the positioning independently of the visible footer.
 
+⚠ **TWO RULINGS ARE OWED BEFORE THIS RUNS** (detail in the playbook entry):
+(1) does the new line **replace B on all 36 pages, or does B stay**? Sat leans
+replace; not settled. It is a one-file edit with a 36-page blast radius — the
+cheapness of the edit is not the size of the decision. (2) **meta / OG /
+JSON-LD must be enumerated first**, not after; that is where a positioning
+claim survives a sweep that looks finished.
+
 Also open, and it rides with this pass rather than ahead of it: the 20-file
 markdown `Related:` footer row on `/news` (see the 2026-08-15 entry below).
 
