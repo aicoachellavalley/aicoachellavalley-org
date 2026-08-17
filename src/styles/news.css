@@ -162,9 +162,14 @@
    MEASURED on the real index at 375px, 33 entries, a 285px title text box
    (333px card content less 2x --s-3):
      34px  7 of 33 at four or more lines, four of them at FIVE, worst card 385px
-     28px  1 of 33 at four lines, worst card 341px
-   A fifth of the corpus wrapping to four-plus lines is a type decision, not a
-   bound — no title length that admits the real headlines fixes it.
+     28px  4 of 33 at four lines, NONE at five,          worst card 330px
+   ⚠ CORRECTED 2026-08-15: this line first read "1 of 33 ... worst card 341px".
+   Both numbers were wrong. They were written from a harness PREDICTION before
+   the 28px case was measured, and never revisited once the real numbers came
+   in — in the same commit that documented the harness under-counting. The
+   measured ladder is in STATE.md; the commit message had it right and only
+   this comment carried the bad figure. Four titles still set four lines. That
+   is the accepted state: no floor that keeps Bebas legible removes them.
 
    NOT A TOKEN EDIT, and that is the point: .article__title sets on a 720px
    reading measure, not a 285px card, and its floor was never measured. Moving
@@ -409,12 +414,54 @@
   margin: 0 0 var(--s-5);
   color: var(--c-text);
 }
+/* ── subhead spacing: em ON h2, px ON h3, and the split is DELIBERATE ───────
+   The rule is: SPACE SCALES WITH THE TYPE IT SPACES. Where a size is fluid the
+   margin is em; where a size is fixed the margin stays on the --s-* scale.
+   Do not "tidy" these two rules into agreement — they already agree on the
+   principle, and only look inconsistent because the sizes differ in kind.
+
+   ⚠ WHAT WAS ACTUALLY WRONG, because the obvious diagnosis was wrong. The
+   subhead gaps were NOT equal and NOT inverted: measured on a live article,
+   ink gap 67 above / 27 below at 1280 and 68 / 27 at 375 — 2.48:1 and 2.52:1,
+   correctly closer to the copy it introduces at both widths. Re-tuning that
+   ratio would have changed nothing anyone could see.
+
+   The defect was FIXED PX AGAINST A CLAMP. --fs-h2 is clamp(26px, 3.6vw,
+   42px) — fluid — while the margins were a fixed 64/24. So the proportion of
+   space to type swung 62% across the range:
+
+       space ÷ heading size     1280 (42px)     375 (26px)
+       above                       1.52x           2.46x
+       below                       0.57x           0.92x
+
+   At 375 a subhead carried nearly its own height in space beneath it and
+   detached from the paragraph it introduces. Desktop was already right, so
+   the em values are ANCHORED TO IT: 1.5em x 42 = 63px, against the 64px it
+   replaced.
+
+   ⚠ 0.65em, NOT the 0.55em first proposed, AND THE EYE OVERRULED THE RATIO.
+   0.55em reproduced the old desktop value exactly (23.1px vs 24px) and was
+   right on paper. Rendered at 375 it left a 17px ink gap under the subhead
+   against a 27px body line — under two-thirds of one line of leading, and it
+   read as crowded. 0.65em gives 30px ink at 1280 and ~20px at 375. Desktop
+   loosens by 3px, which is not visible; mobile stops crowding, which is.
+   Both were built and looked at before choosing.
+
+   ⚠ At 375, `p`'s 40px bottom margin COLLAPSES against h2's 1.5em (39px) and
+   wins. The gap above is therefore 40px there, not 39 — which lands at 1.54x
+   the heading, the desktop proportion. The collapse helps here; it is not
+   something to defeat with a display change.
+
+   h3 is a FIXED --fs-17 and never scales, so its proportions are already
+   identical at both widths (2.82x above, 0.94x below). px is correct for it,
+   and converting it to em would be churn with a rounding risk for three
+   headings — h3 appears in ONE of the 33 articles. */
 .article__body h2 {
   font-family: 'EB Garamond', Georgia, serif;
   font-size: var(--fs-h2);
   font-weight: 600;
   line-height: 1.25;
-  margin: var(--s-8) 0 var(--s-3);
+  margin: 1.5em 0 0.65em;
   color: var(--c-text);
 }
 .article__body h3 {

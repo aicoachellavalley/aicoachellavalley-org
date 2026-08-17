@@ -227,6 +227,16 @@
       --fs-22: 22px;
       --fs-h2: clamp(26px, 3.6vw, 42px);
       --fs-h1: clamp(38px, 5.5vw, 68px);
+      /* ⚠ DECLARED HERE DELIBERATELY, and it used to be a var() FALLBACK.
+         .pledge-preamble read `var(--fs-pull, clamp(20px, 2.6vw, 30px))` on a
+         surface that never declared --fs-pull, so the fallback fired every
+         time: a hardcoded value wearing a token's clothes. A name-and-value
+         sweep across the six surfaces COULD NOT SEE IT — the name was never
+         declared here, so index.astro's copy could drift and nothing would
+         report a difference. Declared, the same sweep catches it.
+         This and index.astro are the only two surfaces with a pull-quote:
+         40 tokens here and there, 39 on the other four, on purpose. */
+      --fs-pull: clamp(20px, 2.6vw, 30px);
 
       /* Spacing — 8px base grid */
       --s-1: 8px;
@@ -559,7 +569,7 @@
 
     .pledge-preamble {
       font-family: 'EB Garamond', Georgia, serif;
-      font-size: var(--fs-pull, clamp(20px, 2.6vw, 30px));
+      font-size: var(--fs-pull);
       font-style: italic;
       font-weight: 400;
       line-height: 1.45;
