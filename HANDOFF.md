@@ -2,22 +2,244 @@
 
 > Session-close orientation for a fresh session. Read this, then `STATE.md` for full detail. Everything below is reconstructable from disk + git; this is the fast path.
 
-## Where things stand (2026-08-15)
+## ⚠ READ THIS FIRST — the only item with an external clock
 
-- **Last commit that changed the SITE: `fe97e34`** (2026-08-15) · branch `main` · **pushed, deployed, live-verified** — the served CSS bundle on production is byte-identical to the local build. Clean tree, safe to start fresh.
-- **`HEAD` is one or two `docs(handoff):` commits AHEAD of that**, and always will be — this file cannot name the commit that creates it. **The check that terminates:** `git log --oneline fe97e34..HEAD` should list *only* `docs(handoff):` commits. **If it lists anything else, this file is stale and you should not trust the rest of it** — read STATE.md and `git log` instead, then fix this pointer.
-- **Repo:** `aicoachellavalley.org` — the `.org` civic/nonprofit face of AICV. Cloudflare Pages, **auto-deploys on push to `main`**. Remote is `.org` (`git remote -v` → `aicoachellavalley-org.git`) — NOT `.com` (that's a separate repo, `aicoachellavalley/homepage`).
-- ⚠️ **THERE IS A BUILD STEP. Run `npm run build` before every push.** `.org` became an **Astro hybrid** in `5d354d4`, committed **2026-08-08** (git-verified; STATE.md's header says "live in production since 2026-08-09" — one of the two is off by a day, and the commit date is the one I checked). `dist/` is the deploy directory. Pages silently serves the last good build behind a failed one, so a broken build looks like "nothing happened". Anything below dated July describes the pre-Astro static site — **read it as history, not as instructions.**
-- **Surfaces:** SIX pages — **Astro:** `src/pages/index.astro`, `src/pages/events.astro`. **Static, byte-copied from `public/`:** `philanthropy.html`, `partner.html` (live at 200, deliberately unlinked), `pledge.html`, `404.html`. Plus two GENERATED surfaces: `/news` (index + `/news/<slug>`) and `/author/sat-singh`. `sitemap.xml` and `llms.txt` are Astro routes, not files.
+**AI TINKERERS GLOBAL HACKATHON — SEPTEMBER 12, 2026. Coachella Valley is
+CONFIRMED as a host city. THERE IS NO VENUE.**
 
-### /news — PUBLIC as of 2026-08-15. The gate is CLOSED.
+Candidate: **The Shops at Palm Desert.** Not booked, not confirmed.
 
-- ✅ **THE FLIP HAPPENED** (`37d7817`). All 32 ported pieces are `draft: false` and **public**. `/news` lists **33** entries (the 32 plus `placeholder.mdx`), all 32 are in `sitemap.xml`, `llms.txt`, `rss.xml` and the index, and **zero pages carry `noindex`**. Verified on production by two independent content-asserted sweeps, the second cache-busted, returning the identical 32-slug set. The earlier "flip is GATED" instruction in this file is **DISCHARGED — do not re-apply it.**
-- **The SunshineFM side is green-lit**: the verified 32-slug list is the go-ahead for the 64 redirects and the deletion of the originals. Until those redirects land, the sunshine.fm originals and the `.org` copies both exist — that is expected, and it is the window the redirects close.
-- ⚠️ **`draft` is still a live mechanism, and it still derives.** `[slug].astro` passes `article.data.draft` straight through and `NewsLayout` emits the robots meta only while it is true. Six surfaces filter on the same flag (index, sitemap, llms.txt, rss, homepage recent, author). Setting `draft: true` on a new piece hides it everywhere and noindexes it with nothing to remember; there is no second switch.
-- **The review that preceded this is fully closed** (`cc5f33e`, `fe97e34`): descriptions normalised, cross-links relativised, `.callout` split three ways (42 = 20 pull-quotes + 4 `--related` + 18 `--briefs`), mobile entry-title clamp floor 34px → 28px. Only one review item stays open — whether the ported titles stay lowercase if the face ever changes from Bebas.
-- **DEFERRED, deliberately:** a plain-markdown `Related:` link row in the article footer of **20 files**, separate from the four `--related` callouts and predating this pass. It is a real editorial decision, not a defect, and **it rides with the going-public call** — look at it then, not before.
-- ⚠️ **This surface cannot be measured in production.** With one entry live, judging index type means a LOCAL build with the draft filter off in `src/pages/news/index.astro` — then **revert it in the same session**. A draft-visible index reaching production is the failure that method risks. See STATE.md `2026-08-15` for the measured ladder and the harness trap that made it necessary.
+⚠ **This is NOT ON DISK anywhere** — not in `events.json`, not in any repo, not
+in a gate. It exists in the founder's head and now in this paragraph. Nothing
+else in this file has a deadline; every other open item waits patiently and
+costs nothing by waiting. This one has a fixed date and a lead time that is
+already short.
+
+**If you are a fresh session and you do exactly one thing, make it this.** The
+whole list below is design-system and schema work on a site that is currently
+correct and shipping. None of it competes.
+
+Related and already true on disk: `/events` renders a dated record of 42
+sessions from `src/data/events.json`, and every one of them was at the
+Entrepreneurial Resource Center in Palm Desert. A September event at a different
+venue is what closes the "across the valley" forward claim in
+`src/data/positioning.ts` — see that file's comment.
+
+---
+
+## Where things stand (2026-08-19)
+
+- **Last commit that changed the SITE: `ef810a2`** · branch `main` · **clean
+  tree, pushed, deployed, live-verified.** `origin/main` matches. At the time of
+  writing HEAD *is* `ef810a2`.
+- **`HEAD` may be one or two `docs(handoff):` commits ahead of that**, and this
+  file cannot name the commit that creates it. **The check that terminates:**
+  `git log --oneline ef810a2..HEAD` should list *only* `docs(handoff):` commits.
+  **If it lists anything else, this file is stale — read STATE.md and `git log`
+  instead, then fix this pointer.**
+- **playbook** at `c4b3448`, clean and synced. Strategic state, house rules
+  (§7.1–§7.17), and the forward queue live there.
+- ⚠ **THERE IS A BUILD STEP. `npm run build` before every push.** `.org` is an
+  Astro hybrid; `dist/` is the deploy directory. Pages serves the last good
+  build behind a failure, so a broken build looks like "nothing happened".
+
+### SEVEN GATES, all green — six print a line
+
+```
+✓ identity      index.astro founder node matches people.json (9 fields, derived)
+✓ events        42 sessions / 6 series; index.astro count agrees; @graph 7
+✓ coverage      12/12 routes (4 static + 8 astro); metadata for 6
+✓ positioning   7 footer carriers agree with src/data/positioning.ts
+✓ shared chrome 43 rules owned by shared.css; 6 surfaces carry no duplicate
+✓ font coverage DM Sans + Bebas Neue + EB Garamond on all 7 rendering surfaces
+```
+
+⚠ **SEVEN and SIX are both right, and the difference will trip you.**
+`scripts/prepare-feeds.mjs` carries **seven numbered gate sections** (1 coverage,
+2 metadata, 3 identity, 4 events, 5 positioning, 6 shared chrome, 7 font
+coverage). Only **six print a `✓`** — section 2 does its work silently and folds
+its result into the coverage line ("metadata verified for 6").
+
+So "six gates failed to run" and "one gate is missing" are both wrong readings of
+a normal build. Count sections with
+`grep -n "^// ── [0-9]" scripts/prepare-feeds.mjs`, not by counting ticks.
+*(An earlier draft of this file asserted "six, not seven" and was itself
+imprecise — re-derive rather than trusting either number, including this one.)*
+
+### Surfaces and counts (from disk, 2026-08-19)
+
+- **Seven rendering surfaces**: `src/pages/index.astro`, `src/pages/events.astro`,
+  `public/philanthropy.html`, `public/pledge.html`, `public/partner.html`,
+  `public/404.html`, and `src/layouts/NewsLayout.astro` (which renders 34 pages).
+- **32 articles**, `src/content/news/*.mdx`, **0 drafts**. `/news` lists 32.
+  Sitemap 38 URLs. 40 built HTML pages.
+  ⚠ Not 33 — `placeholder.mdx` was deleted 2026-08-17.
+- **CSS**: 43,015 bytes inline across the six + `public/styles/shared.css`
+  16,467 + `src/styles/chrome.css` 5,270 + `src/styles/news.css` 27,969.
+
+### What shipped 2026-08-17 → 2026-08-19
+
+| commit | what |
+|---|---|
+| `6f5917b` | copy pass — retired the ecosystem claim; **three** live taglines converged to one |
+| `67bb464` | NUL byte out of `prepare-feeds.mjs` (it made the file invisible to `grep`) |
+| `8b3764d` | last InformedIE mention removed |
+| `400bcef` | **gate 5** — `src/data/positioning.ts`, one source, seven verified copies |
+| `18e87ec` | **Pass 1** — CSS extraction to `public/styles/shared.css`, zero visual change |
+| `d0d0af7` | **Pass 2** — Bebas on document structure sitewide; `chrome.css` imports `shared.css`; adds **gate 7** (font coverage) |
+| `5c246e1` | two face reversals — `.news-card__title` → Bebas, `.series__name` → EB Garamond |
+| `ef810a2` | `Organization.logo` — agents had no AICV mark at all |
+
+**Pass 1** moved 41 byte-identical chrome rules + the token block into one file.
+Four static pages `<link>` it; `index.astro`/`events.astro` inline it via
+`?raw` + `set:html` so `is:inline` survives. Verified by a computed-style
+differential, 18 comparisons, **zero non-size changes**.
+
+**Pass 2** put Bebas on every `h1/h2/h3`, `.faq-q`, and article body `h2`/`h3`.
+30 comparisons; the only properties that moved were font-family, font-weight,
+line-height, letter-spacing, and the article-`h2` margins.
+
+---
+
+## ⚠ THE FACE RULE — verbatim, because it was reversed twice
+
+> **Bebas where the text IS the thing. EB Garamond where the text LABELS
+> something else.**
+
+Recorded at the site in `src/pages/index.astro` (the `.news-card__title` rule)
+and in `public/styles/shared.css` (the `h1, h2, h3` rule). It supersedes the
+earlier "document structure vs component label" formulation, which produced one
+wrong answer in each direction:
+
+- `.news-card__title` was serif because it looked like a component label. It is
+  **the article title at card size** — the text IS the thing. Now Bebas.
+- `.series__name` went Bebas because it is an `<h3>` and inherits the base. It
+  **labels a session list** and rendered louder than the session titles beneath
+  it. Now EB Garamond.
+
+**Article titles must agree on all four surfaces that render one:**
+
+| surface | class | file |
+|---|---|---|
+| `/news` | `.news-item__title` | `src/styles/news.css` |
+| `/news/<slug>` | `.article__title` | `src/styles/news.css` |
+| `/author/sat-singh` | `.news-item__title` | `src/styles/news.css` |
+| homepage cards | `.news-card__title` | `src/pages/index.astro` |
+
+All four are Bebas as of `5c246e1`. **A headline that changes typeface when you
+click it reads as a bug** — that is the whole reason.
+
+Serif is kept by DECLARING it, so those elements are immune to the base rule
+rather than exempted from it: `.callout` (pairs with `blockquote` — same
+treatment, do not split them), `.pledge-*`, `.prog-title`, `.principle__title`,
+`.onramp-name`, `.pform-success__title`, `.series__name`, `.nav__mark`,
+`.footer__name`, `.footer__tagline`, `.founder-sig`.
+
+---
+
+## ⚠ TRAPS CREATED THIS MONTH — what each looks like when it fires
+
+**1. NO BACKTICKS in the homepage/events CSS block.**
+Since Pass 1 that CSS lives inside a JS template literal
+(`set:html={sharedCss + ...}`), so a backtick ANYWHERE in it — including inside
+a CSS comment — terminates the string.
+*What it looks like:* the build dies with a message naming a CSS class as a
+function, e.g. `".series__name is not a function"`. Nothing mentions backticks.
+
+**2. NEVER pipe a build to `grep`/`head`/`tail`. THE EXIT CODE IS THE TRUTH.**
+*What it looks like:* the six gate lines print `✓`, you report green, and astro
+failed afterwards and emitted no page. **Three instances now.** Run
+`npm run build > log 2>&1; echo $?` and read the code.
+*How it was caught the last time:* the differential reported `/index.html` with
+**-219 elements and `body` falling to Times** — what a missing page looks like.
+
+**3. The `.hero` / `.hero::before` / `.faq-*` NAMING COLLISION.**
+Different components share one name across surfaces: index's photographic hero
+vs the dark heroes; index's bordered-row FAQ vs philanthropy's icon-led card
+FAQ. Also `.hero .h1`, `.section`, `.hero__subhead`.
+⚠ **The rename is STEP ONE of Pass 3.** Edit `.hero` or `.faq-*` for the
+homepage restructure first and the differential correctly flags a regression on
+**four pages nobody touched**, and you can no longer separate your change from
+the collision's fallout. Detail in playbook STATE.md.
+
+**4. The COLLAPSE PLATEAU on article `h2` margin-top.**
+The paragraph above owns a 40px bottom margin and collapses against it. **Below
+~0.95em the heading's margin-top does nothing** — 0.9em, 0.8em and 0.7em all
+render 39px above at 1280, and every value renders 41px at 375.
+*What it looks like:* you lower the number, rebuild, and the page is identical.
+It neither worked nor failed. Comment is at the rule in `src/styles/news.css`.
+
+**5. Two older ones still live.** A `grep -c` counts LINES, not occurrences —
+built feeds put all entries on one line and read as "1". And
+`wrangler pages deployment list` is how you tell a failed build from a **missed
+webhook**: no deployment for the commit means nothing was queued, and the fix is
+`git commit --allow-empty` — never `wrangler pages deploy`.
+
+---
+
+## OPEN — with the reason each is parked
+
+**Pass 3 — homepage cards-and-rail restructure; spacing tightened on the other
+five.** Blocked on nothing except the rename above being step one.
+**Carries the five merges deferred from Pass 1** (each is a real visible change,
+which is why they could not ride in a refactor whose success condition was that
+nothing changed). Values verified on disk 2026-08-19:
+
+| merge | current state | target |
+|---|---|---|
+| `.eyebrow` margin-bottom | `--s-2` on 404/index/philanthropy, `--s-1` on partner/pledge | **`--s-2`** (ink gap 12px vs 4px under a 68px heading) |
+| `.h2` margin-bottom | `--s-3` on index/philanthropy/news.css, `--s-2` on pledge | **`--s-3`** (0.55× the heading, matches news.css) |
+| `.footer__desc` | index `lh 1.65` + `max-width 240px`; others `lh 1.7`, no max-width | **`lh 1.7`, KEEP `max-width: 240px`** — it is load-bearing (240px/6 lines vs 357px/4) |
+| `.footer__col-label` | index `0.2em`, chrome `0.15em` | **`0.15em`** |
+| `.btn` transition | index/partner include `border-color`+`color`; chrome does not | **include them** |
+
+**FAQ — adopt philanthropy's card pattern on the homepage.** Founder ruling
+2026-08-19. Not started. ⚠ **It resolves half the `.faq-*` collision**, so it
+should be scoped WITH the rename rather than after it.
+
+**Hero + FAQ COPY still argues the retired ecosystem claim.** Already
+enumerated, needs a founder editorial pass — it is prose to be rewritten, not
+strings to be swapped. The list is in `STATE.md` under the positioning entry:
+H2 "What we're building.", H2 "For the first time, the valley has a shot." and
+its two paragraphs, the FAQ answer ending "…an actual AI Startup Ecosystem",
+and the FAQ "How is AICV different from other economic-development efforts".
+
+**Vector mark.** Blocks four things at once: a real `favicon.svg` (today it is a
+volt rect with the letters "AI" in Georgia — artwork imitating an icon), clean
+16/32/180 icons generated from paths, `.nav__mark` inlining the same paths so
+the tile and favicon become ONE object, and the web manifest. The four supplied
+PNGs are AI-generated raster, no vector, no alpha, three of four noisy
+(15k–19k unique colours in two-colour art), volt off-token by 45–65 and
+inconsistent between files, and both marks lose the hairline join and the
+floating tittle at 16px. Detail and the fallback are in playbook STATE.md.
+⚠ **When real assets land, ship under the EXISTING filenames** — 35 head
+references across seven surfaces then change zero times.
+
+**Lowercase-vs-caps brand ruling.** Now LIVE rather than hypothetical:
+`Organization.logo` declares the lowercase `aicv` wordmark while every rendered
+surface is caps (`.nav__mark` = "AI", `.footer__name` = "AICV"). ⚠ **Settle it
+BEFORE commissioning the vector — it changes what gets made.**
+
+**OG card generator.** Unblocked: gate 5 and `src/data/positioning.ts` exist, so
+a card can regenerate from the positioning line. Mechanism proposed and ruled:
+`opentype.js` → paths → `sharp` (already installed) → PNG, via an Astro endpoint
+at `src/pages/og/*.png.ts`, with the Bebas TTF committed. ⚠ **`sharp` cannot be
+used with SVG `<text>`** — tested: three different requested fonts, including one
+that does not exist, produced byte-identical output. Silent substitution.
+
+**`core/api` — 1 unpushed commit** (`11c0493`, 2026-07-09, `worker.js` +258/−6).
+Memory says it is deployed. **Verified tonight: ahead 1, behind 0, clean.** If
+both are true, a clean clone-and-deploy would roll production back 258 lines.
+⚠ **Establish which is true before pushing** —
+`wrangler deployments list --name aicv-api`, or compare the live `/analyze`
+response shape. Do not push first and check after.
+
+**`BRAND.md:750` still claims `.org` has no build step.** Verified still present
+2026-08-19: *"`.org` has no build step — push equals publish, byte for byte."*
+False in both halves. Queued as its own pass with two other stale hits; not
+swept opportunistically.
+
+---
 
 ### History below this line
 
