@@ -573,3 +573,105 @@ console.log(
       `homepage head + H1 carry the line`,
   );
 }
+
+// ── 6. shared chrome: no surface may re-declare what public/styles/shared.css owns ─
+//
+// Design-system pass 1 (2026-08-19) pulled 41 byte-identical chrome rules + the
+// token block out of six hand-written surfaces into ONE file. This gate is what
+// keeps them out. Without it the duplication returns one paste at a time — it had
+// already drifted once before extraction (index carried a 40th token the other
+// five did not).
+//
+// SCOPE IS DERIVED, NOT LISTED (§7.6): the shared selectors are read FROM
+// shared.css at build time, and every surface carrying a <style> block is checked
+// against them. Add a rule to shared.css and it is guarded on the next build; add
+// a seventh surface and it is swept with nothing to remember.
+//
+// ⚠ WHAT IS ALLOWED: a surface may declare a selector shared.css also declares,
+// PROVIDED the declarations differ — that is a deliberate per-surface override
+// (.hero, .hero::before, .section, .faq-* are DIFFERENT COMPONENTS sharing a
+// name; see the naming-collision queue item in playbook STATE.md). What is
+// forbidden is re-declaring it IDENTICALLY, which is duplication returning.
+{
+  const sharedPath = resolve(root, 'public/styles/shared.css');
+  const sharedSrc = readFileSync(sharedPath, 'utf8');
+  const strip = (s) => s.replace(/\/\*[\s\S]*?\*\//g, '');
+  const rulesOf = (css, ctx = '') => {
+    const out = []; let i = 0;
+    while (i < css.length) {
+      const b = css.indexOf('{', i); if (b === -1) break;
+      const sel = css.slice(i, b).trim();
+      let depth = 1, j = b + 1;
+      while (j < css.length && depth) { if (css[j] === '{') depth++; else if (css[j] === '}') depth--; j++; }
+      const body = css.slice(b + 1, j - 1);
+      if (sel.startsWith('@') && body.includes('{')) out.push(...rulesOf(body, (ctx + ' ' + sel).trim()));
+      else out.push([ctx, sel.replace(/\s+/g, ' '),
+        body.split(';').map((x) => x.trim().replace(/\s+/g, ' ')).filter(Boolean).join(';')]);
+      i = j;
+    }
+    return out;
+  };
+  const sharedRules = rulesOf(strip(sharedSrc));
+  if (sharedRules.length === 0) fail('shared.css: parsed zero rules — the parser broke or the file is empty');
+  const sharedMap = new Map(sharedRules.map(([c, s, d]) => [`${c}||${s}`, d]));
+
+  const surfaces = [
+    ...readdirSync(publicDir).filter((f) => f.endsWith('.html')).map((f) => resolve(publicDir, f)),
+    ...walk(resolve(root, 'src/pages')).filter((f) => f.endsWith('.astro')),
+    ...walk(resolve(root, 'src/layouts')).filter((f) => f.endsWith('.astro')),
+  ];
+  let checked = 0;
+  for (const f of surfaces) {
+    const src = readFileSync(f, 'utf8');
+    // ⚠ CSS HIDES IN TWO PLACES, and a negative control caught the gate seeing
+    // only one. The four static pages put it BETWEEN <style> and </style>. The
+    // two Astro pages put it INSIDE the tag, in a template literal on
+    // `set:html={sharedCss + `...`}` — so a between-the-tags reader parsed an
+    // empty string for them and would have waved through any duplicate.
+    // ⚠ Also: match the LAST <style> before each </style>, not the first.
+    // events.astro mentions "<style>" inside a // comment, and a first-match
+    // regex swallowed 7KB of frontmatter — it inflated that file's measured CSS
+    // by 41% before anyone noticed.
+    // TWO PASSES, IN THIS ORDER. The Astro pages put their CSS INSIDE the tag, on
+    // `set:html={sharedCss + \`...\`}`, and a naive `<style[^>]*>` cannot find that
+    // tag's end because the CSS itself contains `>` (e.g. `a > b`). Reading between
+    // the tags first therefore produced a chunk starting MID-TEMPLATE, and the
+    // selector parsed as "`}> .footer__copy" — which matches nothing, so an
+    // injected duplicate sailed through. Caught by a negative control, not review.
+    // So: lift the set:html templates out FIRST, blank them, then read the rest.
+    const chunks = [];
+    let scan = src;
+    for (;;) {
+      const at = scan.indexOf('set:html={');
+      if (at === -1) break;
+      let k = at + 'set:html={'.length, depth = 1;
+      while (k < scan.length && depth) { if (scan[k] === '{') depth++; else if (scan[k] === '}') depth--; k++; }
+      const expr = scan.slice(at, k);
+      for (const t of expr.matchAll(/`([\s\S]*?)`/g)) chunks.push(t[1]);
+      // ⚠ the placeholder must NOT contain 'set:html={' or this loop never ends.
+      scan = scan.slice(0, at) + '__SET_HTML_LIFTED__' + scan.slice(k);
+    }
+    for (const m of scan.matchAll(/<style[^>]*>([\s\S]*?)<\/style>/g)) chunks.push(m[1]);
+    // ⚠ PARSE EACH CHUNK SEPARATELY, never joined. Joining let junk at the end of
+    // one chunk become the head of the next chunk's SELECTOR: an injected duplicate
+    // parsed as "__SET_HTML_LIFTED__ /> <style is:inline ...> .footer__copy",
+    // matched nothing, and passed. (The junk exists because events.astro mentions
+    // the style tag inside // comments, so a tag regex finds those too.)
+    if (!chunks.some((c) => c.trim())) continue;
+    const rel = relative(root, f).split(sep).join('/');
+    checked++;
+    for (const [c, s, d] of chunks.flatMap((chunk) => rulesOf(strip(chunk)))) {
+      const k = `${c}||${s}`;
+      if (sharedMap.has(k) && sharedMap.get(k) === d)
+        fail(
+          `${rel} re-declares a rule that public/styles/shared.css already owns, identically:\n` +
+            `    ${c ? c + ' ' : ''}${s}\n\n` +
+            `  Delete it here — the surface inherits it (static pages <link> shared.css;\n` +
+            `  index.astro and events.astro inline it via ?raw). A per-surface OVERRIDE is\n` +
+            `  allowed and must actually differ; an identical copy is the duplication this\n` +
+            `  extraction removed, coming back.`,
+        );
+    }
+  }
+  console.log(`✓ shared chrome: ${sharedRules.length} rules owned by shared.css, ${checked} surfaces carry no duplicate`);
+}

@@ -20,130 +20,13 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
 
+    <!-- SITE CHROME — reset, nav, footer, tokens. ONE source: public/styles/shared.css.
+       These four pages are hand-written HTML shipped byte-for-byte and can import
+       nothing, so they LINK it. They already link Google Fonts, so this is not a new
+       mechanism, and none of them is the landing page. Page-specific CSS stays inline
+       below. Gate 6 fails the build if this page re-declares anything shared. -->
+  <link rel="stylesheet" href="/styles/shared.css">
   <style>
-    /* ════════════════════════════════════════
-       DESIGN TOKENS — single source of truth
-    ════════════════════════════════════════ */
-    :root {
-      /* Palette — PINE / VOLT. Swapped 2026-08-04 (rebrand step 6) from the
-         warm terracotta/cream/dusk set. Targets from playbook BRAND.md §4.
-         --c-terracotta / -d / -d-rgb were DELETED here: after the accent
-         aliases below became literals, nothing referenced them.
-
-         
-         --c-text is pine. A value swap was chosen over a rename because a
-         rename touches every usage (~300) and would have mixed a mechanical
-         change into a visible one. Rename is queued as its own zero-pixel
-         step — same defect .com carries on --sand (BRAND.md §3). */
-      --c-paper:        #FAFAF7;   /* was cream #FBF7EE — page background    */
-      --c-surface:      #F3F7EB;   /* was sand #F5EFE0 — subtle surface step */
-      --c-surface-d:    #E0EDD2;   /* was sand-d #EDE5D0 — distinct panel    */
-      --c-ground:       #081C15;   /* was dusk #1A2744 — sections, footer,
-                                      nav, dark hero                          */
-      --c-card:         #1B4332;   /* was dusk-m #22306B — raised panel on
-                                      ground. 1.60:1 vs ground, up from 1.20  */
-      --c-border:       #C8DDB4;   /* was ghost #EAD4C0 — borders and rules  */
-      --c-border-l:     #DDE7CC;   /* was ghost-l #F2E4D6 — light border/tint*/
-      --c-text:         #1B4332;   /* was ink #1C1008 — headings AND body.
-                                      ink-m collapsed into this at the rename */
-      --c-text-l:       #2D6A4F;   /* was ink-l #6B4A38 — captions/labels    */
-
-      /* RGB triplets — ONLY for rgba() alpha use. Each MUST stay in sync with
-         its hex above; a palette change updates BOTH lines. Added 2026-08-04
-         (rebrand step 2) so no translucency carries a raw literal.
-         ⚠ IF A HEX MOVES WITHOUT ITS TRIPLET, translucency silently drifts
-         away from the solids. Was five triplets; the dusk-rgb and ink-l-rgb
-         pair were deleted at the 2026-08-06 rename, zero
-         references between them. These three all have live callers. */
-      --c-paper-rgb:    250,250,247;  /* keep in sync with --c-paper  #FAFAF7 */
-      --c-border-rgb:   200,221,180;  /* keep in sync with --c-border #C8DDB4 */
-      --c-text-rgb:     27,67,50;     /* keep in sync with --c-text   #1B4332 */
-
-      /* ── TEXT ON THE DARK GROUND (added 2026-08-05) ──────────────────
-         BRAND.md §4 assumed accent text always sits on a LIGHT surface.
-         It does not: the footer mark, the hero eyebrow, the stats label and
-         the whole nav sit on --c-ground. Pine on ground is 1.60:1 — invisible.
-         This family is the answer, defined once.
-         ⚠ ALL THREE ARE DARK-SURFACE ONLY. On paper they measure 1.17, 1.39
-         and 1.10 — unusable by design. Never put them on a light ground. */
-      --c-on-ground:    #E0EDD2;   /* pine-mist — body-weight text on dark.
-                                      14.50:1 on ground, 9.08:1 on card      */
-      --c-on-ground-m:  #C8DDB4;   /* pine-tint — muted labels + eyebrows.
-                                      12.18:1 on ground                      */
-      --c-on-ground-hi: #D8FF00;   /* volt — brand marks and ACTIVE states on
-                                      dark only. 15.35:1 on ground. Kept
-                                      separate from --c-accent-fill so that
-                                      token stays background-only.           */
-
-      /* ── ACCENT SPLIT (rebrand step 3, 2026-08-04) ──────────────────
-         One accent value does two jobs today. It cannot after the rebrand:
-         a fill and the text on it must diverge. These five names record the
-         ROLE so step 6 is a value change, not 87 judgment calls. All 87 accent
-         declarations are now assigned — nav and wordmark included (ruled 2026-08-04).
-         SWAPPED TO LITERALS AT STEP 6 (2026-08-04). Fill and text have now
-         genuinely diverged — that divergence is the whole reason the split
-         exists. VOLT IS A FILL, NEVER TEXT ON LIGHT (BRAND.md §1 doctrine:
-         volt measures ~1.1:1 on any light surface). */
-      --c-accent-fill:   #D8FF00;   /* volt. DARK TEXT ONLY.
-                                       pine on volt = 9.61:1                   */
-      --c-accent-fill-h: #C2E600;   /* deeper volt, hover.
-                                       pine on it = 7.71:1                     */
-      --c-accent-text:   #1B4332;   /* pine. Accent text and borders.
-                                       On paper = 10.59:1                      */
-      --c-accent-text-d: #2D6A4F;   /* pine-light. Darker accent TEXT
-                                       used STATICALLY for contrast, not a
-                                       hover state (.onramp-tag, .pform-error).
-                                       On paper = 6.11:1                       */
-
-      /* Watermarks drawn ON the accent fill (.cta__ghost, .prog-card--featured
-         .prog-num). FILL family — ruled 2026-08-04: their colour follows the
-         fill they sit on, not the body text. STEP 6 -> pine 27,67,50, giving
-         pine-on-volt. Triplet form because both are used at low alpha.
-         De-aliased at step 6: had it kept following --c-terracotta-d-rgb it
-         would now be volt-on-volt, i.e. invisible. */
-      --c-accent-on-fill-rgb: 27,67,50;   /* pine #1B4332 */
-
-      /* Type scale */
-      --fs-10: 10px;
-      --fs-12: 12px;
-      --fs-13: 13px;
-      --fs-15: 15px;
-      --fs-17: 17px;
-      --fs-22: 22px;
-      --fs-h2: clamp(26px, 3.6vw, 42px);
-      --fs-h1: clamp(38px, 5.5vw, 68px);
-
-      /* Spacing — 8px base grid */
-      --s-1: 8px;
-      --s-2: 16px;
-      --s-3: 24px;
-      --s-4: 32px;
-      --s-5: 40px;
-      --s-6: 48px;
-      --s-8: 64px;
-      --s-10: 80px;
-      --s-14: 112px;
-
-      /* Layout */
-      --max-w: 1080px;
-      --gutter: 40px;
-    }
-
-    /* ════════════════════════════════════════
-       RESET & BASE
-    ════════════════════════════════════════ */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
-
-    body {
-      font-family: 'DM Sans', system-ui, sans-serif;
-      font-size: var(--fs-15);
-      line-height: 1.7;
-      color: var(--c-text);
-      background: var(--c-paper);
-      overflow-x: hidden;
-    }
-    a   { color: inherit; }
 
     /* ════════════════════════════════════════
        TYPOGRAPHY UTILITIES
@@ -156,17 +39,6 @@
       text-transform: uppercase;
       color: var(--c-accent-text);
       margin-bottom: var(--s-2);
-    }
-
-    h1, h2, h3 {
-      font-family: 'EB Garamond', Georgia, serif;
-      font-weight: 700;
-      line-height: 1.12;
-    }
-
-    .h1 {
-      font-size: var(--fs-h1);
-      color: var(--c-paper);
     }
 
     /* ════════════════════════════════════════
@@ -189,58 +61,6 @@
 
     .btn--primary { background: var(--c-accent-fill); color: var(--c-text); }
     .btn--primary:hover { background: var(--c-accent-fill-h); }
-
-    /* ════════════════════════════════════════
-       NAV
-    ════════════════════════════════════════ */
-    .nav {
-      background: var(--c-ground);
-      padding: 0 var(--gutter);
-      position: sticky;
-      top: 0;
-      z-index: 200;
-    }
-    .nav__inner {
-      max-width: var(--max-w);
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 60px;
-    }
-    .nav__logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      text-decoration: none;
-    }
-    .nav__mark {
-      width: 32px; height: 32px;
-      background: var(--c-accent-fill);
-      display: flex; align-items: center; justify-content: center;
-      font-family: 'EB Garamond', Georgia, serif;
-      font-size: 14px; font-weight: 700;
-      color: var(--c-text);
-    }
-    .nav__name {
-      font-size: var(--fs-13);
-      font-weight: 500;
-      color: var(--c-on-ground);
-    }
-    .nav__links {
-      display: flex;
-      align-items: center;
-      gap: 28px;
-      list-style: none;
-    }
-    .nav__links a {
-      font-size: var(--fs-13);
-      font-weight: 400;
-      color: var(--c-on-ground);
-      text-decoration: none;
-      transition: color 0.15s;
-    }
-    .nav__links a:hover { color: var(--c-on-ground-hi); }
     .nav__cta {
       background: transparent !important;
       color: var(--c-on-ground-hi) !important;
@@ -249,53 +69,6 @@
       font-weight: 500 !important;
     }
     .nav__cta:hover { background: var(--c-accent-fill) !important; color: var(--c-text) !important; }
-
-    /* ════════════════════════════════════════
-       HAMBURGER MENU
-    ════════════════════════════════════════ */
-    .nav__hamburger {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 4px;
-    }
-    .nav__hamburger span {
-      display: block;
-      width: 22px;
-      height: 2px;
-      background: var(--c-on-ground);
-      transition: transform 0.2s, opacity 0.2s;
-    }
-    .nav__hamburger.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-    .nav__hamburger.is-open span:nth-child(2) { opacity: 0; }
-    .nav__hamburger.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
-    .nav__drawer {
-      display: none;
-      position: fixed;
-      top: 60px; left: 0; right: 0;
-      background: var(--c-ground);
-      border-bottom: 1px solid rgba(var(--c-border-rgb),0.14);
-      padding: 24px var(--gutter);
-      z-index: 199;
-      flex-direction: column;
-      gap: 0;
-    }
-    .nav__drawer.is-open { display: flex; }
-    .nav__drawer a {
-      font-size: 15px;
-      font-weight: 400;
-      color: var(--c-on-ground);
-      text-decoration: none;
-      padding: 14px 0;
-      border-bottom: 1px solid rgba(var(--c-border-rgb),0.14);
-      transition: color 0.15s;
-    }
-    .nav__drawer a:last-child { border-bottom: none; }
-    .nav__drawer a:hover { color: var(--c-on-ground-hi); }
     .nav__drawer .drawer-cta {
       margin-top: 16px;
       background: var(--c-accent-fill);
@@ -315,11 +88,6 @@
       position: relative;
       overflow: hidden;
     }
-    .hero__inner {
-      max-width: var(--max-w);
-      margin: 0 auto;
-      position: relative; z-index: 2;
-    }
     .hero__subhead {
       font-size: var(--fs-17);
       font-weight: 300;
@@ -338,37 +106,6 @@
     .hero--cream .h1         { color: var(--c-text); }
     .hero--cream .eyebrow    { color: var(--c-accent-text); opacity: 1; }
     .hero--cream .hero__subhead { color: var(--c-text); max-width: 640px; }
-
-    /* ════════════════════════════════════════
-       FOOTER
-    ════════════════════════════════════════ */
-    .footer {
-      background: var(--c-ground);
-      padding: 56px var(--gutter) 36px;
-    }
-    .footer__inner { max-width: var(--max-w); margin: 0 auto; }
-    .footer__top {
-      display: grid;
-      grid-template-columns: 1.2fr 1fr 1fr;
-      gap: var(--s-8);
-      padding-bottom: var(--s-6);
-      border-bottom: 1px solid rgba(var(--c-border-rgb),0.08);
-      margin-bottom: var(--s-3);
-    }
-    .footer__mark {
-      font-size: var(--fs-10);
-      font-weight: 500;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--c-on-ground-hi);
-      margin-bottom: 10px;
-    }
-    .footer__name {
-      font-family: 'EB Garamond', Georgia, serif;
-      font-size: 20px; font-weight: 700;
-      color: var(--c-paper);
-      margin-bottom: 10px;
-    }
     .footer__desc {
       font-size: var(--fs-12);
       font-weight: 300;
@@ -382,49 +119,7 @@
       text-transform: uppercase;
       color: var(--c-on-ground-m);
       margin-bottom: var(--s-2);
-    }
-    .footer__links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-    .footer__links a {
-      font-size: 13px;
-      font-weight: 300;
-      color: var(--c-on-ground);
-      text-decoration: none;
-      transition: color 0.15s;
-    }
-    .footer__links a:hover { color: var(--c-paper); }
-    .footer__bottom {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .footer__copy {
-      font-size: var(--fs-12);
-      font-weight: 300;
-      color: var(--c-on-ground-m);
-    }
-    .footer__tagline {
-      font-family: 'EB Garamond', Georgia, serif;
-      font-size: 13px;
-      font-style: italic;
-      color: var(--c-on-ground-m);
-    }
-
-    /* ════════════════════════════════════════
-       RESPONSIVE
-    ════════════════════════════════════════ */
-    @media (max-width: 960px) {
-      .nav__links { display: none; }
-      .nav__hamburger { display: flex; }
-    }
-    @media (max-width: 860px) {
-      :root { --gutter: 28px; }
-      .footer__top    { grid-template-columns: 1fr; gap: var(--s-5); }
-      .footer__bottom { flex-direction: column; gap: 8px; text-align: center; }
-    }
-    @media (max-width: 640px) {
-      :root { --gutter: 20px; }
-    }
-  </style>
+    }</style>
 </head>
 <body>
 
