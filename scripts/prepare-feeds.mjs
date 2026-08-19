@@ -675,3 +675,58 @@ console.log(
   }
   console.log(`✓ shared chrome: ${sharedRules.length} rules owned by shared.css, ${checked} surfaces carry no duplicate`);
 }
+
+// ── 7. font coverage: a surface that USES a family must REQUEST it ──────────
+//
+// Pass 2 put Bebas on every heading via shared.css. Six of seven surfaces did not
+// request Bebas — they would have fallen back to Impact, RENDERED FINE, looked
+// wrong, and passed every other gate. Same class as the silent font substitution
+// that made a raster tool unusable for the OG card: the failure reports success.
+//
+// DERIVED, NOT ENUMERATED (§7.6): the families are read out of the shared
+// stylesheets at build time. Put a new face in shared.css and every surface is
+// checked for it on the next build, with nothing to remember here.
+{
+  const familiesIn = (css) => {
+    const out = new Set();
+    for (const m of css.matchAll(/font-family:\s*([^;}]+)/g)) {
+      const first = m[1].split(',')[0].trim().replace(/^['"]|['"]$/g, '');
+      // generic keywords are never web-font requests
+      if (!/^(inherit|initial|unset|sans-serif|serif|monospace|cursive|system-ui|-apple-system)$/i.test(first))
+        out.add(first);
+    }
+    return out;
+  };
+  const sharedFamilies = familiesIn(readFileSync(resolve(root, 'public/styles/shared.css'), 'utf8'));
+  if (sharedFamilies.size === 0) fail('font coverage: parsed zero font families from shared.css — the regex broke');
+
+  // Every surface that renders HTML and pulls in shared chrome.
+  const surfaces = [
+    ...readdirSync(publicDir).filter((f) => f.endsWith('.html')).map((f) => resolve(publicDir, f)),
+    ...walk(resolve(root, 'src/pages')).filter((f) => f.endsWith('.astro')),
+    ...walk(resolve(root, 'src/layouts')).filter((f) => f.endsWith('.astro')),
+  ];
+  let checked = 0;
+  for (const f of surfaces) {
+    const src = readFileSync(f, 'utf8');
+    const req = src.match(/fonts\.googleapis\.com\/css2\?([^"']+)/);
+    if (!req) continue;                       // no font request at all = not a rendering surface
+    const requested = [...req[1].matchAll(/family=([^&"']+)/g)].map((m) => decodeURIComponent(m[1]).replace(/\+/g, ' ').split(':')[0]);
+    const rel = relative(root, f).split(sep).join('/');
+    checked++;
+    // Only assert families this surface can actually inherit: it either links
+    // shared.css, inlines it via ?raw, or imports chrome.css (which imports it).
+    const inherits = src.includes('styles/shared.css') || src.includes('styles/chrome.css');
+    if (!inherits) continue;
+    for (const fam of sharedFamilies) {
+      if (!requested.includes(fam))
+        fail(
+          `${rel} inherits shared.css but never REQUESTS "${fam}".\n` +
+            `    requested: ${requested.join(', ') || '(none)'}\n\n` +
+            `  The page would render in a fallback face — it would look wrong and pass\n` +
+            `  every other gate. Add &family=${fam.replace(/ /g, '+')} to its fonts.googleapis.com link.`,
+        );
+    }
+  }
+  console.log(`✓ font coverage: ${[...sharedFamilies].join(' + ')} requested on all ${checked} rendering surfaces`);
+}

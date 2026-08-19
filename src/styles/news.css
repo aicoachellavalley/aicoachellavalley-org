@@ -456,12 +456,34 @@
    identical at both widths (2.82x above, 0.94x below). px is correct for it,
    and converting it to em would be churn with a rounding risk for three
    headings — h3 appears in ONE of the 33 articles. */
+/* ⚠ BEBAS, AND THE OLD MARGINS WERE NOT PORTED — they were re-measured, because
+   they do not carry. The 1.5em/0.65em above was tuned for EB Garamond at
+   line-height 1.25, where half-leading padded the box. Bebas runs at 0.95 with
+   no descenders, so the SAME margins render tighter: measured on a live article
+   at 1280, ink 66/30 became 62/26 with nothing but the face changed.
+
+   Measured ladder at 1280 (42px h2, 640px measure), ink above / below:
+     1.5em / 0.65em   62 / 26
+     1.1em / 0.45em   45 / 18   <- shipped
+     0.9em / 0.38em   39 / 15
+     0.8em / 0.32em   39 / 12
+
+   ⚠ COLLAPSE PLATEAU — READ BEFORE "TIGHTENING" THIS. The paragraph above owns a
+   40px bottom margin, and margin-top collapses against it. Below ~0.95em the
+   heading's own margin-top STOPS DOING ANYTHING: 0.9em, 0.8em and 0.7em all
+   render 39px above at 1280, and at 375 every value tested renders 41px. A future
+   pass that lowers this number will see no change and may conclude the edit
+   failed or that it worked. It did neither. Only values ABOVE the plateau tune.
+
+   Bebas is condensed, so one h2 in the sample article stopped wrapping (line
+   counts 1,2,1,2 -> 1,2,1,1). That is the face, not the spacing. */
 .article__body h2 {
-  font-family: 'EB Garamond', Georgia, serif;
+  font-family: 'Bebas Neue', Impact, sans-serif;
   font-size: var(--fs-h2);
-  font-weight: 600;
-  line-height: 1.25;
-  margin: 1.5em 0 0.65em;
+  font-weight: 400;
+  line-height: var(--lh-caps);
+  letter-spacing: var(--ls-caps);
+  margin: 1.1em 0 0.45em;
   color: var(--c-text);
 }
 .article__body h3 {
