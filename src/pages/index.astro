@@ -625,10 +625,30 @@ const fmt = (d) =>
       color: var(--c-text-l);
       margin-bottom: 10px;
     }
+    /* ⚠ BEBAS — THE TEXT *IS* THE THING. This is not a component label; it is the
+       ARTICLE TITLE at card size. Rendered in EB Garamond it changed typeface the
+       moment you clicked through to the article, which reads as a bug: same
+       content, same face, every surface it appears on.
+
+       THE RULE THAT DECIDES THIS, and it is sharper than "structure vs component":
+       BEBAS WHERE THE TEXT *IS* THE THING. EB GARAMOND WHERE THE TEXT *LABELS*
+       SOMETHING ELSE. An article title is the article. A .series__name over a
+       session list, a .prog-title over a program card, a .principle__title
+       over its principle — those name a thing sitting next to them, and they keep
+       the serif. Both this reversal and the .series__name revert fall out of it.
+
+       ⚠ NO BACKTICKS IN THIS BLOCK — EVER. Since pass 1 this CSS lives inside a JS
+       template literal (set:html={sharedCss + ...}), so a backtick ANYWHERE in it,
+       including inside a CSS comment, terminates the string. This very comment did
+       exactly that: the build died with '.series__name is not a function'.
+
+       Article titles now agree on all four surfaces that render one:
+       /news .news-item__title, /news/<slug> .article__title,
+       /author/sat-singh .news-item__title, and this card. */
     .news-card__title {
-      font-family: 'EB Garamond', Georgia, serif;
+      font-family: 'Bebas Neue', Impact, sans-serif;
       font-size: var(--fs-22);
-      font-weight: 700;
+      font-weight: 400;
       color: var(--c-text);
       line-height: 1.2;
       margin: 0 0 10px;

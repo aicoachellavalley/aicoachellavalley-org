@@ -257,7 +257,18 @@ const schema = {
       .record__lede {font-size: var(--fs-17); font-weight: 300; color: var(--c-text-l); line-height: 1.6; margin-top: var(--s-2); padding-bottom: var(--s-6); border-bottom: 1px solid var(--c-border);}
       .series {margin-top: var(--s-8);}
       .series__head {display: flex; align-items: baseline; justify-content: space-between; gap: var(--s-2); padding-bottom: var(--s-2); border-bottom: 1px solid var(--c-border);}
-      .series__name {font-size: var(--fs-22); color: var(--c-text); letter-spacing: -0.01em;}
+      .series__name {
+      /* ⚠ EB GARAMOND ON PURPOSE — it went Bebas by INHERITANCE in pass 2 (it is an
+         <h3> and declared no face of its own) and that was backwards. This is a
+         LABEL over a session list, paired with a "N SESSIONS" count, and in Bebas
+         it rendered louder than the session titles beneath it — the label shouting
+         over the thing it labels.
+         .record__title and .calendar-band__title on this page stay Bebas: those
+         are the page's own structure. See the rule in shared.css. */
+      font-family: 'EB Garamond', Georgia, serif;
+      font-weight: 700;
+      line-height: 1.12;
+font-size: var(--fs-22); color: var(--c-text); letter-spacing: -0.01em;}
       .series__count {font-size: var(--fs-12); text-transform: uppercase; letter-spacing: 0.08em; color: var(--c-text-l); white-space: nowrap;}
       .event-list {list-style: none; margin: 0; padding: 0;}
       .event-item {padding: var(--s-3) 0; border-bottom: 1px solid var(--c-border-l);}
