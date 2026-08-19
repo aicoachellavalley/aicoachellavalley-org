@@ -23,7 +23,7 @@
 // ════════════════════════════════════════════════════════════════════════════
 
 import { readdirSync, readFileSync, writeFileSync } from 'node:fs';
-import { resolve, dirname, relative, sep } from 'node:path';
+import { resolve, dirname, relative, sep, basename } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -415,3 +415,161 @@ console.log(
     `(${staticPages.length} static + ${astroRoutes.length} astro); ` +
     `metadata verified for ${Object.keys(meta).length}`,
 );
+
+// ── 5. positioning: every footer carrier agrees with src/data/positioning.ts ─
+//
+// The line is hardcoded in SEVEN files and cannot be otherwise: four of them are
+// hand-written HTML in public/ that ships byte-for-byte and can import nothing.
+// So this gate does not distribute the value — it makes divergence impossible to
+// commit. Added 2026-08-17, the day the copy pass left all seven in agreement:
+// a gate installed on a correct state locks it, where one installed later has to
+// adjudicate a drift it cannot resolve.
+//
+// ⚠ THREE TIERS, BECAUSE THE LINE APPEARS IN THREE SHAPES. A single equality
+// check would be wrong in both directions — it would miss the head entirely and
+// fail on the H1 forever:
+//   T1 EXACT      footer__desc === `${line} ${fiscal}`, footer__tagline === sub
+//   T2 CONTAINS   <title>/og:title/twitter:title carry the line behind an "AICV — "
+//                 prefix and without its full stop; the descriptions OPEN with sub
+//                 and continue. Equality here fails on correct copy.
+//   T3 TAG-JOINED the H1 is split by <span class="accent"> and does NOT grep as
+//                 one string (§7.13). Compared with tags stripped.
+//
+// ⚠ WHAT T3 DELIBERATELY DOES NOT CATCH, proven by negative control: removing
+// the <span class="accent"> entirely and rejoining the words passes, because the
+// tag-joined text is unchanged and THE POSITIONING IS INTACT. That is a styling
+// regression (the hero loses its volt second line), not a positioning one, and
+// this gate asserts the WORDS. Adding a markup-shape assertion here would make a
+// copy gate fail on legitimate design edits — the same category error as gating
+// the JSON-LD prose below. If the accent treatment needs protecting, it needs its
+// own check; see the queued source-order/style-check item in playbook STATE.md.
+//
+// ⚠ THE JSON-LD Organization AND WebSite DESCRIPTIONS ARE DELIBERATELY UNGATED,
+// and this is a decision, not an oversight. Both embed the positioning as prose
+// ("preparing the Coachella Valley for the AI economy — and serving as the
+// region's front door…"), not as the bare line. A `contains` check would pass on
+// almost any rewrite, including one that changed the claim; an `equals` check
+// would fail on every legitimate edit to the surrounding sentence. A guard that
+// cannot fail meaningfully is worse than no guard, because it REPORTS COVERAGE IT
+// DOES NOT PROVIDE — the §7.6 failure one level up. If they are ever to be
+// guarded, the claim has to be extracted into its own field first.
+{
+  const posPath = resolve(root, 'src/data/positioning.ts');
+  const posSrc = readFileSync(posPath, 'utf8');
+  // Regex over the source, not an import — same reason as the manifest above:
+  // this runs BEFORE vite, so there is no TypeScript loader.
+  const grab = (name) => {
+    const m = posSrc.match(new RegExp(`export const ${name} = '([^']*)'`));
+    if (!m) fail(`src/data/positioning.ts: could not parse \`${name}\` — the regex broke or the export was renamed`);
+    return m[1];
+  };
+  const line = grab('line');
+  const sub = grab('sub');
+  const fiscal = grab('fiscal');
+
+  const flat = (s) => s.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+
+  // SCOPE IS DERIVED, NEVER LISTED. Any file that renders a footer is a carrier,
+  // found by looking. Add an eighth surface with a footer and it is covered on
+  // the next build with nothing to remember (§7.6).
+  const footerSearchRoots = [
+    ...readdirSync(publicDir).filter((f) => f.endsWith('.html')).map((f) => resolve(publicDir, f)),
+    ...walk(resolve(root, 'src/pages')).filter((f) => f.endsWith('.astro')),
+    ...walk(resolve(root, 'src/layouts')).filter((f) => f.endsWith('.astro')),
+  ];
+  // ⚠ MATCH THE MARKUP, NOT THE CLASS NAME. `.footer__tagline` also appears in
+  // every carrier's stylesheet, so a bare substring test called a page a carrier
+  // on the strength of its CSS after its footer had been deleted — and reported
+  // "no parseable footer__tagline" instead of the completeness failure that was
+  // actually true. Found by the negative control, not by review.
+  const CARRIES = /class="footer__tagline"/;
+  const carriers = footerSearchRoots.filter((f) => CARRIES.test(readFileSync(f, 'utf8')));
+  if (carriers.length === 0) fail('positioning: found zero footer carriers — the sweep is broken');
+
+  for (const f of carriers) {
+    const s = readFileSync(f, 'utf8');
+    const rel = relative(root, f).split(sep).join('/');
+    const d = s.match(/class="footer__desc"[^>]*>([\s\S]*?)<\/p>/);
+    const t = s.match(/class="footer__tagline"[^>]*>([\s\S]*?)<\/div>/);
+    if (!d) fail(`positioning: ${rel} has a footer__tagline but no footer__desc`);
+    if (!t) fail(`positioning: ${rel} has no parseable footer__tagline`);
+    const wantDesc = `${line} ${fiscal}`;
+    if (flat(d[1]) !== wantDesc)
+      fail(
+        `positioning: ${rel} footer__desc has drifted from src/data/positioning.ts:\n` +
+          `    positioning.ts: ${wantDesc}\n` +
+          `    ${rel}: ${flat(d[1])}\n\n` +
+          `  Every surface states the same positioning. Edit the surface, or edit\n` +
+          `  positioning.ts and every carrier, but they may not disagree.`,
+      );
+    if (flat(t[1]) !== sub)
+      fail(
+        `positioning: ${rel} footer__tagline has drifted from src/data/positioning.ts:\n` +
+          `    positioning.ts: ${sub}\n` +
+          `    ${rel}: ${flat(t[1])}`,
+      );
+  }
+
+  // COMPLETENESS — closes the shrinking-scope hole. Without this, deleting a
+  // footer makes the gate pass over a smaller site and report success for it.
+  // A routable HTML surface must carry a footer OR import a layout that does.
+  const layoutCarriers = carriers
+    .filter((f) => relative(root, f).includes(`src${sep}layouts`))
+    .map((f) => basename(f, '.astro'));
+  const routable = [
+    ...readdirSync(publicDir).filter((f) => f.endsWith('.html')).map((f) => resolve(publicDir, f)),
+    ...walk(resolve(root, 'src/pages')).filter((f) => f.endsWith('.astro')),
+  ];
+  for (const f of routable) {
+    const s = readFileSync(f, 'utf8');
+    const rel = relative(root, f).split(sep).join('/');
+    const own = CARRIES.test(s);
+    const viaLayout = layoutCarriers.some((L) => s.includes(`${L}.astro`));
+    if (!own && !viaLayout)
+      fail(
+        `positioning: ${rel} renders HTML but carries no footer and imports no layout that does.\n` +
+          `  It would ship without the positioning line, and this gate would not have noticed.`,
+      );
+  }
+
+  // T2 + T3 — the homepage is the only surface carrying the line in its head and
+  // its H1. Other pages have their own page-specific titles by design.
+  const idx = readFileSync(resolve(root, 'src/pages/index.astro'), 'utf8');
+  const bare = line.replace(/\.$/, '');
+  for (const [label, re] of [
+    ['<title>', /<title>([\s\S]*?)<\/title>/],
+    ['og:title', /<meta property="og:title" content="([^"]*)"/],
+    ['twitter:title', /<meta name="twitter:title" content="([^"]*)"/],
+  ]) {
+    const m = idx.match(re);
+    if (!m) fail(`positioning: index.astro has no ${label}`);
+    if (!m[1].includes(bare))
+      fail(`positioning: index.astro ${label} does not carry the positioning line\n    want (substring): ${bare}\n    got: ${m[1]}`);
+  }
+  for (const [label, re] of [
+    ['description', /<meta name="description" content="([^"]*)"/],
+    ['og:description', /<meta property="og:description" content="([^"]*)"/],
+    ['twitter:description', /<meta name="twitter:description" content="([^"]*)"/],
+  ]) {
+    const m = idx.match(re);
+    if (!m) fail(`positioning: index.astro has no ${label}`);
+    if (!m[1].startsWith(sub))
+      fail(`positioning: index.astro ${label} does not OPEN with the sub line\n    want (prefix): ${sub}\n    got: ${m[1].slice(0, 90)}`);
+  }
+  const h1 = idx.match(/<h1 class="h1 hero__headline">([\s\S]*?)<\/h1>/);
+  if (!h1) fail('positioning: index.astro hero H1 not found');
+  if (flat(h1[1]) !== line)
+    fail(
+      `positioning: index.astro hero H1 has drifted from src/data/positioning.ts.\n` +
+        `    positioning.ts: ${line}\n` +
+        `    index.astro   : ${flat(h1[1])}\n\n` +
+        `  ⚠ The H1 is SPLIT by <span class="accent"> and does not grep as one\n` +
+        `  string. This tier compares with tags stripped, which is why it catches\n` +
+        `  what a source search would miss.`,
+    );
+
+  console.log(
+    `✓ positioning: ${carriers.length} footer carriers agree with src/data/positioning.ts; ` +
+      `homepage head + H1 carry the line`,
+  );
+}
