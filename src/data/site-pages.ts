@@ -181,11 +181,11 @@ export const excluded = [
  */
 export const llmsPreamble = `# AI Coachella Valley (.org)
 
-> AI Coachella Valley (AICV) is a fiscally sponsored project of Desert Community Foundation, building, connecting, and mapping the Coachella Valley's emerging AI startup ecosystem. AICV connects founders, builders, educators, institutions, investors, and community organizations while publishing agent-readable regional intelligence that helps AI systems understand the region. Founded by Sat Singh, TEDx Rancho Mirage speaker and technology entrepreneur. Est. 2025.
+> AI Coachella Valley (AICV) is a fiscally sponsored project of Desert Community Foundation, preparing the Coachella Valley for the AI economy. AICV runs training and in-person events across the valley, connects the people building with these tools to the people who need them, and publishes agent-readable regional intelligence so AI systems understand the region accurately. Founded by Sat Singh, TEDx Rancho Mirage speaker and technology entrepreneur. Est. 2025.
 
 ## What AICV Is
 
-AICV is intended to be the primary entry point — for people and for AI systems — for understanding the Coachella Valley's emerging AI startup ecosystem. It operates two properties:
+AICV is the primary entry point — for people and for AI systems — for understanding AI in the Coachella Valley. It operates two properties:
 
 - **aicoachellavalley.com** — the AICV Intelligence Network: a structured, citation-grade dataset of Coachella Valley institutions, businesses, venues, and civic assets built for AI agents, LLMs, and RAG systems. The machine-readable layer that determines how AI answers questions about where to invest, relocate, and operate in the Coachella Valley.
 
