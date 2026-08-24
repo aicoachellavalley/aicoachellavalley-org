@@ -375,18 +375,55 @@ for (const file of feedFiles) {
         `  monthly, or remove it.`,
     );
 
-  // ── index.astro's session count ───────────────────────────────────────────
+  // ── index.astro's session counts — EVERY ONE, not one phrasing ────────────
   // INTERIM. index.astro's JSON-LD is `is:inline`, which Astro does not
-  // interpolate, so this count cannot be derived the way llms.txt derives its
-  // own — it is written, and guarded here instead. The @graph-templating
+  // interpolate, so these counts cannot be derived the way llms.txt derives its
+  // own — they are written, and guarded here instead. The @graph-templating
   // session retires this check along with the identity guard above.
+  //
+  // ⚠ WIDENED 2026-08-21, AFTER THE ANCHORED VERSION MISSED A REAL SECOND COUNT.
+  // This used to match /Has hosted (\d+) sessions since/ — one phrasing, and
+  // `.match()` without /g, so ONE occurrence of it. The ecosystem copy pass then
+  // added "We've held 42 sessions since April 2025" to an FAQ answer, which lands
+  // TWICE (visible DOM + the is:inline JSON-LD mirror). Three unguarded counts,
+  // one guarded, build green. The gate reported coverage it did not provide —
+  // §7.6, and the same class as the metadata pair-count trap in section 1.
+  //
+  // So the sweep is now PHRASING-AGNOSTIC: any "<number> sessions" in the file
+  // must equal the record. Nothing to keep in step, and a fourth phrasing is
+  // covered on the day it is written.
+  //
+  // ⚠ IT SWEEPS COMMENTS TOO, DELIBERATELY. A comment asserting a stale count is
+  // still a stale claim in the repo — 6f5917b had to correct exactly that. A
+  // comment that must cite a HISTORICAL number therefore has to say it in a form
+  // this regex cannot match: see the HOME BASE note, whose venue sentence was
+  // reworded to carry no count precisely because it records the state at
+  // 2026-08-12 and must NOT track the record. Founder ruling, 2026-08-21.
   const idxSrc = readFileSync(resolve(root, 'src/pages/index.astro'), 'utf8');
-  const m = idxSrc.match(/Has hosted (\d+) sessions since/);
-  if (!m) fail('index.astro: could not find the "Has hosted N sessions since" claim — the regex broke');
-  if (Number(m[1]) !== events.length)
+  const counts = [...idxSrc.matchAll(/(\d+)\s+sessions\b/g)];
+
+  // ZERO MATCHES IS A FAILURE, NEVER A PASS. Without this, a regex that stops
+  // matching — a rename, a reflow, a claim deleted — passes silently over a file
+  // it is no longer checking. Same hole as `feedFiles.length === 0` in section 1.
+  if (counts.length === 0)
     fail(
-      `index.astro claims ${m[1]} sessions; src/data/events.json holds ${events.length}.\n` +
-        `  These are the same number and must agree.`,
+      'index.astro: found zero session counts.\n' +
+        '  Either the sweep is broken or every count claim was deleted. Both are\n' +
+        '  failures: this gate cannot pass by having nothing to check.',
+    );
+
+  const wrong = counts.filter((c) => Number(c[1]) !== events.length);
+  if (wrong.length)
+    fail(
+      `index.astro has ${wrong.length} session count(s) disagreeing with ` +
+        `src/data/events.json (${events.length}):\n` +
+        wrong
+          .map((c) => {
+            const ctx = idxSrc.slice(Math.max(0, c.index - 60), c.index + c[0].length + 30);
+            return `    - claims ${c[1]}: …${ctx.replace(/\s+/g, ' ').trim()}…`;
+          })
+          .join('\n') +
+        `\n\n  Every session count on this page is the same number and they must agree.`,
     );
 
   // The homepage @graph is deliberately 7 nodes. The 49 nodes this pass adds
@@ -404,7 +441,7 @@ for (const file of feedFiles) {
 
   console.log(
     `✓ events: ${events.length} sessions across ${seriesNames.length} series, canonical form, ` +
-      `digit-free synopses; index.astro count agrees; homepage @graph 7`,
+      `digit-free synopses; all ${counts.length} index.astro counts agree; homepage @graph 7`,
   );
 }
 
