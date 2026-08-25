@@ -50,8 +50,6 @@ export const GET: APIRoute = async () => {
 ## Core Pages
 
 ${core}
-- [Intelligence Network (.com)](https://aicoachellavalley.com) — the agent-native companion with nodes, briefs, and reports
-- [llms.txt (.com)](https://aicoachellavalley.com/llms.txt) — machine-readable summary of the Intelligence Network
 `;
 
   if (articles.length > 0) {

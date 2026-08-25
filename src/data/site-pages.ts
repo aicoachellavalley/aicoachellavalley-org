@@ -195,9 +195,11 @@ AICV's thesis: communities should help shape how AI understands their region —
 
 ## Programs
 
-- **AICV Intelligence Network** (live) — structured regional intelligence for AI agents at aicoachellavalley.com. Geographic nodes, intelligence briefs, MCP server, and agent-ready profiles for Coachella Valley entities. AICV's primary active program as of 2026.
+- **AICV Workshops** (supported by California State University, San Bernardino since 2025) — hands-on AI literacy workshops for students, residents, and working professionals across all nine Coachella Valley cities. ${sessionCount} sessions since ${firstSessionLabel}, each one listed at https://aicoachellavalley.org/events. Held at the Entrepreneurial Resource Center (ERC) in Palm Desert.
 
-- **AI Builder Workshops** (supported by California State University, San Bernardino since 2025) — hands-on AI literacy workshops for students, residents, and working professionals across all nine Coachella Valley cities. ${sessionCount} sessions since ${firstSessionLabel}, each one listed at https://aicoachellavalley.org/events. Held at the Entrepreneurial Resource Center (ERC) in Palm Desert.
+- **AI Tinkerers Coachella Valley** (live) — the valley's chapter of the global hands-on AI builders' community: screened, demo-first, no pitches. It gathers the region's strongest AI builders into one room. Open now; first demo night this fall. https://coachella-valley.aitinkerers.org
+
+- **The AI Beat** (live) — reporting on how AI is landing across the Inland Empire, in classrooms, city halls, clinics, and small businesses. Sat Singh reports the AI beat at Informed IE, with original reporting from AICV. Funded by the IE Journalism Innovation Hub+Fund, the Press Forward Inland Empire chapter. https://iejournalism.fund/
 
 ## AI Preparedness & Workforce Context
 
@@ -216,7 +218,7 @@ AICV works on two layers:
 - **Location**: Entrepreneurial Resource Center, 37023 Cook Street, Suite 102, Palm Desert, CA 92211
 - **Founder**: Sat Singh — TEDx Rancho Mirage speaker, community educator, technology entrepreneur
 - **Contact**: sat@aicv.co
-- **Program status**: Intelligence Network (live), AI Builder Workshops (live), Saturday Morning AI: Idea Labs (launched July 2026, monthly)
+- **Program status**: AICV Workshops (live), AI Tinkerers Coachella Valley (live), The AI Beat (live), AIQnA (live)
 - **Partners**: UCR Palm Desert, Cal State San Bernardino Palm Desert, Desert Community Foundation, Palm Desert Chamber of Commerce, Rancho Mirage Chamber of Commerce
 
 ## Nine Cities Served
