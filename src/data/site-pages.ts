@@ -219,7 +219,7 @@ AICV works on two layers:
 - **Founder**: Sat Singh — TEDx Rancho Mirage speaker, community educator, technology entrepreneur
 - **Contact**: sat@aicv.co
 - **Program status**: AICV Workshops (live), AI Tinkerers Coachella Valley (live), The AI Beat (live), AIQnA (live)
-- **Partners**: UCR Palm Desert, Cal State San Bernardino Palm Desert, Desert Community Foundation, Palm Desert Chamber of Commerce, Rancho Mirage Chamber of Commerce
+- **Partners**: Desert Community Foundation (fiscal sponsor), IE Journalism Innovation Hub+Fund — Press Forward Inland Empire chapter (funding), CSUSB Palm Desert Entrepreneurial Resource Center (ERC), where AICV is an official affiliate, City of Palm Desert, Coachella Valley Women's Business Center (CVWBC), a U.S. Small Business Administration program
 
 ## Nine Cities Served
 

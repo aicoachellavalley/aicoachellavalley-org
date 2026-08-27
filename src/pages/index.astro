@@ -1018,8 +1018,18 @@ const fmt = (d) =>
     .partner-card {
       background: var(--c-paper);
       padding: 30px 26px;
-    }@media (max-width: 640px) {
+    }
+    /* THREE GROUPS IN A TWO-COLUMN GRID. Card 1 spans both rows so column two
+       can stack the other two. Without the span the three cards flow 1/2/3 and
+       leave cell 4 EMPTY — and an empty cell is not blank here: .partners-grid
+       paints --c-border and the cards paint --c-paper over it, so the gap IS the
+       hairline rule and a missing card shows as a solid border-coloured block.
+       Reset to auto at the 640 breakpoint, where the grid is one column and a
+       two-row span would reopen the same hole. */
+    .partner-card--tall { grid-row: span 2; }
+    @media (max-width: 640px) {
       .partners-grid { grid-template-columns: 1fr; }
+      .partner-card--tall { grid-row: auto; }
     }
 
     /* ─── FAQ ACCORDION ─── */
@@ -1230,13 +1240,17 @@ const fmt = (d) =>
     <span class="eyebrow">Partners</span>
     <h2 class="h2">Who we work with.</h2>
     <div class="partners-grid">
-      <div class="partner-card">
-        <div class="partner-group__label">Academic &amp; Workforce</div>
-        <p class="partner-group__list">California State University, San Bernardino · UCR Palm Desert</p>
+      <div class="partner-card partner-card--tall">
+        <div class="partner-group__label">Funding &amp; Support</div>
+        <p class="partner-group__list">IE Journalism Innovation Hub+Fund — Press Forward Inland Empire chapter · CSUSB Palm Desert Entrepreneurial Resource Center (ERC), where AICV is an official affiliate · City of Palm Desert</p>
       </div>
       <div class="partner-card">
-        <div class="partner-group__label">Civic &amp; Philanthropic</div>
-        <p class="partner-group__list">Desert Community Foundation (Fiscal Sponsor) · City of Palm Desert · Palm Desert Chamber of Commerce · Rancho Mirage Chamber of Commerce</p>
+        <div class="partner-group__label">Fiscal Sponsor</div>
+        <p class="partner-group__list">Desert Community Foundation</p>
+      </div>
+      <div class="partner-card">
+        <div class="partner-group__label">Program Partners</div>
+        <p class="partner-group__list">Coachella Valley Women's Business Center (CVWBC), a U.S. Small Business Administration program</p>
       </div>
     </div>
   </div>
