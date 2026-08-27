@@ -356,10 +356,10 @@ const fmt = (d) =>
           },
           {
             "@type": "Question",
-            "name": "What is the AICV Intelligence Network, and how is it different from the rest of AICV's work?",
+            "name": "What's the relationship between aicoachellavalley.org and aicoachellavalley.com?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "AICV operates two properties. This site — aicoachellavalley.org — is the community and grant-facing surface: workshops, programs, and the Responsible AI Pledge. aicoachellavalley.com is the AICV agentic intelligence network, an agent-native structured layer of valley institutions, businesses, venues, and civic assets, built so LLMs like ChatGPT, Claude, and Gemini can accurately cite and route the valley. The agentic intelligence network is not a directory — it is the machine-readable layer that shapes how AI systems answer questions about where to invest, where to relocate, and where to go in the Coachella Valley."
+              "text": "They share a name and a founder, not a company. This site — the .org — is AICV, a fiscally sponsored project of Desert Community Foundation. Everything here is grant-funded: workshops, AI Tinkerers Coachella Valley, and The AI Beat. We also publish at aicv.co, which is part of the same project. aicoachellavalley.com is a commercial product of SunshineFM LLC, a separate company. If you're looking for the nonprofit work, you're in the right place."
             }
           },
           {
@@ -480,7 +480,13 @@ const fmt = (d) =>
     }
     .eyebrow--dim { color: rgba(var(--c-paper-rgb),0.5); }
     .eyebrow--lt  { color: var(--c-paper); opacity: 0.9; }
-    .h1 .accent { color: var(--c-border); font-style: italic; }
+    /* font-style REMOVED 2026-08-27. Bebas Neue has no italic and none is
+       requested, so this obliqued the roman — a synthesised shear, not a face.
+       Nothing replaced it: the accent was already set apart from the rest of the
+       h1 by colour, and that distinction now carries the emphasis on its own.
+       The colour left here is DEAD on the homepage: .hero .h1 .accent is more
+       specific and wins. It is kept only for a .h1 .accent outside a hero. */
+    .h1 .accent { color: var(--c-border); }
     .hero__headline .accent { display: block; }
 
     .h2 {
@@ -590,6 +596,31 @@ const fmt = (d) =>
     }
     /* Type inverts: this hero is now LIGHT. */
     .hero .h1 { color: var(--c-text); }
+    /* ⚠ VOLT WAS TRIED HERE AND REVERTED — 2026-08-27. Ruled, not merely
+       undone: pine-light is the value, and volt is not a candidate for this
+       element as the hero is composed today.
+
+       WHAT HAPPENED: --c-on-ground-hi (volt, #D8FF00) was set on this rule,
+       built, and looked at. It disappears. The accent sits on the BRIGHT LEFT
+       SIDE of the hero photograph, under the paper scrim, which runs about 0.70
+       alpha across that band — a near-white ground. Measured beforehand at
+       1.08:1 to 1.11:1 composited, and 1.75:1 to 1.95:1 against the bare image
+       with no scrim; the eye agrees with the number. This is exactly what
+       BRAND.md §1 says, recorded in shared.css: volt is a FILL, NEVER TEXT ON
+       LIGHT.
+
+       THE QUESTION IS NOT CLOSED FOREVER, ONLY FOR THIS COMPOSITION. What kills
+       it is WHERE the accent sits, not the colour itself. The right side of the
+       same photograph is dark mountain, and volt on dark is the case that token
+       is built for — it measures 15.35:1 on the ground colour. So a crop change,
+       a re-cropped or replaced hero image, or a layout change that moves the
+       headline right can make volt viable here. Re-measure against the pixels
+       actually behind the type before assuming either way; do not treat this
+       note as a permanent ban on the colour.
+
+       Related and separate: font-style was removed from .h1 .accent above. That
+       was a real defect, not a look — Bebas Neue has no italic and none is
+       requested, so it obliqued the roman. It stays removed. */
     .hero .h1 .accent { color: var(--c-accent-text-d); }
 
     /* MOBILE — the desktop scrim runs left-to-right because the type sits left.
@@ -1304,8 +1335,8 @@ const fmt = (d) =>
       <p class="faq-a">AICV works three ways — teaching, connecting, and reporting. It builds AI literacy and applied skills through AICV Workshops at the Entrepreneurial Resource Center (ERC) in Palm Desert. It connects the region's builders through AI Tinkerers Coachella Valley. And it reports on how AI is landing across the Inland Empire through The AI Beat, funded by the IE Journalism Innovation Hub+Fund, the Press Forward Inland Empire chapter.</p>
     </details>
     <details class="faq-item">
-      <summary class="faq-q">What is the AICV Intelligence Network, and how is it different from the rest of AICV's work?</summary>
-      <p class="faq-a">AICV operates two properties. This site — aicoachellavalley.org — is the community and grant-facing surface: workshops, programs, and the Responsible AI Pledge. aicoachellavalley.com is the AICV agentic intelligence network, an agent-native structured layer of valley institutions, businesses, venues, and civic assets, built so LLMs like ChatGPT, Claude, and Gemini can accurately cite and route the valley. The agentic intelligence network is not a directory — it is the machine-readable layer that shapes how AI systems answer questions about where to invest, where to relocate, and where to go in the Coachella Valley.</p>
+      <summary class="faq-q">What's the relationship between aicoachellavalley.org and aicoachellavalley.com?</summary>
+      <p class="faq-a">They share a name and a founder, not a company. This site — the .org — is AICV, a fiscally sponsored project of Desert Community Foundation. Everything here is grant-funded: workshops, AI Tinkerers Coachella Valley, and The AI Beat. We also publish at aicv.co, which is part of the same project. aicoachellavalley.com is a commercial product of SunshineFM LLC, a separate company. If you're looking for the nonprofit work, you're in the right place.</p>
     </details>
     <details class="faq-item">
       <summary class="faq-q">Who is AICV's founder?</summary>
