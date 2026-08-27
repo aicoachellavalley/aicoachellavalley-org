@@ -77,7 +77,7 @@ const fmt = (d) =>
   <link rel="canonical" href="https://aicoachellavalley.org/">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&display=swap" rel="stylesheet">
 
   <meta name="last-modified" content="2026-07-25">
 
@@ -811,13 +811,22 @@ const fmt = (d) =>
     }
     .prog-card--featured .prog-title { color: var(--c-text); }
 
-    /* ⚠ THE ITALIC IS SYNTHETIC. The fonts.googleapis.com request asks DM Sans
-       for a weight axis only (opsz,wght) and NO ital axis, so no real italic
-       face is fetched and the browser obliques the roman. It was a true italic
-       while this was EB Garamond (400 italic is one of the five faces requested)
-       and it stopped being one here. Kept because the ruling said keep it; the
-       fix, if it is ever wanted, is adding an ital axis to the DM Sans family in
-       that link.
+    /* THE ITALIC IS REAL — FIXED 2026-08-27. This comment used to record the
+       opposite, and the fix it asked for has now been made: the DM Sans family
+       in the fonts.googleapis.com link gained an ital axis, so a genuine italic
+       face is fetched and the browser no longer obliques the roman.
+
+       AXES ARE ALPHABETICAL — ital, opsz, wght — which is what Google's own
+       generator emits, and every tuple therefore carries a leading 0 or 1. That
+       reordering is why this could not be a one-token append. Google will also
+       serve a WRONG axis order without complaint (opsz,wght,ital returns 200 and
+       valid italic CSS), so a malformed request does not announce itself; keep
+       the order alphabetical rather than trusting the response.
+
+       ONLY 1,9..40,400 is requested, not the full italic set. .prog-tagline is
+       the sole DM Sans italic consumer on any of the seven surfaces and it
+       resolves at weight 400 — asking for 300 and 500 italic too would request
+       two faces nothing uses.
 
        (No backticks in this comment on purpose: this whole style block is a
        template literal on set:html, so one backtick here ends it and the build
