@@ -215,7 +215,7 @@ AICV works on two layers:
 - **Legal structure**: Fiscally sponsored project of Desert Community Foundation, a 501(c)(3) nonprofit organization
 - **Fiscal sponsor**: Desert Community Foundation (desertfoundation.org)
 - **Founded**: 2025
-- **Location**: Entrepreneurial Resource Center, 37023 Cook Street, Suite 102, Palm Desert, CA 92211
+- **Location**: Entrepreneurial Resource Center (ERC), 37023 Cook Street, Suite 102, Palm Desert, CA 92211
 - **Founder**: Sat Singh — TEDx Rancho Mirage speaker, community educator, technology entrepreneur
 - **Contact**: sat@aicv.co
 - **Program status**: AICV Workshops (live), AI Tinkerers Coachella Valley (live), The AI Beat (live), AIQnA (live)

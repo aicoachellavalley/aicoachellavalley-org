@@ -121,10 +121,10 @@ const fmt = (d) =>
         },
         "location": {
           "@type": "Place",
-          "name": "Entrepreneurial Resource Center",
+          "name": "Entrepreneurial Resource Center (ERC)",
           "address": {
             "@type": "PostalAddress",
-            "streetAddress": "37023 Cook Street",
+            "streetAddress": "37023 Cook Street, Suite 102",
             "addressLocality": "Palm Desert",
             "addressRegion": "CA",
             "postalCode": "92211",
@@ -196,7 +196,7 @@ const fmt = (d) =>
           "name": "operationalStatus",
           "value": "Active — AICV Workshops, supported by California State University, San Bernardino since 2025 (register: https://luma.com/aicv); AI Tinkerers Coachella Valley open now, first demo night this fall (https://coachella-valley.aitinkerers.org); The AI Beat, funded by the IE Journalism Innovation Hub+Fund (https://iejournalism.fund/); AIQnA live at aiqna.org."
         },
-        "dateModified": "2026-08-25"
+        "dateModified": "2026-08-26"
       },
       {
         "@type": "WebSite",
@@ -233,7 +233,7 @@ const fmt = (d) =>
           "name": "operationalStatus",
           "value": "Live — active as of 2026, funded by the IE Journalism Innovation Hub+Fund"
         },
-        "dateModified": "2026-08-25"
+        "dateModified": "2026-08-26"
       },
       {
         "@type": "Service",
@@ -245,10 +245,10 @@ const fmt = (d) =>
         },
         "location": {
           "@type": "Place",
-          "name": "Entrepreneurial Resource Center",
+          "name": "Entrepreneurial Resource Center (ERC)",
           "address": {
             "@type": "PostalAddress",
-            "streetAddress": "37023 Cook Street",
+            "streetAddress": "37023 Cook Street, Suite 102",
             "addressLocality": "Palm Desert",
             "addressRegion": "CA",
             "postalCode": "92211",
@@ -270,7 +270,7 @@ const fmt = (d) =>
           "name": "operationalStatus",
           "value": "Live — supported by California State University, San Bernardino since 2025."
         },
-        "dateModified": "2026-08-25"
+        "dateModified": "2026-08-26"
       },
       {
         "@type": "Service",
@@ -327,7 +327,7 @@ const fmt = (d) =>
       {
         "@type": "FAQPage",
         "datePublished": "2026-04-23",
-        "dateModified": "2026-08-25",
+        "dateModified": "2026-08-26",
         "@id": "https://aicoachellavalley.org/#faq",
         "mainEntity": [
           {
@@ -777,11 +777,22 @@ const fmt = (d) =>
     }
     .prog-card--featured { background: var(--c-surface-d); }
 
+    /* ⚠ BEBAS, NOT EB GARAMOND — RULED 2026-08-26. EB Garamond is reserved for
+       BRAND MARKS ONLY: .nav__mark, .footer__name, .footer__tagline. It is not
+       card typography. A later pass that finds Bebas here and "restores
+       consistency" by putting the serif back is reversing a decision, not
+       fixing a drift. The three rules below — .prog-num, .prog-title,
+       .prog-tagline — are the whole of that ruling on this page.
+
+       font-weight 400, NOT the 700 these carried: Bebas Neue is a SINGLE-WEIGHT
+       face and the fonts.googleapis.com request asks for no weight axis, so 700
+       renders as a synthesised faux-bold. 400 is the value h1,h2,h3 and
+       .news-card__title already use. */
     .prog-num {
       position: absolute;
       bottom: -6px; right: 14px;
-      font-family: 'EB Garamond', Georgia, serif;
-      font-size: 88px; font-weight: 700;
+      font-family: 'Bebas Neue', Impact, sans-serif;
+      font-size: 88px; font-weight: 400;
       color: var(--c-border);
       line-height: 1;
       pointer-events: none;
@@ -790,9 +801,9 @@ const fmt = (d) =>
     .prog-card--featured .prog-num { color: rgba(var(--c-accent-on-fill-rgb),0.28); }
 
     .prog-title {
-      font-family: 'EB Garamond', Georgia, serif;
+      font-family: 'Bebas Neue', Impact, sans-serif;
       font-size: var(--fs-22);
-      font-weight: 700;
+      font-weight: 400;
       color: var(--c-text);
       line-height: 1.2;
       margin-bottom: 10px;
@@ -800,8 +811,19 @@ const fmt = (d) =>
     }
     .prog-card--featured .prog-title { color: var(--c-text); }
 
+    /* ⚠ THE ITALIC IS SYNTHETIC. The fonts.googleapis.com request asks DM Sans
+       for a weight axis only (opsz,wght) and NO ital axis, so no real italic
+       face is fetched and the browser obliques the roman. It was a true italic
+       while this was EB Garamond (400 italic is one of the five faces requested)
+       and it stopped being one here. Kept because the ruling said keep it; the
+       fix, if it is ever wanted, is adding an ital axis to the DM Sans family in
+       that link.
+
+       (No backticks in this comment on purpose: this whole style block is a
+       template literal on set:html, so one backtick here ends it and the build
+       dies in esbuild with a message that points at CSS, not at the quote.) */
     .prog-tagline {
-      font-family: 'EB Garamond', Georgia, serif;
+      font-family: 'DM Sans', sans-serif;
       font-style: italic;
       font-size: 14px;
       color: var(--c-text-l);
@@ -1090,9 +1112,8 @@ const fmt = (d) =>
 <section class="section section--dark section--sm" id="why-now">
   <div class="wrap">
     <span class="eyebrow eyebrow--dim">Why Now</span>
-    <h2 class="h2 h2--lt">The tools got here at the same time as everywhere else.</h2>
-    <p class="body body--lt body--lead">That has not happened before. Technology usually reaches this valley late — after the coast has priced it, tested it, and moved on. AI arrived here the same week it arrived everywhere else. A hotel manager in Indio and a founder in San Francisco opened the same tools on the same day.</p>
-    <p class="body body--lt" style="margin-top:var(--s-2);">What didn't arrive is anyone to teach it. That's the gap AICV works in — training and events, in rooms, for people who run real businesses here and don't have a technical team behind them.</p>
+    <h2 class="h2 h2--lt">The AI revolution is no longer a future prediction</h2>
+    <p class="body body--lt body--lead">It is actively reshaping the Coachella Valley's economy today by rapidly changing local job requirements and business models. As the region's dedicated boots-on-the-ground, AICV is uniquely positioned to ensure this transformation fuels local growth rather than widening our economic divide. By scaling targeted training and small business tech integration right now, we can turn this massive technological shift into an unprecedented era of sustainable desert prosperity.</p>
   </div>
 </section>
 
@@ -1105,6 +1126,20 @@ const fmt = (d) =>
       <p class="body">AICV's programs are designed to turn AI literacy into applied skills and real opportunity across the Coachella Valley.</p>
     </div>
 
+    <!-- ⚠ THE CARDS ARE EVERGREEN — RULED 2026-08-26. A program card is a
+         PERMANENT surface: it is read months after it is written, by people who
+         have no way to know when it was written. A dated claim on one goes stale
+         silently, with no gate to catch it.
+
+         So a claim here either DERIVES from data or it does not belong on a card.
+         Two were replaced on this ruling: "Bilingual sessions begin in September"
+         (card 1) and "Open now; first demo night this fall" (card 2). Both had
+         already outlived the sentence that made them true. Announcements with a
+         date belong in a news post, which is stamped and sorted and reads as of
+         its moment.
+
+         The count in card 1 is {sessionCount} for the same reason — it derives
+         from src/data/events.json rather than being typed. Do not re-type it. -->
     <div class="prog-grid">
 
       <div class="prog-card prog-card--featured" aria-label="Live program">
@@ -1112,7 +1147,7 @@ const fmt = (d) =>
         <div class="prog-num">1</div>
         <h3 class="prog-title">AICV Workshops</h3>
         <p class="prog-tagline">Hands-on AI training at CSUSB Palm Desert.</p>
-        <p class="prog-body">42 sessions across six series for small business owners, students, nonprofit staff, and people whose jobs are changing. Bilingual sessions begin in September.</p>
+        <p class="prog-body">{sessionCount} sessions across six series for small business owners, students, nonprofit staff, and people whose jobs are changing. Sessions in English and Spanish.</p>
         <a href="/events" class="prog-tag">See upcoming sessions →</a>
       </div>
 
@@ -1121,7 +1156,7 @@ const fmt = (d) =>
         <div class="prog-num">2</div>
         <h3 class="prog-title">AI Tinkerers Coachella Valley</h3>
         <p class="prog-tagline">Demos, not decks. Builders, not spectators.</p>
-        <p class="prog-body">The valley's chapter of the world's largest hands-on AI builders' community — screened, demo-first, no pitches. It gathers the region's strongest AI builders into one room: the talent that mentors the next generation and trains the trainers. Open now; first demo night this fall.</p>
+        <p class="prog-body">The valley's chapter of the world's largest hands-on AI builders' community — screened, demo-first, no pitches. It gathers the region's strongest AI builders into one room: the talent that mentors the next generation and trains the trainers. Demo nights, build days, and a global hackathon.</p>
         <a href="https://coachella-valley.aitinkerers.org" class="prog-tag" target="_blank" rel="noopener">Join the chapter →</a>
       </div>
 
@@ -1158,14 +1193,15 @@ const fmt = (d) =>
      went with them. The page now points at the record instead of asserting a
      number at it.
 
-     ⚠ The affiliation line stayed: it is a FACT, not a claim, and it is the
-     only VISIBLE copy of the street address on this page (the other two are
-     inside JSON-LD). -->
-<div class="stats stats--affil-only">
-  <div class="stats__affil wrap">
-    <strong>Home base:</strong> Entrepreneurial Resource Center · 37023 Cook Street, Suite 102, Palm Desert
-  </div>
-</div>
+     ⚠ THE AFFILIATION LINE WENT TOO, 2026-08-26. It had stayed on the grounds
+     that it was a FACT rather than a claim, and that it was the only VISIBLE
+     copy of the street address on this page. That second half is still true of
+     what remains: the address now exists ONLY inside JSON-LD (the Organization
+     node's `location` and the AICV Workshops service node's), so no human
+     reading this page is told where AICV is. No footer on any of the seven
+     surfaces carries it either. Whether it should reappear somewhere is
+     unruled — do not treat its absence here as a decision that it belongs
+     nowhere. -->
 
 <!-- ── NEWS ── -->
   {articles.length > 0 && (
@@ -1327,6 +1363,8 @@ const fmt = (d) =>
      by the length of this prose. Shortening visible copy costs nothing there. -->
 <section class="section" id="founder">
   <div class="wrap">
+    <span class="eyebrow">Who Runs AICV</span>
+    <h2 class="h2">One person, in rooms, since 2025.</h2>
     <div class="founder-layout founder-layout--compact">
       <div class="founder-img-wrap">
         <img src="/sat-tedx.png" class="founder-img" alt="Sat Singh speaking at TEDx Rancho Mirage, August 2025">

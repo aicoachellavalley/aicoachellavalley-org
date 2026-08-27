@@ -329,6 +329,31 @@
       transition: color 0.15s;
     }
     .footer__links a:hover { color: var(--c-paper); }
+    /* ⚠ ORPHANED ON PURPOSE — ZERO CONSUMERS AS OF 2026-08-26. Read this before
+       putting an address back in the footer.
+
+       RULING 2026-08-26: THE ERC IS A VENUE, NOT AICV'S ADDRESS. AICV is a
+       fiscally sponsored project of Desert Community Foundation and does not
+       publish a street address. The footer address shipped earlier the same day
+       and was reversed within it — so a future pass will find this rule, find no
+       markup using it, and read that as a bug. It is not. Restoring the li
+       reverses a decision rather than fixing a drift.
+
+       The rule is KEPT rather than deleted so this note has somewhere to live,
+       and because the venue address is still legitimately carried by the two
+       @graph location nodes and llms.txt, which are a SEPARATE ruling and were
+       deliberately left alone. If that ruling later removes those too, delete
+       this rule with them.
+
+       What it did while it had a consumer: matched .footer__links a on size,
+       weight and colour so the address read as part of that list; line-height
+       was the only non-copied value, for the column's sole two-line item. */
+    .footer__addr {
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--c-on-ground);
+      line-height: 1.6;
+    }
     .footer__bottom {
       display: flex;
       align-items: center;
