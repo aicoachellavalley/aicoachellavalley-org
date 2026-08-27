@@ -92,7 +92,7 @@ export const pages: SitePage[] = [
     // and wrong the moment a record existed. An agent reading llms.txt has to
     // learn that this page now carries BOTH layers, or it will keep treating
     // /events as an embed with no content worth fetching.
-    llms: `AI events in the Coachella Valley from AI Coachella Valley, held at the Entrepreneurial Resource Center (ERC) in Palm Desert: a dated record of ${sessionCount} past sessions grouped by series, plus a live calendar with registration via Luma`,
+    llms: `AI events in the Coachella Valley from AI Coachella Valley, held at the Entrepreneurial Resource Center (ERC) in Palm Desert: a dated record of ${sessionCount} past sessions grouped by series. Upcoming sessions and events are announced at https://aicoachellavalley.org/news`,
   },
   {
     path: '/philanthropy',

@@ -235,6 +235,12 @@ const schema = {
     /* ════════════════════════════════════════
        CALENDAR BAND
     ════════════════════════════════════════ */
+    /* ⚠ ORPHANED 2026-08-27 — the four .calendar-band rules below have ZERO
+       consumers. The Luma embed they styled was removed on the ruling that this
+       page is a record, not a calendar; see the note where the section was.
+       Kept rather than deleted so the removal is legible from the stylesheet
+       too, and because nothing here is costly. Delete them freely if a later
+       pass is tidying dead CSS — but do NOT restore markup to match them. */
     .calendar-band {
       background: var(--c-paper);
       padding: var(--s-8) var(--gutter) var(--s-10);
@@ -318,20 +324,34 @@ font-size: var(--fs-22); color: var(--c-text); letter-spacing: -0.01em;}
   </div>
 </section>
 
-<!-- SECTION 2 — CALENDAR -->
-<section class="calendar-band">
-  <div class="calendar-band__inner">
-    <h2 class="calendar-band__title">Upcoming</h2>
-    <iframe src="https://luma.com/embed/calendar/cal-123s6rDFxeKQjJd/events?lt=light" width="100%" height="560" frameborder="0" style="border:none; display:block;" allow="fullscreen; payment" aria-hidden="false" tabindex="0"></iframe>
-  </div>
-</section>
+<!-- ⚠ THE CALENDAR SECTION WAS REMOVED — RULED 2026-08-27. Do not add an
+     upcoming-events section back here.
 
-<!-- SECTION 3 — THE RECORD -->
+     THIS PAGE IS A RECORD OF PAST SESSIONS, NOT A CALENDAR. Upcoming sessions
+     and events are announced as news posts, and the record's lede below links
+     to /news so a reader looking for what is next has somewhere to go.
+
+     WHAT WENT: a "SECTION 2 — CALENDAR" band holding an h2 reading "Upcoming"
+     and a Luma iframe embedding calendar cal-123s6rDFxeKQjJd. That iframe was
+     the ONLY third-party request this page made apart from Google Fonts, and it
+     carried allow="fullscreen; payment" — a payment-permission delegation to a
+     third party on a page that never needed one.
+
+     The 49-node JSON-LD graph is unaffected: it is built from
+     src/data/events.json and never referenced the embed. events.json keeps its
+     calendar_id, which is provenance for where the 42 rows were assembled from,
+     not a live dependency.
+
+     Four .calendar-band rules above are now orphaned and were deliberately NOT
+     deleted; see the note at .calendar-band. -->
+
+<!-- SECTION 2 — THE RECORD -->
 <section class="record">
   <div class="record__inner">
     <h2 class="record__title">The record.</h2>
     <p class="record__lede">
       {total} sessions, {fmt(earliest)} to {fmt(latest)} — every one of them at the {data.venue.display}.
+      Upcoming sessions and events are announced in <a href="/news">the news</a>.
     </p>
     {series.map((s) => (
       <section class="series" id={`series-${s.slug}`}>
