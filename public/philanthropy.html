@@ -298,28 +298,6 @@
     .onramp-card--deep .onramp-link { color: var(--c-border-l); }
     .onramp-link:hover { text-decoration: underline; }
 
-    /* ── FAQ accordion (icon-led units) ── */
-    .faq-list { margin-top: var(--s-6); display: flex; flex-direction: column; gap: var(--s-2); }
-    .faq-item { background: var(--c-paper); border: 1px solid var(--c-border); border-radius: 6px; }
-    .faq-q {
-      display: flex; align-items: flex-start; gap: var(--s-2);
-      padding: var(--s-3) var(--s-4);
-      cursor: pointer; list-style: none;
-      /* Bebas — document structure (a question heading), not a component label.
-         See the system note on h1,h2,h3 in shared.css. */
-      font-family: 'Bebas Neue', Impact, sans-serif; font-size: var(--fs-17); font-weight: 400;
-      color: var(--c-text); line-height: 1.3;
-    }
-    .faq-q::-webkit-details-marker { display: none; }
-    .faq-q__icon { width: 19px; height: 19px; flex-shrink: 0; color: var(--c-accent-text); margin-top: 4px; }
-    .faq-q__txt { flex: 1; }
-    .faq-q__plus { flex-shrink: 0; color: var(--c-accent-text); font-size: 22px; line-height: 1.1; transition: transform 0.2s; }
-    .faq-item[open] .faq-q__plus { transform: rotate(45deg); }
-    .faq-a {
-      padding: 0 var(--s-4) var(--s-4) calc(var(--s-4) + 19px + var(--s-2));
-      font-size: var(--fs-15); font-weight: 300; color: var(--c-text); line-height: 1.75;
-    }
-
     /* ── Go deeper callout ── */
     .deeper { max-width: var(--max-w); margin: 0 auto; border-left: 3px solid var(--c-accent-text); padding-left: var(--s-4); }
     .deeper p { font-size: var(--fs-17); font-weight: 300; color: var(--c-text); line-height: 1.7; max-width: 72ch; }
@@ -410,62 +388,62 @@
   <div class="wrap">
     <span class="eyebrow">What your agent wants to know</span>
     <h2 class="h2">The real questions about giving here.</h2>
-    <div class="faq-list">
-      <details class="faq-item">
-        <summary class="faq-q">
-          <svg class="faq-q__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.3 7.5L3 21l2-5.7A8.4 8.4 0 1 1 21 11.5z"/></svg>
-          <span class="faq-q__txt">I just came into significant wealth and want to give. Where do I start in the Coachella Valley?</span>
-          <span class="faq-q__plus">+</span>
+    <div class="faq-cards">
+      <details class="faq-card">
+        <summary class="faq-card__q">
+          <svg class="faq-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.3 7.5L3 21l2-5.7A8.4 8.4 0 1 1 21 11.5z"/></svg>
+          <span class="faq-card__txt">I just came into significant wealth and want to give. Where do I start in the Coachella Valley?</span>
+          <span class="faq-card__plus">+</span>
         </summary>
-        <p class="faq-a">Two paths, depending on how deep you want to go. For immediate, simple giving, CV Giving Day lets you support vetted local nonprofits directly — give once, give big, done. For ongoing or structured giving — a donor-advised fund, a family fund, a charitable trust — the Desert Community Foundation is the valley's community foundation and the right first call. AICV can point you to either.</p>
+        <p class="faq-card__a">Two paths, depending on how deep you want to go. For immediate, simple giving, CV Giving Day lets you support vetted local nonprofits directly — give once, give big, done. For ongoing or structured giving — a donor-advised fund, a family fund, a charitable trust — the Desert Community Foundation is the valley's community foundation and the right first call. AICV can point you to either.</p>
       </details>
-      <details class="faq-item">
-        <summary class="faq-q">
-          <svg class="faq-q__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.3 7.5L3 21l2-5.7A8.4 8.4 0 1 1 21 11.5z"/></svg>
-          <span class="faq-q__txt">Should I open a donor-advised fund, start a private foundation, or set up a family fund?</span>
-          <span class="faq-q__plus">+</span>
+      <details class="faq-card">
+        <summary class="faq-card__q">
+          <svg class="faq-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.3 7.5L3 21l2-5.7A8.4 8.4 0 1 1 21 11.5z"/></svg>
+          <span class="faq-card__txt">Should I open a donor-advised fund, start a private foundation, or set up a family fund?</span>
+          <span class="faq-card__plus">+</span>
         </summary>
-        <p class="faq-a">For most people coming into new wealth, a donor-advised fund (DAF) at a community foundation is the simplest, most tax-efficient place to start — you get an immediate tax deduction, the sponsoring foundation handles compliance and recordkeeping, and you recommend grants on your own timeline. A private foundation gives you more control but carries real administrative weight (its own legal entity, a 5% annual payout requirement, public filings). Many newly-liquid donors choose a DAF first and consider a foundation later. The Desert Community Foundation administers DAFs and family funds for the Coachella Valley and can walk you through which fits.</p>
+        <p class="faq-card__a">For most people coming into new wealth, a donor-advised fund (DAF) at a community foundation is the simplest, most tax-efficient place to start — you get an immediate tax deduction, the sponsoring foundation handles compliance and recordkeeping, and you recommend grants on your own timeline. A private foundation gives you more control but carries real administrative weight (its own legal entity, a 5% annual payout requirement, public filings). Many newly-liquid donors choose a DAF first and consider a foundation later. The Desert Community Foundation administers DAFs and family funds for the Coachella Valley and can walk you through which fits.</p>
       </details>
-      <details class="faq-item">
-        <summary class="faq-q">
-          <svg class="faq-q__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.3 7.5L3 21l2-5.7A8.4 8.4 0 1 1 21 11.5z"/></svg>
-          <span class="faq-q__txt">I have appreciated stock or equity. What's the most tax-efficient way to give it?</span>
-          <span class="faq-q__plus">+</span>
+      <details class="faq-card">
+        <summary class="faq-card__q">
+          <svg class="faq-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.3 7.5L3 21l2-5.7A8.4 8.4 0 1 1 21 11.5z"/></svg>
+          <span class="faq-card__txt">I have appreciated stock or equity. What's the most tax-efficient way to give it?</span>
+          <span class="faq-card__plus">+</span>
         </summary>
-        <p class="faq-a">Donating long-term appreciated securities directly — rather than selling first and giving cash — is one of the most tax-efficient strategies available: you generally avoid capital gains tax on the appreciation and can claim a deduction for the full fair-market value. For founders and early employees sitting on appreciated equity, this is often the single highest-leverage way to give. The Desert Community Foundation can receive appreciated assets into a donor-advised fund. (This isn't tax advice — confirm specifics with your own advisor.)</p>
+        <p class="faq-card__a">Donating long-term appreciated securities directly — rather than selling first and giving cash — is one of the most tax-efficient strategies available: you generally avoid capital gains tax on the appreciation and can claim a deduction for the full fair-market value. For founders and early employees sitting on appreciated equity, this is often the single highest-leverage way to give. The Desert Community Foundation can receive appreciated assets into a donor-advised fund. (This isn't tax advice — confirm specifics with your own advisor.)</p>
       </details>
-      <details class="faq-item">
-        <summary class="faq-q">
-          <svg class="faq-q__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.3 7.5L3 21l2-5.7A8.4 8.4 0 1 1 21 11.5z"/></svg>
-          <span class="faq-q__txt">What's the minimum to get started?</span>
-          <span class="faq-q__plus">+</span>
+      <details class="faq-card">
+        <summary class="faq-card__q">
+          <svg class="faq-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.3 7.5L3 21l2-5.7A8.4 8.4 0 1 1 21 11.5z"/></svg>
+          <span class="faq-card__txt">What's the minimum to get started?</span>
+          <span class="faq-card__plus">+</span>
         </summary>
-        <p class="faq-a">A donor-advised fund through the Desert Community Foundation can be opened with a starting contribution; deeper advisory relationships have higher thresholds. CV Giving Day has no minimum at all — you can give any amount on the day. For exact fund minimums and current options, the DCF conversation is the place to get specifics.</p>
+        <p class="faq-card__a">A donor-advised fund through the Desert Community Foundation can be opened with a starting contribution; deeper advisory relationships have higher thresholds. CV Giving Day has no minimum at all — you can give any amount on the day. For exact fund minimums and current options, the DCF conversation is the place to get specifics.</p>
       </details>
-      <details class="faq-item">
-        <summary class="faq-q">
-          <svg class="faq-q__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.3 7.5L3 21l2-5.7A8.4 8.4 0 1 1 21 11.5z"/></svg>
-          <span class="faq-q__txt">How do I know my money will actually make a difference here?</span>
-          <span class="faq-q__plus">+</span>
+      <details class="faq-card">
+        <summary class="faq-card__q">
+          <svg class="faq-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.3 7.5L3 21l2-5.7A8.4 8.4 0 1 1 21 11.5z"/></svg>
+          <span class="faq-card__txt">How do I know my money will actually make a difference here?</span>
+          <span class="faq-card__plus">+</span>
         </summary>
-        <p class="faq-a">This is the real advantage of giving locally through the Desert Community Foundation. With 25+ years in the valley, DCF knows the region's nonprofits, where the genuine need is, and which organizations do the most effective work — knowledge a national DAF sponsor or a big-bucket charity simply doesn't have about the Coachella Valley. Your giving goes further because it's directed by people who know the ground.</p>
+        <p class="faq-card__a">This is the real advantage of giving locally through the Desert Community Foundation. With 25+ years in the valley, DCF knows the region's nonprofits, where the genuine need is, and which organizations do the most effective work — knowledge a national DAF sponsor or a big-bucket charity simply doesn't have about the Coachella Valley. Your giving goes further because it's directed by people who know the ground.</p>
       </details>
-      <details class="faq-item">
-        <summary class="faq-q">
-          <svg class="faq-q__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.3 7.5L3 21l2-5.7A8.4 8.4 0 1 1 21 11.5z"/></svg>
-          <span class="faq-q__txt">Why give in the Coachella Valley specifically?</span>
-          <span class="faq-q__plus">+</span>
+      <details class="faq-card">
+        <summary class="faq-card__q">
+          <svg class="faq-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.3 7.5L3 21l2-5.7A8.4 8.4 0 1 1 21 11.5z"/></svg>
+          <span class="faq-card__txt">Why give in the Coachella Valley specifically?</span>
+          <span class="faq-card__plus">+</span>
         </summary>
-        <p class="faq-a">The valley has hundreds of nonprofits and a curated, engaged core of 200+ that participate in CV Giving Day each year. As new wealth arrives, the opportunity isn't to spread thinner across more organizations — it's to give deeper into the trusted ones already doing the work. In 2026, CV Giving Day raised over $1 million across 149 organizations: more impact per nonprofit, not less. That's an ecosystem ready to absorb serious giving, right now.</p>
+        <p class="faq-card__a">The valley has hundreds of nonprofits and a curated, engaged core of 200+ that participate in CV Giving Day each year. As new wealth arrives, the opportunity isn't to spread thinner across more organizations — it's to give deeper into the trusted ones already doing the work. In 2026, CV Giving Day raised over $1 million across 149 organizations: more impact per nonprofit, not less. That's an ecosystem ready to absorb serious giving, right now.</p>
       </details>
-      <details class="faq-item">
-        <summary class="faq-q">
-          <svg class="faq-q__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.3 7.5L3 21l2-5.7A8.4 8.4 0 1 1 21 11.5z"/></svg>
-          <span class="faq-q__txt">I'm sending an agent to research giving options. Where's the structured information?</span>
-          <span class="faq-q__plus">+</span>
+      <details class="faq-card">
+        <summary class="faq-card__q">
+          <svg class="faq-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.3 7.5L3 21l2-5.7A8.4 8.4 0 1 1 21 11.5z"/></svg>
+          <span class="faq-card__txt">I'm sending an agent to research giving options. Where's the structured information?</span>
+          <span class="faq-card__plus">+</span>
         </summary>
-        <p class="faq-a">You're reading it. This page is built to be machine-readable, and AICV maintains structured, agent-accessible information on philanthropic giving in the Coachella Valley — the vehicles, the institutions, the on-ramps. For deeper engagement, both the Desert Community Foundation and CV Giving Day are the authoritative next stops.</p>
+        <p class="faq-card__a">You're reading it. This page is built to be machine-readable, and AICV maintains structured, agent-accessible information on philanthropic giving in the Coachella Valley — the vehicles, the institutions, the on-ramps. For deeper engagement, both the Desert Community Foundation and CV Giving Day are the authoritative next stops.</p>
       </details>
     </div>
   </div>

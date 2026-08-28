@@ -1,0 +1,139 @@
+---
+import NewsLayout from '../layouts/NewsLayout.astro';
+import { faq } from '../data/faq';
+
+// ════════════════════════════════════════════════════════════════════════════
+// /faq — the fourteen questions on their own page.
+//
+// WHY THIS WRAPS NewsLayout RATHER THAN CLONING events.astro's CHROME:
+// events.astro records the objection — "NOT built on NewsLayout, deliberately.
+// Its footer says 'Preparing the Coachella Valley for the future of work…' and
+// links the SunshineFM newsletter; this page says 'Building the Coachella
+// Valley's AI Startup Ecosystem.' and links News RSS." That comment was written
+// 2026-08-11. The positioning convergence landed 2026-08-17 (6f5917b) and gate 5
+// on 2026-08-19 (400bcef), and the comment was never revised. Re-measured
+// 2026-08-28: `footer__desc` and `footer__tagline` are now IDENTICAL in both
+// files and gate 5 makes divergence impossible to commit. Two thirds of the
+// objection is dead.
+//
+// The surviving third is one Contact link — /news/rss.xml on events, the
+// SunshineFM newsletter in the layout — and it was never an objection to the
+// LAYOUT. It was an argument against silently rewriting chrome on a page being
+// CONVERTED, whose chrome was supposed to be unchanged. This page has no prior
+// chrome to preserve, so there is nothing to rewrite; it simply takes the
+// layout's footer.
+//
+// What the layout buys, verified rather than assumed:
+//   · shared.css reaches it — chrome.css @imports it and Vite bundles the
+//     result, confirmed by finding .footer__addr (a shared.css-only rule) in
+//     dist/_astro/NewsLayout.*.css. So the promoted .faq-card* component
+//     arrives with no ?raw plumbing of our own.
+//   · gate 5's completeness check passes via "imports a layout that does",
+//     so there is no eighth hand-maintained footer to keep in step.
+//   · gate 7 font coverage passes on the layout's own font request.
+//
+// navActive={null}: this is not /news. Without it the layout would highlight
+// "News" in the nav as though this were the news index — the same reason
+// /author/sat-singh passes it.
+//
+// ⚠ `const title` / `const description` MUST STAY TOP-LEVEL AND SINGLE-LINE-
+// ANCHORED. prepare-feeds.mjs gate 2 reads them with /^const title = …/m for
+// layout-using pages, because there is no <title> in this file to find. Rename
+// them, indent them, or export them and metadata extraction fails the build.
+// ════════════════════════════════════════════════════════════════════════════
+
+const SITE = 'https://aicoachellavalley.org';
+
+const title = 'FAQ — AI Coachella Valley';
+const description =
+  'Answers to the questions people ask about AI Coachella Valley: what it does, who it serves, how it is funded, its relationship with Desert Community Foundation, and how to take part.';
+
+// DERIVED from src/data/faq.ts — the same array the visible list renders from,
+// so the machine-readable copy cannot drift from the page. This is the reason
+// the page is an Astro route and not hand-written HTML: index.astro's JSON-LD
+// is `is:inline`, which Astro does NOT interpolate, and that limitation is why
+// prepare-feeds.mjs carries an identity guard for the homepage instead of
+// importing its data. `set:html` is the pattern that does interpolate — proven
+// in NewsLayout and /events.
+//
+// @id follows the convention every FAQPage on this domain already uses:
+// <page URL>#faq. Twenty-four nodes carried it when this page was added —
+// 22 × /news/<slug>#faq, plus /#faq and /philanthropy#faq.
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  '@id': `${SITE}/faq#faq`,
+  url: `${SITE}/faq`,
+  name: 'Frequently asked questions',
+  isPartOf: { '@type': 'WebSite', '@id': `${SITE}/#website` },
+  about: { '@id': `${SITE}/#organization` },
+  mainEntity: faq.map((f) => ({
+    '@type': 'Question',
+    name: f.question,
+    acceptedAnswer: { '@type': 'Answer', text: f.answer },
+  })),
+};
+---
+
+<NewsLayout
+  title={title}
+  description={description}
+  canonical={`${SITE}/faq`}
+  schema={schema}
+  navActive={null}
+>
+  <section class="page">
+    <div class="page__inner">
+      <span class="eyebrow">FAQ</span>
+      <h1 class="page__title">Questions, answered.</h1>
+      <p class="page__lede">
+        What AI Coachella Valley is, who it serves, how it is funded, and how to take part.
+      </p>
+
+      {/* ⚠ .faq-card*, NOT .faq-* — and the difference is load-bearing.
+          .faq-* on this site is index.astro's bordered-row FAQ; this is
+          philanthropy's icon-led card component, which moved into shared.css
+          under its own name so promoting it could not restyle the homepage.
+          See the FAQ CARDS block in public/styles/shared.css. */}
+      <div class="faq-cards">
+        {
+          faq.map((f) => (
+            <details class="faq-card">
+              <summary class="faq-card__q">
+                {/* Same mark philanthropy uses, so the two card FAQs read as
+                    one component rather than two that merely resemble each
+                    other. aria-hidden: it is decoration, and the question text
+                    beside it is the accessible name. */}
+                <svg
+                  class="faq-card__icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M21 11.5a8.4 8.4 0 0 1-12.3 7.5L3 21l2-5.7A8.4 8.4 0 1 1 21 11.5z" />
+                </svg>
+                {/* Interpolated, NOT set:html — no question contains markup, and a
+                    plain-text field should not be trusted as HTML. Astro escapes the
+                    apostrophe here, so five questions ship as "AICV&#39;s" where the
+                    homepage's hand-written HTML has a literal one. Decoded text and
+                    both JSON-LD mirrors are identical; see the note in data/faq.ts. */}
+                <span class="faq-card__txt">{f.question}</span>
+                <span class="faq-card__plus">+</span>
+              </summary>
+              {/* ⚠ set:html, NOT {f.answer}. One entry — "Who funds AICV?" —
+                  carries <br><br>, and it is the only markup in any of the 28
+                  strings. Interpolating would ship the tag as visible text on
+                  that entry while the JSON-LD kept emitting it as markup, so
+                  the two copies of the same answer would disagree. */}
+              <p class="faq-card__a" set:html={f.answer} />
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</NewsLayout>

@@ -95,6 +95,26 @@ export const pages: SitePage[] = [
     llms: `AI events in the Coachella Valley from AI Coachella Valley, held at the Entrepreneurial Resource Center (ERC) in Palm Desert: a dated record of ${sessionCount} past sessions grouped by series. Upcoming sessions and events are announced at https://aicoachellavalley.org/news`,
   },
   {
+    // Added 2026-08-28. The fourteen questions were homepage-only until now,
+    // reachable only by scrolling past six sections — so an agent asked a
+    // direct question had no URL to land on and no answer page to cite.
+    //
+    // ⚠ Keep `path` and `file` on ADJACENT lines: prepare-feeds.mjs pairs them
+    // with a regex over this source, and a comment between the two makes the
+    // pair invisible to it — the entry then silently misses every feed while
+    // the page stays live. Gate 2 anchors the pair count to the `path:` count
+    // so that failure is now caught by name, but the rule still holds.
+    path: '/faq',
+    file: 'src/pages/faq.astro',
+    lastmod: '2026-08-28',
+    changefreq: 'monthly',
+    priority: 0.7,
+    // States what the page ANSWERS, not that it is an FAQ — an agent reading
+    // llms.txt is deciding whether this URL holds the answer it needs.
+    llms:
+      "the fourteen questions AICV is actually asked: what it is and does, its relationship with fiscal sponsor Desert Community Foundation, the .org/.com distinction, who it serves, its nine-city scope, who funds it, and how institutions and individuals take part. Each answer is also emitted as a FAQPage Question node",
+  },
+  {
     path: '/philanthropy',
     file: 'public/philanthropy.html',
     lastmod: '2026-07-22',
