@@ -764,26 +764,6 @@ const fmt = (d) =>
     }
 
     /* ════════════════════════════════════════
-       STATS
-    ════════════════════════════════════════ */
-    /* Slimmed 2026-08-12. This padding framed a four-cell grid; the band is
-       now a single affiliation line and the old spacing left it floating in
-       an empty dark block. */
-    .stats {
-      background: var(--c-ground);
-      padding: var(--s-5) var(--gutter);
-    }
-    .stats__affil {
-      text-align: center;
-      font-size: var(--fs-12);
-      color: var(--c-on-ground-m);
-      max-width: var(--max-w);
-      margin-left: auto;
-      margin-right: auto;
-    }
-    .stats__affil strong { color: var(--c-on-ground); font-weight: 500; }
-
-    /* ════════════════════════════════════════
        PROGRAMS
     ════════════════════════════════════════ */
     .programs-intro {
@@ -873,6 +853,15 @@ const fmt = (d) =>
     }
     .prog-card--featured .prog-tagline { color: var(--c-text); }
 
+    /* ⚠ PARKED, NOT DEAD — no consumer today, and that is deliberate. Card 2
+       carried the only .prog-shot on this page; it was removed 2026-08-26 so all
+       three program cards would render text-only rather than one of three having
+       a screenshot. The rule stays because the images are coming back — the
+       condition is a screenshot for ALL THREE cards, not one.
+
+       A dead-CSS sweep will keep finding this rule with zero consumers. It was
+       already checked and kept once, in the sweep of 2026-08-28. Deleting it
+       reverses a decision rather than fixing a drift. */
     .prog-shot {
       display: block;
       width: 100%;
@@ -950,45 +939,23 @@ const fmt = (d) =>
     /* ════════════════════════════════════════
        FOUNDER
     ════════════════════════════════════════ */
-    .founder-layout {
-      display: grid;
-      grid-template-columns: 290px 1fr;
-      gap: var(--s-10);
-      align-items: start;
-    }
-    /* 168px, not the 290px original: the photo is now a credential beside three
-       lines rather than a portrait beside four paragraphs. Same aspect ratio and
-       same volt caption; only the column narrows. Copy pass 2026-08-17.
-       ⚠ MUST STAY AFTER .founder-layout. Same specificity (0,1,0), so SOURCE
-       ORDER decides — placed above the base rule it lost silently and the
-       column stayed 290px. The build was green and the DOM assertion caught
-       it, not the compiler. This is the source-order trap HANDOFF.md warns
-       about, hit a fourth time. */
-    .founder-layout--compact { grid-template-columns: 168px 1fr; }
+    /* ⚠ SOURCE ORDER DECIDES AT EQUAL SPECIFICITY — the trap HANDOFF.md warns
+       about, hit four times in this file. A modifier placed ABOVE the base rule
+       it modifies loses silently: same specificity (0,1,0), so the later rule
+       wins and the earlier one has no effect. The build stays green; only a
+       computed-style assertion catches it, never the compiler.
 
-    .founder-img-wrap { position: relative; }
-    .founder-img {
-      width: 100%;
-      aspect-ratio: 4 / 5;
-      object-fit: cover;
-      filter: grayscale(12%);
-    }
-    .founder-credential {
-      position: absolute; bottom: 0; left: 0; right: 0;
-      background: var(--c-accent-fill);
-      padding: 9px 14px;
-      font-size: var(--fs-10);
-      font-weight: 500;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--c-text);
-    }
+       The rules that taught this (.founder-layout / --compact) were deleted
+       2026-08-27 as dead CSS, and the lesson is kept here on purpose because it
+       belongs to the file, not to those two rules. Put modifiers after bases. */
+
     .founder-bio {
-      /* Was measured by the two-column .founder-layout grid, whose classes were
-         dropped 2026-08-27 with the photo. Carries its own measure now — the
-         same sentence, and the same 62ch, as .pledge-copy, which lost its grid
-         the same way in 2026-08-05. Identical type here and there (--fs-15,
-         weight 300, line-height 1.75), so the two measures should stay equal. */
+      /* Was measured by the two-column .founder-layout grid. The photo went
+         2026-08-27, its classes went with it, and the rules were deleted in the
+         dead-CSS sweep the same day. Carries its own measure now — the same
+         sentence, and the same 62ch, as .pledge-copy, which lost its grid the
+         same way in 2026-08-05. Identical type here and there (--fs-15, weight
+         300, line-height 1.75), so the two measures should stay equal. */
       max-width: 62ch;
       font-size: var(--fs-15);
       font-weight: 300;
@@ -998,26 +965,6 @@ const fmt = (d) =>
     }
     .founder-bio a { color: var(--c-accent-text); text-decoration: none; }
     .founder-bio a:hover { text-decoration: underline; }
-    .founder-sig {
-      margin-top: var(--s-3);
-      font-family: 'EB Garamond', Georgia, serif;
-      font-size: 17px;
-      font-style: italic;
-      color: var(--c-accent-text);
-    }
-    .founder-sig strong {
-      display: block;
-      font-family: 'DM Sans', sans-serif;
-      font-style: normal;
-      font-weight: 600;
-      font-size: var(--fs-13);
-      color: var(--c-text);
-      margin-top: 3px;
-    }
-    .founder-sig span {
-      font-weight: 300;
-      color: var(--c-text-l);
-    }
     .footer__desc {
       font-size: var(--fs-12);
       font-weight: 300;
@@ -1034,8 +981,6 @@ const fmt = (d) =>
       margin-bottom: 16px;
     }@media (max-width: 640px) {
       .prog-grid     { grid-template-columns: 1fr; }
-      .founder-layout { grid-template-columns: 1fr; }
-      .founder-img-wrap { max-width: 220px; }
     }
 
     /* ─── PARTNER GROUPS (ported from ai-readiness) ─── */
@@ -1446,15 +1391,12 @@ const fmt = (d) =>
          records the same cause (a two-column grid removed, prose left to measure
          itself). Full 1080px would be far too wide to read.
 
-         The two divs below are now inert. They are kept only because removing
-         them was not in scope; the three paragraphs need no wrapper. */}
-    <div>
-      <div>
-        <p class="founder-bio"><strong>Sat Singh</strong> — Founder, AI Coachella Valley. <a href="https://www.youtube.com/watch?v=oYG2kFC2_D4" target="_blank" rel="noopener">TEDx Rancho Mirage speaker</a>, August 2025.</p>
-        <p class="founder-bio">Since April 2025, AICV has run {sessionCount} public sessions across the valley — workshops, meetups, and hands-on build days, kept as a <a href="/events">dated public record</a>.</p>
-        <p class="founder-bio"><a href="/author/sat-singh">About Sat Singh &rarr;</a></p>
-      </div>
-    </div>
+         The two classless wrapper divs that survived that change were removed in
+         the dead-CSS sweep of 2026-08-28. Nothing targeted them and neither
+         contributed layout, so the paragraphs are direct children of .wrap. */}
+    <p class="founder-bio"><strong>Sat Singh</strong> — Founder, AI Coachella Valley. <a href="https://www.youtube.com/watch?v=oYG2kFC2_D4" target="_blank" rel="noopener">TEDx Rancho Mirage speaker</a>, August 2025.</p>
+    <p class="founder-bio">Since April 2025, AICV has run {sessionCount} public sessions across the valley — workshops, meetups, and hands-on build days, kept as a <a href="/events">dated public record</a>.</p>
+    <p class="founder-bio"><a href="/author/sat-singh">About Sat Singh &rarr;</a></p>
   </div>
 </section>
 

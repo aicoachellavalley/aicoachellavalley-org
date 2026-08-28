@@ -553,19 +553,6 @@
   border-top: 1px solid var(--c-border-l);
 }
 
-/* ── placeholder banner ────────────────────────────────────────────────── */
-.placeholder-note {
-  background: var(--c-surface);
-  border: 1px solid var(--c-border);
-  border-left: 3px solid var(--c-accent-fill);
-  border-radius: 3px;
-  padding: var(--s-4);
-  margin: 0 0 var(--s-8);
-  font-size: var(--fs-13);
-  line-height: 1.7;
-  color: var(--c-text-l);
-}
-
 /* ── /author/<slug> ────────────────────────────────────────────────────────
    Additions only, built on the same tokens. Everything else on the author
    page reuses .page, .page__narrow, .page__title, .page__lede, .article__body,

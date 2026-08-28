@@ -14,8 +14,10 @@ import data from '../data/events.json';
 // VERBATIM; only three things changed, and all three are additive:
 //
 //   1. the hand-written EventSeries JSON-LD became a derived @graph
-//   2. the Luma iframe gained an "Upcoming" heading
-//   3. the record — SECTION 3 — is new
+//   2. the Luma iframe gained an "Upcoming" heading — THE IFRAME AND ITS HEADING
+//      ARE BOTH GONE as of 2026-08-27: /events is a record, not a calendar. The
+//      ruling is in the markup where that section was.
+//   3. the record — now SECTION 2 — is new
 //
 // WHY THIS IS AN ASTRO PAGE AND NOT STATIC HTML:
 // index.astro's JSON-LD is `is:inline`, which Astro does NOT interpolate — that
@@ -232,31 +234,7 @@ const schema = {
       margin-bottom: var(--s-2);
     }
 
-    /* ════════════════════════════════════════
-       CALENDAR BAND
-    ════════════════════════════════════════ */
-    /* ⚠ ORPHANED 2026-08-27 — the four .calendar-band rules below have ZERO
-       consumers. The Luma embed they styled was removed on the ruling that this
-       page is a record, not a calendar; see the note where the section was.
-       Kept rather than deleted so the removal is legible from the stylesheet
-       too, and because nothing here is costly. Delete them freely if a later
-       pass is tidying dead CSS — but do NOT restore markup to match them. */
-    .calendar-band {
-      background: var(--c-paper);
-      padding: var(--s-8) var(--gutter) var(--s-10);
-    }
-    .calendar-band__inner {
-      max-width: 900px;
-      margin: 0 auto;
-    }
-    .calendar-band__inner iframe {
-      display: block;
-      width: 100%;
-      border: 1px solid var(--c-border);
-      border-radius: 12px;
-    }
       /* ════════════════════════════════════════ THE RECORD ════════════════════════════════════════ */
-      .calendar-band__title {font-size: var(--fs-22); color: var(--c-text); letter-spacing: -0.01em; margin-bottom: var(--s-3);}
       .record {background: var(--c-surface); border-top: 1px solid var(--c-border); padding: var(--s-10) var(--gutter) var(--s-14);}
       .record__inner {max-width: 760px; margin: 0 auto;}
       .record__title {font-size: var(--fs-h2); color: var(--c-text); letter-spacing: -0.02em; line-height: 1.1;}
@@ -269,8 +247,8 @@ const schema = {
          LABEL over a session list, paired with a "N SESSIONS" count, and in Bebas
          it rendered louder than the session titles beneath it — the label shouting
          over the thing it labels.
-         .record__title and .calendar-band__title on this page stay Bebas: those
-         are the page's own structure. See the rule in shared.css. */
+         .record__title on this page stays Bebas: it is the page's own
+         structure. See the rule in shared.css. */
       font-family: 'EB Garamond', Georgia, serif;
       font-weight: 700;
       line-height: 1.12;
@@ -342,8 +320,9 @@ font-size: var(--fs-22); color: var(--c-text); letter-spacing: -0.01em;}
      calendar_id, which is provenance for where the 42 rows were assembled from,
      not a live dependency.
 
-     Four .calendar-band rules above are now orphaned and were deliberately NOT
-     deleted; see the note at .calendar-band. -->
+     The four .calendar-band rules that styled it were left in place at first and
+     then deleted in the dead-CSS sweep of 2026-08-28. Nothing in the stylesheet
+     refers to a calendar any more; this note is the whole record. -->
 
 <!-- SECTION 2 — THE RECORD -->
 <section class="record">
