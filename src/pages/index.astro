@@ -1124,7 +1124,7 @@ const fmt = (d) =>
       <li><a href="#programs">Programs</a></li>
       <li><a href="/events">Events</a></li>
       <li><a href="/news">News</a></li>
-      <li><a href="#founder">About</a></li>
+      <li><a href="/author/sat-singh">About</a></li>
     </ul>
     <button class="nav__hamburger" id="nav-toggle" aria-label="Open menu" onclick="this.classList.toggle('is-open');document.getElementById('nav-drawer').classList.toggle('is-open')">
       <span></span><span></span><span></span>
@@ -1137,7 +1137,7 @@ const fmt = (d) =>
   <a href="#programs" onclick="document.getElementById('nav-drawer').classList.remove('is-open');document.getElementById('nav-toggle').classList.remove('is-open')">Programs</a>
   <a href="/events" onclick="document.getElementById('nav-drawer').classList.remove('is-open');document.getElementById('nav-toggle').classList.remove('is-open')">Events</a>
   <a href="/news" onclick="document.getElementById('nav-drawer').classList.remove('is-open');document.getElementById('nav-toggle').classList.remove('is-open')">News</a>
-  <a href="#founder" onclick="document.getElementById('nav-drawer').classList.remove('is-open');document.getElementById('nav-toggle').classList.remove('is-open')">About</a>
+  <a href="/author/sat-singh" onclick="document.getElementById('nav-drawer').classList.remove('is-open');document.getElementById('nav-toggle').classList.remove('is-open')">About</a>
 </div>
 
 <!-- ── HERO ── -->
@@ -1419,15 +1419,22 @@ const fmt = (d) =>
   <div class="wrap">
     <span class="eyebrow">Who Runs AICV</span>
     <h2 class="h2">One person, in rooms, since 2025.</h2>
+    {/* ⚠ THE PHOTO WAS REMOVED — 2026-08-27. Do not re-add an image here.
+
+         /sat-tedx.png is a 1024x1024 stage shot, not a portrait crop, and no
+         portrait of Sat exists in public/. The same asset was removed from
+         /author/sat-singh earlier for the same reason plus a CLS defect, and
+         this section was the last place it rendered. The FILE STAYS in public/:
+         it is still this page's og:image, where a stage shot is the right thing.
+
+         THE TEDx CREDENTIAL IS NOT LOST. It moved out of the photo's caption and
+         into the first bio line as a text link, carrying the same date. A caption
+         needs something to caption; the credential does not. */}
     <div class="founder-layout founder-layout--compact">
-      <div class="founder-img-wrap">
-        <img src="/sat-tedx.png" class="founder-img" alt="Sat Singh speaking at TEDx Rancho Mirage, August 2025">
-        <div class="founder-credential"><a href="https://www.youtube.com/watch?v=oYG2kFC2_D4" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;text-decoration-color:rgba(0,0,0,0.3);">TEDx Rancho Mirage · August 2025 ↗</a></div>
-      </div>
       <div>
-        <p class="founder-bio"><strong>Sat Singh</strong> — Founder, AI Coachella Valley. TEDx Rancho Mirage speaker.</p>
+        <p class="founder-bio"><strong>Sat Singh</strong> — Founder, AI Coachella Valley. <a href="https://www.youtube.com/watch?v=oYG2kFC2_D4" target="_blank" rel="noopener">TEDx Rancho Mirage speaker</a>, August 2025.</p>
         <p class="founder-bio">Since April 2025, AICV has run {sessionCount} public sessions across the valley — workshops, meetups, and hands-on build days, kept as a <a href="/events">dated public record</a>.</p>
-        <p class="founder-bio"><a href="/author/sat-singh">Full bio &rarr;</a></p>
+        <p class="founder-bio"><a href="/author/sat-singh">About Sat Singh &rarr;</a></p>
       </div>
     </div>
   </div>
@@ -1450,8 +1457,7 @@ const fmt = (d) =>
           <li><a href="/events">Events</a></li>
           <li><a href="/news">News</a></li>
           <li><a href="/pledge">Responsible AI Pledge</a></li>
-          <li><a href="#founder">About AICV</a></li>
-          <li><a href="/author/sat-singh">Founder</a></li>
+          <li><a href="/author/sat-singh">About AICV</a></li>
         </ul>
       </div>
       <div>

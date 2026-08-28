@@ -2,6 +2,7 @@
 import NewsLayout from '../../layouts/NewsLayout.astro';
 import { getCollection } from 'astro:content';
 import { person } from '../../data/people';
+import eventsData from '../../data/events.json';
 
 // ════════════════════════════════════════════════════════════════════════════
 // /author/sat-singh — the destination article bylines resolve to.
@@ -23,6 +24,13 @@ import { person } from '../../data/people';
 
 const SITE = 'https://aicoachellavalley.org';
 const p = person('sat-singh');
+
+// DERIVED, never typed — the same rule the homepage and /events follow. Both
+// numbers come from src/data/events.json, so the bio cannot drift from the
+// record it describes. seriesCount counts DISTINCT series values, which is the
+// same derivation /events uses to build its six section headings.
+const sessionCount = eventsData.events.length;
+const seriesCount = new Set(eventsData.events.map((e) => e.series)).size;
 
 const articles = (await getCollection('news'))
   .filter((a) => !a.data.draft && a.data.author === p.slug)
@@ -100,6 +108,13 @@ const schema = {
           The TEDx link is NOT lost. It survives twice on this page: in the
           bio prose and in "Elsewhere", which is its natural home. */}
 
+      {/* ⚠ OUTSIDE .article__body ON PURPOSE. news.css carries `.article__body h2`
+          at specificity (0,1,1), which beats the `.h2` class at (0,1,0) and would
+          replace its margin with `1.1em 0 0.45em` — the in-article heading rhythm,
+          not the section-label one this is. Moving it inside that div changes how
+          it sits without changing a single character of markup. */}
+      <h2 class="h2">How this started</h2>
+
       <div class="article__body">
         {/* ⚠ NO INFORMEDIE HERE. This sentence opened "Sat Singh covers the AI beat
             for the Inland Empire at InformedIE." Removed 2026-08-17 under the founder
@@ -108,18 +123,83 @@ const schema = {
             node and people.json in 0ef39bc; this was the last mention on the property,
             and prose is where a reader actually sees it. Do not re-add when the domain
             launches — link to it from SunshineFM instead. */}
+        {/* ⚠ THE ONE-LINE PARAGRAPHS ARE PACING, NOT ACCIDENTS. "For a while, he
+            thought artificial intelligence might be the catalyst.", "Then ChatGPT
+            arrived in November 2022.", "The concern was what would happen next.",
+            "It never really took.", "In 2025, the writing became rooms." — each is
+            its own beat and each stands alone deliberately. Do not merge them into
+            the paragraphs around them to tidy the markup. */}
+        <p>Sat Singh founded AI Coachella Valley in 2025, but the idea behind it had been forming for years.</p>
         <p>
-          Sat Singh writes about AI, business, media, and culture in the Coachella Valley at
-          <a href="/news">AICV News</a>, and hosts a daily talk show and weekend radio for
-          Palm Springs Coachella at
-          <a href="https://sunshine.fm/" target="_blank" rel="noopener">SunshineFM</a>.
+          He has spent most of his life starting things — sometimes on his own, sometimes with
+          partners, sometimes from inside larger companies. The industries changed, but the instinct
+          was usually the same: see something that could exist, then try to make it real.
         </p>
         <p>
-          AICV was founded by Sat Singh — a
+          After co-founding a gaming studio that was acqui-hired by King.com, Sat spent close to
+          fifteen years wanting to build a founders' studio in the Coachella Valley — a physical
+          place where people came to make things, not simply serve the people who came to visit.
+        </p>
+        <p>For a while, he thought artificial intelligence might be the catalyst.</p>
+        <p>
+          Between 2014 and 2016, he built and funded startups around natural language and machine
+          learning, working with the early Alexa, Google Home and DeepMind era. After three years,
+          the conclusion was fairly clear. The idea was ahead of the technology.
+        </p>
+        <p>Then ChatGPT arrived in November 2022.</p>
+        <p>
+          Having spent years around an earlier, underpowered version of the same promise, Sat
+          recognized immediately that something had changed.
+        </p>
+        <p>
+          His concern was not whether the Coachella Valley had access to AI. For once, everyone had
+          access at the same time.
+        </p>
+        <p>The concern was what would happen next.</p>
+        <p>
+          The desert has often been late to adopting new technologies in meaningful ways — not
+          because the tools are unavailable, but because institutions, businesses and communities
+          take longer to understand how to use them. Sat did not want AI to follow the same pattern.
+        </p>
+        <p>
+          So throughout 2023, he tried to convince local cities and regional organizations to
+          approach AI collectively: learn together, experiment together and avoid falling behind one
+          organization at a time.
+        </p>
+        <p>It never really took.</p>
+        <p>
+          In 2024, he changed tactics and started writing instead — documenting AI through the lens
+          of the Coachella Valley and trying to make an unfamiliar technology useful and
+          understandable locally.
+        </p>
+        <p>In 2025, the writing became rooms.</p>
+        <p>
+          Beginning that April, Sat started running hands-on AI workshops at the CSUSB Palm Desert
+          Entrepreneurial Resource Center. Those sessions became AI Coachella Valley.
+        </p>
+        <p>
+          Since then, AICV has run {sessionCount} sessions across {seriesCount} series, become an
+          official affiliate of the ERC, launched
+          <a href="https://coachella-valley.aitinkerers.org" target="_blank" rel="noopener"
+            >AI Tinkerers Coachella Valley</a
+          > — the region's chapter of the global AI builders' community — and begun The AI Beat,
+          grant-funded regional reporting on how artificial intelligence is changing the Inland
+          Empire.
+        </p>
+        <p>
+          Sat spoke at
           <a href="https://www.youtube.com/watch?v=oYG2kFC2_D4" target="_blank" rel="noopener"
-            >TEDx Rancho Mirage speaker</a
-          >, community educator, and technology entrepreneur based in the Coachella Valley. He
-          previously co-founded a gaming studio acqui-hired by King.com.
+            >TEDx Rancho Mirage</a
+          > in August 2025. He works from a resident office at the ERC in Palm Desert and a home
+          studio in Rancho Mirage.
+        </p>
+        <p>
+          The founders' studio is still the idea. A physical place in the desert where founders,
+          builders and curious people come to make things.
+        </p>
+        <p>
+          AI Coachella Valley is the work of making sure that, when that room finally exists, the
+          region is ready for it.
         </p>
       </div>
 
