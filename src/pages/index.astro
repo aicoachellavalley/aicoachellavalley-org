@@ -984,6 +984,12 @@ const fmt = (d) =>
       color: var(--c-text);
     }
     .founder-bio {
+      /* Was measured by the two-column .founder-layout grid, whose classes were
+         dropped 2026-08-27 with the photo. Carries its own measure now — the
+         same sentence, and the same 62ch, as .pledge-copy, which lost its grid
+         the same way in 2026-08-05. Identical type here and there (--fs-15,
+         weight 300, line-height 1.75), so the two measures should stay equal. */
+      max-width: 62ch;
       font-size: var(--fs-15);
       font-weight: 300;
       color: var(--c-text);
@@ -1430,7 +1436,19 @@ const fmt = (d) =>
          THE TEDx CREDENTIAL IS NOT LOST. It moved out of the photo's caption and
          into the first bio line as a text link, carrying the same date. A caption
          needs something to caption; the credential does not. */}
-    <div class="founder-layout founder-layout--compact">
+    {/* ⚠ THE GRID CLASSES WERE DROPPED HERE — 2026-08-27, with the photo.
+         .founder-layout / .founder-layout--compact made a two-column grid for a
+         photo beside text. With the photo gone there is one child, and the empty
+         168px track squeezed the prose into a narrow column beside nothing.
+
+         The measure did NOT go with them: .founder-bio now carries max-width 62ch
+         of its own, exactly as .pledge-copy does — same type, and its comment
+         records the same cause (a two-column grid removed, prose left to measure
+         itself). Full 1080px would be far too wide to read.
+
+         The two divs below are now inert. They are kept only because removing
+         them was not in scope; the three paragraphs need no wrapper. */}
+    <div>
       <div>
         <p class="founder-bio"><strong>Sat Singh</strong> — Founder, AI Coachella Valley. <a href="https://www.youtube.com/watch?v=oYG2kFC2_D4" target="_blank" rel="noopener">TEDx Rancho Mirage speaker</a>, August 2025.</p>
         <p class="founder-bio">Since April 2025, AICV has run {sessionCount} public sessions across the valley — workshops, meetups, and hands-on build days, kept as a <a href="/events">dated public record</a>.</p>
