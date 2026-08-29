@@ -1201,7 +1201,7 @@ const fmt = (d) =>
 <section class="section" id="founder">
   <div class="wrap">
     <span class="eyebrow">Who Runs AICV</span>
-    <h2 class="h2">One person, in rooms, since 2025.</h2>
+    <h2 class="h2">Sat Singh — Founder, AI Coachella Valley. Since 2025.</h2>
     {/* ⚠ THE PHOTO WAS REMOVED — 2026-08-27. Do not re-add an image here.
 
          /sat-tedx.png is a 1024x1024 stage shot, not a portrait crop, and no
@@ -1226,9 +1226,33 @@ const fmt = (d) =>
          The two classless wrapper divs that survived that change were removed in
          the dead-CSS sweep of 2026-08-28. Nothing targeted them and neither
          contributed layout, so the paragraphs are direct children of .wrap. */}
-    <p class="founder-bio"><strong>Sat Singh</strong> — Founder, AI Coachella Valley. <a href="https://www.youtube.com/watch?v=oYG2kFC2_D4" target="_blank" rel="noopener">TEDx Rancho Mirage speaker</a>, August 2025.</p>
-    <p class="founder-bio">Since April 2025, AICV has run {sessionCount} public sessions across the valley — workshops, meetups, and hands-on build days, kept as a <a href="/events">dated public record</a>.</p>
-    <p class="founder-bio"><a href="/author/sat-singh">About Sat Singh &rarr;</a></p>
+    {/* ⚠ THE COUNT INTERPOLATES — `{sessionCount}` comes from events.json via the
+         frontmatter, exactly as it did before this rewrite. Do NOT type the number.
+         It is INSIDE the /events link on purpose: the anchor text is the claim, so
+         the proof is one click from the figure rather than beside it.
+
+         ⚠ GATE 4 CANNOT SEE THIS LINE, and that is correct rather than a gap. Its
+         sweep matches a literal digit next to "sessions"; an interpolated count has
+         no literal to drift, which is the whole reason it is interpolated. The two
+         counts that gate DOES guard on this page are the "Has hosted …" sentence in
+         the JSON-LD founder node and the comment above the stat band. If this ever
+         becomes a typed number, it must be guarded — do not let it become one.
+
+         ⚠ That sentence deliberately carries NO FIGURE here. Gate 4 sweeps comments
+         as well as markup, so quoting the live number in this note would create a
+         second copy of it to keep in step — the exact defect the note is about.
+
+         ⚠ "AI workshops and sessions" describes the 42 COLLECTIVELY. It does not
+         claim 42 workshops, and it must not be reworded into one: events.json has no
+         field distinguishing a workshop from a meetup, which is why llms.txt says
+         "sessions" and why an unsourced workshop count was removed in 2026-08-11.
+         See the note in src/data/site-pages.ts before editing this phrase. */}
+    <p class="founder-bio">AICV has run <a href="/events">{sessionCount} AI workshops and sessions</a> across the valley, is an official affiliate of the ERC, launched <a href="https://coachella-valley.aitinkerers.org/" target="_blank" rel="noopener">AI Tinkerers Coachella Valley</a> — the region's chapter of the global AI builders' community — and begun The AI Beat, grant-funded regional reporting on how artificial intelligence is changing the Inland Empire.</p>
+    <p class="founder-bio">Sat spoke about AI at the inaugural <a href="https://www.youtube.com/watch?v=oYG2kFC2_D4" target="_blank" rel="noopener">TEDx Rancho Mirage</a> in August 2025.</p>
+    {/* ⚠ &rarr; NOT the literal arrow the other four links on this page use. This is
+         the SAME element relabelled, not a new one, so its encoding is left alone —
+         changing it would be an unrelated edit riding in a copy change. */}
+    <p class="founder-bio"><a href="/author/sat-singh">More on his founder story &rarr;</a></p>
   </div>
 </section>
 
