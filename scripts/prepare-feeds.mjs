@@ -22,8 +22,10 @@
 // already proven on .com (generate-stats.mjs -> stats.json).
 // ════════════════════════════════════════════════════════════════════════════
 
-import { readdirSync, readFileSync, writeFileSync } from 'node:fs';
-import { resolve, dirname, relative, sep, basename } from 'node:path';
+import { existsSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { resolve, dirname, relative, sep } from 'node:path';
+// `basename` was dropped 2026-08-29 with gate 5's layoutCarriers list — the
+// completeness check resolves import PATHS now, so no filename is ever compared.
 import { fileURLToPath } from 'node:url';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -57,6 +59,11 @@ if (declared.length === 0) fail('parsed zero `file:` entries from the manifest �
 // `excluded` with the reason it stays out. Same discipline that caught
 // /partner; now it covers both halves of the site.
 const walk = (dir, out = []) => {
+  // ⚠ TOLERATES A MISSING DIRECTORY, deliberately. src/components/ does not exist
+  // yet; gate 5 sweeps it anyway so that a footer component is gated the moment
+  // someone creates one, with nothing to remember. Without this guard readdirSync
+  // throws ENOENT and the build dies on a directory whose absence is normal.
+  if (!existsSync(dir)) return out;
   for (const e of readdirSync(dir, { withFileTypes: true })) {
     const full = resolve(dir, e.name);
     if (e.isDirectory()) walk(full, out);
@@ -548,6 +555,10 @@ console.log(
     ...readdirSync(publicDir).filter((f) => f.endsWith('.html')).map((f) => resolve(publicDir, f)),
     ...walk(resolve(root, 'src/pages')).filter((f) => f.endsWith('.astro')),
     ...walk(resolve(root, 'src/layouts')).filter((f) => f.endsWith('.astro')),
+    // src/components/ is swept BEFORE it exists. A shared footer component is the
+    // obvious next step, and the failure it would otherwise cause is silent: the
+    // component would hold the positioning line and nothing would check it.
+    ...walk(resolve(root, 'src/components')).filter((f) => f.endsWith('.astro')),
   ];
   // ⚠ MATCH THE MARKUP, NOT THE CLASS NAME. `.footer__tagline` also appears in
   // every carrier's stylesheet, so a bare substring test called a page a carrier
@@ -584,23 +595,60 @@ console.log(
 
   // COMPLETENESS — closes the shrinking-scope hole. Without this, deleting a
   // footer makes the gate pass over a smaller site and report success for it.
-  // A routable HTML surface must carry a footer OR import a layout that does.
-  const layoutCarriers = carriers
-    .filter((f) => relative(root, f).includes(`src${sep}layouts`))
-    .map((f) => basename(f, '.astro'));
+  // A routable HTML surface must carry the positioning line, or reach something
+  // that does.
+  //
+  // ⚠ REWRITTEN 2026-08-29 TO RESOLVE THE IMPORT GRAPH, because the old model
+  // could not see one hop further than a layout. It asked: does this file carry
+  // a footer, or does its text contain the FILENAME of a layout that does? That
+  // answers "page -> layout" and nothing else. Extract the footer into
+  // src/components/Footer.astro and the real chain becomes
+  //
+  //     news/index.astro  ->  NewsLayout.astro  ->  Footer.astro
+  //
+  // — two hops. news/index.astro never mentions Footer.astro, so the old check
+  // failed SIX of ten routable surfaces, four of which nobody had edited. Proved
+  // on a scratch copy 2026-08-29 before this rewrite; the shared-footer work is
+  // the reason it exists, and it lands FIRST so that migration is a copy change
+  // rather than a copy change plus a gate change plus six confusing failures.
+  //
+  // ⚠ RESOLVED PATHS, NOT FILENAMES. The old `s.includes(`${L}.astro`)` was
+  // satisfied by the string appearing anywhere — a comment naming a layout would
+  // have counted as importing it. This resolves each specifier against the
+  // importing file's own directory and requires the target to exist on disk.
+  //
+  // ⚠ THE `seen` SET IS NOT DEFENSIVE PROGRAMMING — IT IS THE TERMINATION
+  // CONDITION. Two components importing each other is a cycle, and astro would
+  // reject it, but this gate runs BEFORE astro: it must terminate on input astro
+  // has not seen yet, or the build hangs with no output instead of failing with
+  // a message. Keyed on resolved absolute paths so two different relative
+  // specifiers for one file are one node.
+  const astroImportsOf = (file) =>
+    [...readFileSync(file, 'utf8').matchAll(/from\s+['"]([^'"]+\.astro)['"]/g)]
+      .map((m) => resolve(dirname(file), m[1]))
+      .filter((p) => existsSync(p));
+
+  const reachesCarrier = (file, seen = new Set()) => {
+    const key = resolve(file);
+    if (seen.has(key)) return false;
+    seen.add(key);
+    if (CARRIES.test(readFileSync(file, 'utf8'))) return true;
+    return astroImportsOf(file).some((dep) => reachesCarrier(dep, seen));
+  };
+
   const routable = [
     ...readdirSync(publicDir).filter((f) => f.endsWith('.html')).map((f) => resolve(publicDir, f)),
     ...walk(resolve(root, 'src/pages')).filter((f) => f.endsWith('.astro')),
   ];
   for (const f of routable) {
-    const s = readFileSync(f, 'utf8');
     const rel = relative(root, f).split(sep).join('/');
-    const own = CARRIES.test(s);
-    const viaLayout = layoutCarriers.some((L) => s.includes(`${L}.astro`));
-    if (!own && !viaLayout)
+    if (!reachesCarrier(f))
       fail(
-        `positioning: ${rel} renders HTML but carries no footer and imports no layout that does.\n` +
-          `  It would ship without the positioning line, and this gate would not have noticed.`,
+        `positioning: ${rel} renders HTML but neither carries the positioning line nor\n` +
+          `  imports anything that does, at any depth.\n\n` +
+          `  It would ship without the positioning line, and this gate would not have\n` +
+          `  noticed. Give it a footer, or have it import a layout or component that\n` +
+          `  carries one.`,
       );
   }
 
