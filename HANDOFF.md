@@ -45,6 +45,16 @@ venue is what closes the "across the valley" forward claim in
 
 ### SEVEN GATES, all green — six print a line
 
+⚠ **The block below is a 2026-08-19 SNAPSHOT and four of its numbers have since
+moved.** Current, as of 2026-08-28: `@graph` **6** (not 7 — the homepage FAQPage
+was removed), coverage **13/13** routes with metadata for **7** (`/faq` was
+added), shared chrome **53** rules (the FAQ card component was promoted), and the
+events line now reads "all **5** session counts under src/ agree" because that
+sweep was widened from one file to the whole source tree. The gate SECTIONS are
+still seven — a transitional eighth existed in a working tree for one session and
+was deleted without ever being committed. Re-derive rather than trusting either
+list.
+
 ```
 ✓ identity      index.astro founder node matches people.json (9 fields, derived)
 ✓ events        42 sessions / 6 series; index.astro count agrees; @graph 7
@@ -153,14 +163,29 @@ failed afterwards and emitted no page. **Three instances now.** Run
 *How it was caught the last time:* the differential reported `/index.html` with
 **-219 elements and `body` falling to Times** — what a missing page looks like.
 
-**3. The `.hero` / `.hero::before` / `.faq-*` NAMING COLLISION.**
+**3. The `.hero` / `.hero::before` NAMING COLLISION.**
 Different components share one name across surfaces: index's photographic hero
-vs the dark heroes; index's bordered-row FAQ vs philanthropy's icon-led card
-FAQ. Also `.hero .h1`, `.section`, `.hero__subhead`.
-⚠ **The rename is STEP ONE of Pass 3.** Edit `.hero` or `.faq-*` for the
-homepage restructure first and the differential correctly flags a regression on
-**four pages nobody touched**, and you can no longer separate your change from
-the collision's fallout. Detail in playbook STATE.md.
+vs the dark heroes. Also `.hero .h1` and `.section`.
+⚠ **The rename is STEP ONE of Pass 3.** Edit `.hero` for the homepage
+restructure first and the differential correctly flags a regression on **four
+pages nobody touched**, and you can no longer separate your change from the
+collision's fallout. Detail in playbook STATE.md.
+
+✅ **`.faq-*` is RESOLVED** (2026-08-28, `71b66bd`) and pass 3 no longer owns it:
+philanthropy's card FAQ is now `shared.css`'s `.faq-cards` / `.faq-card` /
+`.faq-card__{q,icon,txt,plus,a}`, and `index.astro` keeps `.faq-*` untouched.
+⚠ The lesson generalises to the four rows left: **gate 6 would not have caught
+it.** It forbids re-declaring a shared rule IDENTICALLY, and these differ — so
+promoting under a shared name passes the duplication test while silently
+restyling the other surface. Measured before the rename: +40.2px per homepage
+FAQ entry, +563px on the section, with `index.astro` untouched.
+
+⚠ **`.hero__subhead` is NOT a collision** — measured 2026-08-28, five of its
+seven declarations are byte-identical across the four surfaces that declare it,
+and only `margin-top`/`margin-bottom` diverge (`--s-3` vs `--s-2` on partner).
+That is one-value drift and belongs with the pass-1 merges below, not here.
+`shared.css`'s header comment still mis-files it; playbook STATE.md has the
+measurement.
 
 **4. The COLLAPSE PLATEAU on article `h2` margin-top.**
 The paragraph above owns a 40px bottom margin and collapses against it. **Below
@@ -193,9 +218,20 @@ nothing changed). Values verified on disk 2026-08-19:
 | `.footer__col-label` | index `0.2em`, chrome `0.15em` | **`0.15em`** |
 | `.btn` transition | index/partner include `border-color`+`color`; chrome does not | **include them** |
 
-**FAQ — adopt philanthropy's card pattern on the homepage.** Founder ruling
-2026-08-19. Not started. ⚠ **It resolves half the `.faq-*` collision**, so it
-should be scoped WITH the rename rather than after it.
+**✅ FAQ — DONE 2026-08-28 (session B).** The homepage adopted the
+`.faq-cards` component, dropped from fourteen questions to **four** rendered
+from `src/data/faq.ts`, lost its FAQPage node (gate 4's homepage `@graph`
+invariant is now **6**, not 7), and gained an "All fourteen questions →" link to
+`/faq`. `src/data/faq.ts` is the single source; `index.astro` declares no FAQ
+strings and no `.faq-*` rules.
+
+The four are selected **by object reference**, not by index and not by text —
+they are declared once as named consts and appear in both `faq` and
+`homepageFaq`, so the two arrays cannot disagree about content. Which four, and
+the measurement behind the choice, is argued at that export.
+
+The transitional parity gate that held the two copies together was **deleted
+with them**, as its own header said it should be. It never reached a commit.
 
 **Hero + FAQ COPY still argues the retired ecosystem claim.** Already
 enumerated, needs a founder editorial pass — it is prose to be rewritten, not

@@ -1,5 +1,6 @@
 ---
 import sharedCss from '../../public/styles/shared.css?raw';
+import { homepageFaq } from '../data/faq';
 // ⚠ ?raw + set:html, NOT an Astro style-tag import. This block MUST stay is:inline:
 // (that sentence deliberately avoids writing the literal tag — a bare mention of it
 //  in a comment is what made an earlier parser swallow 7KB of frontmatter as CSS)
@@ -323,127 +324,8 @@ const fmt = (d) =>
           "value": "Live — active at aiqna.org as of 2026."
         },
         "dateModified": "2026-06-16"
-      },
-      {
-        "@type": "FAQPage",
-        "datePublished": "2026-04-23",
-        "dateModified": "2026-08-28",
-        "@id": "https://aicoachellavalley.org/#faq",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "What is AI Coachella Valley?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "AICV is the front door to AI in the Coachella Valley — for people and for AI systems. We run training and in-person events across the valley, and we publish what we learn so the region is readable to the systems that are increasingly how people find things."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "What is AICV's relationship with Desert Community Foundation?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "AICV is the first and only fiscally sponsored project of Desert Community Foundation, a 501(c)(3) nonprofit organization. DCF handles AICV's accounting, governance, and financial management, and all AICV funds are held by DCF and deployed against AICV's mission. Desert Community Foundation is the desert's only community foundation serving the Coachella Valley exclusively, established in 1999."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "What does AICV actually do?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "AICV works three ways — teaching, connecting, and reporting. It builds AI literacy and applied skills through AICV Workshops at the Entrepreneurial Resource Center (ERC) in Palm Desert. It connects the region's builders through AI Tinkerers Coachella Valley. And it reports on how AI is landing across the Inland Empire through The AI Beat, funded by the IE Journalism Innovation Hub+Fund, the Press Forward Inland Empire chapter."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "What's the relationship between aicoachellavalley.org and aicoachellavalley.com?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "They share a name and a founder, not a company. This site — the .org — is AICV, a fiscally sponsored project of Desert Community Foundation. Everything here is grant-funded: workshops, AI Tinkerers Coachella Valley, and The AI Beat. We also publish at aicv.co, which is part of the same project. aicoachellavalley.com is a commercial product of SunshineFM LLC, a separate company. If you're looking for the nonprofit work, you're in the right place."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Who is AICV's founder?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "AICV was founded by Sat Singh, a TEDx Rancho Mirage speaker, community educator, and technology entrepreneur based in the Coachella Valley. Sat hosts SunshineFM, weekend radio for Palm Springs Coachella. His TEDx Rancho Mirage talk — AI, Skynet, and why humans are losing the battle — is available on YouTube."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "What is the AICV Responsible AI Pledge?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "The AICV Responsible AI Pledge is a seven-principle commitment to using AI in ways that are human-centered, transparent, and grounded in the values of the Coachella Valley community. The Pledge invites students, educators, business owners, and community leaders to read, sign, and carry forward a shared standard for responsible AI practice in the region. The full pledge is published at aicoachellavalley.org/pledge."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Who does AICV serve?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Business owners who need to know what these tools actually do. Workers whose jobs are changing. Students and career-changers deciding what to learn next. Founders and technical builders already working here. AICV co-organizes AI Tinkerers Coachella Valley, the local chapter of a global builder network — connecting the people building with these tools to the people who need them is the point. Most people who walk into our sessions have never written a line of code. Some of them are sitting next to people who write it all day."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "I already build with AI — is there anything here for me?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Yes — AI Tinkerers Coachella Valley, the valley's chapter of the global hands-on builders' community: screened, demo-first, no pitches. Bring working code, show what you shipped, and connect with the region's serious builders. That room is also what powers AICV's mentorship — the people in it are who help train the valley's next generation. The chapter runs demo nights, build days, and a global hackathon, and it is open to join."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "What is AICV's geographic scope?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "AICV's mission covers the nine cities of the Coachella Valley — Desert Hot Springs, Cathedral City, Palm Springs, Rancho Mirage, Palm Desert, Indian Wells, La Quinta, Indio, and Coachella — along with the unincorporated and adjacent communities that are part of the region. To date, AICV has delivered programs in Palm Desert, Rancho Mirage, Palm Springs, and across the broader Inland Empire, with attendees joining from across the valley. Indio and Indian Wells are next on the programming roadmap. AICV is anchored at the Entrepreneurial Resource Center (ERC) in Palm Desert."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Who funds AICV?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "AICV is a fiscally sponsored project of Desert Community Foundation, a 501(c)(3) nonprofit organization. All grants are held and administered by DCF.<br><br>The AI Beat is funded by a grant from the IE Journalism Innovation Hub+Fund, the designated Press Forward Inland Empire chapter. AICV Workshops are supported by the Entrepreneurial Resource Center (ERC) at California State University, San Bernardino, where AICV is an official affiliate."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "How can institutions partner with AICV?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "AICV partners with foundations, civic institutions, academic programs, and corporate funders interested in regional AI readiness. Current pathways include program funding for workshop expansion, research collaboration on AI adoption and workforce readiness in the Inland Empire, joint programming with academic and journalism institutions, and grant collaboration aligned with AI-impact philanthropy. Institutional inquiries: sat@aicv.co."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "How can individuals support AICV's work?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Individuals can support AICV's mission through Desert Community Foundation — via donor-advised funds, family foundation grants, trust giving, and named scholarships. AICV's philanthropy page at aicoachellavalley.org/philanthropy outlines the pathways and the institutional fabric behind Coachella Valley giving."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Why does AICV exist now?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "The companies building frontier AI are committing significant philanthropic capital to help communities adapt to an AI-driven economy. The OpenAI Foundation has committed $250 million to research and support workers through AI's economic disruption, alongside its People-First AI Fund granting $40.5 million to more than 200 community nonprofits nationwide. Anthropic has committed $350 million across its Economic Futures Research Fund and Claude Corps, a national fellowship placing early-career workers inside community nonprofits. This capital is looking for credible, on-the-ground partners who can turn national commitment into local capacity. AICV exists to be that infrastructure for the Coachella Valley — the operation that ensures the region is positioned to participate as this funding moves from the coasts into communities like ours."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "How is AICV different from other economic-development efforts in the valley?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "We've held 42 sessions since April 2025. Most AI efforts in this region are announcements. Ours is a calendar you can look at, with a record of who showed up and what was covered."
-            }
-          }
-        ]
       }
+
     ]
   }
   </script>
@@ -707,7 +589,10 @@ const fmt = (d) =>
       text-transform: uppercase;
       color: var(--c-accent-text);
     }
-    .news-all {
+    /* Two consumers: the news section and the FAQ's link to /faq. One rule
+       rather than two identical ones — same component, same page. */
+    .news-all,
+    .faq-all {
       display: inline-block;
       margin-top: 24px;
       font-size: var(--fs-13);
@@ -717,7 +602,8 @@ const fmt = (d) =>
       color: var(--c-accent-text);
       text-decoration: none;
     }
-    .news-all:hover { text-decoration: underline; text-underline-offset: 3px; }@media (max-width: 700px) {
+    .news-all:hover,
+    .faq-all:hover { text-decoration: underline; text-underline-offset: 3px; }@media (max-width: 700px) {
       .hero { min-height: 460px; }
       .hero::before {
         /* Re-derived for a hero with NO band beneath the type. The chain shipped
@@ -1021,44 +907,6 @@ const fmt = (d) =>
     @media (max-width: 640px) {
       .partners-grid { grid-template-columns: 1fr; }
       .partner-card--tall { grid-row: auto; }
-    }
-
-    /* ─── FAQ ACCORDION ─── */
-    .faq-item {
-      border-bottom: 1px solid var(--c-border);
-      padding: var(--s-3) 0;
-    }
-    /* Bebas: this is document structure (a question heading), not a component
-       label. See the system note on h1,h2,h3 in shared.css. */
-    .faq-q {
-      font-family: 'Bebas Neue', Impact, sans-serif;
-      font-size: var(--fs-22);
-      font-weight: 600;
-      color: var(--c-text);
-      cursor: pointer;
-      list-style: none;
-      position: relative;
-      padding-right: var(--s-5);
-    }
-    .faq-q::-webkit-details-marker { display: none; }
-    .faq-q::after {
-      content: '+';
-      position: absolute;
-      right: 0;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--c-accent-text);
-      font-weight: 400;
-      font-size: var(--fs-22);
-    }
-    details[open] .faq-q::after { content: '−'; }
-    .faq-a {
-      font-size: var(--fs-15);
-      font-weight: 300;
-      color: var(--c-text);
-      line-height: 1.75;
-      margin-top: var(--s-2);
-      max-width: 70ch;
     }`}></style>
 </head>
 <body>
@@ -1273,62 +1121,46 @@ const fmt = (d) =>
   <div class="wrap">
     <span class="eyebrow">FAQ</span>
     <h2 class="h2">Questions, answered.</h2>
-    <details class="faq-item">
-      <summary class="faq-q">What is AI Coachella Valley?</summary>
-      <p class="faq-a">AICV is the front door to AI in the Coachella Valley — for people and for AI systems. We run training and in-person events across the valley, and we publish what we learn so the region is readable to the systems that are increasingly how people find things.</p>
-    </details>
-    <details class="faq-item">
-      <summary class="faq-q">What is AICV's relationship with Desert Community Foundation?</summary>
-      <p class="faq-a">AICV is the first and only fiscally sponsored project of Desert Community Foundation, a 501(c)(3) nonprofit organization. DCF handles AICV's accounting, governance, and financial management, and all AICV funds are held by DCF and deployed against AICV's mission. Desert Community Foundation is the desert's only community foundation serving the Coachella Valley exclusively, established in 1999.</p>
-    </details>
-    <details class="faq-item">
-      <summary class="faq-q">What does AICV actually do?</summary>
-      <p class="faq-a">AICV works three ways — teaching, connecting, and reporting. It builds AI literacy and applied skills through AICV Workshops at the Entrepreneurial Resource Center (ERC) in Palm Desert. It connects the region's builders through AI Tinkerers Coachella Valley. And it reports on how AI is landing across the Inland Empire through The AI Beat, funded by the IE Journalism Innovation Hub+Fund, the Press Forward Inland Empire chapter.</p>
-    </details>
-    <details class="faq-item">
-      <summary class="faq-q">What's the relationship between aicoachellavalley.org and aicoachellavalley.com?</summary>
-      <p class="faq-a">They share a name and a founder, not a company. This site — the .org — is AICV, a fiscally sponsored project of Desert Community Foundation. Everything here is grant-funded: workshops, AI Tinkerers Coachella Valley, and The AI Beat. We also publish at aicv.co, which is part of the same project. aicoachellavalley.com is a commercial product of SunshineFM LLC, a separate company. If you're looking for the nonprofit work, you're in the right place.</p>
-    </details>
-    <details class="faq-item">
-      <summary class="faq-q">Who is AICV's founder?</summary>
-      <p class="faq-a">AICV was founded by Sat Singh, a TEDx Rancho Mirage speaker, community educator, and technology entrepreneur based in the Coachella Valley. Sat hosts SunshineFM, weekend radio for Palm Springs Coachella. His TEDx Rancho Mirage talk — AI, Skynet, and why humans are losing the battle — is available on YouTube.</p>
-    </details>
-    <details class="faq-item">
-      <summary class="faq-q">What is the AICV Responsible AI Pledge?</summary>
-      <p class="faq-a">The AICV Responsible AI Pledge is a seven-principle commitment to using AI in ways that are human-centered, transparent, and grounded in the values of the Coachella Valley community. The Pledge invites students, educators, business owners, and community leaders to read, sign, and carry forward a shared standard for responsible AI practice in the region. The full pledge is published at aicoachellavalley.org/pledge.</p>
-    </details>
-    <details class="faq-item">
-      <summary class="faq-q">Who does AICV serve?</summary>
-      <p class="faq-a">Business owners who need to know what these tools actually do. Workers whose jobs are changing. Students and career-changers deciding what to learn next. Founders and technical builders already working here. AICV co-organizes AI Tinkerers Coachella Valley, the local chapter of a global builder network — connecting the people building with these tools to the people who need them is the point. Most people who walk into our sessions have never written a line of code. Some of them are sitting next to people who write it all day.</p>
-    </details>
-    <details class="faq-item">
-      <summary class="faq-q">I already build with AI — is there anything here for me?</summary>
-      <p class="faq-a">Yes — AI Tinkerers Coachella Valley, the valley's chapter of the global hands-on builders' community: screened, demo-first, no pitches. Bring working code, show what you shipped, and connect with the region's serious builders. That room is also what powers AICV's mentorship — the people in it are who help train the valley's next generation. The chapter runs demo nights, build days, and a global hackathon, and it is open to join.</p>
-    </details>
-    <details class="faq-item">
-      <summary class="faq-q">What is AICV's geographic scope?</summary>
-      <p class="faq-a">AICV's mission covers the nine cities of the Coachella Valley — Desert Hot Springs, Cathedral City, Palm Springs, Rancho Mirage, Palm Desert, Indian Wells, La Quinta, Indio, and Coachella — along with the unincorporated and adjacent communities that are part of the region. To date, AICV has delivered programs in Palm Desert, Rancho Mirage, Palm Springs, and across the broader Inland Empire, with attendees joining from across the valley. Indio and Indian Wells are next on the programming roadmap. AICV is anchored at the Entrepreneurial Resource Center (ERC) in Palm Desert.</p>
-    </details>
-    <details class="faq-item">
-      <summary class="faq-q">Who funds AICV?</summary>
-      <p class="faq-a">AICV is a fiscally sponsored project of Desert Community Foundation, a 501(c)(3) nonprofit organization. All grants are held and administered by DCF.<br><br>The AI Beat is funded by a grant from the IE Journalism Innovation Hub+Fund, the designated Press Forward Inland Empire chapter. AICV Workshops are supported by the Entrepreneurial Resource Center (ERC) at California State University, San Bernardino, where AICV is an official affiliate.</p>
-    </details>
-    <details class="faq-item">
-      <summary class="faq-q">How can institutions partner with AICV?</summary>
-      <p class="faq-a">AICV partners with foundations, civic institutions, academic programs, and corporate funders interested in regional AI readiness. Current pathways include program funding for workshop expansion, research collaboration on AI adoption and workforce readiness in the Inland Empire, joint programming with academic and journalism institutions, and grant collaboration aligned with AI-impact philanthropy. Institutional inquiries: sat@aicv.co.</p>
-    </details>
-    <details class="faq-item">
-      <summary class="faq-q">How can individuals support AICV's work?</summary>
-      <p class="faq-a">Individuals can support AICV's mission through Desert Community Foundation — via donor-advised funds, family foundation grants, trust giving, and named scholarships. AICV's philanthropy page at aicoachellavalley.org/philanthropy outlines the pathways and the institutional fabric behind Coachella Valley giving.</p>
-    </details>
-    <details class="faq-item">
-      <summary class="faq-q">Why does AICV exist now?</summary>
-      <p class="faq-a">The companies building frontier AI are committing significant philanthropic capital to help communities adapt to an AI-driven economy. The OpenAI Foundation has committed $250 million to research and support workers through AI's economic disruption, alongside its People-First AI Fund granting $40.5 million to more than 200 community nonprofits nationwide. Anthropic has committed $350 million across its Economic Futures Research Fund and Claude Corps, a national fellowship placing early-career workers inside community nonprofits. This capital is looking for credible, on-the-ground partners who can turn national commitment into local capacity. AICV exists to be that infrastructure for the Coachella Valley — the operation that ensures the region is positioned to participate as this funding moves from the coasts into communities like ours.</p>
-    </details>
-    <details class="faq-item">
-      <summary class="faq-q">How is AICV different from other economic-development efforts in the valley?</summary>
-      <p class="faq-a">We've held 42 sessions since April 2025. Most AI efforts in this region are announcements. Ours is a calendar you can look at, with a record of who showed up and what was covered.</p>
-    </details>
+
+    {/* ⚠ FOUR, RENDERED FROM src/data/faq.ts — not fourteen, and not hand-written.
+        This page carried all fourteen and a FAQPage node claiming them until
+        session B. Both are gone: /faq is the page whose main content the FAQ is,
+        and it holds the only FAQPage node for these questions. A homepage
+        showing four while its schema claimed fourteen would be telling agents
+        something no visitor could see.
+
+        ⚠ DO NOT PASTE QUESTIONS BACK IN HERE. The four come from `homepageFaq`,
+        which references the same objects `faq` does, so they cannot drift from
+        /faq. Which four, and why these, is argued at that export. */}
+    <div class="faq-cards">
+      {
+        homepageFaq.map((f) => (
+          <details class="faq-card">
+            <summary class="faq-card__q">
+              <svg
+                class="faq-card__icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.7"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M21 11.5a8.4 8.4 0 0 1-12.3 7.5L3 21l2-5.7A8.4 8.4 0 1 1 21 11.5z" />
+              </svg>
+              <span class="faq-card__txt">{f.question}</span>
+              <span class="faq-card__plus">+</span>
+            </summary>
+            {/* set:html, NOT {f.answer} — one of these four carries <br><br>.
+                See the note in src/data/faq.ts. */}
+            <p class="faq-card__a" set:html={f.answer} />
+          </details>
+        ))
+      }
+    </div>
+
+    <a href="/faq" class="faq-all">All fourteen questions →</a>
   </div>
 </section>
 

@@ -400,34 +400,69 @@ for (const file of feedFiles) {
   // reworded to carry no count precisely because it records the state at
   // 2026-08-12 and must NOT track the record. Founder ruling, 2026-08-21.
   const idxSrc = readFileSync(resolve(root, 'src/pages/index.astro'), 'utf8');
-  const counts = [...idxSrc.matchAll(/(\d+)\s+sessions\b/g)];
+
+  // ⚠ WIDENED AGAIN 2026-08-28, FROM ONE FILE TO ALL OF src/ — because a
+  // refactor MOVED TWO GUARDED CLAIMS OUT FROM UNDER THE GATE and it stayed
+  // green. Session B lifted the fourteen FAQ entries out of index.astro into
+  // src/data/faq.ts; one of them is "We've held 42 sessions since April 2025".
+  // Before the move that claim was swept twice (visible DOM + JSON-LD mirror);
+  // after it, ZERO times — and the only visible symptom was this gate's own
+  // count line dropping from 4 to 2 while still printing ✓. A shrinking scope
+  // that reports success is the §7.6 failure, and it is the SECOND time this
+  // gate has had it.
+  //
+  // The lesson is not "remember to add faq.ts". It is that an enumerated scope
+  // silently narrows whenever content moves, so the scope is now DERIVED: every
+  // .astro / .ts / .mjs under src/. Move a claim anywhere inside the source tree
+  // and it stays guarded, with nothing to remember. This also picked up
+  // positioning.ts, which asserts "All 42 sessions to date ran at one venue" in
+  // a comment and had never been swept at all.
+  const countCarriers = walk(resolve(root, 'src'))
+    .filter((f) => /\.(astro|ts|mjs)$/.test(f))
+    .map((f) => [relative(root, f).split(sep).join('/'), readFileSync(f, 'utf8')]);
+  const counts = countCarriers.flatMap(([rel, src]) =>
+    [...src.matchAll(/(\d+)\s+sessions\b/g)].map((m) => ({ rel, src, n: m[1], index: m.index, len: m[0].length })),
+  );
 
   // ZERO MATCHES IS A FAILURE, NEVER A PASS. Without this, a regex that stops
-  // matching — a rename, a reflow, a claim deleted — passes silently over a file
+  // matching — a rename, a reflow, a claim deleted — passes silently over files
   // it is no longer checking. Same hole as `feedFiles.length === 0` in section 1.
   if (counts.length === 0)
     fail(
-      'index.astro: found zero session counts.\n' +
+      'src/: found zero session counts.\n' +
         '  Either the sweep is broken or every count claim was deleted. Both are\n' +
         '  failures: this gate cannot pass by having nothing to check.',
     );
 
-  const wrong = counts.filter((c) => Number(c[1]) !== events.length);
+  const wrong = counts.filter((c) => Number(c.n) !== events.length);
   if (wrong.length)
     fail(
-      `index.astro has ${wrong.length} session count(s) disagreeing with ` +
+      `${wrong.length} session count(s) under src/ disagree with ` +
         `src/data/events.json (${events.length}):\n` +
         wrong
           .map((c) => {
-            const ctx = idxSrc.slice(Math.max(0, c.index - 60), c.index + c[0].length + 30);
-            return `    - claims ${c[1]}: …${ctx.replace(/\s+/g, ' ').trim()}…`;
+            const ctx = c.src.slice(Math.max(0, c.index - 60), c.index + c.len + 30);
+            return `    - ${c.rel} claims ${c.n}: …${ctx.replace(/\s+/g, ' ').trim()}…`;
           })
           .join('\n') +
-        `\n\n  Every session count on this page is the same number and they must agree.`,
+        `\n\n  Every session count in the source tree is the same number and they must agree.`,
     );
 
-  // The homepage @graph is deliberately 7 nodes. The 49 nodes this pass adds
-  // live on /events and must never leak into it.
+  // The homepage @graph is deliberately 6 nodes: Organization, WebSite and four
+  // Service nodes. The 49 nodes this pass adds live on /events and must never
+  // leak into it.
+  //
+  // ⚠ WAS 7 UNTIL 2026-08-28, and the seventh was a FAQPage. It was REMOVED, not
+  // lost: the homepage now shows four questions where it used to show fourteen,
+  // and a FAQPage node there would have gone on claiming all fourteen — telling
+  // agents something no visitor to that page could see. /faq is the page whose
+  // main content the FAQ is, and it carries the only FAQPage node for those
+  // questions.
+  //
+  // ⚠ IF THIS GATE FAILS AT 5, THE FIX IS NOT TO ADD A NODE. A node went missing
+  // from a hand-maintained is:inline block; find which and restore it. If it
+  // fails at 7, something was ADDED — most likely a FAQPage coming back. The
+  // homepage links /faq; it does not re-describe it.
   const graphBlock = idxSrc.match(/<script type="application\/ld\+json" is:inline>([\s\S]*?)<\/script>/);
   if (!graphBlock) fail('index.astro: could not locate the JSON-LD block');
   let graph;
@@ -436,12 +471,12 @@ for (const file of feedFiles) {
   } catch (e) {
     fail(`index.astro JSON-LD does not parse: ${e.message}`);
   }
-  if (graph['@graph']?.length !== 7)
-    fail(`index.astro @graph has ${graph['@graph']?.length} nodes; the invariant is 7`);
+  if (graph['@graph']?.length !== 6)
+    fail(`index.astro @graph has ${graph['@graph']?.length} nodes; the invariant is 6`);
 
   console.log(
     `✓ events: ${events.length} sessions across ${seriesNames.length} series, canonical form, ` +
-      `digit-free synopses; all ${counts.length} index.astro counts agree; homepage @graph 7`,
+      `digit-free synopses; all ${counts.length} session counts under src/ agree; homepage @graph 6`,
   );
 }
 
