@@ -719,6 +719,41 @@ console.log(
       let k = at + 'set:html={'.length, depth = 1;
       while (k < scan.length && depth) { if (scan[k] === '{') depth++; else if (scan[k] === '}') depth--; k++; }
       const expr = scan.slice(at, k);
+
+      // ⚠ AN UNTERMINATED TEMPLATE LITERAL DOES NOT EMPTY THE SWEEP — IT POISONS
+      // IT, and that is a worse failure than the one the completeness check
+      // below catches. Proved 2026-08-29 by a negative control: removing
+      // events.astro's closing backtick did NOT drop it from the sweep. The
+      // brace matcher ran past the intended `}`, the backtick regex paired the
+      // literal's opener with an unrelated backtick further down, and the gate
+      // happily parsed a chunk of FRONTMATTER COMMENT PROSE as this page's CSS
+      // — non-empty, so it passed every emptiness test, and matching nothing in
+      // shared.css, so it reported no duplicates. Six surfaces, one tick, and
+      // the real stylesheet never read.
+      //
+      // index.astro breaks the other way on the same mutation (empty chunk, the
+      // surface drops out) purely because of where its backticks sit. Same
+      // cause, two symptoms, and only one of them is visible as a count.
+      //
+      // Parity is the invariant: a well-formed expression closes every literal
+      // it opens. Escaped backticks are discounted so a legitimate \` inside the
+      // CSS cannot trip it — there are none today, and this is why adding one
+      // will not surprise anyone.
+      //
+      // This also front-runs the build: the same missing backtick kills astro a
+      // step later with an esbuild error naming a line inside an unrelated
+      // comment, which is a much worse place to start reading.
+      const backticks = (expr.match(/`/g) || []).length - (expr.match(/\\`/g) || []).length;
+      if (backticks % 2 !== 0)
+        fail(
+          `${relative(root, f).split(sep).join('/')} has an UNTERMINATED template literal inside ` +
+            `\`set:html={…}\` — ${backticks} backticks, which is odd.\n\n` +
+            `  The CSS for this surface is assembled in that literal. Unbalanced, the\n` +
+            `  sweep reads the wrong bytes as this page's stylesheet: it can parse\n` +
+            `  frontmatter comments as CSS and still report success.\n\n` +
+            `  Almost always a deletion that took the closing backtick with it, e.g.\n` +
+            `  the last CSS rule and the \`\`}></style>\` that follows it.`,
+        );
       for (const t of expr.matchAll(/`([\s\S]*?)`/g)) chunks.push(t[1]);
       // ⚠ the placeholder must NOT contain 'set:html={' or this loop never ends.
       scan = scan.slice(0, at) + '__SET_HTML_LIFTED__' + scan.slice(k);
@@ -729,8 +764,56 @@ console.log(
     // parsed as "__SET_HTML_LIFTED__ /> <style is:inline ...> .footer__copy",
     // matched nothing, and passed. (The junk exists because events.astro mentions
     // the style tag inside // comments, so a tag regex finds those too.)
-    if (!chunks.some((c) => c.trim())) continue;
     const rel = relative(root, f).split(sep).join('/');
+
+    // ── COMPLETENESS — closes the shrinking-scope hole, added 2026-08-29 ──
+    //
+    // ⚠ THIS GATE ONCE WATCHED A SURFACE LEAVE ITS OWN SWEEP AND CALLED IT
+    // SUCCESS. On 2026-08-28 a deletion in index.astro ate the closing backtick
+    // of its `set:html={sharedCss + \`...\`}` template literal. The parser then
+    // extracted one chunk containing nothing, this loop `continue`d, and the
+    // success line went from "6 surfaces carry no duplicate" to "5" — with a
+    // tick. Any duplicate rule on the landing page would have been invisible,
+    // and nothing in the build said a surface had stopped being checked.
+    //
+    // The fix is GATE 5's, one gate over: do not assert a COUNT, assert a
+    // PROPERTY of every file, so a surface that drops out fails BY NAME. Gate 5
+    // derives its routable population independently of its carrier list and
+    // requires each member to carry a footer or import a layout that does. The
+    // analogue here: a file that DECLARES a style block must yield CSS to the
+    // parser. Declaring and parsing nothing is not a quiet skip — it is this
+    // gate losing a surface.
+    //
+    // ⚠ THE EXPECTED COUNT IS DERIVED, NEVER TYPED. It is 6 today (four static
+    // pages + events.astro + index.astro); the other five candidate surfaces
+    // carry no <style> block at all and get their CSS by import, which this gate
+    // does not police. A literal 6 is precisely the thing that decays — add a
+    // seventh inline-CSS surface and someone has to remember. Nobody does.
+    //
+    // ⚠ DETECTED WITH /<style[\s>]/ AND NOT /<style[^>]*>/, deliberately. The
+    // malformed case leaves CSS containing `>` inside the tag, so a greedy
+    // tag-close match is exactly what fails there. This asks only whether the
+    // tag exists at all.
+    //
+    // KNOWN FALSE POSITIVE, accepted: a file mentioning the literal tag inside a
+    // comment while declaring no CSS would fail here. None does — events.astro's
+    // comment deliberately avoids writing it, and says so. The direction is
+    // safe: this fails loudly and tells you to look, rather than passing over
+    // less than it claims.
+    const declaresCss = /<style[\s>]/.test(src);
+    const parsedCss = chunks.some((c) => c.trim());
+    if (declaresCss && !parsedCss)
+      fail(
+        `${rel} declares a <style> block but the shared-chrome sweep parsed ZERO CSS from it.\n\n` +
+          `  This surface has silently left gate 6's coverage — a duplicate rule on it\n` +
+          `  would now be invisible, and the only symptom would be this gate's own\n` +
+          `  surface count getting smaller while still printing a tick.\n\n` +
+          `  Most likely the CSS is malformed rather than absent. On index.astro and\n` +
+          `  events.astro the usual cause is the \`set:html={sharedCss + \\\`...\\\`}\` template\n` +
+          `  literal losing its closing backtick, which also breaks the astro build a\n` +
+          `  step later with an unrelated-looking esbuild error.`,
+      );
+    if (!parsedCss) continue;
     checked++;
     for (const [c, s, d] of chunks.flatMap((chunk) => rulesOf(strip(chunk)))) {
       const k = `${c}||${s}`;
@@ -745,7 +828,19 @@ console.log(
         );
     }
   }
-  console.log(`✓ shared chrome: ${sharedRules.length} rules owned by shared.css, ${checked} surfaces carry no duplicate`);
+  // A total parser failure must fail too — `checked` reaching zero is the
+  // shrinking-scope hole taken to its limit, and would otherwise print a tick
+  // over a site it swept none of.
+  if (checked === 0)
+    fail(
+      'shared chrome: parsed CSS from ZERO surfaces.\n' +
+        '  Four static pages and two Astro pages carry inline CSS; finding none means\n' +
+        '  the sweep is broken, not that the duplication is gone.',
+    );
+  console.log(
+    `✓ shared chrome: ${sharedRules.length} rules owned by shared.css, ${checked} surfaces ` +
+      `carry no duplicate; every surface declaring CSS was parsed`,
+  );
 }
 
 // ── 7. font coverage: a surface that USES a family must REQUEST it ──────────
