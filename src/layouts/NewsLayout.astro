@@ -1,6 +1,7 @@
 ---
 import '../styles/chrome.css';
 import '../styles/news.css';
+import Footer from '../components/Footer.astro';
 
 // ════════════════════════════════════════════════════════════════════════════
 // Chrome for the /news/ surface ONLY. The six hand-written pages in public/
@@ -198,44 +199,28 @@ const {
     <slot />
 
     <!-- ── FOOTER ── -->
-    <footer class="footer">
-      <div class="footer__inner">
-        <div class="footer__top">
-          <div>
-            <div class="footer__mark">AICV · aicoachellavalley.org</div>
-            <div class="footer__name">AICV</div>
-            <p class="footer__desc">
-              Preparing the Coachella Valley for the AI economy.<br /><br />A
-              fiscally sponsored project of Desert Community Foundation.
-            </p>
-          </div>
-          <div>
-            <div class="footer__col-label">Navigate</div>
-            <ul class="footer__links">
-              <li><a href="/philanthropy">Philanthropy</a></li>
-              <li><a href="/#programs">Programs</a></li>
-              <li><a href="/events">Events</a></li>
-              <li><a href="/news">News</a></li>
-              <li><a href="/pledge">Responsible AI Pledge</a></li>
-              <li><a href="/faq">FAQ</a></li>
-              <li><a href="/author/sat-singh">About AICV</a></li>
-            </ul>
-          </div>
-          <div>
-            <div class="footer__col-label">Contact</div>
-            <ul class="footer__links">
-              <li><a href="mailto:sat@aicv.co">sat@aicv.co</a></li>
-              <li><a href="https://aicoachellavalley.com">Intelligence Network (.com) ↗</a></li>
-              <li><a href="https://sunshinefm.beehiiv.com">SunshineFM Newsletter ↗</a></li>
-              <li><a href="https://x.com/CoachellaAI">@CoachellaAI ↗</a></li>
-            </ul>
-          </div>
-        </div>
-        <div class="footer__bottom">
-          <div class="footer__copy">© 2026 AI Coachella Valley</div>
-          <div class="footer__tagline">AI training and in-person events across the valley since 2025.</div>
-        </div>
-      </div>
-    </footer>
+    {/* ⚠ THE SUNSHINEFM NEWSLETTER LINK WAS REMOVED HERE, 2026-08-29, AND ITS
+        ABSENCE IS A RULING — NOT A MISSING LINK TO RESTORE.
+
+        Until this commit the Contact column on these 36 pages linked
+        sunshinefm.beehiiv.com where every other surface linked /news/rss.xml.
+        That was the last content difference between the seven footers, and it
+        is why this file converted to the shared component last.
+
+        FOUNDER RULING — News RSS wins everywhere:
+          · SunshineFM LLC is a SEPARATE COMPANY from this property. The .org is
+            a fiscally sponsored project of Desert Community Foundation; the two
+            share a founder, not an entity. A newsletter link in the .org's
+            footer implied a relationship that does not exist.
+          · It pulled no measurable subscribers from these pages.
+          · The news archive here is frozen — new writing goes to aicv.co.
+        It was drift that survived because nobody had cause to look at it, not a
+        decision anyone made. Do not read its absence as an oversight.
+
+        Consequence worth knowing: the footer is now IDENTICAL on every surface
+        that uses the component, so it needs no props. Adding one to bring this
+        link back would make this file the only consumer that differs, which is
+        the state this conversion ended. */}
+    <Footer />
   </body>
 </html>
