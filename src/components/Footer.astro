@@ -1,0 +1,86 @@
+---
+// ════════════════════════════════════════════════════════════════════════════
+// THE SITE FOOTER — the first shared component in this repo.
+//
+// Created 2026-08-29 with exactly ONE consumer: src/pages/events.astro. The
+// other six carriers still hold their own copy and convert one at a time; this
+// file is not finished, it is started.
+//
+// ⚠ THE MARKUP IS events.astro's, VERBATIM, AND THAT CHOICE IS THE WHOLE POINT.
+// Of the three Astro carriers, events.astro was the only one holding NEITHER
+// known drift: index.astro writes a bare `#programs` where everything else
+// writes `/#programs`, and NewsLayout links the SunshineFM newsletter where the
+// others link News RSS. Starting from events means the component is born in the
+// canonical form and neither drift has to be represented yet. Starting from
+// either other file would have baked a per-surface variant into the shared
+// thing on day one.
+//
+// ⚠ NO PROPS, AND KEEP IT THAT WAY UNTIL A REAL SECOND CASE ARRIVES. There is
+// no interpolation, no Astro.props, no conditional and no active state in here,
+// because events.astro needed none. A footer that takes a prop on its first
+// page takes more on its seventh, and the two known drifts are the temptation:
+//   · `#programs` vs `/#programs` — MEASURED on production, these resolve to the
+//     IDENTICAL url on the homepage (`…org/#programs` both ways), because the
+//     homepage is served at `/`. The bare form is not required, it is merely
+//     equivalent on the one page it appears on. So this is a copy change when
+//     index.astro converts, NOT a prop. (⚠ On the LOCAL static preview the
+//     homepage is `/index.html`, where the two genuinely differ — a local check
+//     will show a difference production does not have.)
+//   · the SunshineFM newsletter vs News RSS — a real editorial difference per
+//     surface, and the only candidate for a prop. It is not decided here, and
+//     it does not have to be until NewsLayout converts.
+//
+// ⚠ MARKUP ONLY — NO <style> BLOCK AND NO FONT REQUEST, DELIBERATELY. The
+// footer's CSS already lives in public/styles/shared.css and src/styles/
+// chrome.css, and each converting page keeps its own .footer__desc /
+// .footer__col-label rules. More to the point: src/components/ is OUTSIDE gate
+// 6's surface sweep and gate 7's font sweep (both walk src/pages and
+// src/layouts only). A <style> block here would never be checked for
+// duplicating shared.css, and a font family requested here would never be
+// checked for coverage. That gap is known and logged; until it is closed, this
+// component must not be the place either of those things lives.
+//
+// GATE 5 DOES see this file: src/components joined footerSearchRoots in
+// 6daeae8, and the completeness check resolves imports transitively, so
+// events.astro passes by REACHING this footer rather than by carrying one. The
+// positioning line below is verified against src/data/positioning.ts on every
+// build — edit it here and the build tells you.
+// ════════════════════════════════════════════════════════════════════════════
+---
+
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__top">
+      <div>
+        <div class="footer__mark">AICV · aicoachellavalley.org</div>
+        <div class="footer__name">AICV</div>
+        <p class="footer__desc">Preparing the Coachella Valley for the AI economy.<br><br>A fiscally sponsored project of Desert Community Foundation.</p>
+      </div>
+      <div>
+        <div class="footer__col-label">Navigate</div>
+        <ul class="footer__links">
+          <li><a href="/philanthropy">Philanthropy</a></li>
+          <li><a href="/#programs">Programs</a></li>
+          <li><a href="/events">Events</a></li>
+          <li><a href="/news">News</a></li>
+          <li><a href="/pledge">Responsible AI Pledge</a></li>
+          <li><a href="/faq">FAQ</a></li>
+          <li><a href="/author/sat-singh">About AICV</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer__col-label">Contact</div>
+        <ul class="footer__links">
+          <li><a href="mailto:sat@aicv.co">sat@aicv.co</a></li>
+          <li><a href="https://aicoachellavalley.com">Intelligence Network (.com) ↗</a></li>
+          <li><a href="/news/rss.xml">News RSS ↗</a></li>
+          <li><a href="https://x.com/CoachellaAI">@CoachellaAI ↗</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <div class="footer__copy">© 2026 AI Coachella Valley</div>
+      <div class="footer__tagline">AI training and in-person events across the valley since 2025.</div>
+    </div>
+  </div>
+</footer>
