@@ -1,6 +1,7 @@
 ---
 import sharedCss from '../../public/styles/shared.css?raw';
 import { homepageFaq } from '../data/faq';
+import Footer from '../components/Footer.astro';
 // ⚠ ?raw + set:html, NOT an Astro style-tag import. This block MUST stay is:inline:
 // (that sentence deliberately avoids writing the literal tag — a bare mention of it
 //  in a comment is what made an earlier parser swallow 7KB of frontmatter as CSS)
@@ -1257,42 +1258,7 @@ const fmt = (d) =>
 </section>
 
 <!-- ── FOOTER ── -->
-<footer class="footer">
-  <div class="footer__inner">
-    <div class="footer__top">
-      <div>
-        <div class="footer__mark">AICV · aicoachellavalley.org</div>
-        <div class="footer__name">AICV</div>
-        <p class="footer__desc">Preparing the Coachella Valley for the AI economy.<br><br>A fiscally sponsored project of Desert Community Foundation.</p>
-      </div>
-      <div>
-        <div class="footer__col-label">Navigate</div>
-        <ul class="footer__links">
-          <li><a href="/philanthropy">Philanthropy</a></li>
-          <li><a href="#programs">Programs</a></li>
-          <li><a href="/events">Events</a></li>
-          <li><a href="/news">News</a></li>
-          <li><a href="/pledge">Responsible AI Pledge</a></li>
-          <li><a href="/faq">FAQ</a></li>
-          <li><a href="/author/sat-singh">About AICV</a></li>
-        </ul>
-      </div>
-      <div>
-        <div class="footer__col-label">Contact</div>
-        <ul class="footer__links">
-          <li><a href="mailto:sat@aicv.co">sat@aicv.co</a></li>
-          <li><a href="https://aicoachellavalley.com">Intelligence Network (.com) ↗</a></li>
-          <li><a href="/news/rss.xml">News RSS ↗</a></li>
-          <li><a href="https://x.com/CoachellaAI">@CoachellaAI ↗</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer__bottom">
-      <div class="footer__copy">© 2026 AI Coachella Valley</div>
-      <div class="footer__tagline">AI training and in-person events across the valley since 2025.</div>
-    </div>
-  </div>
-</footer>
+<Footer />
 
 </body>
 </html>
