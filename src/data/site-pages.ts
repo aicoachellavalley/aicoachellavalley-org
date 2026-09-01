@@ -172,7 +172,10 @@ export const excluded = [
       'Live at 200 but deliberately unlinked — parked for v2 (STATE.md 2026-07-01). Absent from sitemap.xml and llms.txt today; keeping it absent.',
   },
   {
-    file: 'public/404.html',
+    // Became an Astro route 2026-08-31 so it could use the shared Footer
+    // component. It stays EXCLUDED, not promoted to `pages`: moving a file does
+    // not change whether it belongs in the feeds, and an error page never does.
+    file: 'src/pages/404.astro',
     reason: 'Error page. Never indexed; carries meta robots noindex.',
   },
   {

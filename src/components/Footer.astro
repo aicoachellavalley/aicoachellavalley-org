@@ -26,9 +26,15 @@
 //     index.astro converts, NOT a prop. (⚠ On the LOCAL static preview the
 //     homepage is `/index.html`, where the two genuinely differ — a local check
 //     will show a difference production does not have.)
-//   · the SunshineFM newsletter vs News RSS — a real editorial difference per
-//     surface, and the only candidate for a prop. It is not decided here, and
-//     it does not have to be until NewsLayout converts.
+//   · the SunshineFM newsletter vs News RSS — DECIDED 2026-08-29 (`4ad5e02`),
+//     when NewsLayout converted: News RSS wins everywhere, so this became a
+//     copy change too and the prop was never needed. That was the LAST content
+//     difference between the seven footers; the markup below is now what every
+//     consuming surface renders. ⚠ The reasoning is recorded at the removal
+//     site in src/layouts/NewsLayout.astro — read it there before restoring a
+//     newsletter link that looks missing. It is not duplicated here, because
+//     two copies of a ruling drift and the one beside the deleted markup is the
+//     one a future session will actually find.
 //
 // ⚠ MARKUP ONLY — NO <style> BLOCK AND NO FONT REQUEST, DELIBERATELY. The
 // footer's CSS already lives in public/styles/shared.css and src/styles/

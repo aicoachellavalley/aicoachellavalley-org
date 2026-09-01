@@ -1,3 +1,34 @@
+---
+import Footer from '../components/Footer.astro';
+
+// ════════════════════════════════════════════════════════════════════════════
+// /404 — converted from public/404.html 2026-08-31 so it can use the shared
+// Footer component. It is the FIRST of the four hand-written pages to move;
+// partner, philanthropy and pledge are deliberately untouched.
+//
+// ⚠ THE <style> BLOCK BELOW MUST KEEP `is:inline`. This is the trap documented
+// at length in index.astro and it applies verbatim here: a PLAIN <style> in an
+// Astro page gets SCOPED, every rule stops matching this hand-written markup,
+// and the page renders unstyled — a failure that looks like a CSS bug and is
+// really a conversion bug. `is:global` is the other wrong answer: it is not
+// scoped but Astro EXTRACTS it to /_astro/*.css, adding a request. `is:inline`
+// opts out of all processing and ships the CSS exactly as authored.
+//
+// ⚠ shared.css STAYS A <link>, NOT A ?raw IMPORT. index.astro and events.astro
+// inline it because they are landing-weight pages where a second request costs
+// something. This page keeps the <link> it already had, so CSS delivery is
+// byte-for-byte unchanged by the conversion and gate 6 sees exactly what it saw
+// before. Changing the delivery mechanism is a separate decision from changing
+// the file's location.
+//
+// ⚠ THE OUTPUT PATH IS LOAD-BEARING. Cloudflare Pages serves the build root's
+// 404.html for any unmatched path. Astro emits src/pages/404.astro to
+// dist/404.html under `build.format: 'file'`, which is the same artifact the
+// static file produced — that is the whole reason this conversion is safe. If
+// the build ever starts emitting dist/404/index.html instead, unmatched paths
+// silently stop being 404s. Verify the emitted filename, not just the gates.
+// ════════════════════════════════════════════════════════════════════════════
+---
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,7 +57,7 @@
        mechanism, and none of them is the landing page. Page-specific CSS stays inline
        below. Gate 6 fails the build if this page re-declares anything shared. -->
   <link rel="stylesheet" href="/styles/shared.css">
-  <style>
+  <style is:inline>
 
     /* ════════════════════════════════════════
        TYPOGRAPHY UTILITIES
@@ -162,42 +193,7 @@
 </section>
 
 <!-- ── FOOTER ── -->
-<footer class="footer">
-  <div class="footer__inner">
-    <div class="footer__top">
-      <div>
-        <div class="footer__mark">AICV · aicoachellavalley.org</div>
-        <div class="footer__name">AICV</div>
-        <p class="footer__desc">Preparing the Coachella Valley for the AI economy.<br><br>A fiscally sponsored project of Desert Community Foundation.</p>
-      </div>
-      <div>
-        <div class="footer__col-label">Navigate</div>
-        <ul class="footer__links">
-          <li><a href="/philanthropy">Philanthropy</a></li>
-          <li><a href="/#programs">Programs</a></li>
-          <li><a href="/events">Events</a></li>
-          <li><a href="/news">News</a></li>
-          <li><a href="/pledge">Responsible AI Pledge</a></li>
-          <li><a href="/faq">FAQ</a></li>
-          <li><a href="/author/sat-singh">About AICV</a></li>
-        </ul>
-      </div>
-      <div>
-        <div class="footer__col-label">Contact</div>
-        <ul class="footer__links">
-          <li><a href="mailto:sat@aicv.co">sat@aicv.co</a></li>
-          <li><a href="https://aicoachellavalley.com">Intelligence Network (.com) ↗</a></li>
-          <li><a href="/news/rss.xml">News RSS ↗</a></li>
-          <li><a href="https://x.com/CoachellaAI">@CoachellaAI ↗</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer__bottom">
-      <div class="footer__copy">© 2026 AI Coachella Valley</div>
-      <div class="footer__tagline">AI training and in-person events across the valley since 2025.</div>
-    </div>
-  </div>
-</footer>
+<Footer />
 
 </body>
 </html>
