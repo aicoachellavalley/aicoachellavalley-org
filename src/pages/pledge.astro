@@ -1,3 +1,51 @@
+---
+import Footer from '../components/Footer.astro';
+
+// ════════════════════════════════════════════════════════════════════════════
+// /pledge — converted from public/pledge.html 2026-09-01. LAST of the four
+// hand-written pages to move (partner is deliberately skipped until v2; see its
+// entry in src/data/site-pages.ts).
+//
+// ⚠⚠ THIS PAGE PRINTS ON ONE SHEET AND THAT IS THE WHOLE RISK OF TOUCHING IT.
+// The @media print block at the end of the style block is THE ONLY ONE IN THE
+// REPO. It ran to two pages for months before it was tuned on 2026-08-06, and
+// the 8.5pt body size is load-bearing — its own comment records the measured
+// alternatives. LETTER IS THE BINDING CASE (935px budget at 710px width), not
+// A4 (1002).
+//
+// The conversion does not touch the print budget, and that was PROVED rather
+// than assumed: the footer is `display: none !important` in print, so replacing
+// it with a component cannot move the sheet. Measured before and after with one
+// method — swap `@media print` to `@media screen` in a probe copy, load at
+// 710px, take the deepest rendered element's bottom. Both readings: 888px,
+// 47px of headroom. (That method reads 17px under the 905 the tuning comment
+// records; the comparison is before-vs-after under ONE method, not a claim to
+// reproduce their number.)
+//
+// ⚠ THE <style> BLOCK MUST KEEP `is:inline`, and here the stakes are higher
+// than on the other conversions. Tested on a scratch build BEFORE converting:
+// with `is:inline` the block passes through at 12,488 bytes — byte-identical,
+// @media print intact at 3,299 chars, @page, 8.5pt and .print-attribution all
+// present. WITHOUT it Astro extracts the entire block to /_astro/*.css. The
+// print rules would still apply from an external sheet, but the page would stop
+// carrying its own printable definition inline, and a print-layout regression
+// would then be invisible in this file.
+//
+// ⚠ .print-attribution IS PRINT-ONLY AND CARRIES LOCKED WORDING. `display:none`
+// on screen, `display:block` in print. It is the line that travels on a shared
+// or pinned copy, so the fiscal-sponsorship string is the locked civic wording
+// from playbook OPERATING-RULES — not a composed one. Verified rendering in the
+// print probe after conversion.
+//
+// ⚠ NO INLINE SVG ON THIS PAGE, so the self-closing `<path/>` rewrite documented
+// at the philanthropy conversion should NOT appear here. If it does, something
+// other than the footer changed — stop and look.
+//
+// The one <script> is JSON-LD and passes through untouched; the single <button>
+// and six onclick attributes are nav and drawer markup Astro does not rewrite.
+// shared.css stays a <link>, not a ?raw import — same reasoning as 404.
+// ════════════════════════════════════════════════════════════════════════════
+---
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -141,7 +189,7 @@
        mechanism, and none of them is the landing page. Page-specific CSS stays inline
        below. Gate 6 fails the build if this page re-declares anything shared. -->
   <link rel="stylesheet" href="/styles/shared.css">
-  <style>
+  <style is:inline>
     /* ════════════════════════════════════════
        DESIGN TOKENS — single source of truth
     ════════════════════════════════════════ */:root {
@@ -603,42 +651,7 @@
 </section>
 
 <!-- ── FOOTER ── -->
-<footer class="footer">
-  <div class="footer__inner">
-    <div class="footer__top">
-      <div>
-        <div class="footer__mark">AICV · aicoachellavalley.org</div>
-        <div class="footer__name">AICV</div>
-        <p class="footer__desc">Preparing the Coachella Valley for the AI economy.<br><br>A fiscally sponsored project of Desert Community Foundation.</p>
-      </div>
-      <div>
-        <div class="footer__col-label">Navigate</div>
-        <ul class="footer__links">
-          <li><a href="/philanthropy">Philanthropy</a></li>
-          <li><a href="/#programs">Programs</a></li>
-          <li><a href="/events">Events</a></li>
-          <li><a href="/news">News</a></li>
-          <li><a href="/pledge">Responsible AI Pledge</a></li>
-          <li><a href="/faq">FAQ</a></li>
-          <li><a href="/author/sat-singh">About AICV</a></li>
-        </ul>
-      </div>
-      <div>
-        <div class="footer__col-label">Contact</div>
-        <ul class="footer__links">
-          <li><a href="mailto:sat@aicv.co">sat@aicv.co</a></li>
-          <li><a href="https://aicoachellavalley.com">Intelligence Network (.com) ↗</a></li>
-          <li><a href="/news/rss.xml">News RSS ↗</a></li>
-          <li><a href="https://x.com/CoachellaAI">@CoachellaAI ↗</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer__bottom">
-      <div class="footer__copy">© 2026 AI Coachella Valley</div>
-      <div class="footer__tagline">AI training and in-person events across the valley since 2025.</div>
-    </div>
-  </div>
-</footer>
+<Footer />
 
 </body>
 </html>

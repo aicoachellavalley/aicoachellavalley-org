@@ -129,8 +129,17 @@ export const pages: SitePage[] = [
       "AICV's position on agentic philanthropy in the Coachella Valley, the institutional fabric of Desert Community Foundation and California Community Foundation, and the pathways donors use to participate",
   },
   {
+    // Became an Astro route 2026-09-01 — the LAST of the four hand-written
+    // pages to move. Stays in `pages`: it is in the nav, the sitemap and
+    // llms.txt.
+    //
+    // ⚠ This page carries the repo's ONLY @media print block and prints on one
+    // sheet with ~47px of headroom on Letter. Anything that changes its markup
+    // must be re-measured; see the header of src/pages/pledge.astro.
+    //
+    // ⚠ Keep `path` and `file` on ADJACENT lines (see the /faq entry above).
     path: '/pledge',
-    file: 'public/pledge.html',
+    file: 'src/pages/pledge.astro',
     lastmod: '2026-08-05',
     changefreq: 'yearly',
     priority: 0.8,
