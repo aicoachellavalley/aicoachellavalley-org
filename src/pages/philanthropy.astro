@@ -1,3 +1,55 @@
+---
+import Footer from '../components/Footer.astro';
+
+// ════════════════════════════════════════════════════════════════════════════
+// /philanthropy — converted from public/philanthropy.html 2026-09-01 to use the
+// shared Footer component. Second of the four hand-written pages to move, after
+// 404. `pledge` is the only one left; `partner` is deliberately skipped (see the
+// note at its entry in src/data/site-pages.ts).
+//
+// ⚠ THE <style> BLOCK MUST KEEP `is:inline`, and 404 taught what actually
+// happens without it — which is NOT what the trap is usually described as.
+// Astro does not scope it and leave the page unstyled; it EXTRACTS the block to
+// /_astro/*.css and adds a render-blocking <link>. Measured on a scratch
+// conversion: 0 bytes inline, a new 5KB stylesheet request, page still styled.
+// The cost is delivery, not correctness — an extra round trip before paint and
+// divergence from every other page, which ships its CSS inline. `is:inline`
+// opts out of all processing.
+//
+// ⚠ BOTH <script> BLOCKS ARE type="application/ld+json" AND PASS THROUGH
+// UNTOUCHED. Verified on a scratch build. This page has NO form and no inline
+// JS — the single <button> and the six onclick attributes are the nav hamburger
+// and drawer links, which are HTML attributes Astro does not rewrite. That is
+// the whole reason this conversion is the 404 shape and not the partner shape:
+// partner carries a live form handler that Astro converts to type="module" and
+// minifies, which is why it was skipped.
+//
+// ⚠ shared.css STAYS A <link>, NOT A ?raw IMPORT — same reasoning as 404. CSS
+// delivery is byte-for-byte unchanged by the conversion, so gate 6 sees exactly
+// what it saw before. Changing the mechanism is a separate decision from
+// changing the file's location.
+//
+// ⚠ ASTRO REWRITES SELF-CLOSING SVG, AND THAT IS EXPECTED — DO NOT STOP ON IT.
+// The serializer expands `<path d="…"/>` into `<path d="…"></path>`. This page
+// has 15 of them, so the converted output carries 15 more tokens than the static
+// file did. It is NOT whitespace, so a strict "only whitespace may change" check
+// will flag it. It is also provably zero-effect: normalising the self-closing
+// form in BOTH files and re-diffing gives zero differences, the 15 `d`
+// attributes are identical and in order, and the rendered page measured the same
+// in a browser — icon box 19x19, .faq-cards 615px, first card 74px, document
+// 3616px, before and after.
+//
+// It is already the norm here: index.html ships 4 expanded </path> and zero
+// self-closing, faq.astro 14. 404 and events came out byte-clean only because
+// neither contains an SVG. **The next static conversion — pledge — should expect
+// this and check that the self-closing rewrite is the ONLY difference, rather
+// than treating its presence as a failure.**
+//
+// ⚠ THE FAQ IS UNTOUCHED AND MUST STAY THAT WAY. Its seven .faq-card items take
+// the component ENTIRELY from public/styles/shared.css — this page declares zero
+// local .faq-* rules. The footer is the only markup this conversion moves.
+// ════════════════════════════════════════════════════════════════════════════
+---
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -122,7 +174,7 @@
        mechanism, and none of them is the landing page. Page-specific CSS stays inline
        below. Gate 6 fails the build if this page re-declares anything shared. -->
   <link rel="stylesheet" href="/styles/shared.css">
-  <style>
+  <style is:inline>
 
     /* ════════════════════════════════════════
        LAYOUT UTILITIES
@@ -472,42 +524,7 @@
 </div>
 
 <!-- ── FOOTER ── -->
-<footer class="footer">
-  <div class="footer__inner">
-    <div class="footer__top">
-      <div>
-        <div class="footer__mark">AICV · aicoachellavalley.org</div>
-        <div class="footer__name">AICV</div>
-        <p class="footer__desc">Preparing the Coachella Valley for the AI economy.<br><br>A fiscally sponsored project of Desert Community Foundation.</p>
-      </div>
-      <div>
-        <div class="footer__col-label">Navigate</div>
-        <ul class="footer__links">
-          <li><a href="/philanthropy">Philanthropy</a></li>
-          <li><a href="/#programs">Programs</a></li>
-          <li><a href="/events">Events</a></li>
-          <li><a href="/news">News</a></li>
-          <li><a href="/pledge">Responsible AI Pledge</a></li>
-          <li><a href="/faq">FAQ</a></li>
-          <li><a href="/author/sat-singh">About AICV</a></li>
-        </ul>
-      </div>
-      <div>
-        <div class="footer__col-label">Contact</div>
-        <ul class="footer__links">
-          <li><a href="mailto:sat@aicv.co">sat@aicv.co</a></li>
-          <li><a href="https://aicoachellavalley.com">Intelligence Network (.com) ↗</a></li>
-          <li><a href="/news/rss.xml">News RSS ↗</a></li>
-          <li><a href="https://x.com/CoachellaAI">@CoachellaAI ↗</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer__bottom">
-      <div class="footer__copy">© 2026 AI Coachella Valley</div>
-      <div class="footer__tagline">AI training and in-person events across the valley since 2025.</div>
-    </div>
-  </div>
-</footer>
+<Footer />
 
 </body>
 </html>

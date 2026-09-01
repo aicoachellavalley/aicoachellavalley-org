@@ -115,8 +115,13 @@ export const pages: SitePage[] = [
       "the fourteen questions AICV is actually asked: what it is and does, its relationship with fiscal sponsor Desert Community Foundation, the .org/.com distinction, who it serves, its nine-city scope, who funds it, and how institutions and individuals take part. Each answer is also emitted as a FAQPage Question node",
   },
   {
+    // Became an Astro route 2026-09-01 so it could use the shared Footer
+    // component. It stays in `pages` — moving a file does not change whether it
+    // belongs in the feeds, and this one is in the nav, the sitemap and llms.txt.
+    //
+    // ⚠ Keep `path` and `file` on ADJACENT lines (see the /faq entry above).
     path: '/philanthropy',
-    file: 'public/philanthropy.html',
+    file: 'src/pages/philanthropy.astro',
     lastmod: '2026-07-22',
     changefreq: 'monthly',
     priority: 0.8,
@@ -167,6 +172,32 @@ export const pages: SitePage[] = [
  */
 export const excluded = [
   {
+    // ⚠ THE FOOTER-COMPONENT CONVERSION SKIPS THIS PAGE UNTIL v2 — RULED
+    // 2026-09-01, and it is a decision, not an oversight. Every other surface
+    // moved to src/components/Footer.astro; this one keeps its own footer copy,
+    // which is why gate 5 still verifies it independently.
+    //
+    // Two reasons, and the second is the load-bearing one:
+    //   · It is UNREACHABLE. Deliberately unlinked, absent from sitemap.xml and
+    //     llms.txt, and linked from zero pages — verified on the built output.
+    //     Converting a page nobody can reach is not worth a session.
+    //   · It carries a LIVE FORM HANDLER that Astro rewrites. Measured on a
+    //     scratch conversion: the inline submit script becomes type="module"
+    //     (deferred) and is minified, so the shipped bytes stop being the
+    //     authored bytes on a form that posts to a real endpoint. Every other
+    //     converted page had only JSON-LD and inline onclick attributes, which
+    //     Astro passes through untouched. That difference is the whole reason
+    //     this one is different work.
+    // Revisit when v2 does. If it converts, `is:inline` is needed on the style
+    // block AND on that submit script.
+    //
+    // ⚠⚠ MUST FIX BEFORE v2 LINKS THIS PAGE — the form has NO BOT PROTECTION.
+    // Its Turnstile widget uses data-sitekey="1x00000000000000000000AA", which
+    // is Cloudflare's documented ALWAYS-PASSES TEST KEY. The widget renders, the
+    // challenge always succeeds, and the form posts to a live Pages Function at
+    // /api/partner (functions/api/partner.js). Low risk while the page is
+    // unreachable and unadvertised; a real exposure the moment anything points
+    // at it. Linking this page and swapping that key are ONE change, not two.
     file: 'public/partner.html',
     reason:
       'Live at 200 but deliberately unlinked — parked for v2 (STATE.md 2026-07-01). Absent from sitemap.xml and llms.txt today; keeping it absent.',
