@@ -83,6 +83,27 @@ import Footer from '../components/Footer.astro';
   <meta name="twitter:title" content="The Responsible AI Pledge — AI Coachella Valley">
   <meta name="twitter:description" content="Seven principles for using AI thoughtfully, written for the Coachella Valley. Read it, sign it, and carry it forward — the full pledge, in plain language.">
 
+  {/* ⚠ THREE NAME FIELDS, THREE DIFFERENT JOBS — NOT drift, and NOT to be
+      harmonised into one string.
+
+        · `name`          the artifact's full formal name.
+        · `headline`      MUST TRACK THE VISIBLE H1. schema.org defines it as the
+                          headline of the work, so it is the one field that has a
+                          right answer and it is whatever the page displays.
+        · `alternateName` DELIBERATELY KEEPS "Pledge for Responsible AI". It is
+                          the schema.org field FOR a second name, and recording
+                          that the artifact is also known by the retired form is
+                          honest rather than stale. Do NOT delete it to make the
+                          three match.
+
+      ⚠ `headline` was corrected 2026-09-02. The H1 was renamed to "The
+      Responsible AI Pledge" and this field kept the old string, which left it —
+      alone among every surface — asserting the retired form as PRIMARY. That is
+      the shape to watch: a rename that moves the visible copy and leaves the
+      machine-readable twin behind, where only agents see the disagreement.
+
+      ⚠ STILL CARRYING THE OLD FORM: public/aicv-pledge.pdf's binary /Title. It
+      needs regenerating, not editing. */}
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -90,7 +111,7 @@ import Footer from '../components/Footer.astro';
   "@id": "https://aicoachellavalley.org/pledge#pledge",
   "name": "The AICV Responsible AI Pledge",
   "alternateName": "Pledge for Responsible AI",
-  "headline": "Pledge for Responsible AI",
+  "headline": "The Responsible AI Pledge",
   "description": "A seven-principle commitment to using AI in ways that are human-centered, transparent, and grounded in the values of the Coachella Valley community.",
   "url": "https://aicoachellavalley.org/pledge",
   "inLanguage": "en",
