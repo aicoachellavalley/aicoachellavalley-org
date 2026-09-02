@@ -446,6 +446,17 @@ import Footer from '../components/Footer.astro';
     }
     .pledge-workshop a { color: var(--c-accent-text-d); }
 
+    /* Web-only source line. Deliberately quieter than .pledge-workshop: this is
+       attribution, not an offer. Hidden in print — see the @media print block. */
+    .pledge-sources {
+      margin-top: var(--s-3);
+      font-size: var(--fs-12);
+      font-weight: 300;
+      color: var(--c-text-l);
+      line-height: 1.6;
+      max-width: 62ch;
+    }
+
     /* Print-only attribution. Hidden on screen; this is the line that
        travels on a shared or pinned copy, so the fiscal-sponsorship
        string is the locked civic wording from playbook OPERATING-RULES,
@@ -462,7 +473,7 @@ import Footer from '../components/Footer.astro';
        signature lines on plain paper. */@media print {
       @page { margin: 16mm 14mm; }
       html, body { background: #fff !important; }
-      .nav, .nav__drawer, .footer, .pledge-workshop, .pledge-print-hint { display: none !important; }
+      .nav, .nav__drawer, .footer, .pledge-workshop, .pledge-sources, .pledge-print-hint { display: none !important; }
       .hero, .section { padding: 0 !important; min-height: 0 !important; background: #fff !important; }
       .hero::before { display: none !important; }
       .wrap, .pledge-wrap { max-width: 100% !important; }
@@ -563,7 +574,7 @@ import Footer from '../components/Footer.astro';
 <section class="hero hero--cream">
   <div class="hero__inner">
     <span class="eyebrow">Responsible AI Pledge</span>
-    <h1 class="h1">Pledge for Responsible AI</h1>
+    <h1 class="h1">The Responsible AI Pledge</h1>
   </div>
 </section>
 
@@ -641,6 +652,14 @@ import Footer from '../components/Footer.astro';
     <p class="pledge-final">The most important things about you cannot be generated.</p>
 
     <p class="pledge-workshop">AICV runs workshops on responsible AI for companies, schools, and organizations across the Coachella Valley — <a href="/">aicoachellavalley.org</a>.</p>
+
+    {/* ⚠ WEB ONLY — IT MUST NOT PRINT, and it is hidden in the @media print block
+        alongside .pledge-workshop rather than by a rule of its own. The printed
+        sheet is the artifact: it carries the preamble, the seven principles, the
+        signature lines and .print-attribution, and nothing else. Sources belong
+        on the page a reader can follow links from, not on a sheet someone signs.
+        Adding it cost 0px of the print budget — measured, not assumed. */}
+    <p class="pledge-sources">Informed by Paul Roetzer's Responsible AI Manifesto, the OECD AI Principles, the EU Ethics Guidelines for Trustworthy AI, the Blueprint for an AI Bill of Rights, and the Montréal Declaration for Responsible AI.</p>
 
     <div class="print-attribution">
       © 2026 AI Coachella Valley · aicoachellavalley.org<br>

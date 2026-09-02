@@ -81,7 +81,20 @@ const fmt = (d) =>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&display=swap" rel="stylesheet">
 
-  <meta name="last-modified" content="2026-07-25">
+  {/* ⚠ HAND-SET, AND IT GOES STALE SILENTLY. Nothing derives or checks this —
+       zero references in scripts/prepare-feeds.mjs, and no gate asserts it. It
+       read 2026-07-25 until 2026-09-02 while this page's own @graph nodes carried
+       dateModified values up to 2026-08-27: two freshness signals disagreeing on
+       one page, and only the machine-readable half was being maintained.
+
+       Three other surfaces carry the same hand-set field (pledge, philanthropy).
+       events.astro is the exception and shows the fix — it interpolates
+       `data.assembled_at`, so it cannot drift. Deriving the rest is future work,
+       NOT today's: it wants one mechanism for all four, not four hand-bumps.
+
+       ⚠ Bump this when you change the page, or delete the field. A freshness
+       claim nobody maintains is worse than none. */}
+  <meta name="last-modified" content="2026-09-02">
 
   <!-- Open Graph -->
   <meta property="og:type" content="website">

@@ -61,6 +61,17 @@
         <div class="footer__mark">AICV · aicoachellavalley.org</div>
         <div class="footer__name">AICV</div>
         <p class="footer__desc">Preparing the Coachella Valley for the AI economy.<br><br>A fiscally sponsored project of Desert Community Foundation.</p>
+        {/* ⚠ ITS OWN ELEMENT, OUTSIDE footer__desc's <p> — NOT A THIRD LINE INSIDE IT.
+            Gate 5 matches `class="footer__desc"[^>]*>([\s\S]*?)</p>` and asserts the
+            capture equals positioning.ts's `line` + `fiscal` EXACTLY. Moved inside
+            that paragraph, this disclosure gets swallowed into a string that is
+            supposed to be two sentences, and the gate fails on correct copy. It sits
+            ADJACENT to the positioning line; it is not part of it.
+
+            Added 2026-09-02. One edit here reaches every surface that imports this
+            component — which is every page except public/partner.html, parked until
+            v2 and carrying its own footer. */}
+        <p class="footer__ai">Yes, we use AI. Sat decides what ships.</p>
       </div>
       <div>
         <div class="footer__col-label">Navigate</div>

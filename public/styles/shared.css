@@ -360,6 +360,26 @@
       color: var(--c-on-ground);
       line-height: 1.6;
     }
+    /* ⚠ THIS RULE IS NOT OPTIONAL — WITHOUT IT THE LINE IS INVISIBLE. The footer
+       sits on --c-ground, and an unstyled <p> inherits body's --c-text (pine),
+       which measures 1.60:1 there. Measured on the built page, not guessed.
+       --c-on-ground-m is the dark-surface family and gives 12.18:1.
+
+       Lives HERE and not in the component: src/components/ is outside gate 6's
+       sweep, so a <style> block in Footer.astro would never be checked against
+       shared.css. This file reaches every surface — <link> for the static page,
+       ?raw for index/events, chrome.css's @import for the news layout.
+
+       Register borrowed from .footer__copy: a small aside, not a second
+       positioning statement. */
+    .footer__ai {
+      margin-top: var(--s-2);
+      font-size: var(--fs-12);
+      font-weight: 300;
+      color: var(--c-on-ground-m);
+      line-height: 1.6;
+    }
+
     .footer__bottom {
       display: flex;
       align-items: center;
