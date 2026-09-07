@@ -116,13 +116,14 @@ const schema = {
       <h2 class="h2">How this started</h2>
 
       <div class="article__body">
-        {/* ⚠ NO INFORMEDIE HERE. This sentence opened "Sat Singh covers the AI beat
-            for the Inland Empire at InformedIE." Removed 2026-08-17 under the founder
-            ruling of 2026-08-16: InformedIE gets its own domain and does not live on
-            .org, in prose or in schema. The same sentence was removed from the Person
-            node and people.json in 0ef39bc; this was the last mention on the property,
-            and prose is where a reader actually sees it. Do not re-add when the domain
-            launches — link to it from SunshineFM instead. */}
+        {/* GUARD RETIRED 2026-09-06. This sentence used to open "Sat Singh covers
+            the AI beat for the Inland Empire at InformedIE." It was removed 2026-08-17
+            under the founder ruling of 2026-08-16 (InformedIE never on .org). That
+            ruling was SUPERSEDED on 2026-09-06: Informed IE may be named here, and the
+            grant behind the beat is public. The sentence is NOT restored in this
+            commit — retiring a guard permits the copy, it does not write it. Restore
+            it in a deliberate copy pass, in the same words as the homepage
+            (index.astro AI Beat program block), so the two do not drift. */}
         {/* ⚠ THE ONE-LINE PARAGRAPHS ARE PACING, NOT ACCIDENTS. "For a while, he
             thought artificial intelligence might be the catalyst.", "Then ChatGPT
             arrived in November 2022.", "The concern was what would happen next.",

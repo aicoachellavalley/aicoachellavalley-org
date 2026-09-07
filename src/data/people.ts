@@ -77,6 +77,9 @@ export const person = (slug: string): Person => {
 //   · The Organization does not lose the connection — its `founder` property
 //     points at this Person's @id, so an agent following that chain still
 //     reaches the account. The relationship is expressed, not collapsed.
+//   · [SUPERSEDED 2026-09-06 — founder ruling: Informed IE MAY be named on .org,
+//     in prose and, when it has a URL, in this Person's sameAs. The block below
+//     is the retired ruling, kept as the record of why the field was empty.]
 //   · InformedIE is OFF `.org` ENTIRELY — founder ruling 2026-08-16: it gets its
 //     own domain and does not live here, in prose or in schema. The sentence
 //     "Reports the AI beat for the Inland Empire at InformedIE." was removed from

@@ -366,7 +366,7 @@ HEAD now **`3a7c9a5`**, live + edge-verified. Follow-on to the post-event truth 
 ### The corrected facts (from Sat)
 
 - **ERC funding began July 18, 2026** — same day as the first workshop, NOT July 1. The old "beginning July 1" was simply wrong (it wasn't even the right fiscal date). Now reads "2026 funding renewed and active since July 18."
-- **IEJIH+F grant (Inland Empire Journalism Innovation Hub & Fund): real and active — approved Apr 9 2026, term Jul 1 2026 – Nov 1 2027 — but Sat is keeping it PRIVATE.** ⚠️ **DO NOT re-add it to any public surface.** A future session "helpfully" restoring the funder name/terms would breach Sat's call. It was named in **three** public spots, all now removed (see below).
+- ~~**IEJIH+F grant … Sat is keeping it PRIVATE.** ⚠️ **DO NOT re-add it to any public surface.**~~ **SUPERSEDED 2026-09-06 (founder ruling): the grant is PUBLIC.** It may be named on any surface; it is already named in `faq.ts`, `index.astro` and `site-pages.ts` (added `320e513`, 2026-08-25, which pre-dated this ruling and was therefore inconsistent with canon rather than a violation of it). The original guard is kept below as the record of why it existed. — *Original:* IEJIH+F grant (Inland Empire Journalism Innovation Hub & Fund): real and active — approved Apr 9 2026, term Jul 1 2026 – Nov 1 2027 — but Sat is keeping it PRIVATE. DO NOT re-add it to any public surface. A future session "helpfully" restoring the funder name/terms would breach Sat's call. It was named in **three** public spots, all now removed (see below).
 - **AI Talent & Job Board: RELOCATING to the Tinkerers Coachella Valley pages — moved, not dead.** ⚠️ So its reappearance on a *Tinkerers* property is EXPECTED, not a straggler to re-clean. Removed from .org surfaces only.
 
 ### Commits
@@ -458,7 +458,11 @@ HEAD now **`15d1d7a`**, live + edge-verified. Sat writes the **AI beat for the I
 
 `.org` = citation-grade / institutional. **SunshineFM = human voice, opinion, byline.** The bridge acknowledges the beat and points to SunshineFM; the writing itself never lands here. **Do NOT add a blog, news section, article listing, or RSS to `.org`.** This is deliberate architecture, not an oversight.
 
-### ⚠️ DO-NOT-ADD — "Informed IE" (same class as the private IEJIH+F grant)
+### ~~⚠️ DO-NOT-ADD — "Informed IE"~~ — SUPERSEDED 2026-09-06
+
+**Founder ruling 2026-09-06: this guard is RETIRED, and so is the 2026-08-16 ruling that hardened it ("InformedIE gets its own domain and never joins `.org` prose or schema").** Informed IE may be named on `.org`. It already is — `index.astro:231`, `:1031`, `site-pages.ts:261` (`320e513`, 2026-08-25). THE 111 (111.news, pending) feeds the Informed IE AI beat; see `playbook/ROUTING.md` once rewritten. The five-word bio edit queued below is no longer gated on anything but a deliberate copy pass. The original guard is kept as written for the record.
+
+*Original text:*
 
 The **Informed IE** app is in **closed beta, members-only, not public**. It is deliberately absent from `.org` prose AND schema. The Journalism Hub and the grant are likewise absent from schema. **Do NOT "helpfully" add the platform name, "app coming soon," or the funder.** Edge-verified: `Informed IE` / `IEJIH` / `Journalism Innovation` all return **0** sitewide.
 
