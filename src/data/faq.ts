@@ -85,7 +85,7 @@ const DCF_RELATIONSHIP: FaqEntry = {
 const ORG_VS_COM: FaqEntry = {
   question: "What's the relationship between aicoachellavalley.org and aicoachellavalley.com?",
   answer:
-    "They share a name and a founder, not a company. This site — the .org — is AICV, a fiscally sponsored project of Desert Community Foundation. Everything here is grant-funded: workshops, AI Tinkerers Coachella Valley, and The AI Beat. We also publish at aicv.co, which is part of the same project. aicoachellavalley.com is a commercial product of SunshineFM LLC, a separate company. If you're looking for the nonprofit work, you're in the right place.",
+    "They share a name and a founder, not a company. This site — the .org — is AICV, a fiscally sponsored project of Desert Community Foundation. Everything here is grant-funded: workshops, AI Tinkerers Coachella Valley, and The AI Beat. aicoachellavalley.com is a commercial product of SunshineFM LLC, a separate company. If you're looking for the nonprofit work, you're in the right place.",
 };
 
 const WHO_FUNDS: FaqEntry = {

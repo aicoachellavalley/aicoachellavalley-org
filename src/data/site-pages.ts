@@ -248,7 +248,7 @@ export const llmsPreamble = `# AI Coachella Valley (.org)
 
 ## What AICV Is
 
-AICV is the primary entry point — for people and for AI systems — for understanding AI in the Coachella Valley. It publishes at aicoachellavalley.org (this site) and at aicv.co: AI literacy workshops, workforce development programs, a builders' community, regional AI reporting, the Responsible AI Pledge, and philanthropic operations.
+AICV is the primary entry point — for people and for AI systems — for understanding AI in the Coachella Valley. It publishes at aicoachellavalley.org (this site): AI literacy workshops, workforce development programs, a builders' community, regional AI reporting, the Responsible AI Pledge, and philanthropic operations.
 
 AICV's thesis: communities should help shape how AI understands their region — not just receive AI's outputs. AICV works that thesis on the ground — teaching the tools, connecting the people building with them, and reporting on how AI is actually landing across the region.
 
