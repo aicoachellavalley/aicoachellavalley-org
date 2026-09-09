@@ -86,6 +86,14 @@ const news = defineCollection({
     // Drafts are excluded from EVERY feed (sitemap, llms.txt, RSS) and from
     // the /news index, but still build to a URL so they can be previewed.
     draft: z.boolean().default(false),
+    // ⚠ SYNDICATION CANONICAL — points OFF this domain, deliberately.
+    // Set on the 22 Views ported to aicv.news (2026-09-09): this copy is the
+    // archive, that one owns the text. Absent = self-canonical, which is
+    // every piece that was not ported (the 11 News). A FIELD, not a slug
+    // list in the template: a list is correct until a 23rd piece is ported
+    // and then fails silently. scripts/check-canonicals.mjs fails the build
+    // if any target returns 404/410. No redirects — founder ruling.
+    canonical_url: z.string().url().optional(),
     image: z
       .object({
         src: z.string(),

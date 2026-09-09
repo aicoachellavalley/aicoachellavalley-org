@@ -19,7 +19,13 @@ const { Content } = await render(article);
 // article.data.author is a KEY into src/data/people.ts, not a display name.
 const author = person(article.data.author);
 
+// WHERE THIS PAGE LIVES. Never changes: it is this page's identity, and it is
+// what `@id` and getStaticPaths are about.
 const url = `${SITE}/news/${article.id}`;
+// WHO OWNS THE TEXT. aicv.news for the 22 ported Views; this page otherwise.
+// Two different claims — do not collapse them.
+const canonicalUrl = article.data.canonical_url ?? url;
+const movedTo = article.data.canonical_url;
 const published = article.data.date.toISOString();
 const modified = (article.data.updated ?? article.data.date).toISOString();
 
@@ -67,7 +73,11 @@ const articleNode = {
     name: 'AI Coachella Valley',
     url: SITE,
   },
-  mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+  // The CANONICAL page, not necessarily this one: for a ported Views piece the
+  // main entity lives at aicv.news, while `@id` above still names THIS page.
+  // Two different claims — do not collapse them.
+  mainEntityOfPage: { '@type': 'WebPage', '@id': canonicalUrl },
+  ...(movedTo ? { isBasedOn: movedTo } : {}),
   url,
   // `tags` became OPTIONAL 2026-08-14, so the key is OMITTED rather than
   // emitted empty: `keywords: ''` is a claim that the piece has no keywords,
@@ -109,7 +119,7 @@ const schema = {
 <NewsLayout
   title={`${article.data.title} — AI Coachella Valley`}
   description={article.data.description}
-  canonical={url}
+  canonical={canonicalUrl}
   schema={schema}
   ogType="article"
   publishedTime={published}
@@ -120,6 +130,15 @@ const schema = {
   <article class="page">
     <div class="page__narrow">
       <a href="/news" class="backlink">← News</a>
+
+      {/* ARCHIVE LABEL on every piece (all 33 are frozen — founder ruling
+          2026-09-08), and for the 22 ported Views a reader-facing pointer to
+          the twin that now owns the text. Wording is Sat's, 2026-09-09. The
+          pointer is a LINK, not a redirect: the ruling is canonical tags only. */}
+      <p class="archive-note">
+        <span class="archive-note__label">From the AICV archive</span>
+        {movedTo && <> · <a href={movedTo} class="archive-note__moved">This piece now lives at AICV News →</a></>}
+      </p>
 
       <header class="article__header" style="margin-top:var(--s-5)">
         <p class="article__meta">

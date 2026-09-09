@@ -686,3 +686,9 @@
     font-size: var(--fs-15);
   }
 }
+
+/* ── archive note (2026-09-09) — every piece is archive; ported ones point to
+   their aicv.news twin. A link, never a redirect. ───────────────────────── */
+.archive-note { margin: var(--s-4) 0 0; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--c-text-l); }
+.archive-note__label { font-weight: 500; }
+.archive-note__moved { text-transform: none; letter-spacing: 0; font-size: 15px; color: var(--c-accent-text); }
