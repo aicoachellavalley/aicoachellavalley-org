@@ -1,8 +1,13 @@
 ---
 import { getCollection } from 'astro:content';
 import NewsLayout from '../../layouts/NewsLayout.astro';
+import { latestFromAicvNews, AICV_NEWS } from '../../lib/aicv-news';
 
 const SITE = 'https://aicoachellavalley.org';
+
+// The subscriber band: outbound cards from the aicv.news combined feed.
+// Empty on any failure; the build still succeeds. See src/lib/aicv-news.ts.
+const latest = await latestFromAicvNews(8);
 
 const articles = (await getCollection('news'))
   .filter((a) => !a.data.draft)
@@ -44,11 +49,36 @@ const schema = {
           carries a category label in the left margin using the same
           treatment, and running both put the identical styling on screen
           twice. The nav already marks this page as News. */}
-      <h1 class="page__title">What's happening with AI in the valley.</h1>
+      <h1 class="page__title">News</h1>
       <p class="page__lede">
-        Editorial coverage of AI across the nine cities — what is happening, and why it matters
-        here. Also available as <a href="/news/rss.xml">RSS</a>.
+        New writing is published at <a href={AICV_NEWS}>AICV News</a>. What follows it is the
+        archive of what AICV published here. Archive <a href="/news/rss.xml">RSS</a>.
       </p>
+
+      {/* ── LATEST FROM AICV NEWS — outbound cards, /news only (brief 2026-09-08).
+          Each card leaves this site. There are no .org routes behind them,
+          nothing here enters .org's sitemap or RSS, and canonical stays at
+          the origin. Empty band = feed unreachable at build time. ── */}
+      {latest.length > 0 && (
+        <section class="news-band" aria-labelledby="band-title">
+          <h2 id="band-title" class="news-band__title">Latest from AICV News</h2>
+          <ul class="news-list">
+            {latest.map((it) => (
+              <li class="news-item news-item--out">
+                <span class="news-item__cat">{it.type}</span>
+                <span class="news-item__date">{fmt(it.date)}</span>
+                <h3 class="news-item__title">
+                  <a href={it.link} rel="noopener">{it.title} <span class="news-item__out" aria-hidden="true">→</span></a>
+                </h3>
+                <p class="news-item__desc">{it.description}</p>
+              </li>
+            ))}
+          </ul>
+          <p class="news-band__more"><a href={AICV_NEWS}>All of AICV News →</a></p>
+        </section>
+      )}
+
+      <h2 class="news-band__title news-band__title--archive">From the AICV archive</h2>
 
       {
         articles.length === 0 ? (

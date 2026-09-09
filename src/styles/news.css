@@ -692,3 +692,11 @@
 .archive-note { margin: var(--s-4) 0 0; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--c-text-l); }
 .archive-note__label { font-weight: 500; }
 .archive-note__moved { text-transform: none; letter-spacing: 0; font-size: 15px; color: var(--c-accent-text); }
+
+/* ── the subscriber band (2026-09-09): outbound cards from aicv.news ─────── */
+.news-band { margin: var(--s-6) 0 var(--s-8); }
+.news-band__title { font-family: 'Bebas Neue', Impact, sans-serif; font-size: 28px; line-height: 1; letter-spacing: 0.02em; margin: 0 0 var(--s-3); padding-bottom: var(--s-2); border-bottom: 2px solid var(--c-text); }
+.news-band__title--archive { margin-top: var(--s-6); }
+.news-band__more { margin: var(--s-3) 0 0; font-size: 15px; }
+.news-item--out .news-item__title a { color: var(--c-accent-text); }
+.news-item__out { font-weight: 400; }

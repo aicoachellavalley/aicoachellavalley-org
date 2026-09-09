@@ -63,7 +63,7 @@ ${core}
     out += `
 ## News
 
-Editorial coverage of AI in the Coachella Valley — what is happening, and why it matters here. Index at ${SITE}/news. RSS at ${SITE}/news/rss.xml.
+ARCHIVE. New writing is published at AICV News — https://aicv.news (feeds: https://aicv.news/feed.xml, /news/feed.xml, /views/feed.xml, /field-notes/feed.xml). The pieces below are what AICV published here before AICV News launched; 22 of them (the Views) now carry rel=canonical to their aicv.news twin. Index at ${SITE}/news. Archive RSS at ${SITE}/news/rss.xml.
 
 ${list}
 `;
