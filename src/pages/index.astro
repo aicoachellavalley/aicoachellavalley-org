@@ -39,6 +39,7 @@ import Footer from '../components/Footer.astro';
 // authored, in place, matching the other five pages.
 // ════════════════════════════════════════════════════════════════════════════
 import { getCollection } from 'astro:content';
+import { latestFromAicvNews, AICV_NEWS } from '../lib/aicv-news';
 import eventsData from '../data/events.json';
 
 // DERIVED, not typed. The homepage and /events must state the SAME number, and
@@ -51,10 +52,19 @@ import eventsData from '../data/events.json';
 // exists; see the 2026-08-11 events entry in STATE.md.
 const sessionCount = eventsData.events.length;
 
-const articles = (await getCollection('news'))
+// "What's happening now" is a SUBSCRIBER surface (brief 2026-09-08): new writing
+// is published at aicv.news, so the three cards come from its feed, outbound.
+// If the feed is unreachable at build time the section falls back to the three
+// newest ARCHIVE pieces rather than going blank — labelled as archive.
+const latest = await latestFromAicvNews(3);
+const archive = (await getCollection('news'))
   .filter((a) => !a.data.draft)
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
   .slice(0, 3);
+const fromFeed = latest.length > 0;
+const articles = fromFeed
+  ? latest.map((it) => ({ href: it.link, date: it.date, title: it.title, description: it.description, type: it.type, external: true }))
+  : archive.map((a) => ({ href: `/news/${a.id}`, date: a.data.date, title: a.data.title, description: a.data.description, type: 'From the archive', external: false }));
 
 const fmt = (d) =>
   d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
@@ -1076,19 +1086,19 @@ const fmt = (d) =>
   {articles.length > 0 && (
   <section class="section" id="news">
     <div class="wrap">
-      <span class="eyebrow">News</span>
+      <span class="eyebrow">{fromFeed ? 'Latest from AICV News' : 'News · from the archive'}</span>
       <h2 class="h2">What's happening now.</h2>
       <div class="news-grid">
         {articles.map((a) => (
-          <a class="news-card" href={`/news/${a.id}`}>
-            <span class="news-card__date">{fmt(a.data.date)}</span>
-            <h3 class="news-card__title">{a.data.title}</h3>
-            <p class="news-card__body">{a.data.description}</p>
-            <span class="news-card__more">Read →</span>
+          <a class="news-card" href={a.href} rel={a.external ? 'noopener' : undefined}>
+            <span class="news-card__date">{a.type} · {fmt(a.date)}</span>
+            <h3 class="news-card__title">{a.title}</h3>
+            <p class="news-card__body">{a.description}</p>
+            <span class="news-card__more">{a.external ? 'Read on AICV News →' : 'Read →'}</span>
           </a>
         ))}
       </div>
-      <a href="/news" class="news-all">All news →</a>
+      <a href={fromFeed ? `${AICV_NEWS}/news` : '/news'} class="news-all">{fromFeed ? 'All of AICV News →' : 'All news →'}</a>
     </div>
   </section>
   )}
