@@ -45,12 +45,9 @@ import eventsData from '../data/events.json';
 // DERIVED, not typed. The homepage and /events must state the SAME number, and
 // the only way to guarantee that is to read the same file.
 //
-// This markup is ordinary Astro and interpolates, so the visible prose derives
-// properly. The JSON-LD below CANNOT — it is `is:inline` — so the count there
-// stays a written constant with a build assertion in scripts/prepare-feeds.mjs
-// holding it to this same file. That asymmetry is the whole reason the assertion
-// exists; see the 2026-08-11 events entry in STATE.md.
+// Visible prose and the JSON-LD template both use this derived count.
 const sessionCount = eventsData.events.length;
+const seriesCount = new Set(eventsData.events.map((event) => event.series)).size;
 
 // "What's happening now" is a SUBSCRIBER surface (brief 2026-09-08): new writing
 // is published at aicv.news, so the three cards come from its feed, outbound.
@@ -121,7 +118,7 @@ const fmt = (d) =>
   <meta name="twitter:description" content="AI training and in-person events across the valley since 2025. AICV prepares Coachella Valley residents, students, and operators for the AI economy — with workshops, meetups, a public record of every session, and agent-readable regional intelligence.">
   <meta name="twitter:image" content="https://aicoachellavalley.org/sat-tedx.png">
 
-  <script type="application/ld+json" is:inline>
+  <script type="application/ld+json" is:inline set:html={`
   {
     "@context": "https://schema.org",
     "@graph": [
@@ -270,7 +267,7 @@ const fmt = (d) =>
         "@type": "Service",
         "@id": "https://aicoachellavalley.org/#service-workshops",
         "name": "AICV Workshops",
-        "description": "Hands-on AI literacy workshops for students, residents, and working professionals across the Coachella Valley. No coding background required. Since 2025, California State University, San Bernardino has supported AICV Workshops at the Entrepreneurial Resource Center in Palm Desert. Has hosted 43 sessions since April 2025, each one listed at https://aicoachellavalley.org/events.",
+        "description": "Hands-on AI literacy workshops for students, residents, and working professionals across the Coachella Valley. No coding background required. Since 2025, California State University, San Bernardino has supported AICV Workshops at the Entrepreneurial Resource Center in Palm Desert. Has hosted ${sessionCount} sessions since April 2025, each one listed at https://aicoachellavalley.org/events.",
         "provider": {
           "@id": "https://aicoachellavalley.org/#organization"
         },
@@ -358,7 +355,7 @@ const fmt = (d) =>
 
     ]
   }
-  </script>
+  `} />
   <style is:inline set:html={sharedCss + `
 
     img { display: block; max-width: 100%; }
@@ -1026,7 +1023,7 @@ const fmt = (d) =>
         <div class="prog-num">1</div>
         <h3 class="prog-title">AICV Workshops</h3>
         <p class="prog-tagline">Hands-on AI training at CSUSB Palm Desert.</p>
-        <p class="prog-body">{sessionCount} sessions across six series for small business owners, students, nonprofit staff, and people whose jobs are changing. Sessions in English and Spanish.</p>
+        <p class="prog-body">{sessionCount} sessions across {seriesCount} series for small business owners, students, nonprofit staff, and people whose jobs are changing. Sessions in English and Spanish.</p>
         <a href="/events" class="prog-tag">See upcoming sessions →</a>
       </div>
 
@@ -1054,9 +1051,8 @@ const fmt = (d) =>
 <!-- ── HOME BASE ──
      THE STATS BAND WAS REMOVED 2026-08-12. It carried four cells and three of
      them could not be supported:
-       · "30+ AI workshops hosted since 2025" — the record then contained forty-two entries,
-         so the page told a human 30+ and a machine 42 in the same
-         document. The count now derives, once, in the founder prose.
+       · "30+ AI workshops hosted since 2025" — the page gave humans an approximate count and machines an exact
+         count in the same document. The count now derives, once, in the founder prose.
        · "300+ Students in attendance" — unsourced, same class as "sold out".
          Deleted, not replaced with a smaller number.
        · "12+ Community & school partners" — no source anywhere on disk. This

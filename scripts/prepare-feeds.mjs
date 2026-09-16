@@ -384,48 +384,10 @@ for (const file of feedFiles) {
         `  monthly, or remove it.`,
     );
 
-  // ── index.astro's session counts — EVERY ONE, not one phrasing ────────────
-  // INTERIM. index.astro's JSON-LD is `is:inline`, which Astro does not
-  // interpolate, so these counts cannot be derived the way llms.txt derives its
-  // own — they are written, and guarded here instead. The @graph-templating
-  // session retires this check along with the identity guard above.
-  //
-  // ⚠ WIDENED 2026-08-21, AFTER THE ANCHORED VERSION MISSED A REAL SECOND COUNT.
-  // This used to match /Has hosted (\d+) sessions since/ — one phrasing, and
-  // `.match()` without /g, so ONE occurrence of it. The ecosystem copy pass then
-  // added "We've held 42 sessions since April 2025" to an FAQ answer, which lands
-  // TWICE (visible DOM + the is:inline JSON-LD mirror). Three unguarded counts,
-  // one guarded, build green. The gate reported coverage it did not provide —
-  // §7.6, and the same class as the metadata pair-count trap in section 1.
-  //
-  // So the sweep is now PHRASING-AGNOSTIC: any "<number> sessions" in the file
-  // must equal the record. Nothing to keep in step, and a fourth phrasing is
-  // covered on the day it is written.
-  //
-  // ⚠ IT SWEEPS COMMENTS TOO, DELIBERATELY. A comment asserting a stale count is
-  // still a stale claim in the repo — 6f5917b had to correct exactly that. A
-  // comment that must cite a HISTORICAL number therefore has to say it in a form
-  // this regex cannot match: see the HOME BASE note, whose venue sentence was
-  // reworded to carry no count precisely because it records the state at
-  // 2026-08-12 and must NOT track the record. Founder ruling, 2026-08-21.
+  // Sweep the entire source tree: moving a claim must not escape coverage.
+  // Session counts now derive from events.json; literals are rejected rather
+  // than checked against today's total. Comments are included in the sweep.
   const idxSrc = readFileSync(resolve(root, 'src/pages/index.astro'), 'utf8');
-
-  // ⚠ WIDENED AGAIN 2026-08-28, FROM ONE FILE TO ALL OF src/ — because a
-  // refactor MOVED TWO GUARDED CLAIMS OUT FROM UNDER THE GATE and it stayed
-  // green. Session B lifted the fourteen FAQ entries out of index.astro into
-  // src/data/faq.ts; one of them is "We've held 42 sessions since April 2025".
-  // Before the move that claim was swept twice (visible DOM + JSON-LD mirror);
-  // after it, ZERO times — and the only visible symptom was this gate's own
-  // count line dropping from 4 to 2 while still printing ✓. A shrinking scope
-  // that reports success is the §7.6 failure, and it is the SECOND time this
-  // gate has had it.
-  //
-  // The lesson is not "remember to add faq.ts". It is that an enumerated scope
-  // silently narrows whenever content moves, so the scope is now DERIVED: every
-  // .astro / .ts / .mjs under src/. Move a claim anywhere inside the source tree
-  // and it stays guarded, with nothing to remember. This also picked up
-  // positioning.ts, which asserts "All 42 sessions to date ran at one venue" in
-  // a comment and had never been swept at all.
   const countCarriers = walk(resolve(root, 'src'))
     .filter((f) => /\.(astro|ts|mjs)$/.test(f))
     .map((f) => [relative(root, f).split(sep).join('/'), readFileSync(f, 'utf8')]);
@@ -433,32 +395,19 @@ for (const file of feedFiles) {
     [...src.matchAll(/(\d+)\s+sessions\b/g)].map((m) => ({ rel, src, n: m[1], index: m.index, len: m[0].length })),
   );
 
-  // ZERO MATCHES IS A FAILURE, NEVER A PASS. Without this, a regex that stops
-  // matching — a rename, a reflow, a claim deleted — passes silently over files
-  // it is no longer checking. Same hole as `feedFiles.length === 0` in section 1.
-  if (counts.length === 0)
-    fail(
-      'src/: found zero session counts.\n' +
-        '  Either the sweep is broken or every count claim was deleted. Both are\n' +
-        '  failures: this gate cannot pass by having nothing to check.',
-    );
-
-  const wrong = counts.filter((c) => Number(c.n) !== events.length);
-  if (wrong.length)
-    fail(
-      `${wrong.length} session count(s) under src/ disagree with ` +
-        `src/data/events.json (${events.length}):\n` +
-        wrong
-          .map((c) => {
-            const ctx = c.src.slice(Math.max(0, c.index - 60), c.index + c.len + 30);
-            return `    - ${c.rel} claims ${c.n}: …${ctx.replace(/\s+/g, ' ').trim()}…`;
-          })
-          .join('\n') +
-        `\n\n  Every session count in the source tree is the same number and they must agree.`,
-    );
+  // Counts must be derived, even when a literal happens to match today's total.
+  if (counts.length)
+    fail(`Hardcoded session counts under src/: ${counts.map((c) => c.rel).join(', ')}. Derive them from events.json.`);
+  const faqSrc = readFileSync(resolve(root, 'src/data/faq.ts'), 'utf8');
+  if (!idxSrc.includes('const sessionCount = eventsData.events.length;') ||
+      !faqSrc.includes('${eventsData.events.length} sessions'))
+    fail('Homepage and FAQ session counts must derive from events.json.');
+  const eventsSrc = readFileSync(resolve(root, 'src/pages/events.astro'), 'utf8');
+  if (/<iframe\b/i.test(eventsSrc.replace(/<!--[\s\S]*?-->/g, '')))
+    fail('events.astro is a past-event record; upcoming events belong in news, not an iframe.');
 
   // The homepage @graph is deliberately 6 nodes: Organization, WebSite and four
-  // Service nodes. The 49 nodes this pass adds live on /events and must never
+  // Service nodes. Event and series nodes live on /events and must never
   // leak into it.
   //
   // ⚠ WAS 7 UNTIL 2026-08-28, and the seventh was a FAQPage. It was REMOVED, not
@@ -469,14 +418,14 @@ for (const file of feedFiles) {
   // questions.
   //
   // ⚠ IF THIS GATE FAILS AT 5, THE FIX IS NOT TO ADD A NODE. A node went missing
-  // from a hand-maintained is:inline block; find which and restore it. If it
+  // from the homepage JSON-LD template; find which and restore it. If it
   // fails at 7, something was ADDED — most likely a FAQPage coming back. The
   // homepage links /faq; it does not re-describe it.
-  const graphBlock = idxSrc.match(/<script type="application\/ld\+json" is:inline>([\s\S]*?)<\/script>/);
+  const graphBlock = idxSrc.match(/<script type="application\/ld\+json" is:inline set:html=\{`([\s\S]*?)`\} \/>/);
   if (!graphBlock) fail('index.astro: could not locate the JSON-LD block');
   let graph;
   try {
-    graph = JSON.parse(graphBlock[1]);
+    graph = JSON.parse(graphBlock[1].replaceAll('${sessionCount}', String(events.length)));
   } catch (e) {
     fail(`index.astro JSON-LD does not parse: ${e.message}`);
   }
@@ -485,7 +434,7 @@ for (const file of feedFiles) {
 
   console.log(
     `✓ events: ${events.length} sessions across ${seriesNames.length} series, canonical form, ` +
-      `digit-free synopses; all ${counts.length} session counts under src/ agree; homepage @graph 6`,
+      `digit-free synopses; session counts derived; no calendar iframe; homepage @graph 6`,
   );
 }
 

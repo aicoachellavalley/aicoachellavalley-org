@@ -1,3 +1,5 @@
+import eventsData from './events.json';
+
 // ════════════════════════════════════════════════════════════════════════════
 // THE FAQ — the fourteen questions, one source.
 //
@@ -150,7 +152,7 @@ export const faq: FaqEntry[] = [
   {
     question: "How is AICV different from other economic-development efforts in the valley?",
     answer:
-      "We've held 43 sessions since April 2025. Most AI efforts in this region are announcements. Ours is a calendar you can look at, with a record of who showed up and what was covered.",
+      `We've held ${eventsData.events.length} sessions since April 2025. Most AI efforts in this region are announcements. Ours is a calendar you can look at, with a record of who showed up and what was covered.`,
   },
 ];
 
