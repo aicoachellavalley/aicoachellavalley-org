@@ -27,7 +27,7 @@ export const line = 'Preparing the Coachella Valley for the AI economy.';
  *  homepage meta description.
  *
  *  ⚠ "ACROSS THE VALLEY" IS DELIBERATELY AHEAD OF THE RECORD and must not be
- *  softened toward it. All 42 sessions to date ran at one venue in Palm Desert.
+ *  softened toward it. All recorded sessions to date ran at one venue in Palm Desert.
  *  This is a statement of SCOPE, not of delivery, and it closes as the
  *  September events land elsewhere. A claims sweep that finds it and "corrects"
  *  it to the record is undoing a founder ruling, not fixing an error. */

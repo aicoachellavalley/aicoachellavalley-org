@@ -24,7 +24,7 @@ import Footer from '../components/Footer.astro';
 // index.astro's JSON-LD is `is:inline`, which Astro does NOT interpolate — that
 // limitation is the reason scripts/prepare-feeds.mjs carries an identity guard
 // instead of importing people.json. This page uses `set:html` (the pattern
-// proven in NewsLayout) so all 42 events are genuinely DERIVED. The <style>
+// proven in NewsLayout) so all events are genuinely DERIVED. The <style>
 // stays `is:inline` for the opposite reason: `is:global` would externalise it
 // to /_astro/*.css and change how the page loads.
 //
@@ -46,7 +46,18 @@ const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(
 // summer 2025. Ordering by first date reverses cleanly into the actual arc —
 // coffee meetups, community forum, hands-on building, structured curriculum,
 // agents, funded monthly lab.
-const sorted = [...data.events].sort((a, b) => a.date.localeCompare(b.date));
+interface EventRecord {
+  date: string;
+  title: string;
+  series: string;
+  synopsis: string;
+  id?: string;
+  start_at?: string;
+  source_url?: string;
+}
+
+const events: EventRecord[] = data.events;
+const sorted = [...events].sort((a, b) => a.date.localeCompare(b.date));
 const names: string[] = [];
 for (const e of sorted) if (!names.includes(e.series)) names.push(e.series);
 const series = names
@@ -72,12 +83,12 @@ const fmt = (iso: string) =>
 const VENUE_ID = `${SITE}/events#venue-erc`;
 const ORG_ID = `${SITE}/#organization`;
 
-// ONE Place node, referenced by @id from all 42 events — never repeated.
-// The six EventSeries nodes carry NO description: the only supportable cadence
+// ONE Place node, referenced by @id from all events — never repeated.
+// The EventSeries nodes carry NO description: the only supportable cadence
 // claim on this page is Idea Labs' "monthly", and that already lives in the
 // Idea Labs synopsis where it is sourced. Putting it on a series node too would
 // duplicate a claim, and putting it on the others would restate the one the
-// record disproves. prepare-feeds.mjs asserts "monthly" appears exactly once.
+// record disproves. prepare-feeds.mjs allows "monthly" in at most one series.
 const schema = {
   '@context': 'https://schema.org',
   '@graph': [
@@ -98,13 +109,13 @@ const schema = {
       '@type': 'Event',
       '@id': `${SITE}/events#event-${e.date}`,
       name: e.title,
-      // start_at is OPTIONAL and absent from all 42 — the hand-assembled rows
-      // carry no times. A future row that has one emits a full datetime here
-      // with no migration and no reformat of the existing 42.
-      startDate: (e as { start_at?: string }).start_at ?? e.date,
+      // Optional times are emitted when supplied; date-only records need no migration.
+      // The prebuild gate rejects duplicate dates to keep event anchors unique.
+      startDate: e.start_at ?? e.date,
       eventStatus: 'https://schema.org/EventScheduled',
       eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
       description: e.synopsis,
+      ...(e.source_url ? { url: e.source_url } : {}),
       location: { '@id': VENUE_ID },
       superEvent: { '@id': `${SITE}/events#series-${slug(e.series)}` },
       organizer: { '@id': ORG_ID },
@@ -341,10 +352,11 @@ font-size: var(--fs-22); color: var(--c-text); letter-spacing: -0.01em;}
         </header>
         <ul class="event-list">
           {s.events.map((e) => (
-            <li class="event-item">
+            <li class="event-item" id={`event-${e.date}`}>
               <span class="event-item__date">{fmt(e.date)}</span>
               {e.title !== s.name && <h4 class="event-item__title">{e.title}</h4>}
               <p class="event-item__synopsis">{e.synopsis}</p>
+              {e.source_url && <a href={e.source_url}>Read the event recap</a>}
             </li>
           ))}
         </ul>

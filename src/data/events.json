@@ -1,8 +1,8 @@
 {
-  "assembled_at": "2026-08-11",
+  "assembled_at": "2026-09-15",
   "source": "hand-assembled",
   "calendar_id": "cal-123s6rDFxeKQjJd",
-  "note": "This file was assembled BY HAND. Luma exposes no export and no API on this calendar, so there is no upstream to re-derive it from. 28 of the 42 events below appear on NO public surface — the Luma calendar's own past view lists 14. If this file is lost, those 28 events are gone. Nothing detects drift from Luma, by design: past events do not change, and the live calendar owns upcoming events via the iframe on /events. Titles are normalised on entry, three ways, each one ruled rather than inherited: Luma's own titles carry emoji (🌟, 🚀) and these do not; five ALL-CAPS rows were title-cased; and the \"(AICV)\" suffix was dropped from the AI Super Users rows, which is AICV's own site and did not need saying.",
+  "note": "This file was assembled BY HAND. Luma exposes no export and no API on this calendar, so there is no upstream to re-derive it from. 28 of the original 42 events appear on NO public surface — the Luma calendar's own past view lists 14. If this file is lost, those 28 events are gone. Nothing detects drift from Luma, by design: past events do not change, and upcoming events are announced in the news. Titles are normalised on entry, three ways, each one ruled rather than inherited: Luma's own titles carry emoji (🌟, 🚀) and these do not; five ALL-CAPS rows were title-cased; and the \"(AICV)\" suffix was dropped from the AI Super Users rows, which is AICV's own site and did not need saying. The September 12, 2026 hackathon was added from the AICV News recap and organizer reporting; its source_url identifies that record.",
   "venue": {
     "name": "Entrepreneurial Resource Center (ERC)",
     "display": "Entrepreneurial Resource Center (ERC) in Palm Desert",
@@ -266,6 +266,13 @@
       "title": "Saturday Morning AI: Idea Labs",
       "series": "Saturday Morning AI: Idea Labs",
       "synopsis": "The launch of AICV's monthly Idea Labs format: bring a real idea into the room and explore what it can become with AI. The July lab focused on AI avatars with HeyGen for business communication, storytelling, training, marketing, education, and local visibility, with participant ideas worked through collaboratively from strategy toward a first build."
+    },
+    {
+      "date": "2026-09-12",
+      "title": "Agents, Everywhere — Global AI Hackathon",
+      "series": "AI Tinkerers Coachella Valley",
+      "synopsis": "Palm Desert joined the global AI Tinkerers hackathon with submissions exploring email, meetings, voice coordination, retail assistance and travel-media production. AICV and chapter co-organizers Sat Singh and Craig Rhodes organized the local event, with support from Structured and the Entrepreneurial Resource Center, which provided the venue, food and beverages.",
+      "source_url": "https://aicv.news/news/five-teams-five-projects-palm-desert"
     }
   ]
 }

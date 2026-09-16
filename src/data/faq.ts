@@ -150,7 +150,7 @@ export const faq: FaqEntry[] = [
   {
     question: "How is AICV different from other economic-development efforts in the valley?",
     answer:
-      "We've held 42 sessions since April 2025. Most AI efforts in this region are announcements. Ours is a calendar you can look at, with a record of who showed up and what was covered.",
+      "We've held 43 sessions since April 2025. Most AI efforts in this region are announcements. Ours is a calendar you can look at, with a record of who showed up and what was covered.",
   },
 ];
 
@@ -165,8 +165,7 @@ export const faq: FaqEntry[] = [
  *
  * WHY THESE FOUR, measured rather than chosen by feel: the homepage's own prose
  * already answers most of the fourteen. Three program cards with headings cover
- * "what does AICV actually do", the Workshops card states "42 sessions across
- * six series", the founder section covers the founder, and the partner strip
+ * "what does AICV actually do", the Workshops card states the session and series counts, the founder section covers the founder, and the partner strip
  * covers who it works with. What the page NEVER answers outside this list is
  * what AICV *is* (the H1 is positioning, not a definition), which entity you are
  * looking at, and who holds the money — and the footer links "Intelligence

@@ -301,7 +301,7 @@ for (const file of feedFiles) {
   // IDs and no start times, and backfilling them means revisiting 42 pages by
   // hand. New rows may carry them; these validate only when present, so a
   // future watcher-added row needs no migration and no reformat.
-  const OPTIONAL = ['id', 'start_at'];
+  const OPTIONAL = ['id', 'start_at', 'source_url'];
 
   const seenKey = new Set();
   const seenId = new Set();
@@ -313,6 +313,8 @@ for (const file of feedFiles) {
       if (!REQUIRED.includes(k) && !OPTIONAL.includes(k)) fail(`${where}: unexpected field \`${k}\``);
 
     if (!/^\d{4}-\d{2}-\d{2}$/.test(e.date)) fail(`${where}: date is not ISO yyyy-mm-dd`);
+    if ('source_url' in e && (typeof e.source_url !== 'string' || !URL.canParse(e.source_url) || new URL(e.source_url).protocol !== 'https:'))
+      fail(`${where}: source_url must be an absolute HTTPS URL`);
     if ('id' in e && !/^evt-/.test(e.id)) fail(`${where}: id does not start with \`evt-\``);
     if ('start_at' in e && Number.isNaN(Date.parse(e.start_at)))
       fail(`${where}: start_at is not a parseable ISO datetime`);
