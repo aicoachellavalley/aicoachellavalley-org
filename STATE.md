@@ -1,5 +1,13 @@
 # org/ operational state
 
+## September 19, 2026 — MCP discovery card DEPLOYED and verified
+
+Source `285859c` pushed to main. Git-triggered Pages deployment
+`4fece740-0860-4d31-a8d2-c53dd1148256` succeeded; the live card matches the
+approved source exactly. The live MCP service negotiates its advertised version
+and lists all six tools. No visible page source was changed. The final build
+passed 41 pages, structural gates and all 22 external canonical checks.
+
 ## September 19, 2026 — Discovery-card release approved
 
 Sat authorized commit/push. Final network-enabled build passed all structural
