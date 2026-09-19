@@ -1,5 +1,26 @@
 # org/ operational state
 
+## September 19, 2026 — Discovery-card release approved
+
+Sat authorized commit/push. Final network-enabled build passed all structural
+gates and all 22 external canonical targets returned HTTP 200; the news feed
+loaded. The earlier network-unverified note below is historical. The dependent
+MCP repair is now live and has passed an official SDK client check; publish this
+card through the existing Git-triggered Pages deployment, then verify it live.
+
+## September 19, 2026 — LOCAL MCP discovery-card alignment
+
+Base HEAD `1a5b592`. The only serving-source edit is
+`public/.well-known/mcp/server-card.json`: canonical /mcp endpoint, advertised
+2025-06-18 version/HTTP remote and the missing get_report tool. No visible page
+or program/event content changed. Handler/card agreement is tested in the MCP
+repo; its STATE.md owns the coordinated release gate. Nothing committed or pushed.
+
+`npm --prefix /Users/sunshinefm/AICV/core/org run build` passed: 41 pages and the
+existing structural gates. External canonical checks were unverified because
+network fetches failed (22 targets), and the news feed was unavailable in this
+build environment; this is not a claim those public URLs are broken.
+
 > Operational state only. Strategic state lives in `aicv-playbook/STATE.md`.
 > **Fresh session? Read `HANDOFF.md` first** (tight orientation), then this file for full detail. Current HEAD: **.org is an ASTRO HYBRID, LIVE IN PRODUCTION since 2026-08-09 (`5d354d4`) — FOUR hand-written pages live in `public/` and still ship byte-for-byte, TWO are Astro pages (`index.astro`, `events.astro`), `dist/` is the deploy directory, and there IS a build step. Run `npm run build` locally before every push.** **`/events` carries a DATED RECORD as of 2026-08-11 (`4d75ebc`, `94c5f13`)**: 42 sessions across six series rendered from `src/data/events.json`, with 49 JSON-LD nodes. Before this the page contained ZERO events — a hero and a Luma iframe, invisible to every agent. ⚠ **That file is the sole copy of 28 of those events; Luma has no export and no API, and its public calendar lists only 14. Never regenerate it from Luma.** **The homepage STATS BAND was removed 2026-08-13 (`9eb3f9b`)** — three of its four cells were unsupportable ("300+ students", "12+ partners", "9 cities" framed as delivery) and the fourth contradicted `/events`. The session count now derives from `events.json` in the founder prose; only the `is:inline` JSON-LD keeps a guarded constant. ⚠ **Verify claims against RENDERED output with tags joined, not against source** — `30<em>+</em>` does not grep as "30+", and that is why the claim survived two prior fixes. **THE 32-PIECE PORT IS PUBLIC as of 2026-08-15 (`37d7817`)** — the flip happened; all 32 are `draft: false`, `/news` lists 33, all 32 are in sitemap/llms.txt/rss, and zero pages carry `noindex`. Production-verified by two independent content-asserted sweeps. (Landed 2026-08-14 as noindexed drafts in `bbaffd9`.) ⚠ **Re-derive every count on use**: four this week were carried rather than re-measured and all four were wrong — see the 2026-08-14 entry. **THE CALLOUT SPLIT AND THE MOBILE CLAMP FLOOR CLOSED 2026-08-15** — `.callout--related` is a third rule (42 = **20** pull-quotes + 4 related + 18 briefs; "24 pull-quotes" was itself a miscount), and the index entry title now restates its ramp at a **28px** floor in news.css while `--fs-headline` stays 34px in chrome.css for `.article__title`. ⚠ **The standalone type harness UNDER-COUNTS** — it measures a 333px box where the real title sets in 285px, and it was wrong at every floor; measure on the real index with the draft filter off, then revert. `/news/` is a generated publishing surface; `sitemap.xml` and `llms.txt` are generated routes, not files. **Author page live (2026-08-10)**: `/author/sat-singh` is a ProfilePage carrying the canonical Person `@id`; article bylines link to it and reference that `@id` rather than emitting an anonymous Person. `src/data/people.json` is the single definition and a build gate keeps index.astro's hand-written JSON-LD in step. The coverage gate now sweeps `src/pages/**`, not just `public/`. **Phase 2 (2026-08-09) ended byte-identity**: the homepage is now `src/pages/index.astro` (the other five stay static HTML in `public/` — deliberate asymmetry), News is in the nav/drawer/footer on all six, and the homepage carries a recent-articles section. ⚠ `index.astro`'s style block MUST keep `is:inline`. The site is SIX static pages, `/pledge` is live, the rebrand backlog is EMPTY, the CSS is fully swept, and the token names match BRAND.md §4 (2026-08-06). Operational docs 404 via a Pages Function. Step 5 (regenerate the pledge deck) and the X-Frame-Options item are both CLOSED BY REMOVAL — the deck and the lightbox no longer exist. Fiscal wording is canon-aligned on "project". `/pledge` is in the nav, drawer and footer on all six pages. The fiscal inventory is CUT: 24 placements to 14, and both "initiative" and "under Desert Community Foundation" are now zero sitewide. No known wording divergence remains. *(This pointer had been stale at `f86f83e`/2026-07-01 for five weeks — bump it every session.)*
 
