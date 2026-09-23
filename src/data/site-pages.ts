@@ -266,7 +266,7 @@ AICV addresses the gap between AI's rapid deployment across industries and commu
 
 AICV works on two layers:
 
-1. **Infrastructure** — the Intelligence Network structures the valley's identity for AI systems so the region is accurately represented in AI-generated answers about investment, relocation, workforce, and economic opportunity
+1. **Infrastructure** — the Intelligence Network (the AICV decision engine at aicoachellavalley.com) structures the valley's identity for AI systems so the region is accurately represented in AI-generated answers about investment, relocation, workforce, and economic opportunity
 2. **Literacy** — AI Builder Workshops give residents, students, and workers hands-on skills to work confidently alongside AI
 
 ## Governance & Funding
