@@ -3,8 +3,15 @@
   "name": "AICV Regional Intelligence MCP",
   "description": "Structured agent access to Coachella Valley regional intelligence — nodes, briefs, reports, and economic context. This is the same MCP server advertised from aicoachellavalley.com. For AICV organizational and program information, read aicoachellavalley.org directly.",
   "endpoint": "https://mcp.aicoachellavalley.com/mcp",
-  "supportedProtocolVersions": ["2025-06-18"],
-  "remotes": [{ "transportType": "streamable-http", "url": "https://mcp.aicoachellavalley.com/mcp" }],
+  "supportedProtocolVersions": [
+    "2025-06-18"
+  ],
+  "remotes": [
+    {
+      "transportType": "streamable-http",
+      "url": "https://mcp.aicoachellavalley.com/mcp"
+    }
+  ],
   "tools": [
     {
       "name": "query_venues",
@@ -29,6 +36,10 @@
     {
       "name": "route_query",
       "description": "Natural language dispatcher for regional queries"
+    },
+    {
+      "name": "ask_the_desk",
+      "description": "Ask one AICV desk a question. Returns in-scope records with label, date, source and official contact, or says plainly that the question is outside coverage. Read-only. No bookings or payments."
     }
   ]
 }
