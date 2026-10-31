@@ -1,8 +1,8 @@
 {
-  "assembled_at": "2026-09-15",
+  "assembled_at": "2026-10-31",
   "source": "hand-assembled",
   "calendar_id": "cal-123s6rDFxeKQjJd",
-  "note": "This file was assembled BY HAND. Luma exposes no export and no API on this calendar, so there is no upstream to re-derive it from. 28 of the original hand-assembled events appear on NO public surface — the Luma calendar's own past view lists 14. If this file is lost, those 28 events are gone. Nothing detects drift from Luma, by design: past events do not change, and upcoming events are announced in the news; the Luma iframe was removed from /events on August 27, 2026. Titles are normalised on entry, three ways, each one ruled rather than inherited: Luma's own titles carry emoji (🌟, 🚀) and these do not; five ALL-CAPS rows were title-cased; and the \"(AICV)\" suffix was dropped from the AI Super Users rows, which is AICV's own site and did not need saying. The September 12, 2026 hackathon was added from the AICV News recap and organizer reporting; its source_url identifies that record.",
+  "note": "This file was assembled BY HAND. Luma exposes no export and no API on this calendar, so there is no upstream to re-derive it from. 28 of the original hand-assembled events appear on NO public surface — the Luma calendar's own past view lists 14. If this file is lost, those 28 events are gone. Nothing detects drift from Luma, by design: past events do not change, and upcoming events are announced in the news; the Luma iframe was removed from /events on August 27, 2026. Titles are normalised on entry, three ways, each one ruled rather than inherited: Luma's own titles carry emoji (🌟, 🚀) and these do not; five ALL-CAPS rows were title-cased; and the \"(AICV)\" suffix was dropped from the AI Super Users rows, which is AICV's own site and did not need saying. The September 12, 2026 hackathon was added from the AICV News recap and organizer reporting; its source_url identifies that record. The October 28, 2026 inaugural AI Tinkerers meetup was added from organizer reporting and the AICV News article on Noah Duesterberg-Chavez’s journalism demo; its source_url identifies that reporting.",
   "venue": {
     "name": "Entrepreneurial Resource Center (ERC)",
     "display": "Entrepreneurial Resource Center (ERC) in Palm Desert",
@@ -273,6 +273,13 @@
       "series": "AI Tinkerers Coachella Valley",
       "synopsis": "Palm Desert joined the global AI Tinkerers hackathon with submissions exploring email, meetings, voice coordination, retail assistance and travel-media production. AICV and chapter co-organizers Sat Singh and Craig Rhodes organized the local event, with support from Structured and the Entrepreneurial Resource Center, which provided the venue, food and beverages.",
       "source_url": "https://aicv.news/news/five-teams-five-projects-palm-desert"
+    },
+    {
+      "date": "2026-10-28",
+      "title": "AI Tinkerers Coachella Valley — Inaugural Meetup",
+      "series": "AI Tinkerers Coachella Valley",
+      "synopsis": "The inaugural chapter meetup brought AI builders to Palm Desert ERC to demonstrate their work. Noah Duesterberg-Chavez presented California Opinion Pulse, a newsletter prototype combining automated collection of opinion articles with human editorial selection, and brought workflow reliability and reader access questions to the room.",
+      "source_url": "https://aicv.news/news/california-opinion-pulse-human-editor"
     }
   ]
 }
