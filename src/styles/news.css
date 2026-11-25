@@ -572,6 +572,21 @@
   color: var(--c-text-l);
   margin-bottom: var(--s-3);
 }
+.author-elsewhere__hub {
+  margin: 0 0 var(--s-2);
+  max-width: 62ch;
+  font-size: var(--fs-15);
+  line-height: 1.6;
+}
+.author-elsewhere__hub a {
+  color: var(--c-accent-text);
+  font-weight: 600;
+  text-decoration: none;
+}
+.author-elsewhere__hub a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
 .author-elsewhere__list {
   list-style: none;
   margin: 0;
